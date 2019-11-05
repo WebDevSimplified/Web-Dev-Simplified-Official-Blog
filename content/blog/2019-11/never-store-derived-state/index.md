@@ -12,7 +12,7 @@ So it is bad to mishandle derived state, but what exactly is derived state. In e
 
 ## How To Spot Derived State
 
-Image a component that has state for a list of users with a name and id.
+Imagine a component that has state for a list of users with a name and id.
 ```javascript
 function User() {
   const [users, setUsers] = useState([
