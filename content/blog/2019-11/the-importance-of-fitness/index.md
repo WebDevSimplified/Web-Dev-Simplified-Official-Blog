@@ -1,5 +1,5 @@
 ---
-title: The Importance Of Fitness
+title: How Physical Activity Will Make You A Better Developer
 date: "2019-11-25"
 description: "A brief explanation of why fitness and physical health is so important, especially for programmers."
 ---
