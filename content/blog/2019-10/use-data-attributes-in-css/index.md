@@ -49,7 +49,7 @@ Instead of having all the extra code for the notification badge we are just usin
 
 ```css
 [data-notification-count] {
-  position: relateive;
+  position: relative;
 }
 [data-notification-count]::before {
   content: attr(data-notification-count);
