@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { calculate } from 'specificity/dist/specificity.mjs' 
+import { calculate } from 'specificity/dist/specificity.mjs'
 
 const WRAPPER_STYLES = {
   display: 'flex',
@@ -35,7 +35,6 @@ const NUMBER_DESCRIPTOR_STYLES = {
 const INPUT_STYLES = {
   marginTop: '.5rem',
   width: '100%',
-  fontSize: '1.2rem',
   background: '#333',
   fontSize: '1.25rem',
   border: '.05em solid #333',
@@ -99,7 +98,7 @@ export default function CssSpecificityDisplay(props) {
   return (
     <div style={WRAPPER_STYLES}>
       <div style={CONTAINER_STYLES}>
-        {!showInput && 
+        {!showInput &&
           <div style={NUMBER_WRAPPER_STYLES}>
             <div style={{ ...NUMBER_STYLES, backgroundColor: '#9B51E0', marginLeft: 0 }}>{importantCount}</div>
             <div style={NUMBER_DESCRIPTOR_STYLES}>!important</div>
