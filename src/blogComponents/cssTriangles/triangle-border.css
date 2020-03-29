@@ -1,0 +1,15 @@
+.triangle-2 {
+  position: relative;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+
+.triangle-2::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: calc(50% - 40px);
+  border: 40px solid transparent;
+  border-left-color: blue;
+}
