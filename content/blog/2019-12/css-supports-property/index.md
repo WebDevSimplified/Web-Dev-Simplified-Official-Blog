@@ -64,11 +64,13 @@ One of the best use cases of the feature query is to allow newer browsers to use
 }
 ```
 
-In a browser that supports the position sticky the page will look like this which is correct. ![](images/sticky-header-working.png)
+In a browser that supports the position sticky the page will look like this which is correct.
+
+![Header with sticky position](images/sticky-header-working.png)
 
 In a browser that does not support the sticky position property, though, the close button will be incorrectly positioned absolutely based on the html element and not the sticky header element.
 
-![](images/sticky-header-not-working.png)
+![Header without sticky position](images/sticky-header-not-working.png)
 
 This is because position sticky works like position relative and will force position absolute children to be relative to them, but since the browser does not support position sticky all absolute children are being positioned relative to the html element.
 
