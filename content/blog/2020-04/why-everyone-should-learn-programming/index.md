@@ -4,7 +4,7 @@ date: "2020-04-06"
 description: "While not everyone should be a programmer I think it is crucial that everyone learns at least the basics of programming."
 ---
 
-If you are a frequent reader of my blog then you most likely are learning programming to become a programmer of some form. Obviously if you want to be a programmer it make sense to learn programming, but what about everyone else that does not want to be programmer? Should they learn programming? I think they definitely should, but probably not for the reasons you think.
+If you are a frequent reader of my blog then you most likely are learning programming to become a programmer of some form. Obviously if you want to be a programmer it make sense to learn programming, but what about everyone else that does not want to be a programmer? Should they learn programming? I think they definitely should, but probably not for the reasons you think.
 
 ## What Is Programming?
 
