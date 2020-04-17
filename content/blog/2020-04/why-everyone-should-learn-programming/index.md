@@ -36,4 +36,4 @@ The purpose of math classes in school are to help you with basic algebra which m
 
 ## Conclusion
 
-Becoming a programmer is definitely not for everyone. With that said, programming is a skill that every person should at least understand the basics of. If we were able to incorporate programming into required school curriculums, students would leave school with the same level of knowledge they currently are, but with the addition of highly valuable programming skills.
+Becoming a programmer is definitely not for everyone. With that said, programming is a skill that every person should at least understand the basics of. If we were able to incorporate programming into required school curriculum, students would leave school with the same level of knowledge they currently are, but with the addition of highly valuable programming skills.
