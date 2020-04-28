@@ -372,4 +372,4 @@ Middleware Four
 
 ## Conclusion
 
-That is all there is to know about middleware. Middleware is incredibly powerful for cleaning up code and making things like user authorization and authentication much easier, but it can be used for so much more than just that because of the incredibly flexibility of middleware.
+That is all there is to know about middleware. Middleware is incredibly powerful for cleaning up code and making things like user authorization and authentication much easier, but it can be used for so much more than just that because of the incredible flexibility of middleware.

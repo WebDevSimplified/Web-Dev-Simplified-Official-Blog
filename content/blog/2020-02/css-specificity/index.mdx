@@ -53,14 +53,14 @@ If a selector has more ids in the selector then it will be more specific and ove
 
 ### .class
 
-If the selectors being compared have the same `!important` specificity and they both have the same number of id selectors then the class selector specificity is used. This class specificity includes the count of all class, attribute, and psuedo-class's in the selector and fills the third number in the array. For example the following selector would have a class specficity of three.
+If the selectors being compared have the same `!important` specificity and they both have the same number of id selectors then the class selector specificity is used. This class specificity includes the count of all class, attribute, and pseudo-class's in the selector and fills the third number in the array. For example the following selector would have a class specificity of three.
 
 ```css
 .class1 .class2:hover { ... }
 ```
 <CssSpecificityDisplay initialClassCount={3} />
 
-This selector would have a class specficity of two and an id specificity of one.
+This selector would have a class specificity of two and an id specificity of one.
 
 ```css
 #form .textbox[type="text"] { ... }
@@ -69,7 +69,7 @@ This selector would have a class specficity of two and an id specificity of one.
 
 ### element
 
-If after checking `!important`, ids, and classes, the specificity is still the same then the count of all element selectors is used. This count includes all HTML element selectors as well as all psuedo selectors such as `::before`. The count of all these elements goes into the fourth and final number in the array. For example the following selector would have an element specificity of one.
+If after checking `!important`, ids, and classes, the specificity is still the same then the count of all element selectors is used. This count includes all HTML element selectors as well as all pseudo selectors such as `::before`. The count of all these elements goes into the fourth and final number in the array. For example the following selector would have an element specificity of one.
 
 ```css
 h1 { ... }
@@ -101,7 +101,7 @@ Here is an example of a selector with its specficity listed (`!important` is lef
 
 ## Inline Styles
 
-Inline styles are a bit of a special case when it comes to specificity since there is no selector for inline styles. This means that inlines styles act somewhat like another number in the array that goes between `!important` and id count. This is because inline selectors will always be more specific then any selector in a stylesheet no matter the number of ids, classes, or elements in the selector unless `!important` is used. This means that the only way to override an inline style is by using `!important`.
+Inline styles are a bit of a special case when it comes to specificity since there is no selector for inline styles. This means that inline styles act somewhat like another number in the array that goes between `!important` and id count. This is because inline selectors will always be more specific then any selector in a stylesheet no matter the number of ids, classes, or elements in the selector unless `!important` is used. This means that the only way to override an inline style is by using `!important`.
 
 ## Conclusion
 

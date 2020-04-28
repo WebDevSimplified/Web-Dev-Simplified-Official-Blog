@@ -10,6 +10,7 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-remark-images`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -56,6 +57,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
