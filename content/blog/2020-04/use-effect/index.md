@@ -1,7 +1,7 @@
 ---
 title: "Everything You Need To Know About useEffect"
 date: "2020-04-27"
-description: "An in depth look at every aspect of the useEffect React hook.."
+description: "An in depth look at every aspect of the useEffect React hook."
 ---
 
 In my last blog post I talked all about the `useState` hook in React. In this article I want to talk about the `useEffect` hook which I think is the best part of React hooks. The `useEffect` hook is perfect for handling side effects caused by mounting, un-mounting, changing state, etc.
