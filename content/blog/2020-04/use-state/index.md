@@ -81,7 +81,7 @@ The `useState` hook also returns an array with two entries. The first entry in t
 ```js
 const [state, setState] = useState(initialState)
 ```
-*In order to easily breakout the array that is returned from `useState` we are using destructoring. If you are not familiar with destructoring you can checkout [this](https://youtu.be/NIq3qLaHCIs) video tutorial on the topic.*
+*In order to easily breakout the array that is returned from `useState` we are using destructuring. If you are not familiar with destructuring you can checkout [this](https://youtu.be/NIq3qLaHCIs) video tutorial on the topic.*
 
 If we were to map the class component directly to `useState` we would end up with something like this.
 ```js
