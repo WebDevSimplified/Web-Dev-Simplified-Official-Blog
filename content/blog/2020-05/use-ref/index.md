@@ -92,7 +92,7 @@ function Component() {
 
   return (
     <>
-      <input value={name} onChange={e => setName(e.target.name)} />
+      <input value={name} onChange={e => setName(e.target.value)} />
       <div>{previousName.current} => {name}</div>
     </>
   )
