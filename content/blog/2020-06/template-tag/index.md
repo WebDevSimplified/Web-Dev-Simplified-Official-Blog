@@ -1,6 +1,6 @@
 ---
 title: "Why Use The HTML Template Tag?"
-date: "2020-06-14"
+date: "2020-06-15"
 description: "An in depth explanation of why you should be using the template tag."
 ---
 
