@@ -1,12 +1,19 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
+import qs from "qs"
 
 import { rhythm, scale } from "../utils/typography"
 
 class Layout extends React.Component {
   componentDidMount() {
     const form = document.body.querySelector('.formkit-sticky-bar')
-    if (form == null) {
+    const queryParams = qs.parse(this.props.location.search, { ignoreQueryPrefix: true })
+    if (queryParams.fromNewsletter === 'true') {
+      navigate(this.props.location.pathname)
+      localStorage.setItem('subscribed-to-newsletter', true)
+    }
+      
+    if (form == null && JSON.parse(localStorage.getItem('subscribed-to-newsletter')) !== true) {
       const script = document.createElement("script")
 
       script.src = "https://web-dev-simplified.ck.page/23989b36d2/index.js"
