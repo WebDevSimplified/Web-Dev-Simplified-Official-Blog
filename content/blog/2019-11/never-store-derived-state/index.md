@@ -2,6 +2,7 @@
 title: Why You Should Never Store Derived State
 date: "2019-11-04"
 description: "The quickest way to have corrupt out of sync state is by storing derived state."
+tags: ['React']
 ---
 
 We have all done it. You are working on a React app when all of a sudden your state becomes out of sync. There are many reasons for this problem, but incorrectly storing derived state is one of the most common and hardest to spot causes.

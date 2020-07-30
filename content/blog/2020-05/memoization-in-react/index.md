@@ -2,6 +2,7 @@
 title: "How To Use Memoization To Drastically Increase React Performance"
 date: "2020-05-04"
 description: "An in depth look at every aspect of the useMemo and useCallback React hooks."
+tags: ['React']
 ---
 
 In my last blog post I talked all about the `useEffect` hook in React. In this article I want to talk about both the `useMemo` hook and the `useCallback` hook since they are both crucial for creating performant React applications through the use of memoization.

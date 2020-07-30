@@ -2,6 +2,7 @@
 title: "How To Use Refs In React With Hooks"
 date: "2020-05-11"
 description: "An in depth look at every aspect of refs and the useRef hook in React."
+tags: ['React']
 ---
 
 Refs are probably the most misunderstood and misused part of React. All too often, I see developers using refs to manipulate the DOM directly or work around React in someway which makes working with React much harder. In this article I am going to go over everything you need to know about refs in order to help you never make those ref mistakes.

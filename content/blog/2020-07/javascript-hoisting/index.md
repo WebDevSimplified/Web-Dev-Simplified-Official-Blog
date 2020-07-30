@@ -2,6 +2,7 @@
 title: "What The Heck Is Hoisting?"
 date: "2020-07-13"
 description: "You have probably heard of hoisting but what exactly is it and how does it work."
+tags: ['JavaScript']
 ---
 
 Hoisting. It is the word everyone throws around when talking about JavaScript, yet no one takes the time to actually explain what hoisting is, how it works, and why it is important. In this article I will be explaining everything you need to know about hoisting so next time someone mentions it you can understand exactly what they mean.

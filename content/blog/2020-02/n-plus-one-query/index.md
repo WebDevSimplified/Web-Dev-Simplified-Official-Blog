@@ -2,6 +2,7 @@
 title: "N + 1 Queries: The Easiest Way To Improve Performance"
 date: "2020-02-24"
 description: "A brief explanation of N + 1 queries and how to avoid them."
+tags: ['Database']
 ---
 
 Reducing load times by improving performance in an application is one of the best ways to improve user experience, and one of the easiest performance problems to fix is N + 1 queries. I personally have worked on applications where removing N + 1 queries reduced the load time of pages by 95%. It is very common for N + 1 query fixes to reduce page load time by 10% or more, so learning to address and fix them is crucial.

@@ -1,5 +1,4 @@
 import React from 'react'
-import { rhythm } from "../utils/typography"
 
 const SEARCH_STYLE = {
   width: '100%',

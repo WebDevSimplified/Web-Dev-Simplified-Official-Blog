@@ -2,6 +2,7 @@
 title: "Why Use The HTML Template Tag?"
 date: "2020-06-15"
 description: "An in depth explanation of why you should be using the template tag."
+tags: ['HTML', 'JavaScript']
 ---
 
 With React, Vue, Angular, and all the other frontend JavaScript frameworks being so popular many people forget about normal HTML and JavaScript, but most of the websites built today still use plain HTML and JavaScript. Even as frontend frameworks become more and more prevalent there are still many websites that don't make sense to build with a full frontend framework since they are not nearly complex enough. There may still be a need for some complex dynamic content, though, and traditionally that can be a huge pain to do in plain JavaScript. Luckily, the template tag in HTML makes adding dynamic content much easier than before.

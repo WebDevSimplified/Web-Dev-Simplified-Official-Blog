@@ -2,6 +2,7 @@
 title: "Everything You Need To Know About CSS Calc"
 date: "2020-07-27"
 description: "This article breaks down everything you need to know about CSS calc to take your CSS skills to the next level."
+tags: ['CSS']
 ---
 
 When most people think of doing computations and calculations on the web they think of JavaScript. That makes sense considering JavaScript is the main programming language of the web, but what if I told you that you can do fairly complex calculations with just CSS. It is honestly pretty amazing and infinitely useful. *Also, if you are a visual learning make sure to check out the full video version of this article [here](https://youtu.be/x7EWFoRzAkk).*

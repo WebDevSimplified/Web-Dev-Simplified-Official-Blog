@@ -2,6 +2,7 @@
 title: The Power Of Custom Hooks
 date: "2019-11-11"
 description: "A quick explanation of how to write custom hooks and why they are so useful."
+tags: ['React']
 ---
 
 Are you tired of your React components being littered with messy `useEffect` hooks? Worse yet, are you tired of having to duplicate your common hook functionality between components? We have all been there where we have our fetch logic duplicated across many different components which is messy and difficult to maintain. This is where custom hooks come in. They are amazing at grouping up common logic like fetching from APIs and they make it incredibly easy to use that logic anywhere in the application with no duplication.

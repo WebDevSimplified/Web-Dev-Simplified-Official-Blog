@@ -2,6 +2,7 @@
 title: JavaScript Var vs Let vs Const
 date: "2020-01-20"
 description: "A quick explanation of the differences between var, let, and const."
+tags: ['JavaScript']
 ---
 
 If you have read any JavaScript programming tutorials then chances are you have run into code where variables are defined using a combination of `var`, `let`, and `const`. It can be confusing at first to understand why someone would use one over the other for defining variables, so in this article I am going to breakdown the exact differences between `var`, `let`, and `const` so you know exactly when to use each.

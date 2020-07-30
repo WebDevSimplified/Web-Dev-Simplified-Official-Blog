@@ -2,6 +2,7 @@
 title: How Physical Activity Will Make You A Better Developer
 date: "2019-11-25"
 description: "A brief explanation of why fitness and physical health is so important, especially for programmers."
+tags: ['Non-Technical Discussion']
 ---
 
 This is going to be a bit of a different article since I am not covering a technical topic, but that doesn't mean this is any less important. If anything the topic of physical health and fitness is one of the most important topics I have ever talked about. Learning to incorporate fitness and health into your life will not only make you healthier and live longer, but it will also drastically increase the quality of your life and your abilities as a developer.

@@ -2,6 +2,7 @@
 title: "Everything You Need To Know About useState"
 date: "2020-04-20"
 description: "An in depth look at every aspect of the useState React hook."
+tags: ['React']
 ---
 
 One of the most important parts of any application is managing state. Most code that is written in some way deals with modifying or reading state, so understanding how to manage state is incredibly important. Before hooks were introduced the only way to modify state was with class components and `this.state`, but React has introduced hooks, specifically the `useState` hook, which is a new way to handle state inside of function components. There are a few differences between state and function component state management, so in this article I will be explaining everything you need to know about `useState` so you can start building stateful function components.

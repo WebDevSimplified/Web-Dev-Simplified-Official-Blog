@@ -2,6 +2,7 @@
 title: Why You Shouldn't Use Class Selectors In JavaScript
 date: "2019-10-14"
 description: "A breakdown of why the common practice of using class selectors in JavaScript makes code impossible to refactor, and what you should do instead."
+tags: ['CSS', 'JavaScript']
 ---
 
 If you have been doing web development for any amount of time then you have most likely run across or written code that looks like this `document.querySelector('.class')`. Now there is technically nothing wrong with this code and you will see code like this more often than not, but what if I told you there was a much better way to select elements in JavaScript.

@@ -2,6 +2,7 @@
 title: What Are Magic Numbers And Why Are They Bad
 date: "2020-02-10"
 description: "A brief explanation of magic numbers in code and why they are bad."
+tags: ['Technical Discussion']
 ---
 
 Chances are you have probably never heard the term magic numbers, but I guarantee that you have dealt with magic numbers in your code. The best way to explain magic numbers is through a quick example.

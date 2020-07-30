@@ -2,6 +2,7 @@
 title: "JavaScript Optional Chaining"
 date: "2020-03-09"
 description: "Optional chaining is a new JavaScript language feature which will revolutionize how null and undefined are handled."
+tags: ['JavaScript']
 ---
 
 If you have worked with JavaScript for any amount of time then you have probably seen code that looks just like this.

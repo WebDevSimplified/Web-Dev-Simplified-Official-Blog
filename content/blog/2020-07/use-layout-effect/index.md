@@ -2,6 +2,7 @@
 title: "Why Do We Need useLayoutEffect?"
 date: "2020-07-20"
 description: "An in depth look at every aspect of the useLayoutEffect React hook."
+tags: ['React']
 ---
 
 If you have worked at all with React hooks before then you have used the `useEffect` hook extensively. You may not know, though, that there is a second type of `useEffect` hook called `useLayoutEffect`. In this article I will be explaining the `useLayoutEffect` hook and comparing it to `useEffect`. *If you are not already familiar with `useEffect` check out my full article on it [here](/2020-04/use-effect).*

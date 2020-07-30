@@ -6,6 +6,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import TagBar from "../components/TagBar"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -33,11 +34,18 @@ class BlogPostTemplate extends React.Component {
               style={{
                 ...scale(-1 / 5),
                 display: `block`,
-                marginBottom: rhythm(1),
+                marginBottom: 0,
               }}
             >
               {post.frontmatter.date}
             </p>
+            <div style={{
+                ...scale(-1 / 5),
+                marginBottom: rhythm(1),
+              }}
+            >
+              <TagBar tags={post.frontmatter.tags.map(tag => { return { name: tag } })} />
+            </div>
           </header>
           <MDXRenderer>{post.body}</MDXRenderer>
           <hr
@@ -99,6 +107,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
   }

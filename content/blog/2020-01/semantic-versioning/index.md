@@ -2,6 +2,7 @@
 title: Semantic Versioning Explained
 date: "2020-01-13"
 description: "An explanation of what semantic versioning is and why it is important."
+tags: ['Technical Discussion']
 ---
 
 Chances are at some point in your programming career you have downloaded a library to use within your code. When you download an external library it will come with a version number which makes upgrading and finding documentation for your exact version of the library easy. While the version number may just seem like an arbitrary combination of numbers and decimals, there is actually a ton of information that can be determined from the version number alone. This is what semantic versioning is all about.

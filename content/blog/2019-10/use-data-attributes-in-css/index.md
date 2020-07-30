@@ -2,6 +2,7 @@
 title: Why You Should Use Data Attributes In CSS
 date: "2019-10-21"
 description: "A quick breakdown of exactly how to use data attributes with CSS to create dynamic content."
+tags: ['CSS']
 ---
 
 Your first thought from this title is probably that you think I am telling you to use data attributes as selectors in your CSS like this `[data-attribute] { color: white }`, but in reality I am talking about using the value of data attributes as content for your CSS. You can do this by using the `attr()` function in CSS. This function will return the value of any data attribute which can then be used in the CSS. In order to explain this further let's use the example below.

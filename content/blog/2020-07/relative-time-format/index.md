@@ -2,6 +2,7 @@
 title: "Relative Date Internationalization In JavaScript"
 date: "2020-07-06"
 description: "Do you wish you could format dates like this: '2 days ago', 'yesterday'. Well with JavaScript internationalization it is incredibly easy."
+tags: ['JavaScript']
 ---
 
 Internationalization is one of the hardest parts of web development. Getting all your strings, numbers, and dates to format properly is no small task, but with the help of JavaScript's built in internationalization features this is actually much easier than it looks.

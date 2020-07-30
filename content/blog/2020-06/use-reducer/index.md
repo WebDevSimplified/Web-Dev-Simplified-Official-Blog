@@ -2,6 +2,7 @@
 title: "How To Manage Complex State In React With useReducer"
 date: "2020-06-08"
 description: "An in depth look at every aspect of the the useReducer hook in React."
+tags: ['React']
 ---
 
 Before the release of hooks, nearly every React project used Redux to manage complex state interactions. Redux is great for managing complex state transitions and sharing state globally, but with the introduction of the Context API and the `useReducer` hook Redux is no longer necessary for handling complex shared state. In my last article I talked about the Context API and the `useContext` hook which you can find [here](/2020-06/use-context). In this article I want to talk about `useReducer` and how it is perfect for handling complex state transitions.

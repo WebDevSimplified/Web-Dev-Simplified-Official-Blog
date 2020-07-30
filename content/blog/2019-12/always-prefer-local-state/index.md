@@ -2,6 +2,7 @@
 title: Local State Is The Best State
 date: "2019-12-02"
 description: "Storing state in React is difficult to do right, but by storing state as locally as possible it can be a lot easier."
+tags: ['React']
 ---
 
 React has many ways to handle data such as state, props, context, and Redux to name a few. This is great since it gives the developer freedom to store and send their data the way they want, but it is a double edged sword since this freedom also means that developers can very easily create difficult to maintain and poorly designed code. This problem of state management and knowing where to store state has been a problem since the beginning of React, but many of the issues around state management can be avoided by always storing state as close to the component(s) that use it as possible. In this article I am going to breakdown exactly how to use this rule to store state in the most optimal and well designed way.

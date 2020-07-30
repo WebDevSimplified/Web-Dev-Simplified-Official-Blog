@@ -2,6 +2,7 @@
 title: "JavaScript Null Coalesce"
 date: "2020-03-16"
 description: "Null coalesce is a new JavaScript language feature which makes assigning default values for null/undefined incredibly easy."
+tags: ['JavaScript']
 ---
 
 In [last week's article](/2020-03/javascript-optional-chaining) I talked about optional chaining which is incredibly useful when trying to access methods and properties on potentially null objects. In this article I want to talk about another amazing JavaScript feature for handling null/undefined and that is the null coalesce operator. You are probably familiar with the logical or operator (`||`) for handling default values.

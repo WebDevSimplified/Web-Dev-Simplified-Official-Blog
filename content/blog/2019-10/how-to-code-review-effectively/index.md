@@ -2,6 +2,7 @@
 title: Why You Should Review Your Own Code And How To Review It Effectively
 date: "2019-10-28"
 description: "A detailed description of the steps needed to deliver an effective code review, even if it is just for your own code."
+tags: ['Non-Technical Discussion']
 ---
 
 Before we start, I want to briefly discuss what a code review is. Essentially, a code review is when someone, most likely another person on your team/project, looks at the code you wrote for a specific feature and checks it for consistency, errors, styling, and more. Sometimes the person reviewing the code will also test the code locally in their own development environment to ensure all the requirements are met. I personally think that for any non-trivial code changes the reviewer should at the very least do basic testing of the feature to ensure that nothing was missed by the original developer. You would be surprised how often I review code that doesn't even work. I actually think this step is so important, that the very first thing I do when reviewing code is download the code and test it based on the exact requirements of the feature. I do this before I even look at any of the code, because I want to test everything as if I was a user since that is how people will use the feature. If I look at the code before doing my testing then I will be biased since I know how the code works and may use the feature only in the exact way the code intends the feature to work.

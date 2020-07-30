@@ -2,6 +2,7 @@
 title: "How To Use Context In React With Hooks"
 date: "2020-06-01"
 description: "An in depth look at every aspect of the the context API and the useContext hook in React."
+tags: ['React']
 ---
 
 React released the Context API as a much needed solution for state that spans across multiple nested components. Unfortunately, the API for context was a bit bulky and difficult to use in class components. With the release of hooks, the React team decided to re-think how you interact with context and drastically simplified the code through the use of the `useContext` hook.

@@ -2,6 +2,7 @@
 title: Dynamic Expandable Content (Read More Buttons)
 date: "2020-01-27"
 description: "Multiline text overflow fading and dynamic expand/collapse buttons are difficult to create so in this article I show you a simple way to do both."
+tags: ['CSS', 'HTML', 'JavaScript']
 ---
 
 Multiline overflow content is incredibly tricky to do correctly and a real pain to work with. Adding text that fades away when too long or a read more button that only appears when needed are perfect examples of this complex situation, so in this article I will be walking you through how to handle both of these situations in a hypothetical blog. Here is the final version of the product that we will be building.

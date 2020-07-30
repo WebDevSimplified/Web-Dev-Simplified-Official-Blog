@@ -2,6 +2,7 @@
 title: Guard Clauses - The Best Way To Write Complex Conditional Logic
 date: "2020-01-06"
 description: "An explanation of guard clauses and how they can be used to clean up complex nested conditional logic."
+tags: ['Technical Discussion']
 ---
 
 Chances are at some point in your programming career you have written massive conditional logic statements with many levels of nested `if` and `else if` statements. At first it may seem like a great idea since it perfectly matches the logic you are trying to enforce, but then a month goes by and you need to make changes to that massive conditional block. More than likely it took you a long time to parse and understand the conditional logic since it was full of multiple levels of nesting and your new changes were most likely very prone to errors. It may seem like there is no way around this problem, but that is where guard clauses come in.

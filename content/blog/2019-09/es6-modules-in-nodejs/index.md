@@ -2,6 +2,7 @@
 title: How To Use ES6 Modules With Node.js
 date: "2019-09-30"
 description: "Two simple ways to use ES6 modules with Node.js."
+tags: ['Node.js']
 ---
 
 I did a bunch of research into ES6 modules and Node.js and found two ways in which you can use ES6 modules in your own projects. Normally when you are working with Node.js you need to use common modules which is the syntax with `module.exports = {}` and `require('express')` you are used to in Node.js. ES6 modules on the other hand is the `import express from 'express'` syntax you are used to in the browser. The first way to use ES6 module syntax is by using a library called [esm](https://www.npmjs.com/package/esm) and the second is an [experimental feature](https://nodejs.org/api/esm.html) built into Node.js.

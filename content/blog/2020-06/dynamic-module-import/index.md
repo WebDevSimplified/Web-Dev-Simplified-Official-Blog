@@ -2,6 +2,7 @@
 title: "Code Splitting With Dynamic Module Imports"
 date: "2020-06-22"
 description: "A simple explanation of how to take advantage of dynamic imports to make your site load faster."
+tags: ['JavaScript']
 ---
 
 Normally when you import a module in JavaScript it will be loaded every time the page loads. This is generally fine, but what if this module is only used some of the time? For example, code that is only needed for admin users of a site. It doesn't make sense to load this code for all users since it will slow down page load speeds for non-admin users.

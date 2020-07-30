@@ -2,6 +2,7 @@
 title: How To Use Modern CSS Without Breaking Old Browsers
 date: "2019-12-30"
 description: "An in depth tutorial on the @supports CSS at-rule, and how it can be used to write modern CSS without breaking older browser support."
+tags: ['CSS']
 ---
 
 So you just heard about the newest CSS feature and you are dying to use it in your code, but your boss wants to support old browsers still. Normally this would be the end of the line for your dreams of using modern CSS features, but luckily that is not the case. The `@supports` at-rule, also known as a feature query, lets you use different CSS styles based on the browser's support for a given feature. This means you can finally use modern CSS features without breaking older browser support.

@@ -2,6 +2,7 @@
 title: What Is Short Circuiting?
 date: "2019-10-07"
 description: "A detailed breakdown of what short circuiting is, how it works, and why it is important."
+tags: ['Technical Discussion']
 ---
 
 I want to talk about short circuiting in programming. It is something that doesn't really get talked about much, but is incredibly important to understand. Before I jump any further into why it is important, I need to define what short circuiting is.

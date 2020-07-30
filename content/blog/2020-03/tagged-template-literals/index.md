@@ -2,6 +2,7 @@
 title: "Tagged Template Literals"
 date: "2020-03-02"
 description: "Exploring the power of tagged template literals."
+tags: ['JavaScript']
 ---
 
 In ES6 JavaScript added template literals which made working with strings so much easier. Writing multiline strings or strings with variables was something that used to be a massive pain, but template literals made those pains a thing of the past. Template literals aren't only good for building out simple strings with variables, though. Tagged template literals can be used to make strings that run through custom functions in order to do some really cool and unique things. Before we talk about tagged template literals, though, we first need to understand how template literals work.

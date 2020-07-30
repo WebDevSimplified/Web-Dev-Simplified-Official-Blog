@@ -2,6 +2,7 @@
 title: "How To Write Cleaner CSS With BEM"
 date: "2020-05-25"
 description: "This article covers everything you need to know about BEM in order to start using BEM to clean up and organize your CSS styles."
+tags: ['CSS']
 ---
 
 If you have worked with CSS for any amount of time, then you know that inheritance, specificity, and naming are some of the hardest things to deal with. Since all CSS is global, as your codebase grows it becomes harder and harder to prevent your styles from clashing with each other and causing unintended side effects. This issue is compounded by the fact that naming css classes is already difficult and handling CSS specificity across an entire codebase is nearly impossible. Luckily, there are solutions to these problems. One of the more popular solutions is a style of coding called Block Element Modifier which is more commonly referred to as BEM.

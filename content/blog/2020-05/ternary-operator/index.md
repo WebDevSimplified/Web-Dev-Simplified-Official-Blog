@@ -2,6 +2,7 @@
 title: "JavaScript Ternary Operator In Depth"
 date: "2020-05-18"
 description: "Everything You Need To Know About The Ternary Operator In JavaScript."
+tags: ['JavaScript']
 ---
 
 One of the first things you are taught when learning to program is how to handle conditional logic with `if`/`else` statements. These `if`/`else` statements are one of the most common pieces of code you write when programming, and because of that a shorthand version of the `if`/`else` statement was created called the ternary operator. In this article I will briefly explain what the ternary operator is and how you can properly use it.
