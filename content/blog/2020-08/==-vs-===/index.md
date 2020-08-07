@@ -38,6 +38,6 @@ x == null  // True if x is null or undefined
 x === null // Only true is x is null
 ```
 
-# Conclusion
+## Conclusion
 
 In 99% of all cases you should use triple equals comparison when comparing two values to avoid false positives, but if you are attempting to check if a vales is null/undefined then using double equals is the preferred method.
