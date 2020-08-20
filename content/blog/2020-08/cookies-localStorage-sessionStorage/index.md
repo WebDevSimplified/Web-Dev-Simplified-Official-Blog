@@ -15,9 +15,9 @@ Before I dive into the many differences between the various storage options I fi
 
 ## Storage Limit
 
-Each storage method has a maximum size of the data you can store with it. Both local storage and session storage have a pretty large maximum storage capacity with local storage having a 10 megabit maximum and session storage having a 5 megabit maximum. These sizes are so large you should never run into any issues with storing too much data.
+Each storage method has a maximum size of the data you can store with it. Both local storage and session storage have a pretty large maximum storage capacity with local storage having a 10 megabyte maximum and session storage having a 5 megabyte maximum. These sizes are so large you should never run into any issues with storing too much data.
 
-Cookies on the other hand have a very restrictive capacity at 4 kilobits. This may seem incredibly small, but in reality you shouldn't be storing too much information in cookies so you shouldn't need to worry about this maximum.
+Cookies on the other hand have a very restrictive capacity at 4 kilobytes. This may seem incredibly small, but in reality you shouldn't be storing too much information in cookies so you shouldn't need to worry about this maximum.
 
 ## Access
 
