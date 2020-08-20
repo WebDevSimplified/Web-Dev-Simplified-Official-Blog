@@ -12,6 +12,11 @@ class Layout extends React.Component {
       navigate(this.props.location.pathname)
       localStorage.setItem('subscribed-to-newsletter', true)
     }
+
+    if (queryParams.fromNewsletter === 'false') {
+      navigate(this.props.location.pathname)
+      localStorage.removeItem('subscribed-to-newsletter')
+    }
       
     if (form == null && JSON.parse(localStorage.getItem('subscribed-to-newsletter')) !== true) {
       const script = document.createElement("script")
