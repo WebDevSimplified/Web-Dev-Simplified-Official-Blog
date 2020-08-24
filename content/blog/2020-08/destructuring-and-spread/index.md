@@ -11,7 +11,7 @@ JavaScript is constantly evolving with new features being added every year. The 
 
 ## What Is Destructuring?
 
-In simple terms destructuring is a fancy way in JavaScript to break apart arrays and objects. It generally allows you to get individual pieces of arrays and objects in less code and opens up a multitude of possibilities. This doesn't really sound like much more than syntactical sugar, but this small change actually makes doing many tasks significantly easier. Destructuring in arrays and objects is very similar, but it is slightly easier to understand with arrays so I will start by explaining how to destructur arrays.
+In simple terms destructuring is a fancy way in JavaScript to break apart arrays and objects. It generally allows you to get individual pieces of arrays and objects in less code and opens up a multitude of possibilities. This doesn't really sound like much more than syntactical sugar, but this small change actually makes doing many tasks significantly easier. Destructuring in arrays and objects is very similar, but it is slightly easier to understand with arrays so I will start by explaining how to destructure arrays.
 
 ## Destructuring An Array
 
@@ -229,7 +229,7 @@ We can even nest array destructuring together, but that is not something you wil
 
 ### Default Values
 
-It is pretty common to destructur an object without knowing if a property exists or not. Many times when this is the case there is a default value you want to apply in case that value does not exist.
+It is pretty common to destructure an object without knowing if a property exists or not. Many times when this is the case there is a default value you want to apply in case that value does not exist.
 ```js
 const person = { name: 'Kyle', age: 25 }
 const { name = 'Sally', favoriteFood = 'Banana' } = person
