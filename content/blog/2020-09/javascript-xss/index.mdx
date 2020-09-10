@@ -25,9 +25,9 @@ You should notice that when you submit the page it will update the URL at the to
 
 ## How To Perform Cross Site Scripting
 
-So now that we have a site we can play around with lets try injecting some code into the site. The first thing you may think to do is write some JS like `<script>alert('hi')</script>` but that won't actually do anything.
+So now that we have a site we can play around with lets try injecting some code into the site. The first thing you may think to do is write some JS like `<script>alert('hi')</script>` but that won't actually do anything. Try adding it below.
 
-<XSS initialValue="<script>alert('hi')</script>" />
+<XSS />
 
 You will notice that the code was properly injected into the page which is why it is not rendered as plain text, but it doesn't execute the script tag. The reason for this is script tags are not executed if they are injected into the page after page load. In order to get around this we need a way to execute JavaScript after the page loads which is easy to do with an img tag.
 
