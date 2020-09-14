@@ -2,8 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Web Dev Simplified Blog`,
     author: `Kyle Cook`,
-    description: 'Web Dev Simplified Blog',
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    description: "Web Dev Simplified Blog",
+    siteUrl: `blog.webdevsimplified.com`,
     social: {
       youtube: `WebDevSimplified`,
       twitter: `devsimplified`,
@@ -45,8 +45,8 @@ module.exports = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              icon: false
-            }
+              icon: false,
+            },
           },
           `gatsby-remark-embedder`,
           `gatsby-remark-prismjs`,
@@ -61,7 +61,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'none',
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
       },
     },
     `gatsby-plugin-feed-mdx`,
