@@ -1,0 +1,25 @@
+.clearfix::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.img {
+  margin: 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.wrapper {
+  padding: .5rem;
+  color: #777;
+  margin-bottom: 2rem;
+}
+
+.border {
+  border: 1px solid red;
+}
+
+.p {
+  margin: 0;
+}
