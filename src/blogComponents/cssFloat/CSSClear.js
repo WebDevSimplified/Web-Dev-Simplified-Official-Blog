@@ -12,13 +12,13 @@ export default function CSSClear({
         className="img"
         style={{ float: "left" }}
         src={`https://dummyimage.com/100x${heightLeft}`}
-        alt="Dummy Image"
+        alt="Dummy"
       />
       <img
         className="img"
         style={{ float: "right" }}
         src={`https://dummyimage.com/100x${heightRight}`}
-        alt="Dummy Image"
+        alt="Dummy"
       />
       <p className="p" style={{ clear: clear }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit in

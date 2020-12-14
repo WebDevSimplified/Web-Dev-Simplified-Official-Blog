@@ -14,7 +14,7 @@ export default function CSSFloat({
         className="img"
         style={{ float: float }}
         src={`https://dummyimage.com/200x${height}`}
-        alt="Dummy Image"
+        alt="Dummy"
       />
       <p className="p">{text}</p>
     </div>
