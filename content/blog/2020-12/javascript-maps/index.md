@@ -25,6 +25,8 @@ const currency = CURRENCIES.find(c => c.country === 'India').name
 ```
 There is nothing inherently wrong with this code, but when it comes to creating maps between two different values, objects and arrays are generally not the best option. This is where JavaScript Maps come in.
 
+*JavaScript Sets are very similar to Maps, but as a replacement for arrays. If you are interested in learning more about Sets check out this [article](/2021-01/javascript-sets).*
+
 ## Differences Between Objects And Maps
 
 A Map in JavaScript is a class that allows you to store a value at a specific key, just like objects, but there are a few major differences that make Maps excel when being used as a map or dictionary.
