@@ -91,7 +91,7 @@ class Person {
 
   printNameFunction() {
     setTimeout(function() {
-      console.log(`Arrow: ${this.name}`)
+      console.log(`Function: ${this.name}`)
     }, 100)
   }
 }
