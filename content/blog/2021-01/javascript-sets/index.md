@@ -134,4 +134,4 @@ Deleting elements in an array is not always easy since there is no good built in
 
 ## Conclusion
 
-Sets are a great tool that you can use in place of objects when you need to do dictionary/lookup related tasks.
+Sets are a great tool that you can use in place of arrays when you need to do tasks that require unique lists.
