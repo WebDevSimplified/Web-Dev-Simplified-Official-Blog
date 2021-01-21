@@ -19,7 +19,7 @@ function* simpleGenerator() {
 ```
 In order to understand what this function does we need to talk about the weird syntax. The first weird syntax is the asterisk `*` next to the `function` keyword. This is simply there to tell JavaScript you are creating a generator function. Every generator function will use the `function*` syntax.
 
-The more confusing syntax, though, is the `yield` keyword. This `yield` keyword essentially constitutes a break in the generator. Whenever yield is encountered the generator will stop running and will return the value. You can almost thing of the `yield` keyword as a mini `return`. So how do you access the values from the `yield` and how do you tell the generator function to continue on to the next `yield`?
+The more confusing syntax, though, is the `yield` keyword. This `yield` keyword essentially constitutes a break in the generator. Whenever yield is encountered the generator will stop running and will return the value. You can almost think of the `yield` keyword as a mini `return`. So how do you access the values from the `yield` and how do you tell the generator function to continue on to the next `yield`?
 
 ### Generator Object
 
