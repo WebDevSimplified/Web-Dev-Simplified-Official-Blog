@@ -16,7 +16,7 @@ const arr = [1, [2, 3], [4], [5, 6, 7], 8]
 If you wanted to convert that into an array that is not nested you could use the `flat` method on the array.
 ```js
 const arr = [1, [2, 3], [4], [5, 6, 7], 8]
-console.log(arr.flat()
+console.log(arr.flat())
 // [1, 2, 3, 4, 5, 6, 7, 8]
 ```
 This is the most basic way to use the `flat` method and all it does is flatten out the nested arrays into one array. If this is all you know of `flat`, you may be confused when you see the following output.
