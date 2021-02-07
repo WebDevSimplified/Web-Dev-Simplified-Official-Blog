@@ -5,6 +5,7 @@ function arrowStyles(transform) {
     transform: transform,
     margin: "20px",
     maxHeight: "150px",
+    width: "100%",
   }
 }
 
