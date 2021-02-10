@@ -10,7 +10,7 @@ How many times have you seen or written code that looks like this.
 const uniqueList = [1, 2, 3, 4, 5]
 const newNumber = 4
 
-if (!uniqueList.include(newNumber)) {
+if (!uniqueList.includes(newNumber)) {
   uniqueList.add(newNumber)
 }
 ```
