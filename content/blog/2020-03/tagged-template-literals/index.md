@@ -171,7 +171,7 @@ Tagged template literals can be used to return things other than strings too. Fo
 ```js
 function queryAll(strings, ...values) {
   const string =  values.reduce((finalString, value, index) => {
-    return `${finalString}<b>${value}</b>${strings[index + 1]}`
+    return `${finalString}${value}${strings[index + 1]}`
   }, strings[0])
 
   return document.querySelectorAll(string)
