@@ -52,7 +52,7 @@ function Ref() {
   return <div>{rerenderCount.current}</div>;
 }
 ```
-Both of these components will correctly display the number of times a component has been re-rendered, but in the state example the component will infinitely re-render itself since setting the state causes the component to re-render. The ref example on the other hand will only render once since setting the value of a ref does cause any re-renders.
+Both of these components will correctly display the number of times a component has been re-rendered, but in the state example the component will infinitely re-render itself since setting the state causes the component to re-render. The ref example on the other hand will only render once since setting the value of a ref does not cause any re-renders.
 
 ## How To Use Refs
 
