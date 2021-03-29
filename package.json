@@ -41,6 +41,8 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.13.12",
+    "babel-preset-gatsby": "^0.2.20",
     "prettier": "^1.18.2"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
