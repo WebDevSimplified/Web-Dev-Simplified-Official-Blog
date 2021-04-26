@@ -9,6 +9,9 @@ Programming and math are about as closely tied as peanut butter and jelly or the
 
 My goal with this article is to figure out if there is a reason programming and math are always talked about together and if programmers actually need to know math to be successful.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 40uBqG0yhJg`
+
 ## Why Do Programmers Learn Math?
 
 If you go to a university to study computer science or computer engineering then you will be bombarded with seemingly endless amounts of required math classes. I know when I was in school for computer engineering I probably took as many math based classes as I did programming based classes.
