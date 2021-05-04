@@ -19,7 +19,7 @@ Before we can talk about the usefulness of IIFEs we need to first understand how
 console.log(x)
 // Throws an error since x is not accessible
 ```
-In the above code we create a function that defines the variable `x` using the `var` keyword. Normally this would set `x` to the value provided and make it available anywhere in the file, but we are instead wrapping this function in parenthesis and executing it immediately. This is taking the function and turning it into an expression due to it being wrapped in parenthesis. This then causes all the variables defined in that expression to be only accessible inside the function express. The final piece of the puzzle is the execution of this function via the parenthesis at the end of the function declaration. This essentially gives JavaScript developers the ability to create a private section of code that runs immediately and is not accessible anywhere else.
+In the above code we create a function that defines the variable `x` using the `var` keyword. Normally this would set `x` to the value provided and make it available anywhere in the file, but we are instead wrapping this function in parenthesis and executing it immediately. This is taking the function and turning it into an expression due to it being wrapped in parenthesis. This then causes all the variables defined in that expression to be only accessible inside the function expression. The final piece of the puzzle is the execution of this function via the parenthesis at the end of the function declaration. This essentially gives JavaScript developers the ability to create a private section of code that runs immediately and is not accessible anywhere else.
 
 ## IIFE Alternatives
 
