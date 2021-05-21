@@ -5,7 +5,7 @@ description: "Nodes and elements are very similar in JavaScript, but there are a
 tags: ['JavaScript']
 ---
 
-If you have worked with the DOM in JavaScript you have probably noticed that there are multiple ways to access the same element (`nextSibling`, `nextSiblingElement`). This is really confusing since it is not obvious which you should use or even what the differences are between them. In this article I will go over these exact differences by explaining the difference between nodes and elements.
+If you have worked with the DOM in JavaScript you have probably noticed that there are multiple ways to access the same element (`nextSibling`, `nextElementSibling`). This is really confusing since it is not obvious which you should use or even what the differences are between them. In this article I will go over these exact differences by explaining the difference between nodes and elements.
 
 ## Elements vs Nodes
 
