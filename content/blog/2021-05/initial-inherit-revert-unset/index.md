@@ -38,7 +38,7 @@ Tying all this back to `initial`, we can see that the value of `initial` is grea
 
 In CSS many properties inherit values from their parent. For example, `font-family`, `color`, and many other properties inherit their values by default. This is why you can set the color of a div to green and have all that div's children also have green text. By setting a CSS property's value to inherit you are saying that you want the value of the CSS property to be equal to the value of it's parent's property. If the parent is inheriting that property then it will continue to go up the chain until it finally finds a specific value set on one of the parent's.
 
-For example, if I give a div a 1px solid black border and put a child inside that div then we know the border will only show up on the parent div and not the child. If I set the border property to `inherit` on the child, though, then then child will also have a 1px solid black border.
+For example, if I give a div a 1px solid black border and put a child inside that div then we know the border will only show up on the parent div and not the child. If I set the border property to `inherit` on the child, though, then that child will also have a 1px solid black border.
 
 This is a very useful value to have since some elements, like buttons, have a specific `font-family` set in the browser style sheet, but you most likely want to inherit that `font-family` to match the rest of your site. This is why I almost always set my buttons to inherit their `font-family`.
 
