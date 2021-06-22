@@ -13,20 +13,21 @@ function BlogIndex(props) {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMdx.edges
   const [selectedTags, setSelectedTags] = useState([])
-  const tags = data.tags.group.sort((a, b) => {
-    if (a.totalCount === b.totalCount) return a.name > b.name ? 1 : -1
-    return a.totalCount < b.totalCount ? 1 : -1
-  }).map(tag => {
-    return { ...tag, selected: selectedTags.includes(tag.name) }
-  })
-  const [searchQuery, setSearchQuery] = useState('')
+  const tags = data.tags.group
+    .sort((a, b) => {
+      if (a.totalCount === b.totalCount) return a.name > b.name ? 1 : -1
+      return a.totalCount < b.totalCount ? 1 : -1
+    })
+    .map(tag => {
+      return { ...tag, selected: selectedTags.includes(tag.name) }
+    })
+  const [searchQuery, setSearchQuery] = useState("")
   const filteredPosts = posts.filter(({ node }) => {
     return (
-      node.frontmatter.title.toLowerCase().includes(searchQuery) ||
-      node.frontmatter.description.toLowerCase().includes(searchQuery)
-    ) && (
-      selectedTags.length === 0 ||
-      node.frontmatter.tags.some(tag => selectedTags.includes(tag))
+      (node.frontmatter.title.toLowerCase().includes(searchQuery) ||
+        node.frontmatter.description.toLowerCase().includes(searchQuery)) &&
+      (selectedTags.length === 0 ||
+        node.frontmatter.tags.some(tag => selectedTags.includes(tag)))
     )
   })
 
@@ -47,7 +48,6 @@ function BlogIndex(props) {
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO title="All posts" />
-      <Bio />
       <SearchBar query={searchQuery} onChange={handleSearchChange} />
       <TagBar tags={tags} onTagSelect={handleTagSelect} />
       {filteredPosts.map(({ node }) => {
@@ -65,9 +65,14 @@ function BlogIndex(props) {
                 </Link>
               </h3>
               <small>{node.frontmatter.date}</small>
-              <div style={{ marginBottom: rhythm(.25) }}>
+              <div style={{ marginBottom: rhythm(0.25) }}>
                 <small>
-                  <TagBar marginTop={rhythm(.25)} tags={node.frontmatter.tags.map(tag => { return { name: tag } })} />
+                  <TagBar
+                    marginTop={rhythm(0.25)}
+                    tags={node.frontmatter.tags.map(tag => {
+                      return { name: tag }
+                    })}
+                  />
                 </small>
               </div>
             </header>

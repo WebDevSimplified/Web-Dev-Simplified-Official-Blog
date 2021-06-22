@@ -12,7 +12,7 @@ const CONTAINER_STYLES = {
   maxHeight: "33vh",
 }
 
-export default function ColorWheel({}) {
+export default function ColorWheel() {
   const conicGradients = Array(30)
     .fill("")
     .map((v, index) => `hsl(${index * 12}, 100%, 50%)`)

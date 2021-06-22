@@ -13,6 +13,7 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.mdx
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
+    console.log(post.frontmatter)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -39,12 +40,17 @@ class BlogPostTemplate extends React.Component {
             >
               {post.frontmatter.date}
             </p>
-            <div style={{
+            <div
+              style={{
                 ...scale(-1 / 5),
                 marginBottom: rhythm(1),
               }}
             >
-              <TagBar tags={post.frontmatter.tags.map(tag => { return { name: tag } })} />
+              <TagBar
+                tags={post.frontmatter.tags.map(tag => {
+                  return { name: tag }
+                })}
+              />
             </div>
           </header>
           <MDXRenderer>{post.body}</MDXRenderer>
@@ -54,7 +60,7 @@ class BlogPostTemplate extends React.Component {
             }}
           />
           <footer>
-            <Bio />
+            <Bio {...post.frontmatter.author} />
           </footer>
         </article>
 
@@ -78,7 +84,7 @@ class BlogPostTemplate extends React.Component {
             <li>
               {next && (
                 <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
+                  {next.frontmatter.title} →`
                 </Link>
               )}
             </li>
@@ -107,6 +113,16 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        author {
+          name
+          image {
+            childImageSharp {
+              fixed(width: 50, height: 50) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
         tags
       }
     }

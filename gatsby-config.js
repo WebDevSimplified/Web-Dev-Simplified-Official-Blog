@@ -10,7 +10,16 @@ module.exports = {
     },
   },
   plugins: [
-    `gatsby-remark-images`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/data`,
+        name: `data`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -67,8 +76,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
     `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-google-analytics`,

@@ -1,5 +1,7 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const authors = require("./src/data/author.json")
+const IMAGE_PATH = "./content/assets/"
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -61,4 +63,31 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+}
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createFieldExtension, createTypes } = actions
+
+  createFieldExtension({
+    name: "defaultAuthor",
+    extend() {
+      return {
+        resolve(source, args, context, info) {
+          return context.nodeModel
+            .getAllNodes({ type: "AuthorJson" })
+            .find(author => author.id === (source.author || "wds"))
+        },
+      }
+    },
+  })
+
+  createTypes(`
+    type Mdx implements Node {
+      frontmatter: Frontmatter
+    }
+    type Frontmatter {
+      image: ImageSharp
+      author: AuthorJson @defaultAuthor
+    }
+  `)
 }
