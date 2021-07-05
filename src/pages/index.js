@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SearchBar from "../components/SearchBar"
@@ -86,6 +85,17 @@ function BlogIndex(props) {
           </article>
         )
       })}
+      {filteredPosts.length === 0 && (
+        <div
+          style={{
+            fontSize: "1.5rem",
+            marginTop: rhythm(1.5),
+            textAlign: "center",
+          }}
+        >
+          No articles found for search query: <strong>{searchQuery}</strong>
+        </div>
+      )}
     </Layout>
   )
 }
