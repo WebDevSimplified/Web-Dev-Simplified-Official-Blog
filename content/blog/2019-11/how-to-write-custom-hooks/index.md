@@ -68,7 +68,7 @@ Then in the component where `localStorage` is being used the code can be simplif
 const [value, setValue] = useLocalStorage('key', initialValue)
 ```
 
-Now all that is left to do is move over the logic for how to handle `localState` into the `useLocalState` hook and return `value` and `setValue`.
+Now all that is left to do is move over the logic for how to handle `localState` into the `useLocalStorage` hook and return `value` and `setValue`.
 
 ```javascript {10,12}
 export default function useLocalStorage(key, initialValue) {
