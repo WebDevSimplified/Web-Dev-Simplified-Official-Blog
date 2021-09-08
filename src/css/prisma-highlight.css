@@ -35,3 +35,11 @@
   float: left; /* 1 */
   min-width: 100%; /* 2 */
 }
+
+/* Fix inline code block styling */
+:not(.gatsby-highlight) :not(pre)>code[class*="language-"] {
+  padding: .1em .25em;
+  background: #E3E3E3;
+  text-shadow: none;
+  color: #333;
+}
