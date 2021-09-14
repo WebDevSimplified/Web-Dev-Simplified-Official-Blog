@@ -35,6 +35,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
+    "react-share": "^4.4.0",
     "react-typography": "^0.16.19",
     "specificity": "^0.4.1",
     "typeface-merriweather": "0.0.72",

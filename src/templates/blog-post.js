@@ -7,13 +7,13 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 import TagBar from "../components/TagBar"
+import ShareButtons from "../components/ShareButtons"
 
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.mdx
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
-    console.log(post.frontmatter)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -43,7 +43,7 @@ class BlogPostTemplate extends React.Component {
             <div
               style={{
                 ...scale(-1 / 5),
-                marginBottom: rhythm(1),
+                marginBottom: rhythm(0.5),
               }}
             >
               <TagBar
@@ -53,6 +53,20 @@ class BlogPostTemplate extends React.Component {
               />
             </div>
           </header>
+          <div
+            style={{
+              ...scale(-1 / 5),
+              marginBottom: rhythm(0.5),
+            }}
+          >
+            <ShareButtons
+              title={post.frontmatter.title}
+              url={this.props.location.href}
+              twitterHandle={this.props.data.site.siteMetadata.social.twitter}
+              siteUrl={this.props.data.site.siteMetadata.siteUrl}
+              tags={post.frontmatter.tags}
+            />
+          </div>
           <MDXRenderer>{post.body}</MDXRenderer>
           <hr
             style={{
@@ -103,6 +117,10 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
+        siteUrl
+        social {
+          twitter
+        }
       }
     }
     mdx(fields: { slug: { eq: $slug } }) {

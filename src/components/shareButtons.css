@@ -1,0 +1,12 @@
+.share-icon {
+  margin-right: .25rem;
+  opacity: .5;
+}
+
+.share-icon:last-child {
+  margin-right: 0;
+}
+
+.share-icon:hover {
+  opacity: 1;
+}

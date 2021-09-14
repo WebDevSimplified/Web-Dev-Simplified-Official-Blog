@@ -10,7 +10,6 @@ const TAG_STYLES = {
 
 const TAG_NAME_STYLES = {
   padding: `0 ${rhythm(0.3)}`,
-  borderRadius: ".25em 0 0 .25em",
   borderRight: "none",
   border: "1px solid black",
 }
@@ -50,7 +49,14 @@ export default function Tag({ tag, onTagSelect, marginTop = rhythm(0.5) }) {
         htmlFor={onTagSelect && `tag-${tag.name}`}
         style={{ ...TAG_STYLES, marginTop: marginTop }}
       >
-        <span style={TAG_NAME_STYLES}>{tag.name}</span>
+        <span
+          style={{
+            ...TAG_NAME_STYLES,
+            borderRadius: tag.totalCount != null ? ".25em 0 0 .25em" : ".25em",
+          }}
+        >
+          {tag.name}
+        </span>
         {tag.totalCount && <div style={TAG_COUNT_STYLES}>{tag.totalCount}</div>}
       </label>
     </>
