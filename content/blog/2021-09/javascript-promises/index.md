@@ -225,16 +225,17 @@ Promise.all([
 
 ### `Promise.allSettled`
 
-This method is very similar to `Promise.all`. The only difference is that `Promise.allSettled` will wait for **all** promises to succeed and/or fail before calling `.then` or `.catch`.
+This method is very similar to `Promise.all`. The only difference is that `Promise.allSettled` will wait for **all** promises to succeed and/or fail before calling `.then`. `Promise.allSettled` also never calls `.catch` and instead will tell you if each promise failed or succeeded in the `.then`.
 ```js
-Promise.all([
+Promise.allSettled([
   one(),
   two()
 ]).then(messages => {
   console.log(messages)
-  // ["From One", "From Two"]
-}).catch(errors => {
-  // All errors from all promises if there are any errors
+  /* [
+    { status: "fulfilled", value: "From One" },
+    { status: "fulfilled", value: "From Two" }
+  ] */
 })
 ```
 
