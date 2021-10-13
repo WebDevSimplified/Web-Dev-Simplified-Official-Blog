@@ -104,7 +104,16 @@ If you are working on any decent sized project odds are your repository has tens
 ```shell
 git remote update --prune
 ```
-This command will delete all branches that are on your local machine that are not in the remote repository.
+This command will delete all the tracking information for branches that are on your local machine that are not in the remote repository, but it does not delete your local branches. In order to do that you need to run a bit of a tricky command.
+```shell
+git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+```
+This command will list out all of your branches and then search for any branches that have the remote tracking set to *gone*. This gone status is set from the previous command where we removed the tracking information for branches that no longer exist in the remote repository. Then we are grabbing the branch name for the deleted branch with the `{print $1}` command and passing that to `git branch -d` which will delete the branch for that name.
+
+This is a pretty complex command which is why I recommend combining the previous two commands into one simple git alias that can do all this for you.
+```shell
+git config --global alias.prune "git remote update --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+```
 
 ## 9. Bisect
 
