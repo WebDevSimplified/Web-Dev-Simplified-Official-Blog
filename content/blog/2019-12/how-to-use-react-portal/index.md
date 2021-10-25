@@ -7,6 +7,9 @@ tags: ['React']
 
 React's rendering system is absolutely amazing and makes working with dynamic content so much easier than standard JavaScript. One big problem with React's rendering system, though, is that it makes it difficult to dynamically render content outside the parent component. For example, if there is a button buried deep in the app structure that opens a modal there is no good way to render the modal since putting the modal component in the same component with the button will make the modal have the same parent as the button. Luckily, React thought of this already and built React portal to handle these scenarios.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: LyLa7dU5tp8`
+
 ## What Does React Portal Do?
 
 Simply put, React portal is just a way to render components outside of the normal DOM hierarchy that is defined by the component tree. Let's take the modal example from earlier and write it out without using React portal.

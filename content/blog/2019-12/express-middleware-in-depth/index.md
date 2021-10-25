@@ -7,6 +7,9 @@ tags: ['Express', 'Node.js']
 
 Middleware is an often misunderstood topic since it sounds and appears very complicated, but in reality middleware is actually really straightforward. The entire idea of middleware is to execute some code before the controller action that sends the response and after the server gets the request from the client. Essentially it is code that executes in the middle of your request, hence the name middleware. Before I get too in depth on the details of middleware, though, I want to setup a basic Express server with two routes.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: lY6icfhap2o`
+
 ## Setting Up An Express Server
 
 To get started working with a Node.js project you will need to run `npm init -y`. This will create a basic package.json file with all of the default values filled in for you. From there the next thing to do is install Express by running `npm i express`. Lastly, we need to create a server.js file with the following code.

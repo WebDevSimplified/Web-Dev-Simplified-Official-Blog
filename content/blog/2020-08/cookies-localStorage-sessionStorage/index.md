@@ -7,7 +7,8 @@ tags: ['JavaScript']
 
 Storing data in the browser is a fairly simple task, but there are three different ways to do it and it can be difficult to know which storage option is best for your particular use case. In this video I will be covering all three of the different ways to store data in a user's browser so you can choose the exact option that works best for you.
 
-*If you prefer to learn visually, check out the video version of this article [here](https://youtu.be/GihQAC1I39Q).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: GihQAC1I39Q`
 
 ## What Are Cookies, Local Storage, And Session Storage Used For?
 

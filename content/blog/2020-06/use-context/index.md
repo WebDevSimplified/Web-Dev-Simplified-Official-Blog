@@ -7,6 +7,9 @@ tags: ['React']
 
 React released the Context API as a much needed solution for state that spans across multiple nested components. Unfortunately, the API for context was a bit bulky and difficult to use in class components. With the release of hooks, the React team decided to re-think how you interact with context and drastically simplified the code through the use of the `useContext` hook.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 5LrDIWkK_Bc`
+
 ## What Is The Context API?
 
 As you already know, React uses state to store data and props to pass data between components. This works well for handling local state and for passing simple props between parent/child components. This system breaks down when you start to have global state or props that need to be passed to deeply nested components. With just props and state you end up having to resort to prop drilling which is when you pass down props through a bunch of different components so they can get to one single component far down the hierarchy.

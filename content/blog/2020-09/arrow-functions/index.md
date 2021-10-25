@@ -7,7 +7,8 @@ tags: ['JavaScript']
 
 Arrow functions at first glance seem useless. They seem to just be another way to create a function, but with more confusing syntax. While it is correct that arrow functions offer a different syntax for creating functions they also fundamentally change how a function is scoped which is the primary reason arrow functions are so useful.
 
-*If you prefer to learn visually, check out the video version of this article [here](https://youtu.be/h33Srr5J9nY).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: h33Srr5J9nY`
 
 ## How To Create Arrow Functions?
 

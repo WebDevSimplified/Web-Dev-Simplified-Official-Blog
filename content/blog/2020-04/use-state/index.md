@@ -7,6 +7,9 @@ tags: ['React']
 
 One of the most important parts of any application is managing state. Most code that is written in some way deals with modifying or reading state, so understanding how to manage state is incredibly important. Before hooks were introduced the only way to modify state was with class components and `this.state`, but React has introduced hooks, specifically the `useState` hook, which is a new way to handle state inside of function components. There are a few differences between state and function component state management, so in this article I will be explaining everything you need to know about `useState` so you can start building stateful function components.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: O6P86uwfdR0`
+
 ## From Classes To Functions
 
 In order to understand how the `useState` hook works we first need to look at how state is managed in class components. For this article we are going to use a simple counter component for all examples.

@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 One of the first things you are taught when learning to program is how to handle conditional logic with `if`/`else` statements. These `if`/`else` statements are one of the most common pieces of code you write when programming, and because of that a shorthand version of the `if`/`else` statement was created called the ternary operator. In this article I will briefly explain what the ternary operator is and how you can properly use it.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 70GmtV-5Ggo`
+
 ## What Is The Ternary Operator?
 
 You may be looking at the name ternary and wondering what the heck that means. I have to agree that the name ternary operator is a pretty poor name, but the reason for this name is because ternary means "composed of three parts" and the ternary operator is the only operator in JavaScript that has three parts to it. Let's take a quick look at the definition of the ternary operator to understand it in more depth.

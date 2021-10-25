@@ -7,7 +7,8 @@ tags: ['JavaScript']
 
 JavaScript is constantly evolving with new features being added every year. The biggest set of these changes was when JavaScript ES6 was released. ES6 changed JavaScript completely, and made it a much more modern language with tons of nice features. One of these amazing features, which I use every day, is destructuring and the spread operator. In this article I will show you exactly what both of these are, how you can use them with arrays and objects, and most importantly when to use these features.
 
-*If you prefer to learn visually, check out the video version of this article [here](https://youtu.be/NIq3qLaHCIs).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: NIq3qLaHCIs`
 
 ## What Is Destructuring?
 

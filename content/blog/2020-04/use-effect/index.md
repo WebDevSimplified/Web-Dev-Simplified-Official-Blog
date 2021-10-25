@@ -7,6 +7,9 @@ tags: ['React']
 
 In my last blog post I talked all about the `useState` hook in React. In this article I want to talk about the `useEffect` hook which I think is the best part of React hooks. The `useEffect` hook is perfect for handling side effects caused by mounting, un-mounting, changing state, etc.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 0ZJgIjIuY7U`
+
 ## From Classes To Functions
 
 In order to understand how the `useEffect` hook works we first need to look at how side effects are managed in class components. For this article we are going to use a simple component which displays the window size and a list of items from a URL for all examples.

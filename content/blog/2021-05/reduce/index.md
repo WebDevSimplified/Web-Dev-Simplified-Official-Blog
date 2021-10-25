@@ -8,7 +8,7 @@ tags: ['JavaScript']
 The reduce array method is definitely the most confusing of all the JavaScript array methods, but by the time you are done reading this article you will be an expert on the reduce method.
 
 *If you prefer to learn visually, check out the video version of this article.*
-`youtube: R8rmfD9Y5-c?start=387`
+`youtube: s1XVfm5mIuU`
 
 ## What Does `reduce` Do?
 

@@ -9,6 +9,9 @@ By far the most asked question I get is *"Which programming language should I le
 
 Now there is technically nothing wrong with these questions, but by asking these questions you are hindering your abilities to become a developer.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: h3lX6ZaL5RU`
+
 ## The Problem With These Questions
 
 It is easy to see why people ask these questions, because it is hard to know where to start when learning development, but by blindly following the answers to these questions you will most likely steer yourself to failure since these questions fail to take into account your situation.

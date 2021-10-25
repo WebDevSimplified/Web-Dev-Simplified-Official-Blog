@@ -25,6 +25,9 @@ This is a very common problem in React since all the component logic is re-compu
 
 ## `useMemo`
 
+*If you prefer to learn visually, check out the video version of this hook.*
+`youtube: THL1OPn72vo`
+
 The most basic form of memoization in React is the `useMemo` hook. The syntax for this hook is actually the exact same as `useEffect` since they both work in a similar way. The first argument of `useMemo` is a function that does the complex calculation you want to memoize, and the second argument is an array of all dependencies for that memoization.
 ```js
 const result = useMemo(() => {
@@ -62,6 +65,9 @@ function Component({ param1, param2 }) {
 Now if `param1` and `param2` do not change the `params` variable will be set to the cached version of `params` which means the reference for `params` will only change if `param1`, or `param2` change. This referential equality is really useful when comparing objects in dependency arrays, but if you need to use a function in a dependency array you can use the `useCallback` hook.
 
 ## `useCallback`
+
+*If you prefer to learn visually, check out the video version of this hook.*
+`youtube: _AyFP5s69N4`
 
 `useCallback` works nearly identically to `useMemo` since it will cache a result based on an array of dependencies, but `useCallback` is used specifically for caching functions instead of caching values.
 ```js

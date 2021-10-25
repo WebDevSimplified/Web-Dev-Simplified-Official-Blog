@@ -7,7 +7,8 @@ tags: ['JavaScript']
 
 Unlike many other programming languages JavaScript has both a double equals `==` and triple equals `===` comparison operator. At first glance they seem to do nearly the exact same thing, but there is one major difference between the two that makes triple equals almost always better.
 
-*If you prefer to learn visually, check out the video version of this article [here](https://youtu.be/C5ZVC4HHgIg).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: C5ZVC4HHgIg`
 
 ## What Makes Them Different
 

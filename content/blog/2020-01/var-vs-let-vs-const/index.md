@@ -7,7 +7,8 @@ tags: ['JavaScript']
 
 If you have read any JavaScript programming tutorials then chances are you have run into code where variables are defined using a combination of `var`, `let`, and `const`. It can be confusing at first to understand why someone would use one over the other for defining variables, so in this article I am going to breakdown the exact differences between `var`, `let`, and `const` so you know exactly when to use each.
 
-*PS: This article is available in video form as well. Check it out if you are visual learner. [Click here to view the video.](https://youtu.be/9WIJQDvt4Us)*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 9WIJQDvt4Us`
 
 ## Understanding Var
 

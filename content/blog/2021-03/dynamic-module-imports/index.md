@@ -12,6 +12,9 @@ import User, { printUser } from './user.js'
 
 The above code allows you to split up your JavaScript across multiple files and import them only when needed. The issue, though, is this code is always downloaded immediately by the browser leading to potentially slow page loads. This is where dynamic module imports come in.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: ddVm53j80vc`
+
 ## How To Use Dynamic Module Import?
 
 Dynamic module imports are very similar to static module imports, but the code is loaded only when it is needed instead of being loaded right away. This means your page load speed will be much quicker and the user will only ever load JavaScript code that they are actually going to use.

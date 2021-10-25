@@ -7,6 +7,9 @@ tags: ['HTML', 'JavaScript']
 
 With React, Vue, Angular, and all the other frontend JavaScript frameworks being so popular many people forget about normal HTML and JavaScript, but most of the websites built today still use plain HTML and JavaScript. Even as frontend frameworks become more and more prevalent there are still many websites that don't make sense to build with a full frontend framework since they are not nearly complex enough. There may still be a need for some complex dynamic content, though, and traditionally that can be a huge pain to do in plain JavaScript. Luckily, the template tag in HTML makes adding dynamic content much easier than before.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: iX_QyjdctsQ?start=799`
+
 ## What Is The Template Tag?
 
 The template tag is an HTML tag that allows you to create a group of HTML elements that are not rendered to the page. You can think of it kind of like a div with display none that has HTML inside of it, but the template tag has a few handy features that make it easier to work with than a div with display none.

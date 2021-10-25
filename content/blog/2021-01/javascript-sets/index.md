@@ -20,6 +20,9 @@ A Set in JavaScript is a class that allows you store an array of values just lik
 
 *JavaScript Maps are very similar to Sets, but as a replacement for objects. If you are interested in learning more about Maps check out this [article](/2020-12/javascript-maps).*
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: yJDofSGTSPQ?start=752`
+
 ## How To Use Sets
 
 Sets and arrays are very similar, but nearly all the methods between the two have slightly different names and implementations.

@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 If you have worked with the DOM in JavaScript you have probably noticed that there are multiple ways to access the same element (`nextSibling`, `nextElementSibling`). This is really confusing since it is not obvious which you should use or even what the differences are between them. In this article I will go over these exact differences by explaining the difference between nodes and elements.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: rhvec8cXLlo`
+
 ## Elements vs Nodes
 
 Of the two, elements are the easiest to understand since they are just HTML elements, such as a div, span, or body tag. Generally when you are working with the DOM you will be working with elements since most often you want to interact with HTML elements.
@@ -33,5 +36,7 @@ An HTMLCollection is pretty simple to understand since it can only contain eleme
 A NodeList on the other hand can contain any type of node including elements. NodeLists are also similar to arrays, but they again lack most higher order functions. The only higher order function on a NodeList is the `forEach` function. Some examples of methods that return NodeLists are `querySelectorAll` and `childNodes`. NodeLists are also live updating similar to HTMLCollections, but only in some cases. For example, `querySelectorAll` is not a live updating list, but `childNodes` is live updating. Generally, I try to avoid NodeLists since they can contain non-HTML elements, but `querySelectorAll` will only ever return elements inside the NodeList so I use `querySelectorAll` constantly.
 
 ## Conclusion
+
+*I was only able to cover a few of the DOM traversal methods in this article, but if you want to see how every DOM traversal method in JavaScript works check out my [FREE JS DOM traversal cheat sheet](https://webdevsimplified.com/js-dom-traversal-cheat-sheet.html).*
 
 Nodes and elements are very similar, but there are a few subtle differences you must understand. In general I prefer working with elements inside a NodeList whenever possible as they are the easiest to work with in my opinion.

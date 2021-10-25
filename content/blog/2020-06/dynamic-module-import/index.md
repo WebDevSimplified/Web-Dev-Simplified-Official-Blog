@@ -9,6 +9,9 @@ Normally when you import a module in JavaScript it will be loaded every time the
 
 This is where code splitting and dynamic imports come in. Code splitting, as the name implies, lets you split your code into multiple sections or bundles that you can dynamically load depending on certain conditions. This used to be something only possible with a bundler like webpack, but with the introduction of ES2020, dynamic module imports were officially added to JavaScript.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: ddVm53j80vc`
+
 ## How Do You Dynamically Import Modules?
 
 Normally, when you want to import a module you will use the following code.

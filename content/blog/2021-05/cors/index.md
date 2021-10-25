@@ -7,6 +7,9 @@ tags: ['Technical Discussion']
 
 CORS, also known as Cross-Origin Resource Sharing, is something every web developer has to deal with at some point. Chances are if you are reading this article then you are probably dealing with a CORS error right now. In this article I will tell you what CORS is and how you can fix CORS errors.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: PNtFSVU-YTI`
+
 ## What Is CORS?
 
 Does this look familiar?

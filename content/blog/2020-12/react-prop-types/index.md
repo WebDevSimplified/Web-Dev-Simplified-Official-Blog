@@ -7,6 +7,9 @@ tags: ['React']
 
 If you have ever wanted to add type safety to your React projects, but bringing in TypeScript is too overkill or too much work then PropTypes is perfect for you. PropTypes is a tool in React that lets you validate the structure and type of all your props and if there are any issues they will show up as errors in the console of your browser dev tools.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: cx0S8JyiVxc`
+
 ## Getting Started
 
 In order to start using PropTypes in your project you need to install the PropTypes library.

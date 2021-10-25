@@ -10,6 +10,9 @@ Learning Git is not easy. There are tons of confusing commands and for most peop
 *If you are unfamiliar with the basics of Git (adding, committing, branching, etc.) watch this full Git tutorial first.*
 `youtube: IHaTbJPdB-s`
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: mnmYwRoSisg`
+
 ## 1. Add/Commit All
 
 One of the most common things you will do when working with Git is adding and committing a bunch of files at once. The standard way to do this is usually running an add command followed by a commit.

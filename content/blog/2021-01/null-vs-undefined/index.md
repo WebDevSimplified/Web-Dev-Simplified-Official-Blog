@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 JavaScript is quite confusing when it comes to a variable not having a value because it can be `null` or `undefined`. This leads to a lot of confusion, so in this article I will break down the differences between `null` and `undefined`.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 7bpQUVK9Gn4`
+
 ## Null vs Undefined
 
 To start I want to explain what `null` and `undefined` have in common since they are very similar. Both `null` and `undefined` mean that there is no value. If a variable is set to `null` or `undefined` it has no value and if a function returns `null` or `undefined` then it is saying it has no value to return. This you most likely already understand.

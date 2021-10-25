@@ -7,6 +7,9 @@ tags: ['CSS']
 
 For the longest time, changing a brand color in CSS that is used across an entire codebase would require a developer to use a ton of find/replace to update the color with the hopes that no unintended side effects occur. Because of this, many developers turned to CSS pre-processors such as SASS to handle variables in CSS. This meant that a developer only ever had to update a single variable in SASS instead of needing to find/replace the color value across every CSS file. Over the last few years CSS has been busy at work adding new features and one of those features is custom properties. These custom properties are CSS's version of variables and are much more powerful than any pre-processor variable.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: oZPR_78wCnY`
+
 ## What Are Custom Properties Exactly?
 
 As I already mentioned custom properties are a way to declare variables in CSS. Here is a simple example of a CSS custom property.

@@ -5,7 +5,10 @@ description: "This article breaks down everything you need to know about CSS cal
 tags: ['CSS']
 ---
 
-When most people think of doing computations and calculations on the web they think of JavaScript. That makes sense considering JavaScript is the main programming language of the web, but what if I told you that you can do fairly complex calculations with just CSS. It is honestly pretty amazing and infinitely useful. *Also, if you are a visual learning make sure to check out the full video version of this article [here](https://youtu.be/x7EWFoRzAkk).*
+When most people think of doing computations and calculations on the web they think of JavaScript. That makes sense considering JavaScript is the main programming language of the web, but what if I told you that you can do fairly complex calculations with just CSS. It is honestly pretty amazing and infinitely useful.
+
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: x7EWFoRzAkk`
 
 ## What Is CSS Calc?
 

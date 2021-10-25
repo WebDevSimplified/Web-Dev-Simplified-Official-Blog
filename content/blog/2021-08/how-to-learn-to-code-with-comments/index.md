@@ -7,6 +7,9 @@ tags: ['Non-Technical Discussion']
 
 By far the number one thing new developers struggle with is building their own projects from scratch. It is easy to watch a tutorial and build what they are building, but as soon as you are left on your own with a blank text editor most beginner developers freeze up and have no idea where to start. If this sounds like you then this article is perfect since I will be showing you how to fix this problem with something as simple as comments.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: Qvmp4F-hOKA`
+
 ## Break Apart Projects
 
 Imagine you are tasked with building out a modal and are given some HTML that looks like this, but nothing else.

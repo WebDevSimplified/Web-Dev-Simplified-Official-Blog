@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 If you have heard the term generator before in JavaScript then you have probably been a bit intimidated by the weird looking syntax and complex definitions. I know I was. Luckily, generators are much simpler than they appear.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: IJ6EgdiI_wU`
+
 ## What Is A Generator?
 
 First we need to start by defining what a generator is. Essentially a generator is just a function that is used to iterate over a series of values. In order to understand this a bit more in depth let's look at the simplest example of a generator.

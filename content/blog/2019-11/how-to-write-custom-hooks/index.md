@@ -7,6 +7,9 @@ tags: ['React']
 
 Are you tired of your React components being littered with messy `useEffect` hooks? Worse yet, are you tired of having to duplicate your common hook functionality between components? We have all been there where we have our fetch logic duplicated across many different components which is messy and difficult to maintain. This is where custom hooks come in. They are amazing at grouping up common logic like fetching from APIs and they make it incredibly easy to use that logic anywhere in the application with no duplication.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 6ThXsUwLWvc`
+
 ## How To Make A Custom Hook?
 
 Getting started with a custom hook is luckily incredibly easy, because they are just functions. The only caveat is that custom hooks must start with `use` at the beginning of their name. This is so that the React linting tools know this function is a hook, and it also makes it easier to understand which functions are hooks and which are not. Other than that a custom hook will work just like any other function. In order to explain this process further we are going to create a custom hook called `useLocalStorage` which will act just like `useState` but it will sync the state with the browsers `localStorage`.

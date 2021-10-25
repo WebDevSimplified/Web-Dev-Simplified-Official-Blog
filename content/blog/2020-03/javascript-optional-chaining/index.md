@@ -11,6 +11,9 @@ const street = person && person.address && person.address.street
 ```
 The above code is pretty much the shortest and most elegant way to check if an object is undefined or null before accessing its properties. This is obviously not very concise or clean code, though, which is why JavaScript is finally getting an optional chaining operator.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: v2tJ3nzXh8I?start=379`
+
 ## What Is Optional Chaining
 
 If you have used other languages besides JavaScript you are probably already familiar with optional chaining since most languages have supported it for awhile. Essentially the idea of optional chaining is to make it easy to write code where you need to access properties or values that are nested deep inside an object or array that may or may not be null/undefined. Let's take a look at the basic syntax for optional chaining to understand exactly how it works.

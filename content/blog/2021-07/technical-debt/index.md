@@ -7,6 +7,9 @@ tags: ['Technical Discussion']
 
 If you have ever worked on a project of any significant size or age then you are well aware of how difficult it can be to avoid and work with technical debt. It constantly slows you down and makes programming a slog instead of a fun creative process. Most people think technical debt is unavoidable, but it can actually be largely avoided or mitigated with practice.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: nXMYHrERh80`
+
 ## What Is Technical Debt
 
 Technical debt is simply old, messy, outdated code that gets in the way when you try to modify or build upon a project. This can be anything from poorly designed/written code such as a massive 500 line function with 6 layers of nesting, to having no tests, to something as simple as old code such as a jQuery component inside a mostly React application. This code is so old or poorly written that it takes extra time for you to understand it and work around it when making changes which slows down your effectiveness. This technical debt also usually compounds on itself since now each change takes longer to do but your deadlines never get longer so you have to write more messy code to get it done in time which leads to more technical debt.

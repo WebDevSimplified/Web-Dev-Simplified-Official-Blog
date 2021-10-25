@@ -11,6 +11,9 @@ So you just created an amazing application and now you need to actually get paid
 
 *Before we get started I do want to mention that [Stripe's documentation](https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout) is amazing and I highly recommend using their documentation alongside this article.*
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 1r-F3FIONl8`
+
 ## Setup
 
 The first obvious step to get started is to create an account with [Stripe](https://stripe.com). You will also need to make sure you fill in all information about your business (tax information, address, etc.) to ensure you are legally compliant before accepting payments. Once that is done the next step is to get your project setup.

@@ -15,6 +15,9 @@ const tries = options.tries == null ? 10 : options.tries
 ```
 This code now will only use the default value if `option.tries` is null or undefined. The only problem is this code is pretty clunky to write, so that is why the null coalesce operator was created.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: v2tJ3nzXh8I?start=41`
+
 ## What Is The Null Coalesce Operator
 
 The null coalesce operator is a new operator in JavaScript that works very similar to the logical or operator, but it will check for null/undefined instead of falsey.

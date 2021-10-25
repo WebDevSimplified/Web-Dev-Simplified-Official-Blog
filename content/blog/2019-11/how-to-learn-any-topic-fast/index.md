@@ -7,7 +7,8 @@ tags: ['Non-Technical Discussion']
 
 Web development is one of the quickest moving fields in software development which means there are tons, and I mean tons, of new topics and technologies to learn every year. It is overwhelming having so many new things to learn, but with this simple step by step guide to learning you can confidently and quickly learn any new topic you want.
 
-*If you prefer video I have a YouTube video on this step by step guide you can find [here](https://youtu.be/CJJtA1NTqN4).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: CJJtA1NTqN4`
 
 ## Step 1: Research
 

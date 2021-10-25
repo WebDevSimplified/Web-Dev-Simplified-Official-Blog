@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 JavaScript introduced a ton of new concepts with ES6, but one feature that is often overlooked is the enhancements to object literals. With these enhancements you can write code to create objects that is easier to read and more concise. In this article I will talk about all the enhancements made to object literals.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: v2tJ3nzXh8I?start=765`
+
 ## Key Shorthand
 
 How many times have you written code like this.

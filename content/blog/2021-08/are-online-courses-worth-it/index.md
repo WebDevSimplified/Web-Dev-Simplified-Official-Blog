@@ -9,6 +9,9 @@ If you were trying to become a software developer 20 years ago the only real opt
 
 In this article I will be specifically focusing on the idea of online courses since there is already a ton of conversation around if bootcamps are worth it or not, but online courses are generally not covered.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: JmYkP-Hdlhs`
+
 ## My Experience
 
 Before I get to talking about this topic I first need to discuss my experiences with and without courses to clear up any bias I may have.

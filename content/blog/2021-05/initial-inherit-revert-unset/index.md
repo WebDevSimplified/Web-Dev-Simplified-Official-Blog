@@ -16,6 +16,9 @@ If you have ever written CSS before then chances are you have had to write CSS l
 ```
 This is because browsers give us default CSS values that we often manually remove or use a CSS reset to remove. It is often frustrating running into these default styles as they can be a pain to workaround, so in this article I will show you all the different ways you can inherit/reset CSS styles to get the exact look you want.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: N8tFrMZp_wA`
+
 ## What Does `initial` Do?
 
 The easiest CSS value to understand is `initial`. This value just resets the CSS property to its initial value. You may be confused when using this, though, because the initial CSS value for properties is not always what you think it is since it often differs from the browser's default styles.

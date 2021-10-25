@@ -7,6 +7,9 @@ tags: ['CSS']
 
 So you just heard about the newest CSS feature and you are dying to use it in your code, but your boss wants to support old browsers still. Normally this would be the end of the line for your dreams of using modern CSS features, but luckily that is not the case. The `@supports` at-rule, also known as a feature query, lets you use different CSS styles based on the browser's support for a given feature. This means you can finally use modern CSS features without breaking older browser support.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: ZzuYbhKVPE0`
+
 ## Feature Query Syntax
 
 For nearly all use cases a feature query has the same syntax as a media query. For example, a media query for a mobile view may look like this

@@ -7,6 +7,9 @@ tags: ['Non-Technical Discussion']
 
 If you are a frequent reader of my blog then you most likely are learning programming to become a programmer of some form. Obviously if you want to be a programmer it make sense to learn programming, but what about everyone else that does not want to be a programmer? Should they learn programming? I think they definitely should, but probably not for the reasons you think.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: _BFaPx0mAGs`
+
 ## What Is Programming?
 
 In order to talk about why someone should or should not learn programming we first need to understand what programming is at its core. Programming is just a way for you to communicate with a computer in order to make the computer do something for you. This can be anything from building out a complex web application like YouTube or as simple as a hello world application. In both scenarios you have written some form of instructions the computer can interpret in order to do what you want.

@@ -7,6 +7,9 @@ tags: ['JavaScript']
 
 By far the most confusing concept for beginner and even intermediate JavaScript developers is how to pass functions to other functions since there seem to be so many different ways to do it and they all work slightly differently. In this article I will breakdown exactly how passing functions to other functions works in JavaScript.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: 7UMuJMiNjSk`
+
 ## A Function Is A Variable
 
 Before we can talk about passing functions to other functions we first need to realize that a function is really just a fancy variable.

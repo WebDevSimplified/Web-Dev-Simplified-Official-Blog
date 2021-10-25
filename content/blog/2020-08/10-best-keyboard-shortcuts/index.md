@@ -9,7 +9,8 @@ As a programmer you spend a lot of time typing on a keyboard, well that is if yo
 
 In this article I will be covering my 10 (it is actually a few more than 10) favorite keyboard shortcuts that work in nearly all text editors. These shortcuts may not work in all editors, though, but they are guaranteed to work in Visual Studio Code. Also, if you are on a Mac computer just replace any use of Ctrl with Cmd and you should be good to go. With that out of the way lets dive into the first set of shortcuts.
 
-*If you prefer to learn visually, check out the video version of this article [here](https://youtu.be/GmdN0kQ2rIs).*
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: GmdN0kQ2rIs`
 
 ## 1. Copy/Cut/Paste Entire Lines
 
