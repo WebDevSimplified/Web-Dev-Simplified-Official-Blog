@@ -197,7 +197,7 @@ Now luckily, ES6 modules are supported in 95% of browsers so you most likely won
 
 ### Dynamic Imports
 
-The final fancy thing you can do with imports is dynamic imports where you only import the JavaScript code when/if it is needed instead of importing everything at the top of your file. This is a pretty complex topic which is why I have an entire [dynamic module import article](h/2021-03/dynamic-module-imports) already written that you can check out.
+The final fancy thing you can do with imports is dynamic imports where you only import the JavaScript code when/if it is needed instead of importing everything at the top of your file. This is a pretty complex topic which is why I have an entire [dynamic module import article](/2021-03/dynamic-module-imports) already written that you can check out.
 
 ## Conclusion
 
