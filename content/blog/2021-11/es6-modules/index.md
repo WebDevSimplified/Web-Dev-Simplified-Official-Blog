@@ -48,7 +48,7 @@ printAge(user)
 ```
 As you can see from the above code our User.js file defines our User class and the functions for interacting with the user. Then in our script.js file we are accessing the User class and those methods. The reason we are able to access that class and methods is because we added the script tag for loading the User.js file above the script tag that loads our script.js file.
 
-This has the problem, though, were we need to ensure our User.js file always loads before our script.js file and also the User class and functions are global variables so if we have another file that we import somewhere that defines a `printName` function it will override the `printName` function from the User.js file.
+This has the problem, though, where we need to ensure our User.js file always loads before our script.js file and also the User class and functions are global variables so if we have another file that we import somewhere that defines a `printName` function it will override the `printName` function from the User.js file.
 
 To fix this problem we can turn to ES6 modules. ES6 modules allow us to export specific information from one file and then import it into another file. Let's look at a quick example of exporting data from our User.js file.
 
