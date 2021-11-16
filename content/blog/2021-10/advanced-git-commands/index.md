@@ -35,7 +35,7 @@ By using this command you can now add all files even if they are new or deleted.
 
 In the previous section we talked about how you can add and commit all files, but it requires two commands and is bulky to write out especially considering it is something you will be doing all the time. That is where Git aliases come in. With aliases you can write your own Git commands that do anything you want. Let's take a look at how you would write an alias for the above add/commit command.
 ```shell
-git config --global alias.ac "!git add -A && git commit -m"
+git config --global alias.ac '!git add -A && git commit -m'
 ```
 With this simple line we are modifying our global Git config and adding an alias called `ac` which will run the command `git add -A && git commit -m`. The code looks a bit confusing, but the result is that I can now run `git ac "Message"` and it will do the full add and commit for me.
 
@@ -109,13 +109,13 @@ git remote update --prune
 ```
 This command will delete all the tracking information for branches that are on your local machine that are not in the remote repository, but it does not delete your local branches. In order to do that you need to run a bit of a tricky command.
 ```shell
-git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+git branch -vv | awk "/: gone]/{print $1}" | xargs git branch -d
 ```
 This command will list out all of your branches and then search for any branches that have the remote tracking set to *gone*. This gone status is set from the previous command where we removed the tracking information for branches that no longer exist in the remote repository. Then we are grabbing the branch name for the deleted branch with the `{print $1}` command and passing that to `git branch -d` which will delete the branch for that name.
 
 This is a pretty complex command which is why I recommend combining the previous two commands into one simple git alias that can do all this for you.
 ```shell
-git config --global alias.prune "git remote update --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+git config --global alias.prune 'git remote update --prune && git branch -vv | awk "/: gone]/{print $1}" | xargs git branch -d'
 ```
 
 ## 9. Bisect
