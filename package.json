@@ -6,7 +6,7 @@
   "author": "Kyle Cook <kyle@webdevsimplified.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.5",
-    "@mdx-js/react": "^1.5.5",
+    "@mdx-js/react": "^1.5.9",
     "gatsby": "^2.17.4",
     "gatsby-image": "^2.2.29",
     "gatsby-plugin-feed-mdx": "^1.0.1",

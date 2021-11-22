@@ -5,8 +5,8 @@ description: "Flexbox is easy to get started with but hard to master which is wh
 tags: ['CSS']
 ---
 
-import Flexbox from "../../../../src/blogComponents/flexbox/FlexboxGeneric"
-
+import FlexboxGeneric from "../../../../src/blogComponents/flexbox/FlexboxGeneric"
+import FlexboxAxes from "../../../../src/blogComponents/flexbox/FlexboxAxes"
 
 Laying out elements in CSS is something that used to be pretty difficult to do. We were forced to use annoying hacks like floating elements with clearfixes, but then flexbox was created. Flexbox revolutionized CSS layouts and is by far one of the most defining features of CSS to come out in the last 10 years. In this article I will teach you exactly what flexbox is, how you can use it, and all the advanced nuances you need to understand.
 
@@ -15,39 +15,11 @@ Laying out elements in CSS is something that used to be pretty difficult to do. 
 
 ## What Is Flexbox?
 
-Flexbox is a way to layout elements in CSS and is broken into a two main components. The flexbox container and flexbox items. The flexbox container is the parent element that contains all the flexbox items as its children. The flexbox container is where you define all your properties about the flexbox layout and then on the individual items you can make additional tweaks. Let's take a look at how we would get started with a simple flexbox example.
-```html
-<div class="flex-container">
-  <div class="flex-item">1</div>
-  <div class="flex-item">2</div>
-  <div class="flex-item">3</div>
-</div>
-```
-```css
-.flex-container {
-  display: flex;
-}
+Flexbox is a way to layout elements in CSS and is broken into a two main components. The flexbox container and flexbox items. The flexbox container is the parent element that contains all the flexbox items as its children. The flexbox container is where you define all your properties about the flexbox layout and then on the individual items you can make additional tweaks. Let's take a look at how we would get started with a simple flexbox example. If we have an element with children inside of it all we need to do is set the display property of the parent element to `flex` and we will have a flex container. `display: flex`
 
-.flex-item {
-  width: 20%;
-}
-```
-<Flexbox />
+<FlexboxGeneric />
 
 As you can see by default when we specify a display of flex on an element we are setting that element as the flex container. All the direct children in that element are then considered flex items. By default if you specify no other properties the flex items will lay themselves out on one line from left to right taking up only as much space as they need. Items will also automatically shrink down to fit within the flex container if they would normally overflow.
-
-```css
-.flex-container {
-  display: flex;
-}
-
-.flex-item {
-  width: 50%;
-}
-```
-<Flexbox width="50%" />
-
-Even though we set the width to 50% above the items have their size reduced to 33% each to fit within the container.
 
 Now this is the absolute basics of flexbox and on its own isn't really useful so next we need to talk about how to handle the layout of items in the container.
 
@@ -55,7 +27,7 @@ Now this is the absolute basics of flexbox and on its own isn't really useful so
 
 Flexbox was the first CSS layout method that worked in a completely different way than normal CSS. Instead of worrying about block/inline elements flexbox worries about a main axis and a cross axis.
 
-<Flexbox withCrossAxis withMainAxis />
+<FlexboxAxes />
 
 By default the main axis (shown in green) goes horizontally across the container and the cross axis goes vertically. This means that any layout method that deals with the main axis will layout elements horizontally while the cross axis will layout elements vertically. Let's look at how we can layout elements along the main axis first.
 
@@ -78,7 +50,8 @@ Places all items at the start of the main axis which is the left side of the axi
   justify-content: flex-start;
 }
 ```
-<Flexbox justify="flex-start" />
+
+<FlexboxGeneric justify="flex-start" />
 
 #### `flex-end`
 
@@ -90,7 +63,8 @@ Places all items at the end of the main axis which is the right side of the axis
   justify-content: flex-end;
 }
 ```
-<Flexbox justify="flex-end" />
+
+<FlexboxGeneric justify="flex-end" />
 
 #### `center`
 
@@ -102,7 +76,8 @@ Places all items in the center of the main axis. This is one of the easiest ways
   justify-content: center;
 }
 ```
-<Flexbox justify="center" />
+
+<FlexboxGeneric justify="center" />
 
 #### `space-between`
 
@@ -114,7 +89,8 @@ This takes all the extra space inside the container and evenly spreads it betwee
   justify-content: space-between;
 }
 ```
-<Flexbox justify="space-between" />
+
+<FlexboxGeneric justify="space-between" />
 
 #### `space-around`
 
@@ -126,7 +102,8 @@ This is very similar to `space-between`, but it also adds space between the outs
   justify-content: space-around;
 }
 ```
-<Flexbox justify="space-around" />
+
+<FlexboxGeneric justify="space-around" />
 
 #### `space-evenly`
 
@@ -138,7 +115,8 @@ This is very similar to `space-around`, but the space between the outside of the
   justify-content: space-evenly;
 }
 ```
-<Flexbox justify="space-evenly" />
+
+<FlexboxGeneric justify="space-evenly" />
 
 With all of these properties you can easily lay elements out along the main axis to fit any need. Now let's talk about how to lay out element on the cross axis.
 
@@ -178,7 +156,8 @@ This will stretch all items to fill the full height of the cross axis unless the
   height: initial;
 }
 ```
-<Flexbox align="stretch" variedHeight elementProps={[{ height: "initial" }]} />
+
+<FlexboxGeneric align="stretch" variedHeight elementProps={[{ height: "initial" }]} />
 
 #### `flex-start`
 
@@ -190,7 +169,8 @@ This works the same as `flex-start` for `justify-content`, but will start at the
   align-items: flex-start;
 }
 ```
-<Flexbox align="flex-start" variedHeight />
+
+<FlexboxGeneric align="flex-start" variedHeight />
 
 #### `flex-end`
 
@@ -202,7 +182,8 @@ This works the same as `flex-end` for `justify-content`, but will start at the b
   align-items: flex-end;
 }
 ```
-<Flexbox align="flex-end" variedHeight />
+
+<FlexboxGeneric align="flex-end" variedHeight />
 
 #### `center`
 
@@ -214,7 +195,8 @@ This works the same as `center` for `justify-content`, but will center based on 
   align-items: center;
 }
 ```
-<Flexbox align="center" variedHeight />
+
+<FlexboxGeneric align="center" variedHeight />
 
 Now this covers all the ways you can layout elements along the main and cross axis, but there is one more important thing you need to know about flexbox axes. They can actually be swapped. There is a property called `flex-direction` which determines the orientation of the main and cross axis.
 
@@ -234,7 +216,8 @@ The default direction is row. This means the main axis is horizontal while the c
   align-items: flex-start;
 }
 ```
-<Flexbox direction="row" variedHeight />
+
+<FlexboxGeneric direction="row" variedHeight />
 
 #### `row-reverse`
 
@@ -248,7 +231,8 @@ Similar to `row` we have `row-reverse`. This direction does **not** swap the mai
   align-items: flex-start;
 }
 ```
-<Flexbox direction="row-reverse" variedHeight />
+
+<FlexboxGeneric direction="row-reverse" variedHeight />
 
 #### `column`
 
@@ -262,7 +246,8 @@ The `column` direction completely swaps our axes so now the main axis is vertica
   align-items: center;
 }
 ```
-<Flexbox direction="column" align="center" />
+
+<FlexboxGeneric direction="column" align="center" />
 
 #### `column-reverse`
 
@@ -276,7 +261,8 @@ The `column-reverse` direction is essentially the same as `column`, but it rever
   align-items: center;
 }
 ```
-<Flexbox direction="column-reverse" align="center" />
+
+<FlexboxGeneric direction="column-reverse" align="center" />
 
 Now that is a lot of stuff we just covered related to layout, but really the main things you need to understand are `justify-content`, `align-items`, `flex-direction`, and how each of those effect the main/cross axis.
 
@@ -294,7 +280,8 @@ So far everything we have covered has had to deal with the layout of the entire 
   align-self: flex-end;
 }
 ```
-<Flexbox variedHeight elementProps={[{ alignSelf: "flex-end" }]} />
+
+<FlexboxGeneric variedHeight elementProps={[{ alignSelf: "flex-end" }]} />
 
 As you can see from the above example we set the `align-self` property of the first child to `flex-end` and it is now aligned at the bottom of our cross axis even though the flex container as a whole has an `align-items` of `flex-start`.
 
@@ -312,7 +299,7 @@ The real power of flexbox is not in its layout properties (even though, those ar
 
 The `flex-grow` property is a property you define on a flex item and it tells the item how much of the extra space that item is allowed to take to fill its container. By default this property is set to 0 which means the item does not get any extra space. Let's first look at a flex container where none of the items have `flex-grow` set.
 
-<Flexbox />
+<FlexboxGeneric />
 
 As you can see each item is taking up only its width and the rest of the space in the container is unfilled. This is the default behavior of flexbox, but if you want one or more items to fill the remaining space you need `flex-grow`.
 
@@ -322,7 +309,7 @@ As you can see each item is taking up only its width and the rest of the space i
 }
 ```
 
-<Flexbox elementProps={[{}, { flexGrow: 1 }]} />
+<FlexboxGeneric elementProps={[{}, { flexGrow: 1 }]} />
 
 By setting a `flex-grow` of 1 we are telling the second element that it should get 1 part of the extra space and since no other items have a flex grow that 1 part of extra space is the entirety of the extra space.
 
@@ -333,7 +320,7 @@ By setting a `flex-grow` of 1 we are telling the second element that it should g
 }
 ```
 
-<Flexbox elementProps={[{ flexGrow: 1 }, { flexGrow: 1 }]} />
+<FlexboxGeneric elementProps={[{ flexGrow: 1 }, { flexGrow: 1 }]} />
 
 In this example we set both the first and second element to a `flex-grow` of 1 so now each of those element will receive 1 part of the remaining space. To determine how much space that is we just add up all the `flex-grow` numbers for each item in the container (1 + 1 = 2) and then divide the `flex-grow` of each item by that number. Since our `flex-grow` for each item is 1 each item will get 1/2 of the remaining space added to it.
 
@@ -351,7 +338,7 @@ We can make more complex layouts, though, by giving some elements more or less o
 
 In this example we are saying the first element should get 2 parts of the remaining space while the second element only gets 1 part. When we do the math we will see that the first element gets 2/3 of the remaining space while the second element only gets 1/3 the remaining space.
 
-<Flexbox elementProps={[{ flexGrow: 2 }, { flexGrow: 1 }]} />
+<FlexboxGeneric elementProps={[{ flexGrow: 2 }, { flexGrow: 1 }]} />
 
 At first glance you may think this code is saying that the first element should be twice the size of the second element but flex grow only cares about the remaining space after all elements are added to the container. Since by default our 3 elements take up 60% of the container size the remaining space to divide between the elements is only 40% of the container size. We can actually modify how this remaining space is calculated, though, by using `flex-basis`
 
@@ -364,20 +351,22 @@ The `flex-basis` property tells our flex container how much space the item is ta
   flex-basis: 40%;
 }
 ```
-<Flexbox elementProps={[{ flexBasis: "40%" }]} />
+
+<FlexboxGeneric elementProps={[{ flexBasis: "40%" }]} />
 
 In the above code we set the `flex-basis` of the first element to 40% so now instead of taking up 20% of the width (which is what we have defined as the `width` of the element) it will instead take up 40% of the container size. This now means there is less space remaining in the container to divide up with `flex-grow`.
 
 This property is really only useful when you want to change the width of elements in the flex container so they work better with `flex-grow`. For example let's say you want to create 3 equal size elements in your container, but they all have different widths to start with that you cannot change.
 
-<Flexbox elementProps={[{ width: "10%" }, { width: "20%" }, { width: "30%" }]} />
+<FlexboxGeneric elementProps={[{ width: "10%" }, { width: "20%" }, { width: "30%" }]} />
 
 ```css
 .flex-item {
   flex-grow: 1;
 }
 ```
-<Flexbox elementProps={[{ flexGrow: 1, width: "10%" }, { flexGrow: 1, width: "20%" }, { flexGrow: 1, width: "30%" }]} />
+
+<FlexboxGeneric elementProps={[{ flexGrow: 1, width: "10%" }, { flexGrow: 1, width: "20%" }, { flexGrow: 1, width: "30%" }]} />
 
 You may think just setting `flex-grow` to 1 would make them all the same size, but since they start out at different widths they will end up at different widths since the amount of extra space added to the elements is exactly the same for each independent of their size.
 
@@ -389,7 +378,8 @@ To get around this issue you need to give all elements the same `flex-basis` so 
   flex-basis: 0;
 }
 ```
-<Flexbox elementProps={[{ flexGrow: 1, flexBasis: 0 }, { flexGrow: 1, flexBasis: 0 }, { flexGrow: 1, flexBasis: 0 }]} />
+
+<FlexboxGeneric elementProps={[{ flexGrow: 1, flexBasis: 0 }, { flexGrow: 1, flexBasis: 0 }, { flexGrow: 1, flexBasis: 0 }]} />
 
 Now the last sizing property we have to talk about is `flex-shrink` which we have actually already seen in action.
 
@@ -402,7 +392,8 @@ Way back at the start of this article I mentioned how if the flex items in a con
   width: 50%;
 }
 ```
-<Flexbox width="50%" />
+
+<FlexboxGeneric width="50%" />
 
 Even though each element should be 50% of the container they shrink down evenly so that each element is only 33% of the container size. If we wanted to prevent one of the children from shrinking we could set the `flex-shrink` to 0.
 
@@ -415,7 +406,8 @@ Even though each element should be 50% of the container they shrink down evenly 
   flex-shrink: 0;
 }
 ```
-<Flexbox width="50%" elementProps={[{ flexShrink: 0 }]} />
+
+<FlexboxGeneric width="50%" elementProps={[{ flexShrink: 0 }]} />
 
 As you can see the first element stays 50% of the container size and does not shrink while the other two elements shrink down to ensure all items can fit in the container.
 
@@ -430,7 +422,8 @@ We can also make it so that some items shrink more than other.
   flex-shrink: 2;
 }
 ```
-<Flexbox width="50%" elementProps={[{ flexShrink: 2 }]} />
+
+<FlexboxGeneric width="50%" elementProps={[{ flexShrink: 2 }]} />
 
 By setting `flex-shrink` to 2 we are saying that the first element should lose 2 parts of the overflown space while the other two elements each only lose 1 part since they are set to a `flex-shrink` of 1 by default. This works exactly the same as `flex-grow` when it comes to proportions, but `flex-shrink` deals with the overflown space outside the container while `flex-grow` deals with the space left over inside the container.
 
@@ -453,7 +446,8 @@ When you are working in flexbox you are usually working with just one line of it
   width: 50%;
 }
 ```
-<Flexbox width="50%" wrap="wrap" />
+
+<FlexboxGeneric width="50%" wrap="wrap" />
 
 Since our items have a width of 50% normally they would shrink to ensure they all fit on one line, but we set the `flex-wrap` property to `wrap` which means that if an item would overflow the container it is instead put on a new line. This is fine if you are using wrap to ensure that even if your list of items grows to be too large they still will look good, but if you are using wrapping to create a two dimensional layout you are using flexbox wrong. Instead you should look towards using CSS grid. You can check out my [CSS grid tutorial video](https://youtu.be/9zBsdzdE4sM) for more information on CSS grid.
 
@@ -478,8 +472,9 @@ If you use `flex-wrap` in a column layout then the items will wrap onto new colu
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox width="auto" height="100px" wrap="wrap" direction="column" />
+  <FlexboxGeneric width="auto" height="100px" wrap="wrap" direction="column" />
 </div>
 
 Another important thing to know is that now that there are multiple rows/columns you can use `align-content` to layout how the different rows/columns interact.
@@ -500,8 +495,9 @@ For example in a normal flexbox layout the `align-content` property is set to `n
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox width="50%" alignContent="flex-end" height="100px" wrap="wrap" />
+  <FlexboxGeneric width="50%" alignContent="flex-end" height="100px" wrap="wrap" />
 </div>
 
 As you can see all the items are positioned at the bottom of the container which is the end of the cross axis. If we were to use a column layout instead then `align-content` would position the elements horizontally.
@@ -518,8 +514,9 @@ As you can see all the items are positioned at the bottom of the container which
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox height="100px" wrap="wrap" direction="column" alignContent="center" />
+  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" />
 </div>
 
 
@@ -535,7 +532,8 @@ One thing that we haven't covered so far is the ability to add gaps between elem
   gap: 10px;
 }
 ```
-<Flexbox gap="10px" />
+
+<FlexboxGeneric gap="10px" />
 
 As you can see each of our items above has a gap of 10px between them. This gap also works for multiline flex containers too.
 
@@ -552,8 +550,9 @@ As you can see each of our items above has a gap of 10px between them. This gap 
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox height="100px" wrap="wrap" direction="column" alignContent="center" gap="10px" />
+  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" gap="10px" />
 </div>
 
 As you can see each of our rows/columns has a 10px gap.
@@ -573,8 +572,9 @@ We can also go a step further and define only a row gap or only a column gap.
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox height="100px" wrap="wrap" direction="column" alignContent="center" rowGap="10px" />
+  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" rowGap="10px" />
 </div>
 
 ```css {6}
@@ -590,8 +590,9 @@ We can also go a step further and define only a row gap or only a column gap.
   height: 100px;
 }
 ```
+
 <div style={{ height: "250px", marginBottom: "1rem" }}>
-  <Flexbox height="100px" wrap="wrap" direction="column" alignContent="center" columnGap="10px" />
+  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" columnGap="10px" />
 </div>
 
 
@@ -612,7 +613,8 @@ By default we can order elements in normal order or reverse order by using `flex
   order: 1
 }
 ```
-<Flexbox elementProps={[{ order: 2 }]} />
+
+<FlexboxGeneric elementProps={[{ order: 2 }]} />
 
 As you can see by specifying the `order` property of our elements we can determine the exact order of them. By default each element has an order of 0 and since flexbox will layout out all elements with the same order based on their order in the HTML you will notice that if you don't define any order all elements will stay in the same order they are in the HTML.
 
