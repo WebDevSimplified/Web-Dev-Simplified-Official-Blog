@@ -90,13 +90,13 @@ export default function FlexboxGeneric({
       {withMainAxis && (
         <>
           <div style={MAIN_AXIS_LABEL_STYLES}>Main Axis</div>
-          <div style={MAIN_AXIS_STYLES} />
+          <div style={MAIN_AXIS_STYLES}></div>
         </>
       )}
       {withCrossAxis && (
         <>
           <div style={CROSS_AXIS_LABEL_STYLES}>Cross Axis</div>
-          <div style={CROSS_AXIS_STYLES} />
+          <div style={CROSS_AXIS_STYLES}></div>
         </>
       )}
       {[...new Array(3)].map((_, n) => (
