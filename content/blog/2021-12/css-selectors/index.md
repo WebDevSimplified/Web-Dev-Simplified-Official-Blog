@@ -346,7 +346,7 @@ You can also use the `only-child`, `last-child`, `nth-child`, and `nth-last-chil
 
 The first of type pseudo class selects the first child inside a parent that matches the specific element type.
 ```css
-a:first-child {
+a:first-of-type {
   color: red;
 }
 ```
