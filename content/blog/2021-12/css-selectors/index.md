@@ -220,7 +220,7 @@ For example, in the above selector we combined together multiple type and class 
 
 ## Pseudo Element Selectors
 
-Now that we have covered the most common types of selectors we need to talk about a few other selectors that you will still use all the time, but are a bit more niche. The first type we are talking about are pseudo element selectors which there are only 2 that you need to know and they are both almost identical.
+Now that we have covered the most common types of selectors we need to talk about a few other selectors that you will still use all the time, but are a bit more niche. The first type we are talking about are pseudo element selectors which there are only 2 that you need to know and they are both almost identical. *If you want to go more in depth on pseudo elements check out my [pseudo element ultimate guide article](/2021-12/css-pseudo-elements).*
 
 *If you prefer to learn visually I have a full video on pseudo elements you can watch.*
 `youtube: OtBpgtqrjyo`
@@ -272,7 +272,7 @@ div:after {
   content: "Technically it works";
 }
 ```
-You also cannot add pseudo elements to elements that cannot have children such as an `img` element.
+You also cannot add pseudo elements to elements that replace their content with something else such as an `img` element.
 
 Lastly, pseudo elements will show up in your browser dev tools which can make debugging them much easier.
 
