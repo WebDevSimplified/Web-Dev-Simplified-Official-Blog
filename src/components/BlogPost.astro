@@ -1,0 +1,70 @@
+---
+import dateFormatter from '../utils/dateFormatter.js'
+import TagBar from './TagBar.jsx'
+import ShareButtons from '/src/components/ShareButtons.jsx'
+
+export interface Props {
+	title: string;
+	author: string;
+	date: string;
+	url: string
+	tags: string[]
+}
+
+const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
+---
+
+<div class="layout">
+	<article class="content">
+		<div>
+			<header>
+				<h1 class="title">{title}</h1>
+				<p class="publish-date">{dateFormatter.format(new Date(date))}</p>
+				<TagBar
+          tags={tags.map(tag => {
+            return { name: tag }
+          })}
+        />
+				<div style="margin-bottom: 1rem"></div>
+				<ShareButtons client:load title={title} url={url} twitterHandle="DevSimplified" siteUrl="https://blog.webdevsimplified.com" tags={tags} />
+			</header>
+			<main>
+				<slot />
+			</main>
+			<!-- TODO: Add author and next/previous buttons. Also, maybe add a scroll to top button as well -->
+			<!-- TODO: Add custom 404 page -->
+		</div>
+	</article>
+</div>
+
+<style>
+	.content {
+		margin-bottom: 8rem;
+	}
+
+	.content :global(main > * + :not(h2):not(h3)) {
+		margin-top: 1rem;
+	}
+
+	.content :global(h2) {
+		margin-top: 4rem;
+	}
+
+	header {
+		margin-bottom: 2rem;
+	}
+
+	.title,
+	.publish-date {
+		margin: 0;
+	}
+
+	.publish-date {
+		color: var(--theme-text-lighter);
+	}
+
+	.title {
+		font-size: 2.25rem;
+		font-weight: 700;
+	}
+</style>

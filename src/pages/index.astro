@@ -1,0 +1,57 @@
+---
+// Component Imports
+import BaseHead from '../components/BaseHead.astro';
+import BlogHeader from '../components/BlogHeader.astro';
+import BlogList from '/src/components/BlogList.jsx';
+
+interface MarkdownFrontmatter {
+	date: number
+	title: string
+	description: string
+	tags: string[]
+	url: string
+}
+
+// Component Script:
+// You can write any JavaScript/TypeScript that you'd like here.
+// It will run during the build, but never in the browser.
+// All variables are available to use in the HTML template below.
+let title = 'Web Dev Simplified Blog';
+let description = 'Web Dev Simplified Blog';
+let permalink = 'https://blog.webdevsimplified.com';
+
+// Data Fetching: List all Markdown posts in the repo.
+
+let allPosts = await Astro.fetchContent<MarkdownFrontmatter>('./**/*.md');
+allPosts = allPosts
+	.map(post => ({ title: post.title, description: post.description, tags: post.tags, date: new Date(post.date), url: post.url }))
+	.sort((a, b) => b.date.valueOf() - a.date.valueOf());
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+	<head>
+		<BaseHead {title} {description} {permalink} />
+		<link rel="stylesheet" href={Astro.resolve('../styles/blog.css')} />
+
+		<style>
+			.content {
+				margin-top: 4rem;
+				margin-bottom: 8rem;
+			}
+
+			.content :global(main > * + *) {
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<BlogHeader />
+		<div class="wrapper">
+			<BlogList client:load allPosts={allPosts} />
+		</div>
+	</body>
+</html>

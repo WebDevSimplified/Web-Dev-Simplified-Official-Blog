@@ -1,6 +1,19 @@
 .share-icon {
   margin-right: .25rem;
   opacity: .5;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: 150ms opacity ease-in-out;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
+
+.share-icon:focus {
+  outline: revert;
+	outline-offset: revert;
 }
 
 .share-icon:last-child {

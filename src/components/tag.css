@@ -4,7 +4,6 @@
 
 .tag:focus + label {
   outline-width: 2px;
-  outline-color: black;
   outline: 2px auto black;
   outline-offset: 3px;
   border-radius: .25em;

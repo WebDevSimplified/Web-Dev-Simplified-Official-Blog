@@ -1,0 +1,64 @@
+---
+const {
+  direction = "row",
+  justify = "flex-start",
+  align = "stretch",
+  wrap = "nowrap",
+  gap,
+  rowGap,
+  columnGap,
+  alignContent = "normal",
+  variedHeight = false,
+  firstElementStyles = "",
+  secondElementStyles = "",
+  thirdElementStyles = "",
+  width = "20%",
+  height = "100px",
+} = Astro.props
+
+const boxStyles = `
+  justify-content: ${justify};
+  align-items: ${align};
+  flex-direction: ${direction};
+  flex-wrap: ${wrap};
+  align-content: ${alignContent};
+  ${gap != null ? `gap: ${gap};` : ""}
+  ${rowGap != null ? `row-gap: ${rowGap};` : ""}
+  ${columnGap != null ? `column-gap: ${columnGap};` : ""}`
+---
+  
+<div style={boxStyles} class="container">
+  {[...new Array(3)].map((_, n) => {
+    let styles
+    if (n === 0) styles = firstElementStyles
+    if (n === 1) styles = secondElementStyles
+    if (n === 2) styles = thirdElementStyles
+    return (
+      <div class="item" style={`width: ${width}; height: ${variedHeight ? `${25 * (n + 3)}px` : height}; ${styles}`}>
+        {n + 1}
+      </div>
+    )
+  })}
+</div>
+
+<style>
+  .container {
+    display: flex;
+    border: 2px dashed black;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    position: relative;
+    height: 100%;
+    max-width: 650px
+  }
+
+  .item {
+    background-color: #00aaff;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    color: white;
+  }
+</style>

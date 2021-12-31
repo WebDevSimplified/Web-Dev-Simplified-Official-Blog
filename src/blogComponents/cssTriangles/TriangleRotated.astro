@@ -1,0 +1,23 @@
+<div class="triangle-rotated"></div>
+
+<style>
+  .triangle-rotated {
+    position: relative;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .triangle-rotated::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: blue;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+</style>
