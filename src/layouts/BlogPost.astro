@@ -6,7 +6,7 @@ import "prismjs/themes/prism-okaidia.css"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 
 const { content } = Astro.props;
-const { title, description, date, author, permalink, tags } = content;
+const { title, description, date, author = "Kyle Cook", permalink, tags } = content;
 const url = Astro.request.url.href
 ---
 

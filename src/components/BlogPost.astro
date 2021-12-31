@@ -5,13 +5,13 @@ import ShareButtons from '/src/components/ShareButtons.jsx'
 
 export interface Props {
 	title: string;
-	author: string;
 	date: string;
 	url: string
 	tags: string[]
 }
 
-const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
+const { title, date, tags, url } = Astro.props;
+const siteUrl = Astro.site.href
 ---
 
 <div class="layout">
@@ -20,13 +20,14 @@ const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
 			<header>
 				<h1 class="title">{title}</h1>
 				<p class="publish-date">{dateFormatter.format(new Date(date))}</p>
-				<TagBar
-          tags={tags.map(tag => {
-            return { name: tag }
-          })}
-        />
-				<div style="margin-bottom: 1rem"></div>
-				<ShareButtons client:load title={title} url={url} twitterHandle="DevSimplified" siteUrl="https://blog.webdevsimplified.com" tags={tags} />
+				<div style="margin-bottom: 1rem">
+					<TagBar
+						tags={tags.map(tag => {
+							return { name: tag }
+						})}
+					/>
+				</div>
+				<ShareButtons client:load title={title} url={url} twitterHandle="DevSimplified" siteUrl={siteUrl} tags={tags} />
 			</header>
 			<main>
 				<slot />
@@ -36,6 +37,8 @@ const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
 			<!-- TODO: Add search/tags to URL to make the back button work better -->
 			<!-- TODO: Transfer over articles -->
 			<!-- TODO: Add Gogle Analytics -->
+			<!-- TODO: Add social share images (https://joeprevite.com/create-a-twitter-card-for-your-blog) (Maybe dynamically generate a CSS page that is scraped with puppeteer or use something like ImageMagik or ffmpeg) -->\
+			<!-- Add RSS Feed -->
 		</div>
 	</article>
 </div>
