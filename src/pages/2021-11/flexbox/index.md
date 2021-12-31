@@ -9,8 +9,6 @@ description: "Flexbox is easy to get started with but hard to master which is wh
 tags: ['CSS']
 ---
 
-<!-- TODO: FIX -->
-
 Laying out elements in CSS is something that used to be pretty difficult to do. We were forced to use annoying hacks like floating elements with clearfixes, but then flexbox was created. Flexbox revolutionized CSS layouts and is by far one of the most defining features of CSS to come out in the last 10 years. In this article I will teach you exactly what flexbox is, how you can use it, and all the advanced nuances you need to understand.
 
 *If you prefer to learn visually, check out the video version of this article.*
