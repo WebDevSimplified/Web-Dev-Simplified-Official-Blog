@@ -1,0 +1,47 @@
+---
+export interface Props {
+	delay: string;
+	duration: string;
+	fillMode: string;
+	direction: string;
+	iterations: number;
+  innerText: string;
+}
+const { delay = '.5s', duration = '1.5s', fillMode = 'none', direction = 'normal', iterations = 1, innerText = 'Hover Me' } = Astro.props;
+const style = `animation: ${duration} ${delay} ${direction} ${iterations} ${fillMode};`
+// const style = `animation-delay: ${delay}; animation-duration: ${duration}; animation-fill-mode: ${fillMode}; animation-direction: ${direction} animation-iteration-count: ${iterations};`
+---
+
+<div style={style} class="animation-fill-mode-example">{innerText}</div>
+
+
+<style>
+  .animation-fill-mode-example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: hover;
+    margin: 1rem 0;
+  }
+
+  .animation-fill-mode-example {
+    background-color: #DDD;
+  }
+
+  .animation-fill-mode-example:hover {
+    background-color: red;
+    animation-name: color-change !important;
+  }
+
+  @keyframes color-change {
+    0% {
+      background-color: green;
+    }
+
+    100% {
+      background-color: purple;
+    }
+  }
+</style>

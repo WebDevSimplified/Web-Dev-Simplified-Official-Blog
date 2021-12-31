@@ -1,0 +1,83 @@
+---
+import dateFormatter from '../utils/dateFormatter.js'
+import TagBar from './TagBar.jsx'
+import ShareButtons from '/src/components/ShareButtons.jsx'
+
+export interface Props {
+	title: string;
+	date: string;
+	url: string
+	tags: string[]
+}
+
+const { title, date, tags, url } = Astro.props;
+const siteUrl = Astro.site.href
+---
+
+<div class="layout">
+	<article class="content">
+		<div>
+			<header>
+				<h1 class="title">{title}</h1>
+				<p class="publish-date">{dateFormatter.format(new Date(date))}</p>
+				<div style="margin-bottom: 1rem">
+					<TagBar
+						tags={tags.map(tag => {
+							return { name: tag }
+						})}
+					/>
+				</div>
+				<ShareButtons client:load title={title} url={url} twitterHandle="DevSimplified" siteUrl={siteUrl} tags={tags} />
+			</header>
+			<main>
+				<slot />
+			</main>
+			<!-- TODO: Add author and next/previous buttons. Also, maybe add a scroll to top button as well -->
+			<!-- TODO: Add custom 404 page -->
+			<!-- TODO: Add search/tags to URL to make the back button work better -->
+			<!-- TODO: Transfer over articles -->
+			<!-- TODO: Add Gogle Analytics -->
+			<!-- TODO: Add social share images (https://joeprevite.com/create-a-twitter-card-for-your-blog) (Maybe dynamically generate a CSS page that is scraped with puppeteer or use something like ImageMagik or ffmpeg) -->\
+			<!-- Add RSS Feed -->
+		</div>
+	</article>
+</div>
+
+<style>
+	.content {
+		margin-bottom: 8rem;
+	}
+
+	.content :global(main > * + :not(h2):not(h3)) {
+		margin-top: 1rem;
+	}
+
+	.content :global(h2) {
+		margin-top: 4rem;
+	}
+
+	header {
+		margin-bottom: 2rem;
+	}
+
+	.title,
+	.publish-date {
+		margin: 0;
+	}
+
+	.publish-date {
+		color: var(--theme-text-lighter);
+	}
+
+	.title {
+		font-size: 2.25rem;
+		font-weight: 700;
+	}
+
+	@media (max-width: 50em) {
+		.title {
+			font-size: 1.75rem;
+			overflow-wrap: break-word;
+		}
+	}
+</style>

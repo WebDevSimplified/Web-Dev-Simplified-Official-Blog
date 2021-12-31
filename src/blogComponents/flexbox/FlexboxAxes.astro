@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="main-axis-label">Main Axis</div>
+  <div class="main-axis"></div>
+  <div class="cross-axis-label">Cross Axis</div>
+  <div class="cross-axis"></div>
+</div>
+
+<style>
+  .container {
+    height: 100px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed black;
+    background-color: #00AAFF;
+    margin-bottom: 1rem;
+  }
+
+  .main-axis {
+    background-color: lime;
+    width: 100%;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    height: 5px;
+  }
+
+  .cross-axis {
+    background-color: yellow;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    height: 100%;
+    width: 5px;
+  }
+
+  .main-axis-label {
+    font-weight: bold;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    font-size: 1.5rem;
+    justify-self: start;
+    transform: translateY(-50%) translateX(5px);
+    color: lime;
+  }
+
+  .cross-axis-label {
+    font-weight: bold;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    font-size: 1.5rem;
+    transform: translateX(calc(50% + 5px));
+    align-self: start;
+    color: yellow;
+  }
+</style>

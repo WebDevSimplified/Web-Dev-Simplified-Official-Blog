@@ -1,0 +1,28 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import BlogHeader from '../components/BlogHeader.astro';
+import BlogPost from '../components/BlogPost.astro';
+import "prismjs/themes/prism-okaidia.css"
+import "prismjs/plugins/line-highlight/prism-line-highlight.css"
+
+const { content } = Astro.props;
+const { title, description, date, author = "Kyle Cook", permalink, tags } = content;
+const url = Astro.request.url.href
+---
+
+<html lang={content.lang || 'en'}>
+	<head>
+		<BaseHead {title} {description} {permalink} />
+		<link rel="stylesheet" href={Astro.resolve('../styles/blog.css')} />
+		<link rel="stylesheet" href={Astro.resolve('../styles/prism-highlight.css')} />
+	</head>
+
+	<body>
+		<BlogHeader />
+		<div class="wrapper">
+			<BlogPost {title} {author} {date} {tags} {url}>
+				<slot />
+			</BlogPost>
+		</div>
+	</body>
+</html>

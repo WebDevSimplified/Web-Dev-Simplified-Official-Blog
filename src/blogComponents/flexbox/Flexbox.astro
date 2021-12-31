@@ -1,0 +1,27 @@
+---
+const { direction = "row", justify = "flex-start", align = "flex-start" } = Astro.props
+---
+
+<div class="container"
+  style={`justify-content: ${justify}; align-items: ${align}; flex-direction: ${direction}`}
+>
+  <div class="item" style="width: 50px; height: 50px;"></div>
+  <div class="item" style="width: 75px; height: 75px;"></div>
+  <div class="item" style="width: 50px; height: 50px;"></div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    height: 150px;
+    width: 300px;
+    background-color: #00AAFF;
+    margin-bottom: 1rem;
+  }
+
+  .item {
+    margin: 10px;
+    background-color: white;
+    border: 1px solid black;
+  }
+</style>

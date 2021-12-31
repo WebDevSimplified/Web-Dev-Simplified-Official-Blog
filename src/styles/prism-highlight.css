@@ -1,0 +1,19 @@
+.line-highlight {
+  background-color: #55574A !important;
+  border-left: 0.25em solid #00AAFF;
+  z-index: -1;
+  margin-left: -1em;
+  margin-right: -1em;
+  margin-top: 0 !important;
+}
+
+pre[data-line] {
+  padding: 1em !important;
+}
+
+.remark-highlight > pre[class*="language-"] > code[class*="language-"] {
+  position: relative;
+  z-index: 0;
+  min-width: 100%;
+  display: inline-block;
+}
