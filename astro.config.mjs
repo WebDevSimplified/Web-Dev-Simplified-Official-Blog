@@ -14,6 +14,10 @@ import codeHighlightPre from "./src/plugins/codeHighlightPre.mjs"
 export default /** @type {import('astro').AstroUserConfig} */ ({
   // Enable the Preact renderer to support Preact JSX components.
   renderers: ["@astrojs/renderer-preact"],
+  buildOptions: {
+    site: "https://blog.webdevsimplified.com",
+    sitemap: true,
+  },
   markdownOptions: {
     render: [
       "@astrojs/markdown-remark",
@@ -34,3 +38,5 @@ export default /** @type {import('astro').AstroUserConfig} */ ({
     ],
   },
 })
+
+// TODO: Add Google Analytics
