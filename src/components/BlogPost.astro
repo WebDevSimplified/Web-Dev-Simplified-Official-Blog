@@ -34,6 +34,8 @@ const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
 			<!-- TODO: Add author and next/previous buttons. Also, maybe add a scroll to top button as well -->
 			<!-- TODO: Add custom 404 page -->
 			<!-- TODO: Add search/tags to URL to make the back button work better -->
+			<!-- TODO: Transfer over articles -->
+			<!-- TODO: Add Gogle Analytics -->
 		</div>
 	</article>
 </div>
@@ -67,5 +69,12 @@ const { title, author = "Kyle Cook", date, tags, url } = Astro.props;
 	.title {
 		font-size: 2.25rem;
 		font-weight: 700;
+	}
+
+	@media (max-width: 50em) {
+		.title {
+			font-size: 1.75rem;
+			overflow-wrap: break-word;
+		}
 	}
 </style>

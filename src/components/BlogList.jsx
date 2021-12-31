@@ -48,8 +48,8 @@ export default function BlogList({ allPosts }) {
     <div class="wrapper">
       <SearchBar query={searchQuery} onChange={handleSearchChange} />
       <TagBar tags={tags} onTagSelect={handleTagSelect} />
-      <main class="content" style={{ marginTop: "3rem" }}>
-        <section aria-label="Blog post list">
+      <main className="content">
+        <section className="blog-post-list" aria-label="Blog post list">
           {filteredPosts.map(p => (
             <BlogPostPreview post={p} />
           ))}

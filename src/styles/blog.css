@@ -115,6 +115,7 @@ nav ul {
 	margin-bottom: 1.38rem;
 	font-weight: 400;
 	line-height: 1.3;
+	overflow-wrap: break-word;
 }
 
 :is(h1, h2) {
@@ -250,4 +251,79 @@ th:first-child, td:first-child {
 
 th:last-child, td:last-child {
 	padding-right: .5rem;
+}
+
+.preview-title {
+	margin: 0;
+	font-size: 2.25rem;
+	font-weight: 700;
+	color: var(--theme-text);
+}
+
+.blog-preview-wrapper {
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+}
+
+.blog-post-list {
+	margin-top: 5rem;
+}
+
+@media (max-width: 50em) {
+	.preview-title {
+		font-size: 1.75rem;
+		overflow-wrap: break-word;
+	}
+
+	.blog-post-list {
+		margin-top: 4rem;
+	}
+
+	.blog-preview-wrapper {
+		margin-bottom: 2rem;
+	}
+
+	.wrapper {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+	h1 {
+		font-size: 2.074rem;
+	}
+	
+	h2 {
+		font-size: 1.728rem;
+	}
+	
+	h3 {
+		font-size: 1.44rem;
+	}
+	
+	h4 {
+		font-size: 1.2rem;
+	}
+	
+	h5 {
+		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 25em) {
+	.preview-title {
+		font-size: 1.5rem;
+	}
+
+	.blog-post-list {
+		margin-top: 3rem;
+	}
+
+	.blog-preview-wrapper {
+		margin-bottom: 1rem;
+	}
+
+	.wrapper {
+		padding-left: .5rem;
+		padding-right: .5rem;
+	}
 }

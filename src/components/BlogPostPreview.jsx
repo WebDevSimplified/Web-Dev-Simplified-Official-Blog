@@ -3,7 +3,7 @@ import dateFormatter from "../utils/dateFormatter.js"
 
 export default function BlogPostPreview({ post }) {
   return (
-    <article style={{ paddingBottom: "2rem", marginBottom: "3rem" }}>
+    <article class="blog-preview-wrapper">
       <header
         style={{
           alignItems: "flex-start",
@@ -14,17 +14,8 @@ export default function BlogPostPreview({ post }) {
           textAlign: "left",
         }}
       >
-        <a href={post.url}>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "2.25rem",
-              fontWeight: 700,
-              color: "var(--theme-text)",
-            }}
-          >
-            {post.title}
-          </h1>
+        <a href={post.url} style={{ display: "inline-block", width: "100%" }}>
+          <h1 className="preview-title">{post.title}</h1>
         </a>
         <p
           style={{

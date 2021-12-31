@@ -38,5 +38,3 @@ export default /** @type {import('astro').AstroUserConfig} */ ({
     ],
   },
 })
-
-// TODO: Add Google Analytics
