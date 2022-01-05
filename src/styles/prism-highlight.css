@@ -17,3 +17,7 @@ pre[data-line] {
   min-width: 100%;
   display: inline-block;
 }
+
+code[class*=language-], pre[class*=language-] {
+  font-size: inherit;
+}
