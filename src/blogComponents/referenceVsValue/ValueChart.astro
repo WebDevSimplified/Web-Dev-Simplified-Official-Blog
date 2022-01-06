@@ -1,5 +1,8 @@
 ---
-const { variables, memory = [] } = Astro.props
+const { variables: variablesString, memory: memoryString = "[]" } = Astro.props
+// TODO: Hopefully eventually be able to do this without eval
+const variables = eval(`(${variablesString})`)
+const memory = eval(`(${memoryString})`)
 const memoryClass = memory.length < Object.entries(variables).length ? "border-bottom" : ""
 ---
 
@@ -17,8 +20,8 @@ const memoryClass = memory.length < Object.entries(variables).length ? "border-b
     <tbody>
       {Object.entries(variables).map(([key, value]) => (
         <tr>
-          <td>{value}</td>
           <td>{key}</td>
+          <td>{value}</td>
         </tr>
       ))}
     </tbody>

@@ -1,13 +1,12 @@
 ---
 setup: |
   import Layout from '/src/layouts/BlogPost.astro'
+  import ValueChart from '/src/blogComponents/referenceVsValue/ValueChart.astro'
 title: "Reference Vs Value - Most People Don't Understand This"
 date: "2021-03-29"
 description: "Reference vs value is one of the most complicated topics beginner developers face, but it is much easier than it appears."
 tags: ['JavaScript']
 ---
-
-<!-- TODO: FIX  the value charts so that they work -->
 
 There is a lot to learn in JavaScript, but one of the most confusing topics you will run into when learning JavaScript is the idea of value vs reference. In this article I will detail exactly what value vs reference is and how you can use this knowledge to avoid many common bugs that you have probably already ran into before.
 
@@ -28,8 +27,7 @@ let c = a
 ```
 If we map the variables from the above code to their values we will get something like this.
 
-<!-- <ValueChart variables={{ a: 10, b: 20, c: 10 }} /> -->
-![Variable Chart 1](/articleAssets/2021-03/js-reference-vs-value/Chart1.png)
+<ValueChart variables="{ a: 10, b: 20, c: 10 }" />
 
 In order to build this chart what we did was take the value of the thing on the right side of the equal sign and set it to the value of the variable on the left side of the equal sign.
 
@@ -37,8 +35,7 @@ For variable `a` we take the value of the thing on the right side which is `10` 
 
 If we were to modify this code slightly and add 1 to `c` (`c = c + 1`) then we would get the following chart.
 
-<!-- <ValueChart variables={{ a: 10, b: 20, c: 11 }} /> -->
-![Variable Chart 2](/articleAssets/2021-03/js-reference-vs-value/Chart2.png)
+<ValueChart variables="{ a: 10, b: 20, c: 11 }" />
 
 As you can see by modifying `c` we are not actually changing `a` in anyway even though `c` was derived from `a`. This is because when we set the value of `c` in the above example we are taking `c + 1` which is 11 and setting that to the value of `c` which has no impact on `a`. Most likely you are familiar with this behavior, but when we introduce arrays/objects things behave a bit different.
 ```js
@@ -46,8 +43,7 @@ let a = 10
 let b = 20
 let c = [1, 2]
 ```
-<!-- <ValueChart variables={{ a: 10, b: 20, c: '0x01' }} memory={[['0x01', [1, 2]]]} /> -->
-![Variable Chart 3](/articleAssets/2021-03/js-reference-vs-value/Chart3.png)
+<ValueChart variables="{ a: 10, b: 20, c: '0x01' }" memory="[['0x01', [1, 2]]]" />
 
 Arrays and objects require a second table that represents the memory address of that array/object. This memory address is just a code that represents where on your computer the data is stored. The value for that variable is then set to the memory address of the array/object associated with the variable. This is called a reference since the variable `c` references a place in memory instead of a value.
 
@@ -58,8 +54,7 @@ let b = 20
 let c = [1, 2]
 let d = c
 ```
-<!-- <ValueChart variables={{ a: 10, b: 20, c: '0x01', d: '0x01' }} memory={[['0x01', [1, 2]]]} /> -->
-![Variable Chart 4](/articleAssets/2021-03/js-reference-vs-value/Chart4.png)
+<ValueChart variables="{ a: 10, b: 20, c: '0x01', d: '0x01' }" memory="[['0x01', [1, 2]]]" />
 
 As you can see both `c` and `d` reference the same place in memory. This is because to get the value for a variable you take the thing on the right side of the equal sign and gets its value and set that value as the value of the new variable. In our case the value of `c` is `0x01` so the value of `d` is also set to `0x01` which means `c` and `d` point to the same memory address.
 
@@ -71,8 +66,7 @@ let c = [1, 2]
 let d = c
 d.push(3)
 ```
-<!-- <ValueChart variables={{ a: 10, b: 20, c: '0x01', d: '0x01' }} memory={[['0x01', [1, 2, 3]]]} /> -->
-![Variable Chart 5](/articleAssets/2021-03/js-reference-vs-value/Chart5.png)
+<ValueChart variables="{ a: 10, b: 20, c: '0x01', d: '0x01' }" memory="[['0x01', [1, 2, 3]]]" />
 
 As you can see by pushing 3 to the end of `d` we are also modifying `c` since they both deal with the same array in memory.
 
@@ -89,8 +83,7 @@ let b = [1, 2]
 console.log(a === b)
 // false
 ```
-<!-- <ValueChart variables={{ a: '0x01', b: '0x02' }} memory={[['0x01', [1, 2]], ['0x02', [1, 2]]]} /> -->
-![Variable Chart 6](/articleAssets/2021-03/js-reference-vs-value/Chart6.png)
+<ValueChart variables="{ a: '0x01', b: '0x02' }" memory="[['0x01', [1, 2]], ['0x02', [1, 2]]]" />
 
 Even though `a` and `b` have arrays with the same numbers in them they are separate from one another since these arrays have different locations in memory where they are stored. Whenever you create a new array or object it will be stored in a brand new memory address. This is why `a` and `b` point to different memory addresses.
 
@@ -103,8 +96,7 @@ let b = a
 console.log(a === b)
 // true
 ```
-<!-- <ValueChart variables={{ a: '0x01', b: '0x01' }} memory={[['0x01', [1, 2]]]} /> -->
-![Variable Chart 7](/articleAssets/2021-03/js-reference-vs-value/Chart7.png)
+<ValueChart variables="{ a: '0x01', b: '0x01' }" memory="[['0x01', [1, 2]]]" />
 
 Now that we set `b` equal to `a` we made sure that they reference the same memory address and now they have the same value.
 
