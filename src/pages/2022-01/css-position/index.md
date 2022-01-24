@@ -115,7 +115,7 @@ At first you will notice that the one element is in its normal position in the d
 
 ## Absolute/Fixed Position Advanced
 
-Now there is one things about `fixed` and `absolute` position elements that you need to know since it could cause some weird, hard to find bugs. An element that is `absolute` positioned will use the first parent element that has a non-static position as its container to offset itself from and it will default to the body if no parent has a position value other than `static`. This we already know, but this is not the only way to define a parent container. `absolute` positioned elements will also check for a parent that has either the `transform`, `filter`, or `perspective` properties set. If any of those are found on a parent it will use that parent as the container.
+Now there is one thing about `fixed` and `absolute` position elements that you need to know since it could cause some weird, hard to find bugs. An element that is `absolute` positioned will use the first parent element that has a non-static position as its container to offset itself from and it will default to the body if no parent has a position value other than `static`. This we already know, but this is not the only way to define a parent container. `absolute` positioned elements will also check for a parent that has either the `transform`, `filter`, or `perspective` properties set. If any of those are found on a parent it will use that parent as the container.
 ```css
 .purple-parent {
   transform: translateX(0);
