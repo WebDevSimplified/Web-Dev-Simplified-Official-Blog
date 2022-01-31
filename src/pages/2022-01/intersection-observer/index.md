@@ -147,3 +147,5 @@ new IntersectionObserver((entries, observer) => {
 ## Conclusion
 
 The Intersection Observer is my favorite of the different observer APIs since it has so many use cases from lazy loading images, to scroll based animations. It is also incredibly easy to use which is a huge bonus.
+
+If you want to learn more about the other observer based APIs you can check out my [Resize Observer Ultimate Guide](/2022-01/resize-observer).
