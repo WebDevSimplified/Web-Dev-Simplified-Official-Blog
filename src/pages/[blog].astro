@@ -1,0 +1,24 @@
+---
+import BlogPost from '../layouts/BlogPost.astro'
+
+export async function getStaticPaths({rss}) {
+  const allPosts = Astro.fetchContent('../**/*.md');
+  const sortedPosts = allPosts.sort((a, b) => b.date.valueOf() - a.date.valueOf())
+
+  rss({
+    title: 'Web Dev Simplified Blog',
+    description: 'Web Dev Simplified Blog',
+    customData: `<language>en-us</language>`,
+    items: sortedPosts.map(item => ({
+      title: item.title,
+      description: item.description,
+      link: item.url,
+      pubDate: item.date,
+    }))
+  })
+
+  return []
+}
+---
+
+<BlogPost {...props} />

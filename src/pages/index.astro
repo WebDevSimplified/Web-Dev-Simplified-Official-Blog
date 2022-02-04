@@ -25,7 +25,7 @@ let permalink = 'https://blog.webdevsimplified.com';
 let allPosts = await Astro.fetchContent<MarkdownFrontmatter>('./**/*.md');
 allPosts = allPosts
 	.map(post => ({ title: post.title, description: post.description, tags: post.tags, date: new Date(post.date), url: post.url }))
-	.sort((a, b) => b.date.valueOf() - a.date.valueOf());
+	.sort((a, b) => b.date.valueOf() - a.date.valueOf())
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
