@@ -320,3 +320,19 @@ th:last-child, td:last-child {
 		padding-right: .5rem;
 	}
 }
+
+.formkit-sticky-bar {
+	position: sticky !important;
+	bottom: initial !important;
+	top: 0 !important;
+	z-index: 9999 !important;
+	transform: translateY(-100%) !important;
+}
+
+.formkit-sticky-bar[data-active] {
+	transform: translateY(0) !important;
+}
+
+.formkit-alert {
+	padding: 0;
+}

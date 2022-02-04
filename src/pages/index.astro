@@ -3,6 +3,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogList from '/src/components/BlogList.jsx';
+import ConvertkitForm from '../components/ConvertkitForm.astro'
 
 interface MarkdownFrontmatter {
 	date: number
@@ -49,6 +50,7 @@ allPosts = allPosts
 	</head>
 
 	<body>
+		<ConvertkitForm />
 		<BlogHeader />
 		<div class="wrapper">
 			<BlogList client:load allPosts={allPosts} />
