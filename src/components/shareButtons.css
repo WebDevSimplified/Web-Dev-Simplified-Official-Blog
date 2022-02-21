@@ -11,6 +11,10 @@
   width: 40px;
 }
 
+[data-theme="dark"] .share-icon {
+  opacity: .75;
+}
+
 .share-icon:focus {
   outline: revert;
 	outline-offset: revert;

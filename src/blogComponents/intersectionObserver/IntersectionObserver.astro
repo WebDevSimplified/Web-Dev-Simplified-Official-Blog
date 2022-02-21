@@ -20,15 +20,15 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
 
   .scroll-element {
     overflow: auto;
-    border: 1px solid black;
-    background-color: white;
+    border: 1px solid var(--theme-text);
+    background-color: var(--theme-bg);
   }
 
   .main-element,
   .clone-element {
     height: 50px;
     width: 100px;
-    background-color: darkorange;
+    background-color: var(--theme-orange);
   }
 
   .clone-container {
@@ -41,6 +41,10 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
     bottom: 0;
   }
 
+  :root[data-theme="dark"] .clone-container {
+    background-color: rgba(255, 255, 255, .1);
+  }
+
   .root-margin-lines {
     height: 100%;
     position: relative;
@@ -49,7 +53,7 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
   .line {
     width: 100%;
     height: 2px;
-    background-color: blue;
+    background-color: var(--theme-red);
     position: absolute;
   }
 </style>
@@ -104,7 +108,7 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
           })
         } else {
           elements.forEach(element => {
-            element.style.backgroundColor = isIntersecting ? "lightblue" : "darkorange"
+            element.style.backgroundColor = isIntersecting ? "var(--theme-blue)" : "var(--theme-orange)"
           })
         }
       }

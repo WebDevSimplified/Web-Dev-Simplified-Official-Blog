@@ -17,7 +17,7 @@ const { parentStyle, oneStyle, twoStyle, threeStyle, scroll } = Astro.props
   .window {
     transform: translateX(0);
     position: relative;
-    border: 1px dashed #333;
+    border: 1px dashed var(--theme-text);
   }
 
   .scroll {
@@ -26,7 +26,7 @@ const { parentStyle, oneStyle, twoStyle, threeStyle, scroll } = Astro.props
   }
 
   .parent {
-    background-color: rebeccapurple;
+    background-color: var(--theme-purple);
     padding: 1rem;
     margin: 2rem;
   }
@@ -40,14 +40,14 @@ const { parentStyle, oneStyle, twoStyle, threeStyle, scroll } = Astro.props
   }
 
   .one {
-    background-color: lightblue; 
+    background-color: var(--theme-blue); 
   }
 
   .two {
-    background-color: orange;
+    background-color: var(--theme-orange);
   }
 
   .three {
-    background-color: lightgreen;
+    background-color: var(--theme-green);
   }
 </style>

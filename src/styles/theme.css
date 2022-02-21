@@ -1,0 +1,89 @@
+:root {
+	--font-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+	--font-body: 'IBM Plex Sans', var(--font-fallback);
+	--font-mono: 'IBM Plex Mono', Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+		'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
+
+	--color-white: #fff;
+	--color-black: #161a1d;
+
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+
+	--color-blue: hsl(200, 100%, 50%);
+	--color-blue-rgb: 56, 148, 255;
+	--color-blue-light: hsl(200, 100%, 75%);
+	--color-blue-dark: hsl(200, 100%, 35%);
+	--color-green: hsl(158, 78%, 42%);
+	--color-green-rgb: 23, 192, 131;
+	--color-green-dark: hsl(158, 78%, 22%);;
+	--color-orange: hsl(21, 100%, 50%);
+	--color-orange-rgb: 255, 93, 1;
+	--color-orange-dark: hsl(21, 100%, 30%);
+	--color-purple: hsl(269, 79%, 54%);
+	--color-purple-rgb: 136, 45, 231;
+	--color-purple-dark: hsl(269, 79%, 34%);
+	--color-red: hsl(350, 100%, 54%);
+	--color-red-rgb: 255, 22, 57;
+	--color-red-dark: hsl(350, 100%, 34%);
+	--color-yellow: hsl(41, 100%, 58%);
+	--color-yellow-rgb: 255, 190, 45;
+	--color-yellow-dark: hsl(41, 100%, 38%);
+}
+
+:root {
+	color-scheme: light;
+	--theme-accent: var(--color-blue);
+	--theme-accent-light: var(--color-blue-light);
+	--theme-accent-dark: var(--color-blue-dark);
+	--theme-accent-rgb: var(--color-blue-rgb);
+	--theme-accent-opacity: 0.1;
+	--theme-divider: var(--color-gray-100);
+	--theme-text: var(--color-gray-800);
+	--theme-text-light: var(--color-gray-600);
+	--theme-text-lighter: var(--color-gray-400);
+	--theme-bg: var(--color-white);
+	--theme-bg-offset: var(--color-gray-100);
+	--theme-bg-accent: rgba(var(--theme-accent-rgb), var(--theme-accent-opacity));
+	--theme-code-inline-bg: var(--color-gray-200);
+	--theme-code-text: var(--color-gray-100);
+	--theme-code-bg: var(--color-gray-700);
+	--theme-code-highlight-bg: var(--color-gray-700);
+
+	--theme-red: var(--color-red);
+	--theme-blue: var(--color-blue);
+	--theme-green: var(--color-green);
+	--theme-orange: var(--color-orange);
+	--theme-purple: var(--color-purple);
+	--theme-yellow: var(--color-yellow);
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--theme-accent-opacity: 0.3;
+	--theme-divider: var(--color-gray-900);
+	--theme-text: var(--color-white);
+	--theme-text-light: var(--color-gray-200);
+	--theme-text-lighter: var(--color-gray-400);
+	--theme-bg: var(--color-black);
+	--theme-bg-offset: var(--color-gray-900);
+	--theme-code-inline-bg: var(--color-gray-700);
+	--theme-code-text: var(--color-gray-200);
+	--theme-code-bg: var(--color-gray-900);
+	--theme-code-highlight-bg: var(--color-gray-800);
+
+	--theme-red: var(--color-red-dark);
+	--theme-blue: var(--color-blue-dark);
+	--theme-green: var(--color-green-dark);
+	--theme-orange: var(--color-orange-dark);
+	--theme-purple: var(--color-purple-dark);
+	--theme-yellow: var(--color-yellow-dark);
+}
