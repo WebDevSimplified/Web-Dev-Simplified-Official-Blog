@@ -1,6 +1,6 @@
 .line-highlight {
-  background-color: #55574A !important;
-  border-left: 0.25em solid #00AAFF;
+  background-color: var(--theme-code-highlight-bg) !important;
+  border-left: 0.25em solid var(--color-blue);
   z-index: -1;
   margin-left: -1em;
   margin-right: -1em;

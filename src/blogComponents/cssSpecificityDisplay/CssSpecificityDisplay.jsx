@@ -24,20 +24,20 @@ const NUMBER_STYLES = {
   fontSize: "2.5rem",
   width: "2.5em",
   height: "2.5em",
-  color: "white",
+  color: "var(--theme-text)",
   fontVariantNumeric: "tabular-nums lining-nums",
 }
 
 const NUMBER_DESCRIPTOR_STYLES = {
-  color: "#777",
+  color: "var(--theme-text-lighter)",
 }
 
 const INPUT_STYLES = {
   marginTop: ".5rem",
   width: "100%",
-  background: "#333",
+  background: "var(--theme-code-bg)",
   fontSize: "1.25rem",
-  border: ".05em solid #333",
+  border: ".05em solid var(--theme-code-bg)",
   padding: ".5em",
   fontFamily: "Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace",
 }
@@ -45,12 +45,12 @@ const INPUT_STYLES = {
 const DETAILS_STYLES = {
   padding: "1rem .5rem",
   width: "100%",
-  color: "white",
+  color: "var(--theme-text)",
 }
 
-const ID_COLOR = "#2F80ED"
-const CLASS_COLOR = "#27AE60"
-const ELEMENT_COLOR = "#AE3838"
+const ID_COLOR = "var(--theme-blue)"
+const CLASS_COLOR = "var(--theme-green)"
+const ELEMENT_COLOR = "var(--theme-red)"
 
 export default function CssSpecificityDisplay(props) {
   const {
@@ -103,7 +103,7 @@ export default function CssSpecificityDisplay(props) {
             <div
               style={{
                 ...NUMBER_STYLES,
-                backgroundColor: "#9B51E0",
+                backgroundColor: "var(--theme-purple)",
                 marginLeft: 0,
               }}
             >

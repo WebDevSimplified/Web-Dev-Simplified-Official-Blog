@@ -50,20 +50,20 @@ div {
   border-top-color: red;
   border-bottom-color: green;
   border-left-color: blue;
-  border-right-color: pink;
+  border-right-color: orange;
 }
 ```
 
 <div style="
   width: 150px;
   height: 150px;
-  background-color: purple;
+  background-color: var(--theme-purple);
   border-width: 50px;
   border-style: solid;
-  border-top-color: red;
-  border-bottom-color: green;
-  border-left-color: blue;
-  border-right-color: pink;
+  border-top-color: var(--theme-red);
+  border-bottom-color: var(--theme-green);
+  border-left-color: var(--theme-blue);
+  border-right-color: var(--theme-orange);
   margin-bottom: 1rem;
 "></div>
 
@@ -78,7 +78,7 @@ div {
   border-top-color: red;
   border-bottom-color: green;
   border-left-color: blue;
-  border-right-color: pink;
+  border-right-color: orange;
 }
 ```
 
@@ -87,10 +87,10 @@ div {
   height: 0;
   border-width: 50px;
   border-style: solid;
-  border-top-color: red;
-  border-bottom-color: green;
-  border-left-color: blue;
-  border-right-color: pink;
+  border-top-color: var(--theme-red);
+  border-bottom-color: var(--theme-green);
+  border-left-color: var(--theme-blue);
+  border-right-color: var(--theme-orange);
   margin-bottom: 1rem;
 "></div>
 
@@ -109,7 +109,7 @@ div {
   width: 0;
   height: 0;
   border: 50px solid transparent;
-  border-left-color: blue;
+  border-left-color: var(--theme-blue);
   margin-bottom: 1rem;
 "></div>
 

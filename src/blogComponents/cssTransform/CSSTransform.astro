@@ -9,10 +9,10 @@ const { red, green, blue } = Astro.props
     class="arrow"
     style={`transform: ${red}`}
   >
-    <circle cx="12" cy="12" r="12" style="fill: red;" />
+    <circle cx="12" cy="12" r="12" style="fill: var(--theme-red);" />
     <path
       d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
-      style="fill: white;"
+      style="fill: var(--theme-bg);"
     />
   </svg>
   <svg
@@ -21,10 +21,10 @@ const { red, green, blue } = Astro.props
     class="arrow"
     style={`transform: ${green}`}
   >
-    <circle cx="12" cy="12" r="12" style="fill: green;" />
+    <circle cx="12" cy="12" r="12" style="fill: var(--theme-green);" />
     <path
       d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
-      style="fill: white;"
+      style="fill: var(--theme-bg);"
     />
   </svg>
   <svg
@@ -33,10 +33,10 @@ const { red, green, blue } = Astro.props
     class="arrow"
     style={`transform: ${blue}`}
   >
-    <circle cx="12" cy="12" r="12" style="fill: blue;" />
+    <circle cx="12" cy="12" r="12" style="fill: var(--theme-blue);" />
     <path
       d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
-      style="fill: white;"
+      style="fill: var(--theme-bg);"
     />
   </svg>
 </div>

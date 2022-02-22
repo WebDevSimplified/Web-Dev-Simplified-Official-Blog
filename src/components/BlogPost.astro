@@ -2,7 +2,6 @@
 import dateFormatter from '../utils/dateFormatter.js'
 import TagBar from './TagBar.jsx'
 import ShareButtons from '/src/components/ShareButtons.jsx'
-import ConvertkitForm from '../components/ConvertkitForm.astro'
 
 export interface Props {
 	title: string;
@@ -15,7 +14,6 @@ const { title, date, tags, url } = Astro.props;
 const siteUrl = Astro.site.href
 ---
 
-<ConvertkitForm />
 <div class="layout">
 	<article class="content">
 		<div>
@@ -37,11 +35,12 @@ const siteUrl = Astro.site.href
 			<!-- TODO: Add author and next/previous buttons. Also, maybe add a scroll to top button as well -->
 			<!-- TODO: Add custom 404 page -->
 			<!-- TODO: Add search/tags to URL to make the back button work better -->
-			<!-- TODO: Add Gogle Analytics -->
+			<!-- TODO: Add Google Analytics -->
 			<!-- TODO: Add social share images (https://joeprevite.com/create-a-twitter-card-for-your-blog) (Maybe dynamically generate a CSS page that is scraped with puppeteer or use something like ImageMagik or ffmpeg) -->
 			<!-- TODO: Add Pagination -->
 			<!-- TODO: Add in width slider for users -->
 			<!-- TODO: Add Themes/Dark mode -->
+			<!-- TODO: Add prefers-color-scheme support -->
 		</div>
 	</article>
 </div>

@@ -4,6 +4,8 @@ import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogList from '/src/components/BlogList.jsx';
 import ConvertkitForm from '../components/ConvertkitForm.astro'
+import UserSettings from '../components/UserSettings.jsx'
+import UserSettingsLoad from '../components/UserSettingsLoad.astro'
 
 interface MarkdownFrontmatter {
 	date: number
@@ -35,6 +37,7 @@ allPosts = allPosts
 <html lang="en">
 	<head>
 		<BaseHead {title} {description} {permalink} />
+		<link rel="stylesheet" href={Astro.resolve('../styles/theme.css')} />
 		<link rel="stylesheet" href={Astro.resolve('../styles/blog.css')} />
 
 		<style>
@@ -50,6 +53,7 @@ allPosts = allPosts
 	</head>
 
 	<body>
+		<UserSettingsLoad />
 		<ConvertkitForm />
 		<BlogHeader />
 		<div class="wrapper">

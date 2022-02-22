@@ -25,14 +25,14 @@ div {
   width: 200px;
 }
 ```
-<div style="background-color: red; height: 100px; width: 200px; margin-bottom: 1rem; box-sizing: content-box;">div</div>
+<div style="background-color: var(--theme-red); height: 100px; width: 200px; margin-bottom: 1rem; box-sizing: content-box;">div</div>
 
 This red area is exactly 200px wide and 100px tall because of the width and height we added to the div.
 
 ### Padding
 
 The next portion of the box model is the padding and this comes directly outside the content. Padding allows you to add extra space to your element without making the content itself larger. It also maintains the background color of the element. This is perfect for when you need to add space between the edge of your background and your element content like with a button.
-```css[data-line="2"]
+```css {2}
 div {
   padding: 20px;
   background-color: red;
@@ -40,7 +40,7 @@ div {
   width: 200px;
 }
 ```
-<div style="background-color: red; height: 100px; width: 200px; padding: 20px; margin-bottom: 1rem; box-sizing: content-box;">div</div>
+<div style="background-color: var(--theme-red); height: 100px; width: 200px; padding: 20px; margin-bottom: 1rem; box-sizing: content-box;">div</div>
 
 The above element now has an extra 20px of space on all sides between the content and the end of the background. You will also notice our box is actually 240px wide and 140px tall. This is because the size of a box in CSS by default is a combination of the content, padding, and border and in this example we have a 200px wide box and 20px of padding on the left and right leading to 240px of total size.
 
@@ -56,7 +56,7 @@ div {
   width: 200px;
 }
 ```
-<div style="background-color: red; height: 100px; width: 200px; padding: 20px; border: 30px solid blue; margin-bottom: 1rem; box-sizing: content-box;">div</div>
+<div style="background-color: var(--theme-red); height: 100px; width: 200px; padding: 20px; border: 30px solid var(--theme-blue); margin-bottom: 1rem; box-sizing: content-box;">div</div>
 
 As you can see we now have a 30px blue border around our entire element. The entire size of our element is also 60px wider and taller because of the border. Our overall width is 300px and the height is 200px now.
 
@@ -73,11 +73,11 @@ div {
   width: 200px;
 }
 ```
-<div style="width: min-content; border: 1px dashed black; margin-bottom: 1rem;">
-  <div style="background-color: red; height: 100px; width: 200px; padding: 20px; border: 30px solid blue; margin: 20px; box-sizing: content-box;">div</div>
+<div style="width: min-content; border: 1px dashed var(--theme-text); margin-bottom: 1rem;">
+  <div style="background-color: var(--theme-red); height: 100px; width: 200px; padding: 20px; border: 30px solid var(--theme-blue); margin: 20px; box-sizing: content-box;">div</div>
 </div>
 
-In the above example I added a container around our element which is represented by the black dashed border. As you can see our element is 20px away from the black dashed border on all sides because of the margin we applied. You will also notice our element itself is not any larger. This is again because margin does not contribute to the size of an element in the box model.
+In the above example I added a container around our element which is represented by the dashed border. As you can see our element is 20px away from the dashed border on all sides because of the margin we applied. You will also notice our element itself is not any larger. This is again because margin does not contribute to the size of an element in the box model.
 
 Now these 4 components sum up the entirety of the box model but there are a few gotchas related to how the box model works that you need to understand.
 
@@ -99,9 +99,9 @@ In the box model margins between two different elements will collapse. This mean
   width: 200px;
 }
 ```
-<div style="width: min-content; border: 1px dashed black; margin-bottom: 1rem;">
-  <div style="background-color: red; height: 100px; width: 200px; margin: 30px; box-sizing: content-box;">div</div>
-  <div style="background-color: red; height: 100px; width: 200px; margin: 40px; box-sizing: content-box;">div</div>
+<div style="width: min-content; border: 1px dashed var(--theme-text); margin-bottom: 1rem;">
+  <div style="background-color: var(--theme-red); height: 100px; width: 200px; margin: 30px; box-sizing: content-box;">div</div>
+  <div style="background-color: var(--theme-red); height: 100px; width: 200px; margin: 40px; box-sizing: content-box;">div</div>
 </div>
 
 You will notice that in the above example there are only 40px of space between the top and bottom div. This is because the margins are collapsing and only the largest of the two margins is used as space between these two elements.
@@ -120,12 +120,12 @@ One of the most important properties in CSS, `box-sizing`, can be used to change
   height: 100px;
   width: 200px;
   padding: 20px;
-  border: 10px solid black;
+  border: 10px solid purple;
 }
 
 .bottom-div {
   box-sizing: content-box;
-  background-color: yellow;
+  background-color: orange;
   height: 100px;
   width: 200px;
   padding: 20px;
@@ -133,8 +133,8 @@ One of the most important properties in CSS, `box-sizing`, can be used to change
 }
 ```
 <div>
-  <div style="background-color: red; height: 100px; width: 200px; padding: 20px;  border: 10px solid black; box-sizing: border-box;">div</div>
-  <div style="background-color: yellow; height: 100px; width: 200px; padding: 20px; border: 10px solid green; box-sizing: content-box; margin-bottom: 1rem;">div</div>
+  <div style="background-color: var(--theme-red); height: 100px; width: 200px; padding: 20px;  border: 10px solid var(--theme-purple); box-sizing: border-box;">div</div>
+  <div style="background-color: var(--theme-orange); height: 100px; width: 200px; padding: 20px; border: 10px solid var(--theme-green); box-sizing: content-box; margin-bottom: 1rem;">div</div>
 </div>
 
 The top and bottom div both have the same height/width in CSS, but the bottom div appears much larger. This is because the content of the div is 200px wide in the bottom div while in the top div the content + padding + border is 200px wide. The top div content is actually only 140px wide since 40px of space is taken up by the padding and 20px is taken up by the border.

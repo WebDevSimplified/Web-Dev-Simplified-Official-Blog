@@ -32,7 +32,7 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(document.getElementById("test"))
 ```
-In the above code we are calling the `observe` method on our Intersection Observer and telling it to observe intersection changes for the element with the id test. Now for an element to change its intersection status it must scroll in/out of the current viewport. Below you will see an example that changes the color of our element every time the element intersects our container. In all the examples on this page the solid white section with the black border is our viewport. You can think of that as the visible portion of the screen. The greyed out sections outside the white section are considered outside the viewport, but I made them visible to you so you can see what happens as our element intersects the viewport. Normally this area would not be visible.
+In the above code we are calling the `observe` method on our Intersection Observer and telling it to observe intersection changes for the element with the id test. Now for an element to change its intersection status it must scroll in/out of the current viewport. Below you will see an example that changes the color of our element every time the element intersects our container. In all the examples on this page the solid section with the border is our viewport. You can think of that as the visible portion of the screen. The greyed out sections outside the solid section are considered outside the viewport, but I made them visible to you so you can see what happens as our element intersects the viewport. Normally this area would not be visible.
 
 <IntersectionObserverComponent />
 
@@ -92,7 +92,7 @@ observer.observe(document.getElementById("test"))
 
 <IntersectionObserverComponent rootMargin={50} />
 
-With a `rootMargin` of 50px our viewport is now considered to be 50px larger so once the element is 50px from being within the viewport it will be considered intersecting. I added blue lines to the above demo to represent where our rootMargin grows the viewport to. Using a positive `rootMargin` like this is really useful when you need to lazy load images, or do something like infinite scrolling since you can load in all the data before it becomes visible to the user.
+With a `rootMargin` of 50px our viewport is now considered to be 50px larger so once the element is 50px from being within the viewport it will be considered intersecting. I added red lines to the above demo to represent where our rootMargin grows the viewport to. Using a positive `rootMargin` like this is really useful when you need to lazy load images, or do something like infinite scrolling since you can load in all the data before it becomes visible to the user.
 
 You can also do negative margins to shrink the viewport.
 

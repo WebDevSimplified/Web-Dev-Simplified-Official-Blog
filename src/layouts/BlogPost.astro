@@ -4,6 +4,8 @@ import BlogHeader from '../components/BlogHeader.astro';
 import BlogPost from '../components/BlogPost.astro';
 import "prismjs/themes/prism-okaidia.css"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
+import ConvertkitForm from '../components/ConvertkitForm.astro'
+import UserSettingsLoad from '../components/UserSettingsLoad.astro'
 
 const { content } = Astro.props;
 const { title, description, date, author = "Kyle Cook", permalink, tags } = content;
@@ -13,11 +15,14 @@ const url = Astro.request.url.href
 <html lang={content.lang || 'en'}>
 	<head>
 		<BaseHead {title} {description} {permalink} />
+		<link rel="stylesheet" href={Astro.resolve('../styles/theme.css')} />
 		<link rel="stylesheet" href={Astro.resolve('../styles/blog.css')} />
 		<link rel="stylesheet" href={Astro.resolve('../styles/prism-highlight.css')} />
 	</head>
 
 	<body>
+		<UserSettingsLoad />
+		<ConvertkitForm />
 		<BlogHeader />
 		<div class="wrapper">
 			<BlogPost {title} {author} {date} {tags} {url}>
