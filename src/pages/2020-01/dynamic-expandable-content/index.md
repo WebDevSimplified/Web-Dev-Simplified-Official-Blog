@@ -222,7 +222,7 @@ The last thing left to do is make it so that the text will fade out as it reache
   position: absolute;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to bottom, transparent, white);
+  background: linear-gradient(to bottom, transparent, var(--bg-color));
 }
 
 [data-overflow="false"] [data-expand-text]::before,
@@ -231,7 +231,7 @@ The last thing left to do is make it so that the text will fade out as it reache
 }
 ```
 
-The first thing this CSS does is set the expandable text to a position of relative so we can add in an absolutely positioned overlay for the fade effect. The next thing we did was create the fade effect. This is just a simple absolutely positioned element that spans the entire width and height of the text and transitions from a completeley transparent background to a fully white background from top to bottom. This gives the fade effect we are looking for. Lastly, we removed the background when the text is expanded since the fade effect no longer makes sense then.
+The first thing this CSS does is set the expandable text to a position of relative so we can add in an absolutely positioned overlay for the fade effect. The next thing we did was create the fade effect. This is just a simple absolutely positioned element that spans the entire width and height of the text and transitions from a completeley transparent background to the same color as the page background from top to bottom. This gives the fade effect we are looking for. Lastly, we removed the background when the text is expanded since the fade effect no longer makes sense then.
 
 This is the result of these CSS changes.
 

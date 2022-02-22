@@ -153,7 +153,7 @@ Finally after we have the session created we can get the URL from that session a
 ## Finishing Touches
 
 This is all the code we need to write for the project, but we still need to finish setting up our environment variables. To do this we can create a file called `.env` at the root of our server. Inside that file we want to store key value pairs for our Stripe private key and our server url.
-```
+```ini
 STRIPE_PRIVATE_KEY=<your_key>
 CLIENT_URL=https://client.com
 ```

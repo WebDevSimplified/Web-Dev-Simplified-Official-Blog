@@ -35,8 +35,8 @@ The most basic approach to centering elements in CSS is using hard coded heights
   background-color: blue;
 }
 ```
-<div style="height: 300px; position: relative; width: 300px; background-color: red;">
-  <div style="height: 100px; position: absolute; top: 100px; left: 100px; width: 100px; background-color: blue;"></div>
+<div style="height: 300px; position: relative; width: 300px; background-color: var(--theme-red);">
+  <div style="height: 100px; position: absolute; top: 100px; left: 100px; width: 100px; background-color: var(--theme-blue);"></div>
 </div>
 <br />
 
@@ -63,12 +63,12 @@ This obviously has a bunch of drawbacks, but the most obvious is that if the hei
 }
 ```
 
-<div style="position: relative; width: 300px; background-color: red; margin-bottom: 10px;">
-  <div style="position: absolute; height: 100px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 100px; background-color: blue;"></div>
+<div style="position: relative; width: 300px; background-color: var(--theme-red); margin-bottom: 10px;">
+  <div style="position: absolute; height: 100px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 100px; background-color: var(--theme-blue);"></div>
   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut odio maiores alias dolor necessitatibus ratione commodi, possimus perferendis assumenda tenetur nobis, nulla dolore recusandae.
 </div>
-<div style="position: relative; width: 300px; background-color: red;">
-  <div style="position: absolute; height: 100px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 100px; background-color: blue;"></div>
+<div style="position: relative; width: 300px; background-color: var(--theme-red);">
+  <div style="position: absolute; height: 100px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 100px; background-color: var(--theme-blue);"></div>
   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.
 </div>
 <br />
@@ -98,12 +98,12 @@ Before we move into some of the more modern ways to center elements I want to ta
 }
 ```
 
-<div style="position: relative; width: 300px; background-color: red; margin-bottom: 10px;">
-  <div style="position: absolute; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; background-color: blue;"></div>
+<div style="position: relative; width: 300px; background-color: var(--theme-red); margin-bottom: 10px;">
+  <div style="position: absolute; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; background-color: var(--theme-blue);"></div>
   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut odio maiores alias dolor necessitatibus ratione commodi, possimus perferendis assumenda tenetur nobis, nulla dolore recusandae.
 </div>
-<div style="position: relative; width: 300px; background-color: red;">
-  <div style="position: absolute; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; background-color: blue;"></div>
+<div style="position: relative; width: 300px; background-color: var(--theme-red);">
+  <div style="position: absolute; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; background-color: var(--theme-blue);"></div>
   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.
 </div>
 <br />
@@ -135,10 +135,10 @@ All of these previous ways to center elements work fine, but they have some majo
 }
 ```
 
-<div style="display: flex; align-items: center; background-color: red; justify-content: center;">
-  <div style="background-color: blue; color: white; width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.</div>
-  <div style="background-color: blue; color: white; width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit.</div>
-  <div style="background-color: blue; color: white; width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
+<div style="display: flex; align-items: center; background-color: var(--theme-red); justify-content: center;">
+  <div style="background-color: var(--theme-blue); width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.</div>
+  <div style="background-color: var(--theme-blue); width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit.</div>
+  <div style="background-color: var(--theme-blue); width: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
 </div>
 <br />
 
@@ -169,10 +169,10 @@ Just like with flexbox, CSS grid makes centering elements incredibly easy. You w
 }
 ```
 
-<div style="display: grid; align-items: center; background-color: red; justify-content: center; grid-template-columns: repeat(3, 100px);">
-  <div style="background-color: blue; color: white;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.</div>
-  <div style="background-color: blue; color: white;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit.</div>
-  <div style="background-color: blue; color: white;">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
+<div style="display: grid; align-items: center; background-color: var(--theme-red); justify-content: center; grid-template-columns: repeat(3, 100px);">
+  <div style="background-color: var(--theme-blue);">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit voluptas earum ut aut.</div>
+  <div style="background-color: var(--theme-blue);">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam in eum reiciendis molestias a asperiores vitae placeat, sit.</div>
+  <div style="background-color: var(--theme-blue);">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
 </div>
 <br />
 

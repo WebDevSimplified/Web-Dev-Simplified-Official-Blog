@@ -1,0 +1,53 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid var(--theme-accent);
+  border-radius: .5em;
+  padding: .5em .75em;
+  font-size: 1rem;
+  transition: 150ms ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn.active {
+  background-color: var(--theme-bg-accent);
+  color: var(--theme-accent)
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  width: max-content;
+  padding: .75em 1rem;
+  background-color: var(--theme-popup-bg);
+  border: 1px solid var(--theme-popup-bg);
+  border-radius: .5rem;
+  top: calc(100% + .5rem);
+  z-index: 1;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: .75em;
+  font-weight: bold;
+}
+
+.form-group select {
+  font-size: 1rem;
+}

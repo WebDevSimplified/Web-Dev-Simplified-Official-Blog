@@ -11,7 +11,7 @@ const FADE_ELEMENT_STYLE = {
   position: "absolute",
   height: "100%",
   width: "100%",
-  background: "linear-gradient(to bottom, transparent, white)",
+  background: "linear-gradient(to bottom, transparent, var(--theme-bg))",
 }
 
 const TITLE_STYLE = {

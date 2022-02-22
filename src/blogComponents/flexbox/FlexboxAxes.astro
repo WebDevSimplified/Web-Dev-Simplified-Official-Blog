@@ -10,13 +10,13 @@
     height: 100px;
     display: grid;
     place-items: center;
-    border: 2px dashed black;
-    background-color: #00AAFF;
+    border: 2px dashed var(--theme-text);
+    background-color: var(--theme-blue);
     margin-bottom: 1rem;
   }
 
   .main-axis {
-    background-color: lime;
+    background-color: var(--theme-red);
     width: 100%;
     grid-column: 1 / 1;
     grid-row: 1 / 1;
@@ -24,7 +24,7 @@
   }
 
   .cross-axis {
-    background-color: yellow;
+    background-color: var(--theme-yellow);
     grid-column: 1 / 1;
     grid-row: 1 / 1;
     height: 100%;
@@ -38,7 +38,7 @@
     font-size: 1.5rem;
     justify-self: start;
     transform: translateY(-50%) translateX(5px);
-    color: lime;
+    color: var(--theme-red);
   }
 
   .cross-axis-label {
@@ -48,6 +48,6 @@
     font-size: 1.5rem;
     transform: translateX(calc(50% + 5px));
     align-self: start;
-    color: yellow;
+    color: var(--theme-yellow);
   }
 </style>

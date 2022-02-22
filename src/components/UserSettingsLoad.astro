@@ -1,6 +1,8 @@
 <script>
   if (typeof window !== "undefined") {
-    document.documentElement.dataset.theme = JSON.parse(localStorage.getItem("THEME"))
+    const theme = JSON.parse(localStorage.getItem("THEME")) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light")
+    
+    document.documentElement.dataset.theme = theme
     document.documentElement.dataset.readingWidth = JSON.parse(localStorage.getItem("READING_WIDTH"))
   }
 </script>

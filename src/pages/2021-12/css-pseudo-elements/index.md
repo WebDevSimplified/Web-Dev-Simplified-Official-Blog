@@ -106,8 +106,7 @@ For example, you can create the below button with a tooltip by using a single HT
   left: 50%;
   bottom: calc(100% + .25rem);
   transform: translateX(-50%);
-  background-color: #333;
-  color: white;
+  background-color: blue;
   padding: .25rem .5rem;
 }
 ```

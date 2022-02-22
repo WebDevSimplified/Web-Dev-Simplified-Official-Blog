@@ -27,21 +27,29 @@ const style = `animation: ${duration} ${delay} ${direction} ${iterations} ${fill
   }
 
   .animation-fill-mode-example {
-    background-color: #DDD;
+    background-color: var(--gray);
   }
 
   .animation-fill-mode-example:hover {
-    background-color: red;
+    background-color: var(--theme-red);
     animation-name: color-change !important;
+  }
+
+  :root {
+    --gray: var(--color-gray-300);
+  }
+
+  :root[data-theme="dark"] {
+    --gray: var(--color-gray-500);
   }
 
   @keyframes color-change {
     0% {
-      background-color: green;
+      background-color: var(--theme-green);
     }
 
     100% {
-      background-color: purple;
+      background-color: var(--theme-purple);
     }
   }
 </style>

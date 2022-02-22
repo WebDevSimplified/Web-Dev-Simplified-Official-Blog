@@ -23,13 +23,13 @@ export default function LeftBox() {
     frame = window.requestAnimationFrame(playAnimation)
     return () => window.cancelAnimationFrame(frame)
   }, [])
-  
+
   return (
     <div
       style={{
         position: "relative",
         height: "100px",
-        border: "1px dashed black",
+        border: "1px dashed var(--theme-text)",
         overflow: "hidden",
         marginBottom: "1rem",
       }}
@@ -37,7 +37,7 @@ export default function LeftBox() {
       <div
         ref={leftBox}
         style={{
-          backgroundColor: "red",
+          backgroundColor: "var(--theme-red)",
           height: "50px",
           width: "50px",
           position: "absolute",

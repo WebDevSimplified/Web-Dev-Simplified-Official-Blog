@@ -5,7 +5,6 @@ import BlogPost from '../components/BlogPost.astro';
 import "prismjs/themes/prism-okaidia.css"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import ConvertkitForm from '../components/ConvertkitForm.astro'
-import UserSettings from '../components/UserSettings.jsx'
 import UserSettingsLoad from '../components/UserSettingsLoad.astro'
 
 const { content } = Astro.props;
@@ -24,7 +23,6 @@ const url = Astro.request.url.href
 	<body>
 		<UserSettingsLoad />
 		<ConvertkitForm />
-		<UserSettings client:load />
 		<BlogHeader />
 		<div class="wrapper">
 			<BlogPost {title} {author} {date} {tags} {url}>

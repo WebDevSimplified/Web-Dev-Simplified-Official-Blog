@@ -112,7 +112,7 @@ Probably my favorite way to transform an element is with the `translate` functio
 ```
 
 <div style="position: relative;">
-  <div style="position: absolute; opacity: .15; width: 100%;">
+  <div style="position: absolute; opacity: .25; width: 100%;">
     <CSSTransform />
   </div>
   <div style="position: absolute; width: 100%;">
@@ -143,7 +143,7 @@ The `translate` property handles percentages differently than nearly every other
 ```
 
 <div style="position: relative;">
-  <div style="position: absolute; opacity: .15; width: 100%;">
+  <div style="position: absolute; opacity: .25; width: 100%;">
     <CSSTransform green="scale(0)" blue="scale(0)" />
   </div>
   <div style="position: absolute; width: 100%;">

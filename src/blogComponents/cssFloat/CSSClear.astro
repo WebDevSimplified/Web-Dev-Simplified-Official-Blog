@@ -35,16 +35,17 @@ const { clear, heightLeft = 200, heightRight = 100 } = Astro.props
 
   .wrapper {
     padding: .5rem;
-    color: #777;
+    color: var(--theme-text-lighter);
     margin-bottom: 2rem;
     max-width: 600px;
   }
 
   .border {
-    border: 1px solid red;
+    border: 1px solid var(--theme-red);
   }
 
   .p {
     margin: 0;
+    color: var(--theme-text-lighter);
   }
 </style>

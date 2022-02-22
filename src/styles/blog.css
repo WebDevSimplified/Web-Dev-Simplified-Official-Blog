@@ -5,7 +5,7 @@ body {
 
 ::selection {
 	color: var(--theme-accent);
-	background-color: rgba(var(--theme-accent-rgb), var(--theme-accent-opacity));
+	background-color: var(--theme-bg-accent);
 }
 
 * {
@@ -156,7 +156,7 @@ thead {
 
 td, th {
 	text-align: left;
-	border-bottom: 1px solid hsla(0,0%,0%,0.12);
+	border-bottom: 1px solid var(--theme-text-lighter);
 	font-feature-settings: tnum;
 	padding-left: 1rem;
 	padding-right: 1rem;
@@ -164,6 +164,10 @@ td, th {
 	padding-bottom: calc(.875rem - 1px);
 }
 
+tr:last-child td,
+tr:last-child th {
+	border: none;
+}
 
 th:first-child, td:first-child {
 	padding-left: .5rem;
@@ -261,7 +265,31 @@ th:last-child, td:last-child {
 }
 
 .formkit-alert {
-	padding: 0;
+	margin: 0 !important;
+	color: var(--color-white) !important;
+	border: none !important;
+}
+
+.formkit-alert-success {
+	background-color: var(--color-green) !important;
+}
+
+.formkit-alert-error {
+	margin-bottom: 1rem !important;
+	background-color: var(--color-red-dark) !important;
+}
+
+.formkit-form {
+	background-color: var(--theme-accent-dark) !important;
+}
+
+.formkit-submit {
+	background-color: var(--theme-accent-light) !important;
+	color: var(--color-gray-800) !important;
+}
+
+.formkit-close {
+	color: var(--theme-accent-light) !important;
 }
 
 code:not([class*="language-"]) {
