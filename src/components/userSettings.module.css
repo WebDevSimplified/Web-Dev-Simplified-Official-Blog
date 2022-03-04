@@ -6,6 +6,7 @@
 
 .btn {
   background-color: transparent;
+  color: var(--theme-text);
   border: 1px solid var(--theme-accent);
   border-radius: .5em;
   padding: .5em .75em;
@@ -17,7 +18,7 @@
 .btn:hover,
 .btn.active {
   background-color: var(--theme-bg-accent);
-  color: var(--theme-accent)
+  color: var(--theme-accent);
 }
 
 .modal {
