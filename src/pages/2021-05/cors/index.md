@@ -14,6 +14,7 @@ CORS, also known as Cross-Origin Resource Sharing, is something every web develo
 ## What Is CORS?
 
 Does this look familiar?
+
 ![CORS Error Message](/articleAssets/2021-05/cors/cors-error.jpg)
 
 We are attempting to make a request from `http://localhost:1234` to a resource located at `http://localhost:3000/items` which is being blocked by CORS since these two origins are different.

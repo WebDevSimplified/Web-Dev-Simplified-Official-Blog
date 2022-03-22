@@ -6,9 +6,9 @@ export default function responsiveImages() {
 
 function transformer(tree) {
   visit(tree, "image", (node, index, parent) => {
-    node.data = node.data ?? {}
-    node.data.hProperties = node.data.hProperties ?? {}
-    node.data.hProperties.className = node.data.hProperties.className ?? []
-    node.data.hProperties.className.push("responsive-img")
+    parent.data = parent.data ?? {}
+    parent.data.hProperties = parent.data.hProperties ?? {}
+    parent.data.hProperties.className = parent.data.hProperties.className ?? []
+    parent.data.hProperties.className.push("responsive-img")
   })
 }

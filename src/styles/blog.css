@@ -139,9 +139,14 @@ blockquote .source {
 }
 
 .responsive-img {
-	margin: 0 auto;
-	display: block;
-	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2em
+}
+
+.responsive-img > * {
+	overflow: hidden;
 }
 
 table {

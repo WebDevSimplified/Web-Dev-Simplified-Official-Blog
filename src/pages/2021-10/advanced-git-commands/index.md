@@ -71,6 +71,7 @@ Another simple, but useful command is reflog. This command lets you easily see t
 ```shell
 git reflog
 ```
+
 ![Reflog Output](/articleAssets/2021-10/advanced-git-commands/reflog.png)
 
 
@@ -80,6 +81,7 @@ Another useful logging command in Git is the `log` command. This command combine
 ```shell
 git log --graph --decorate --oneline
 ```
+
 ![Log Output](/articleAssets/2021-10/advanced-git-commands/log.png)
 
 ## 6. Searching Logs
