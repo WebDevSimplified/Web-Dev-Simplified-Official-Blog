@@ -6,7 +6,7 @@ description: "You probably know console.log and a few other console methods, but
 tags: ['JavaScript']
 ---
 
-You are probably away of the `console.log` method and maybe a few other console methods like `console.error` and `console.dir`, but there are actually over 20 console methods available for you to use. Each of these methods has their own use cases and if you use the right method for each use case you will drastically increase the quality of your debugging.
+You are probably aware of the `console.log` method and maybe a few other console methods like `console.error` and `console.dir`, but there are actually over 20 console methods available for you to use. Each of these methods has their own use cases and if you use the right method for each use case you will drastically increase the quality of your debugging.
 
 I decided to break down this article into 4 distinct sections.
 
@@ -104,8 +104,8 @@ In the above example we are using `%s`, `%d`, `%f`, and `%o` as placeholders for
 
 Now this is a pretty cool feature, but honestly it is not something I use much since I can just use tagged template literals instead.
 ```js
-console.lg("String: %s", stringVariable)
-console.lg(`String: ${stringVariable}`)
+console.log("String: %s", stringVariable)
+console.log(`String: ${stringVariable}`)
 // Same output
 ```
 *If you are unfamiliar with this syntax you can check out my complete [tagged template literals article](/2020-03/tagged-template-literals/).*
