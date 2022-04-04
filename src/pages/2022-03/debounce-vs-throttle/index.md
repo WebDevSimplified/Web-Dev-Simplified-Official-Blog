@@ -8,6 +8,9 @@ tags: ['JavaScript']
 
 At some point you have probably come across a website that uses an autocomplete text box, drag and drop, or scroll based animations. If you have then chances are also pretty high that you have encountered debouncing and/or throttling without even realizing it. In order to ensure things like autocomplete are performant you need to implement it using debounce and/or throttling.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: cjIswDCKgu0`
+
 ## Why Do You Need Debounce/Throttle?
 
 Earlier I mentioned that debounce/throttle can improve the performance of your site. The way this is done is by reducing the number of times a particular action is taken. Let's look at an example of a naive approach to an autocomplete text box that fetches its autocomplete options from an API.

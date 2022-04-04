@@ -10,6 +10,9 @@ Working with dates in JavaScript sucks. The Date API is extremely clunky, has al
 
 Since working with dates has been so hard there are tons of libraries that attempt to make dates easier to work with. One library that used to be incredibly popular was moment.js, but now the more popular option is [date-fns](https://date-fns.org). These date libraries add a bunch of helper functions for dealing with dates, but soon you will not need any of them. The temporal API in JavaScript is a new proposal that aims to completely fix dates by adding a brand global object called `Temporal`.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: oOK3UzLJ_Cs`
+
 ## What Is The Temporal API?
 
 The temporal API brings a new global object called `Temporal` to JavaScript that includes **TONS** of new methods and multiple new classes for handling a variety of date based concerns. The main goal of the temporal API is to make working with dates/times in JavaScript easier while also adding more support for things like dates without times, times without dates, and timezones. In this article I will attempt to cover the majority of the API, but this is a massive update so if you want to go more in depth on the API you can read the [full docs](https://tc39.es/proposal-temporal/docs).

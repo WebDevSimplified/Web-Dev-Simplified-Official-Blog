@@ -8,6 +8,9 @@ tags: ['Technical Discussion']
 
 Snippets are one of the easiest ways to speed up your coding by making repetitive tasks simpler and quicker. There are hundreds of amazing snippet extensions for VSCode, but chances are the snippet you need will not be in one of these extensions. This is where custom snippets come in. With VSCode you can write your own snippets to fit any need you have and it is surprisingly easy.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: TGh2NpCIDlc`
+
 ## What Are Snippets?
 
 Before we talk about writing your own snippet we first need to cover what snippets are. Essentially, a snippet is a small piece of code that you write such as `cl` which will then expand into a full code statement such as `console.log('Here')`. They can be as simple as this example or expand into large amounts of complex code like some react snippet libraries.
