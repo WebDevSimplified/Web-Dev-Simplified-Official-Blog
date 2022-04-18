@@ -17,6 +17,9 @@ I decided to break down this article into 4 distinct sections.
 
 Each of these sections covers a handful of methods geared towards the overarching goal. These sections also include tons of general debugging tips and tricks which you do not want to miss out on.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: UUoZ_U2_4tA`
+
 
 ## Basic Logging Methods
 
@@ -100,7 +103,7 @@ First you can use string formatting to format how the content is placed and prin
 console.log("String: %s, Int: %d, Decimal: %f, Object: %o", "Hello", 1, .1, { name: "Kyle" })
 // String: Hello, Int: 1, Decimal: 0.1, Object: {name: 'Kyle'}
 ```
-In the above example we are using `%s`, `%d`, `%f`, and `%o` as placeholders for where values should be inserted into the output of our console. When you use these placeholders the next values passed to the log method will be printed where those placeholder values are. `%s` is for string placeholders. `%i` is for integer placeholders. `%f` is for decimal placeholders. `%o` is for object placeholders.
+In the above example we are using `%s`, `%d`, `%f`, and `%o` as placeholders for where values should be inserted into the output of our console. When you use these placeholders the next values passed to the log method will be printed where those placeholder values are. `%s` is for string placeholders. `%d` is for integer placeholders. `%f` is for decimal placeholders. `%o` is for object placeholders.
 
 Now this is a pretty cool feature, but honestly it is not something I use much since I can just use tagged template literals instead.
 ```js
