@@ -15,6 +15,7 @@ export default function SearchBar({ query, onChange }) {
         Search
       </label>
       <input
+        autoFocus
         id="search"
         type="search"
         style={SEARCH_STYLE}
