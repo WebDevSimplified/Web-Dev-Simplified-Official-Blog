@@ -19,35 +19,19 @@ export default defineConfig(
     integrations: [preact(), sitemap()],
     site: "https://blog.webdevsimplified.com",
     markdown: {
-      syntaxHighlight: "prism",
-      render: [
-        "@astrojs/markdown-remark",
-        {
-          remarkPlugins: [
-            ["remark-gfm"],
-            [
-              {
-                default: codeHighlightPre,
-              },
-            ],
-            [
-              "remark-prism",
-              {
-                plugins: ["prismLineHighlightModified.js"],
-              },
-            ],
-            [
-              {
-                default: youtubeEmbed,
-              },
-            ],
-            [
-              {
-                default: responsiveImages,
-              },
-            ],
-          ],
-        },
+      // TODO: Maybe use shiki and see if it is better and has line highlighting.
+      syntaxHighlight: false,
+      remarkPlugins: [
+        "remark-gfm",
+        codeHighlightPre,
+        [
+          "remark-prism",
+          {
+            plugins: ["prismLineHighlightModified.js"],
+          },
+        ],
+        youtubeEmbed,
+        responsiveImages,
       ],
     },
   }
