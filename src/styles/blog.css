@@ -20,7 +20,7 @@ body {
 body {
 	font-family: var(--font-body);
 	font-size: 1rem;
-	font-size: clamp(0.875rem, 0.4626rem + 1.0309vw + var(--user-font-scale), 1.125rem);
+	font-size: clamp(1rem, 0.4626rem + 1.0309vw + var(--user-font-scale), 1.125rem);
 	line-height: 1.625;
 }
 
