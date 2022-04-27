@@ -1,10 +1,11 @@
-import { useState } from "preact/hooks"
 import TagBar from "./TagBar.jsx"
 import SearchBar from "./SearchBar.jsx"
 import BlogPostPreview from "./BlogPostPreview.jsx"
+import { useSessionStorage } from "../hooks/useStorage.js"
 
 export default function BlogList({ allPosts }) {
-  const [selectedTags, setSelectedTags] = useState([])
+  const [searchQuery, setSearchQuery] = useSessionStorage("searchTerm", "")
+  const [selectedTags, setSelectedTags] = useSessionStorage("selectedTags", [])
   const tags = Object.entries(
     allPosts.reduce((totals, post) => {
       return post.tags.reduce((tagTotals, tag) => {
@@ -20,7 +21,6 @@ export default function BlogList({ allPosts }) {
     .map(tag => {
       return { ...tag, selected: selectedTags.includes(tag.name) }
     })
-  const [searchQuery, setSearchQuery] = useState("")
   const filteredPosts = allPosts.filter(post => {
     return (
       (post.title.toLowerCase().includes(searchQuery) ||
