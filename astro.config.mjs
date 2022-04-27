@@ -21,6 +21,7 @@ export default defineConfig(
     markdown: {
       // TODO: Maybe use shiki and see if it is better and has line highlighting.
       syntaxHighlight: false,
+      mode: "mdx",
       remarkPlugins: [
         "remark-gfm",
         codeHighlightPre,

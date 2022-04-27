@@ -8,7 +8,7 @@ tags: ['React']
 
 React 18 recently had its official non-beta release and with it came multiple new React hooks. Of those hooks, the one I am most excited for is the `useTransition` hook. This hook helps increase the performance of your applications, increase the responsiveness of your application to users, and overall just make your application better. This article is all about how this new hook works and is also full of multiple interactive examples so you can truly see and feel the difference in using this hook.
 
-## Why Do You Need `useTransition`? asdfasdf
+## Why Do You Need `useTransition`?
 
 Before we can talk about what this hook does and how to use it we first need to understand a few concepts about how state works in React in order to understand the use case for this hook.
 
