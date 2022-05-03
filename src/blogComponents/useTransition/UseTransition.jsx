@@ -2,9 +2,13 @@ import { useState, useRef } from "preact/hooks"
 
 const LIST_SIZE = 5
 
-export default function UseTransition({ withoutHook = false }) {
+export default function UseTransition({
+  withoutHook = false,
+  withoutLoading = false,
+}) {
   const [name, setName] = useState("a")
   const inputRef = useRef()
+  const timeoutRef = useRef()
   const [isPending, setIsPending] = useState(false)
   const [list, setList] = useState(() => {
     const l = []
@@ -22,7 +26,8 @@ export default function UseTransition({ withoutHook = false }) {
       setName(value)
       setIsPending(true)
     }
-    setTimeout(() => {
+    if (timeoutRef.current != null) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => {
       if (withoutHook) {
         setName(value)
       } else {
@@ -45,7 +50,7 @@ export default function UseTransition({ withoutHook = false }) {
         onInput={handleChange}
         onChange={handleChange}
       />
-      {isPending ? (
+      {withoutLoading === false && isPending ? (
         <div>Loading...</div>
       ) : (
         list.map((item, index) => (
