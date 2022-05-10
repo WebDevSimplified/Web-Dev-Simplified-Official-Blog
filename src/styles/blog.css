@@ -291,10 +291,36 @@ th:last-child, td:last-child {
 .formkit-submit {
 	background-color: var(--theme-accent-light) !important;
 	color: var(--color-gray-800) !important;
+	margin: 0 !important;
 }
 
 .formkit-close {
 	color: var(--theme-accent-light) !important;
+}
+
+.formkit-fields {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: .5rem;
+}
+
+.formkit-field {
+	margin: 0 !important;
+	flex-grow: 1 !important;
+}
+
+.formkit-container > * {
+	flex-grow: 1;
+}
+
+.formkit-content {
+	flex-grow: 0 !important;
+}
+
+@media (max-width: 900px) {
+	.formkit-fields {
+		flex-direction: column;
+	}
 }
 
 code:not([class*="language-"]) {
