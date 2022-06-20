@@ -10,6 +10,9 @@ tags: ['React']
 
 React 18 recently had its official non-beta release and with it came multiple new React hooks to help deal with concurrency and rendering slow content. One of those hooks is the `useDeferredValue` hook which is easy to use but difficult to understand. In this article I will help explain how this hook works so you can understand how and when to best use it.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: jCGMedd6IWA`
+
 ## Why Do You Need `useDeferredValue`?
 
 Before we can talk about what this hook does and how to use it we first need to understand a few concepts about how state and rerendering works in React in order to understand the use case for this hook.

@@ -8,6 +8,9 @@ tags: ['React']
 
 `useImperativeHandle` is probably one of the more confusing hooks out there as it works in a very different way than most of the other hooks. This hook enables imperative code which goes against the declarative nature of React which makes it quite unique. Because of this reason it is generally recommended to avoid this hook unless it is absolutely needed. Unfortunately, there are plenty of scenarios where this hook is necessary which I will cover in this article along with an in depth explanation of how this hook works.
 
+*If you prefer to learn visually, check out the video version of this article.*
+`youtube: zpEyAOkytkU`
+
 ## `React.forwardRef`
 
 Before we can even talk about `useImperativeHandle` we first need to understand how refs in general work especially when forwarding refs to custom components. *If you are already familiar with how refs and `React.forwardRef` works you can skip this first section. If you are unfamiliar with the concept of refs entirely then check out my [useRef ultimate guide](/2020-05/use-ref) before continuing on this article.*
