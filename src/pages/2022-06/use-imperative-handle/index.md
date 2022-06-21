@@ -181,8 +181,6 @@ function CustomModal({ isOpen, onClose }, ref) {
   const confirmRef = useRef()
   const denyRef = useRef()
 
-  if (!isOpen) return null
-
   useImperativeHandle(ref, () => {
     return {
       closeBtn: () => closeRef.current,
@@ -190,6 +188,8 @@ function CustomModal({ isOpen, onClose }, ref) {
       denyBtn: () => denyRef.current
     }
   })
+
+  if (!isOpen) return null
 
   return (
     <div>
