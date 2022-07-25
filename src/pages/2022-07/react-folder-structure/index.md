@@ -3,7 +3,7 @@ setup: import Layout from '/src/layouts/BlogPost.astro'
 title: "How To Structure React Projects From Beginner To Advanced"
 date: "2022-07-11"
 description: "React's unopinionated nature makes it hard to know how to structure projects which is why in this article I am covering 3 different ways of laying out your folder structure in React."
-tags: ['React']
+tags: ['React', 'Technical Discussion']
 ---
 
 React is incredibly flexible due to the fact that it is entirely unopinionated in how you structure and write your code. This flexibility, though, makes it difficult to structure a React project since there are no standards set by React. In this article I will be covering 3 different folder structures that can be used across various sized projects. Theses structures will go in order from the simplest to the most complex, but don't just jump to the most advanced/complex structure because depending on your project size a simpler approach may be better.
