@@ -151,14 +151,14 @@ function App() {
         ref={modalRef}
         open={open}
         onClose={() => setOpen(false)}
-      >
+      />
     </>
   )
 }
 ```
 ```jsx
-function CustomModal({ isOpen, onClose }, ref) {
-  if (!isOpen) return null
+function CustomModal({ open, onClose }, ref) {
+  if (!open) return null
 
   return (
     <div ref={ref}>
@@ -176,20 +176,20 @@ export default React.forwardRef(CustomModal)
 ```
 With the way this code is setup our ref in the `App` component references the outer div in our `CustomModal` component. This is fine for many use cases, but in our case we want to have access to the confirm, deny, and close buttons so we can use the 3 buttons in our `App` component to focus those particular buttons at will. This is not something we can easily do with our current setup so we need to use `useImperativeHandle` to create a custom ref that contains all the elements we need.
 ```jsx {2-4,8-14,18,21,22}
-function CustomModal({ isOpen, onClose }, ref) {
+function CustomModal({ open, onClose }, ref) {
   const closeRef = useRef()
   const confirmRef = useRef()
   const denyRef = useRef()
 
   useImperativeHandle(ref, () => {
     return {
-      closeBtn: () => closeRef.current,
-      confirmBtn: () => confirmRef.current,
-      denyBtn: () => denyRef.current
+      closeBtn: closeRef.current,
+      confirmBtn: confirmRef.current,
+      denyBtn: denyRef.current
     }
   })
 
-  if (!isOpen) return null
+  if (!open) return null
 
   return (
     <div>
