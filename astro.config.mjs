@@ -36,3 +36,10 @@ export default defineConfig(
     },
   }
 )
+
+video.playbackRate = localStorage.getItem("playbackRate")
+video.bind("playbackratechange", rate =>
+  localStorage.setItem("playbackRate", rate)
+)
+video.bind("beforereplace", () => console.log("Replace"))
+video.bind("beforeremove", () => console.log("Remove"))

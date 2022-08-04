@@ -313,7 +313,7 @@ Another thing that you can do with multiple `Routes` components is hardcode the 
 ```
 By hardcoding a `location` prop like this we are overriding the default behavior or React Router so no matter what the URL of our page is this `Routes` component will match its `Route` as if the URL was `/books`.
 
-### Nested `Routes`
+#### Nested `Routes`
 
 The other way to use multiple `Routes` components is to nest them inside one another. This is pretty common if you have lots of routes and want to clean up your code by moving similar routes into their own files.
 ```jsx {3}
@@ -438,7 +438,7 @@ The page your were currently on was replaced with the new page. This means that 
 
 This prop is another boolean and is very simple. If it is set to `true` your `Link` component will act like a normal anchor tag and do a full page refresh on navigation instead of just re-rendering the content inside your `Routes` component.
 
-### `state`
+#### `state`
 
 The final prop is called `state`. This prop lets you pass data along with your `Link` that does not show up anywhere in the URL. This is something we will cover in more depth when we talk about navigation data so we can ignore it for now.
 

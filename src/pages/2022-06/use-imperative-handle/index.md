@@ -221,7 +221,7 @@ function App() {
         ref={modalRef}
         open={open}
         onClose={() => setOpen(false)}
-      >
+      />
     </>
   )
 }
