@@ -1,7 +1,7 @@
 ---
 setup: import Layout from '/src/layouts/BlogPost.astro'
 title: "Is CSS Transform Dead?"
-date: "2022-09-13"
+date: "2022-09-12"
 description: "CSS just added individual rotate, translate, and scale properties which almost entirely remove the need for the transform property in CSS."
 tags: ['CSS']
 ---
