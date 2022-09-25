@@ -1,8 +1,8 @@
 ---
 // Component Imports
-import BaseHead from '../components/BaseHead.astro';
-import BlogHeader from '../components/BlogHeader.astro';
-import BlogList from '/src/components/BlogList.jsx';
+import BaseHead from '../components/BaseHead.astro'
+import BlogHeader from '../components/BlogHeader.astro'
+import BlogList from '../components/BlogList.jsx'
 import ConvertkitForm from '../components/ConvertkitForm.astro'
 import UserSettingsLoad from '../components/UserSettingsLoad.astro'
 import '../styles/theme.css'
@@ -15,23 +15,22 @@ interface MarkdownFrontmatter {
 	tags: string[]
 }
 
-// Component Script:
-// You can write any JavaScript/TypeScript that you'd like here.
-// It will run during the build, but never in the browser.
-// All variables are available to use in the HTML template below.
-let title = 'Web Dev Simplified Blog';
-let description = 'Web Dev Simplified Blog';
-let permalink = 'https://blog.webdevsimplified.com';
+const title = 'Web Dev Simplified Blog';
+const description = 'Web Dev Simplified Blog';
+const permalink = 'https://blog.webdevsimplified.com';
 
-// Data Fetching: List all Markdown posts in the repo.
-
-let allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>('./**/*.md');
+const allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>('../posts/**/*.md')
 const allPosts = allMarkdownPosts
-	.map(post => ({ title: post.frontmatter.title, description: post.frontmatter.description, tags: post.frontmatter.tags, date: new Date(post.frontmatter.date), url: post.url }))
-	.sort((a, b) => b.date.valueOf() - a.date.valueOf())
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+	.map(post => {
+    const [_file, blog, date] = post.file.split("/").reverse()
+		return {
+			title: post.frontmatter.title,
+			description: post.frontmatter.description,
+			tags: post.frontmatter.tags,
+			date: new Date(post.frontmatter.date),
+			url: `/${date}/${blog}`
+		}
+	}).sort((a, b) => b.date.valueOf() - a.date.valueOf())
 ---
 
 <html lang="en">

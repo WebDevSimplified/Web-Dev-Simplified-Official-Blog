@@ -1,7 +1,7 @@
 ---
 import dateFormatter from '../utils/dateFormatter.js'
 import TagBar from './TagBar.jsx'
-import ShareButtons from '/src/components/ShareButtons.jsx'
+import ShareButtons from './ShareButtons.jsx'
 
 export interface Props {
 	title: string;
@@ -10,7 +10,7 @@ export interface Props {
 	tags: string[]
 }
 
-const { title, date, tags, url } = Astro.props;
+const { title, date, tags, url, nextPost, prevPost } = Astro.props;
 const siteUrl = Astro.site.href
 ---
 
@@ -32,15 +32,23 @@ const siteUrl = Astro.site.href
 			<main>
 				<slot />
 			</main>
-			<!-- TODO: Add author and next/previous buttons. Also, maybe add a scroll to top button as well -->
+			<footer>
+				<div>
+					{prevPost && <div class="adjacent-post-link-title">Prev Article</div>}
+					{prevPost && <a href={prevPost.url}>{prevPost.title}</a>}
+				</div>
+				<div class="next">
+					{nextPost && <div class="adjacent-post-link-title">Next Article</div>}
+					{nextPost && <a href={nextPost.url}>{nextPost.title}</a>}
+				</div>
+			</footer>
+			<!-- TODO: Add related blog post links to the end of the articles. Have this data pulled from the frontmatter and also from the articles with the same tag/tags -->
+			<!-- TODO: Add author section -->
+			<!-- TODO: Add a scroll to top button as well -->
 			<!-- TODO: Add custom 404 page -->
-			<!-- TODO: Add search/tags to URL to make the back button work better -->
 			<!-- TODO: Add Google Analytics -->
 			<!-- TODO: Add social share images (https://joeprevite.com/create-a-twitter-card-for-your-blog) (Maybe dynamically generate a CSS page that is scraped with puppeteer or use something like ImageMagik or ffmpeg) -->
 			<!-- TODO: Add Pagination -->
-			<!-- TODO: Add in width slider for users -->
-			<!-- TODO: Add Themes/Dark mode -->
-			<!-- TODO: Add prefers-color-scheme support -->
 		</div>
 	</article>
 </div>
@@ -62,6 +70,13 @@ const siteUrl = Astro.site.href
 		margin-bottom: 2rem;
 	}
 
+	footer {
+		margin-top: 2rem;
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
 	.title,
 	.publish-date {
 		margin: 0;
@@ -74,6 +89,16 @@ const siteUrl = Astro.site.href
 	.title {
 		font-size: 2.25rem;
 		font-weight: 700;
+	}
+
+	.adjacent-post-link-title {
+		color: var(--theme-text-lighter);
+		font-weight: bold;
+		font-size: .8em;
+	}
+
+	.next {
+		text-align: end;
 	}
 
 	@media (max-width: 50em) {

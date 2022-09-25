@@ -116,7 +116,7 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
       scrollElement.addEventListener("scroll", e => {
         cloneContainer.style.bottom = `${e.target.scrollTop}px`
       })
-      console.log(`${rootMargin}px`)
+
       const observer = new IntersectionObserver(
         entries => observerCallback(entries[0], [mainElement, cloneElement]),
         { threshold, rootMargin: `${rootMargin}px`, root: scrollElement }

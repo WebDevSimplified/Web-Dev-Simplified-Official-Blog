@@ -1,0 +1,84 @@
+---
+import BaseHead from '../../components/BaseHead.astro'
+import BlogHeader from '../../components/BlogHeader.astro'
+import BlogPost from '../../components/BlogPost.astro'
+import "prismjs/themes/prism-okaidia.css"
+import "prismjs/plugins/line-highlight/prism-line-highlight.css"
+import ConvertkitForm from '../../components/ConvertkitForm.astro'
+import UserSettingsLoad from '../../components/UserSettingsLoad.astro'
+import '../../styles/theme.css'
+import '../../styles/blog.css'
+import '../../styles/prism-highlight.css'
+
+export async function getStaticPaths({rss}) {
+  const allPosts = await Astro.glob('../../posts/**/*.md')
+  const sortedPosts = allPosts
+    .map(post => {
+      const [_file, blogSlug, dateSlug] = post.file.split("/").reverse()
+      return {
+        Content: post.Content,
+        dateSlug,
+        blogSlug,
+        title: post.frontmatter.title,
+        description: post.frontmatter.description,
+        author: post.frontmatter.author,
+        date: new Date(post.frontmatter.date),
+        tags: post.frontmatter.tags,
+        url: `/${dateSlug}/${blogSlug}`,
+      }
+    })
+    .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+
+  rss({
+    title: 'Web Dev Simplified Blog',
+    description: 'Web Dev Simplified Blog',
+    customData: `<language>en-us</language>`,
+    items: sortedPosts.map(item => ({
+      title: item.title,
+      description: item.description,
+      link: item.url,
+      pubDate: item.date,
+    }))
+  })
+
+  return sortedPosts.map((post, i) => {
+    return {
+      params: { date: post.dateSlug, blog: post.blogSlug },
+      props: {
+        ...post,
+        prevPost: formatAdjacentPost(sortedPosts[i + 1]),
+        nextPost: formatAdjacentPost(sortedPosts[i - 1])
+      }
+    }
+  })
+
+  function formatAdjacentPost(post) {
+    if (post == null) return
+    
+    return {
+      url: post.url,
+      title: post.title
+    }
+  }
+}
+
+const { Content, title, description, author = "Kyle Cook", date, tags, url, permalink, nextPost, prevPost } = Astro.props
+---
+
+
+<html lang="en">
+	<head>
+		<BaseHead {title} {description} {permalink} />
+	</head>
+
+	<body>
+		<UserSettingsLoad />
+		<ConvertkitForm />
+		<BlogHeader />
+		<div class="wrapper">
+			<BlogPost {title} {author} {date} {tags} {url} {nextPost} {prevPost}>
+        <Content />
+			</BlogPost>
+		</div>
+	</body>
+</html>
