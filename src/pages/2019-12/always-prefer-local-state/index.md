@@ -89,7 +89,7 @@ For example. Imagine a todo application with the following component structure.
   <TodosContainer>
     <TodoList></TodoList>
     <TodoCount></TodoCount>
-  </TodoList>
+  </TodosContainer>
 </App>
 ```
 The state of all todos will need to be available inside the `TodoList` component and the `TodoCount` component. This means we cannot just store it in the `TodoList` component. Instead we will need to store this information in the parent component of `TodosContainer`. It would look something like this.
