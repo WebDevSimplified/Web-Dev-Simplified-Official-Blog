@@ -1,5 +1,5 @@
 :root {
-	--font-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+	--font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 	--font-body: 'IBM Plex Sans', var(--font-fallback);
 	--font-mono: 'IBM Plex Mono', Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
 		'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
@@ -24,7 +24,7 @@
 	--color-blue-dark: hsl(200, 100%, 30%);
 	--color-blue-dark-hsl: 200, 100%, 30%;
 	--color-green: hsl(158, 78%, 42%);
-	--color-green-dark: hsl(158, 78%, 22%);;
+	--color-green-dark: hsl(158, 78%, 22%);
 	--color-orange: hsl(21, 100%, 60%);
 	--color-orange-dark: hsl(21, 100%, 40%);
 	--color-purple: hsl(269, 79%, 74%);
