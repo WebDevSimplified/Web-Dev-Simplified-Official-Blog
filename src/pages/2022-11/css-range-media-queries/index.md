@@ -43,7 +43,7 @@ Let's take the above media queries and convert them to the new range syntax.
 /* Between 700px and 1000px */
 @media (700px <= width <= 1000px) {}
 ```
-This new syntax adds less then and greater than syntax which makes writing media queries easier and more importantly makes them so much easier to read. I especially love the ability to do a range where the width is between two values. Below are all the new operators that are added with this update:
+This new syntax adds less than and greater than syntax which makes writing media queries easier and more importantly makes them so much easier to read. I especially love the ability to do a range where the width is between two values. Below are all the new operators that are added with this update:
 
 * `<`
 * `<=`
