@@ -9,7 +9,7 @@ tags: ['CSS']
 ---
 
 
-I hate media queries. I know that may sound crazy, but I just hate the syntax of them. Writing code like `min-width: 300px` has never been intuitive to me. I can never remember if this is meant for screens larger or smaller then 300px and somehow I always seem to get it wrong each time. This is why I am so excited that modern CSS is removing the need to ever define media queries like this again with the introduction of range media queries. Not only does this syntax make CSS media queries easier to read and write, but it also fixes a few edge cases with media queries.
+I hate media queries. I know that may sound crazy, but I just hate the syntax of them. Writing code like `min-width: 300px` has never been intuitive to me. I can never remember if this is meant for screens larger or smaller than 300px and somehow I always seem to get it wrong each time. This is why I am so excited that modern CSS is removing the need to ever define media queries like this again with the introduction of range media queries. Not only does this syntax make CSS media queries easier to read and write, but it also fixes a few edge cases with media queries.
 
 ## The Old Way
 
@@ -62,12 +62,12 @@ Take for example the following code.
 @media (min-width: 500px) {}
 @media (max-width: 500px) {}
 ```
-The first media query will match all devices greater then 500px, the second media query will match all devices less then 500px, but what happens at exactly 500px? Both media queries will apply at 500px which could lead to weird issues or bugs with your code. This is why the new range selectors are nice since you can rewrite this as follows.
+The first media query will match all devices greater than 500px, the second media query will match all devices less than 500px, but what happens at exactly 500px? Both media queries will apply at 500px which could lead to weird issues or bugs with your code. This is why the new range selectors are nice since you can rewrite this as follows.
 ```css
 @media (width >= 500px) {}
 @media (width < 500px) {}
 ```
-Now at 500px only the first media query will be used while the second will only apply to screens less then 500px.
+Now at 500px only the first media query will be used while the second will only apply to screens less than 500px.
 
 This probably isn't a huge deal, but I guarantee if you ran into a bug that was caused by this it would be very difficult to find and a massive time sink so the fact these new range queries get around that is really nice.
 
