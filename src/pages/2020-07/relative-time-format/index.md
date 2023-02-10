@@ -131,8 +131,6 @@ function formatTimeAgo(date) {
     }
     duration /= division.amount
   }
-
-  return false
 }
 ```
 
