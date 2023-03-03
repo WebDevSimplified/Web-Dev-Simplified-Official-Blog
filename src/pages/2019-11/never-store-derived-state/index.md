@@ -46,7 +46,7 @@ function User() {
 
   function selectUser(id) {
     const user = users.find(user => user.id === id)
-    setSelectedUser({ ...user }
+    setSelectedUser({ ...user })
   }
 
   function updateUser(id, name) {
