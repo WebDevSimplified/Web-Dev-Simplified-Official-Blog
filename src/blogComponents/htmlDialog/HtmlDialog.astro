@@ -1,0 +1,122 @@
+---
+const modalId = `modal-${crypto.randomUUID()}`
+const {
+  modalStyle,
+  purpleBackdrop = false,
+  btnText = "Open",
+  isModal = false,
+  closeOnOutsideClick = false,
+  modalText = isModal ? "This is a modal" : "This is a dialog",
+} = Astro.props
+---
+
+<div class="modal-wrapper">
+  <button class="btn" data-modal-open-target={modalId} data-is-modal={isModal}
+    >{btnText}</button
+  >
+  <dialog
+    style={modalStyle}
+    data-close-on-outside-click={closeOnOutsideClick}
+    class={`dialog ${isModal ? "modal" : ""} ${
+      purpleBackdrop ? "purple-backdrop" : ""
+    }`}
+    id={modalId}
+  >
+    <slot>
+      <div class="modal-content">
+        {modalText}
+      </div>
+      <button class="btn" data-modal-close-target={modalId}>Close</button>
+    </slot>
+  </dialog>
+</div>
+
+<style>
+  .modal-wrapper {
+    background: var(--test);
+    position: relative;
+  }
+
+  .dialog {
+    z-index: 10;
+  }
+
+  .dialog:not(.modal) {
+    margin-top: 10px;
+  }
+
+  .dialog.modal {
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  .dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .dialog.purple-backdrop::backdrop {
+    background-color: hsl(250, 100%, 50%, 0.25);
+  }
+
+  .btn {
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    font-size: inherit;
+    background: var(--theme-purple);
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: var(--theme-purple-hover);
+  }
+
+  .modal-content {
+    margin-bottom: 1rem;
+  }
+</style>
+
+<script>
+  const openBtns = document.querySelectorAll("[data-modal-open-target]")
+  const closeBtns = document.querySelectorAll("[data-modal-close-target]")
+  const closeOnOutsideClickDialogs = document.querySelectorAll(
+    "[data-close-on-outside-click]"
+  )
+  closeOnOutsideClickDialogs.forEach(dialog => {
+    dialog.addEventListener("click", e => {
+      const dialogDimensions = dialog.getBoundingClientRect()
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        dialog.close()
+      }
+    })
+  })
+
+  openBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-modal-open-target")
+      const modal = document.getElementById(id)
+      const isModal = btn.getAttribute("data-is-modal")
+      if (isModal === "" || isModal === "true") {
+        modal.showModal()
+      } else {
+        modal.show()
+      }
+      const backdrop = modal.querySelector("::backdrop")
+      console.log(backdrop)
+    })
+  })
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-modal-close-target")
+      const modal = document.getElementById(id)
+      modal.close()
+    })
+  })
+</script>

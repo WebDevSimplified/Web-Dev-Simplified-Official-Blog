@@ -34,7 +34,7 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
   .clone-container {
     position: absolute;
     z-index: -1;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.1);
     left: 0;
     right: 0;
     border: 1px solid white;
@@ -42,7 +42,7 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
   }
 
   :root[data-theme="dark"] .clone-container {
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .root-margin-lines {
@@ -58,14 +58,27 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
   }
 </style>
 
-<div data-intersection-observer-component class="container" style={`padding-top: ${WINDOW_HEIGHT - VIEWPORT_HEIGHT}px; padding-bottom: ${WINDOW_HEIGHT - VIEWPORT_HEIGHT}px;`}>
+<div
+  data-intersection-observer-component
+  class="container"
+  style={`padding-top: ${WINDOW_HEIGHT - VIEWPORT_HEIGHT}px; padding-bottom: ${
+    WINDOW_HEIGHT - VIEWPORT_HEIGHT
+  }px;`}
+>
   <div
     data-scroll-element
     class="scroll-element"
     style={`height: ${VIEWPORT_HEIGHT}px;`}
   >
     <div style={`height: ${WINDOW_HEIGHT}px; padding-top: ${MARGIN}px;`}>
-      <div data-main-element class="main-element" data-threshold={threshold} data-percentage={percentage.toString()} data-root-margin={rootMargin}></div>
+      <div
+        data-main-element
+        class="main-element"
+        data-threshold={threshold}
+        data-percentage={percentage.toString()}
+        data-root-margin={rootMargin}
+      >
+      </div>
     </div>
   </div>
   <div
@@ -75,53 +88,54 @@ const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
   >
     <div data-clone-element class="clone-element"></div>
   </div>
-  {rootMargin !== 0 && (
+  {
+    rootMargin !== 0 && (
       <div class="root-margin-lines">
-      <div class="line" style={`top: ${rootMargin}px`}></div>
-      <div class="line" style={`bottom: ${VIEWPORT_HEIGHT + rootMargin}px`}></div>
-    </div>
-  )}
+        <div class="line" style={`top: ${rootMargin}px`} />
+        <div class="line" style={`bottom: ${VIEWPORT_HEIGHT + rootMargin}px`} />
+      </div>
+    )
+  }
 </div>
 
 <script>
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    ready()
-  } else {
-    document.addEventListener("DOMContentLoaded", ready)
-  }
+  const containers = document.querySelectorAll(
+    "[data-intersection-observer-component]"
+  )
+  containers.forEach(container => {
+    const mainElement = container.querySelector("[data-main-element]")
+    const cloneElement = container.querySelector("[data-clone-element]")
+    const cloneContainer = container.querySelector("[data-clone-container]")
+    const scrollElement = container.querySelector("[data-scroll-element]")
 
-  function ready() {
-    const containers = document.querySelectorAll("[data-intersection-observer-component]")
-    containers.forEach(container => {
-      const mainElement = container.querySelector("[data-main-element]")
-      const cloneElement = container.querySelector("[data-clone-element]")
-      const cloneContainer = container.querySelector("[data-clone-container]")
-      const scrollElement = container.querySelector("[data-scroll-element]")
-
-      const threshold = JSON.parse(mainElement.dataset.threshold)
-      const percentage = JSON.parse(mainElement.dataset.percentage)
-      const rootMargin = JSON.parse(mainElement.dataset.rootMargin)
-      const observerCallback = ({ intersectionRatio, isIntersecting }, elements) => {
-        if (percentage) {
-          elements.forEach(element => {
-            element.textContent = `${Math.round(intersectionRatio * 100)}%`
-          })
-        } else {
-          elements.forEach(element => {
-            element.style.backgroundColor = isIntersecting ? "var(--theme-blue)" : "var(--theme-orange)"
-          })
-        }
+    const threshold = JSON.parse(mainElement.dataset.threshold)
+    const percentage = JSON.parse(mainElement.dataset.percentage)
+    const rootMargin = JSON.parse(mainElement.dataset.rootMargin)
+    const observerCallback = (
+      { intersectionRatio, isIntersecting },
+      elements
+    ) => {
+      if (percentage) {
+        elements.forEach(element => {
+          element.textContent = `${Math.round(intersectionRatio * 100)}%`
+        })
+      } else {
+        elements.forEach(element => {
+          element.style.backgroundColor = isIntersecting
+            ? "var(--theme-blue)"
+            : "var(--theme-orange)"
+        })
       }
+    }
 
-      scrollElement.addEventListener("scroll", e => {
-        cloneContainer.style.bottom = `${e.target.scrollTop}px`
-      })
-      console.log(`${rootMargin}px`)
-      const observer = new IntersectionObserver(
-        entries => observerCallback(entries[0], [mainElement, cloneElement]),
-        { threshold, rootMargin: `${rootMargin}px`, root: scrollElement }
-      )
-      observer.observe(mainElement)
+    scrollElement.addEventListener("scroll", e => {
+      cloneContainer.style.bottom = `${e.target.scrollTop}px`
     })
-  }
+    console.log(`${rootMargin}px`)
+    const observer = new IntersectionObserver(
+      entries => observerCallback(entries[0], [mainElement, cloneElement]),
+      { threshold, rootMargin: `${rootMargin}px`, root: scrollElement }
+    )
+    observer.observe(mainElement)
+  })
 </script>
