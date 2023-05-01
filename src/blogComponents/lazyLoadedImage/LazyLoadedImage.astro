@@ -1,0 +1,103 @@
+---
+const {
+  isAlwaysLoading = false,
+  isBasicFlicker = false,
+  noLoadingAnimation = false,
+  alt = "Lazy Loaded Image Example",
+} = Astro.props
+const id = crypto.randomUUID()
+---
+
+<div
+  data-blur-load={!isAlwaysLoading && !isBasicFlicker}
+  class={`blur-load ${isBasicFlicker ? "loaded" : ""} ${noLoadingAnimation ? "" : "animated"}`}
+  style={isBasicFlicker
+    ? ""
+    : `background-image: url(/articleAssets/2023-05/lazy-load-images/img-small.jpg?id=${id})`}
+>
+  <img
+    class="img"
+    data-flicker={isBasicFlicker}
+    src={`/articleAssets/2023-05/lazy-load-images/img.jpg?id=${id}`}
+    alt={alt}
+    loading="lazy"
+  />
+</div>
+
+<style>
+  .img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+  }
+
+  .blur-load {
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 450px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .blur-load.animated::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: pulse 2.5s infinite;
+    background-color: var(--theme-text);
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .blur-load.loaded::before {
+    animation: none;
+    content: none;
+  }
+
+  .blur-load .img {
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .blur-load.loaded .img {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const flickerImgs = document.querySelectorAll("[data-flicker]")
+  setInterval(() => {
+    flickerImgs.forEach(img => {
+      img.style.opacity = img.style.opacity === "0" ? "1" : "0"
+    })
+  }, 3000);
+
+  const blurDivs = document.querySelectorAll("[data-blur-load]")
+  blurDivs.forEach(div => {
+    const img = div.querySelector("img")
+    function loaded() {
+      div.classList.add("loaded")
+    }
+
+    if (img.complete) {
+      loaded()
+    } else {
+      img.addEventListener("load", loaded)
+    }
+  })
+</script>
