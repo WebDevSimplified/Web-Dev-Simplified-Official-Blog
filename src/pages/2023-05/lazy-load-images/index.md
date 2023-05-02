@@ -127,7 +127,7 @@ Now the only thing left to do is to fade in the full image once it is loaded. Th
 ```
 
 ```js
-const blurredImageDiv = document.querySelectorAll(".blurred-image")
+const blurredImageDiv = document.querySelector(".blurred-image")
 const img = blurredImageDiv.querySelector("img")
 function loaded() {
   blurredImageDiv.classList.add("loaded")
