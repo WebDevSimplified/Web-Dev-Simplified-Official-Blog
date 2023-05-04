@@ -6,7 +6,7 @@ setup: |
 title: "Speed Up Your Site Instantly With Lazy Loaded Images - Advanced Lazy Loading"
 date: "2023-05-01"
 description: "Lazy loading images is one of the easiest ways to speed up your site, but there are a few advanced techniques you can use to make your lazy loading even better."
-tags: ["HTML", "CSS"]
+tags: ["HTML", "CSS", "JavaScript"]
 ---
 
 <div style="display: flex; gap: 1rem; align-items: center;">
