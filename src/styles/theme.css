@@ -60,6 +60,7 @@
   --theme-popup-bg: var(--color-gray-200);
   --theme-tangent-bg: var(--color-gray-200);
   --theme-tangent-border: var(--color-gray-300);
+  --theme-tangent-code-inline-bg: var(--color-gray-400);
 
   --theme-red: var(--color-red);
   --theme-blue: var(--color-blue);
@@ -86,6 +87,7 @@
   --theme-popup-bg: var(--color-gray-700);
   --theme-tangent-bg: var(--color-gray-700);
   --theme-tangent-border: var(--color-gray-600);
+  --theme-tangent-code-inline-bg: var(--color-gray-800);
 
   --theme-red: var(--color-red-dark);
   --theme-blue: var(--color-blue-dark);

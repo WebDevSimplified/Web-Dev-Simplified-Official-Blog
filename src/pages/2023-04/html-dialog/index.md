@@ -10,6 +10,9 @@ tags: ["HTML"]
 
 Modals have been a part of web development for decades now, but they have always been a bit of a pain to work with. The main reason modals have been such a pain is because it is difficult to make a truly accessible modal that conforms to all accessibility standards. This is why the new HTML `dialog` element is so exciting. The `dialog` element makes it so much easier to create accessible modals, and in this article I will explain everything you need to know about the `dialog` element to use it in your next project.
 
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: ywtkJkxJsdg`
+
 ## What Is A Dialog/Modal?
 
 Before we can jump into the new `dialog` element, I need to first explain what a dialog is. A dialog/modal is simply a popup that appears on top of the current page. The main difference between a dialog and a modal is that a modal is supposed to take complete priority over the page and prevent the user from interacting with the page until the modal is closed while a dialog, is just a popup that doesn't take complete priority over the page and should allow the user to interact with the page while the dialog is open.

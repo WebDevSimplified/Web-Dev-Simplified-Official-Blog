@@ -1,7 +1,3 @@
----
-const { title = "Tangent" } = Astro.props
----
-
 <aside class="tangent">
   <slot />
 </aside>
@@ -16,5 +12,9 @@ const { title = "Tangent" } = Astro.props
     border: 1px solid var(--theme-tangent-border);
     font-size: 0.9em;
     color: var(--theme-text-light);
+  }
+
+  :global(.tangent code) {
+    background-color: var(--theme-tangent-code-inline-bg);
   }
 </style>
