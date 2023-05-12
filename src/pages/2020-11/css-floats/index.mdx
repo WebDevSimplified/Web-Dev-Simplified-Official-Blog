@@ -1,13 +1,13 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import CSSFloat from "/src/blogComponents/cssFloat/CSSFloat.astro"
-  import CSSClear from "/src/blogComponents/cssFloat/CSSClear.astro"
+layout: "@layouts/BlogPost.astro"
 title: "CSS Floats Are Still Useful"
 date: "2020-11-09"
 description: "A short explanation on how CSS floats are still useful."
-tags: ['CSS']
+tags: ["CSS"]
 ---
+
+import CSSFloat from "@blogComponents/cssFloat/CSSFloat.astro"
+import CSSClear from "@blogComponents/cssFloat/CSSClear.astro"
 
 When you think of CSS floats you probably immediately think of old and out of date CSS layouts. This is technically correct since many sites used floats and clearfixes in order to create layouts before flexbox and grid, but float can still be used for modern applications.
 
@@ -18,17 +18,20 @@ Since floats have a bad reputation for being abused in layouts many people don't
 <CSSFloat float="left" clearfix />
 
 The above layout is incredibly easy to achieve with floats, but very difficult without. Here is a simplified version of the HTML/CSS for the above code.
+
 ```html
 <div>
   <img src="url" />
   <p>Text</p>
 </div>
 ```
+
 ```css
 img {
   float: left;
 }
 ```
+
 This code is telling our `img` to float to the left side of the page. This means it leaves the normal document flow and moves to the left of all other content. Then the remaining content will flow around the img getting as close as possible on all sides.
 
 We could also float to the right instead.
@@ -40,6 +43,7 @@ img {
   float: right;
 }
 ```
+
 You will notice that even though the image is declared first in the HTML it still shows up after the text on the right. This is because floats break out of the normal document flow and ignore HTML ordering to force the floated element to be as far left or right as possible. It is important to note, though, that elements will only wrap around floated elements if they appear after the floated element in the HTML. If the `img` is defined after the `p` then the `p` will not flow around the floated `img`.
 
 If we wanted to have no float we could do that by setting the float to none which is the default value for float.
@@ -51,6 +55,7 @@ img {
   float: none;
 }
 ```
+
 As you can see this makes the text show up below the image. This is because the image is not floated so the text cannot wrap around it.
 
 ## Clearing Floats
@@ -66,6 +71,7 @@ We can set a float to none in order to stop the text from floating around an ele
   <p>Text</p>
 </div>
 ```
+
 ```css
 .img1 {
   float: left;
@@ -101,9 +107,14 @@ Now the text shows up below both the images since it has to start below the left
 
 If you have ever dealt with old float based layouts then you are familiar with clearfix. Essentially all a clearfix does is fix the overflow issues caused by floating elements.
 
-<CSSFloat float="left" height={350} border text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fugiat odio illum facilis perferendis beatae minima assumenda libero repellat unde." />
+<CSSFloat
+  float="left"
+  height={350}
+  border
+  text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fugiat odio illum facilis perferendis beatae minima assumenda libero repellat unde."
+/>
 
-<div style={{ clear: 'both' }}></div>
+<div style={{ clear: "both" }}></div>
 
 ```html
 <div>
@@ -111,6 +122,7 @@ If you have ever dealt with old float based layouts then you are familiar with c
   <p>Text</p>
 </div>
 ```
+
 ```css
 img {
   float: left;
@@ -119,11 +131,18 @@ div {
   border: 1px solid red;
 }
 ```
+
 In the above example we have the same HTML/CSS from the start of this article, but I added a border to the div that wraps the elements. This helps show that the image is overflowing the div since floats cause an element to leave the document flow, thus opening us up to overflow issues.
 
 Luckily, this is very easy to fix with a clearfix.
 
-<CSSFloat float="left" height={350} border clearfix text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fugiat odio illum facilis perferendis beatae minima assumenda libero repellat unde." />
+<CSSFloat
+  float="left"
+  height={350}
+  border
+  clearfix
+  text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fugiat odio illum facilis perferendis beatae minima assumenda libero repellat unde."
+/>
 
 ```html
 <div>
@@ -131,6 +150,7 @@ Luckily, this is very easy to fix with a clearfix.
   <p>Text</p>
 </div>
 ```
+
 ```css
 img {
   float: left;
@@ -139,7 +159,7 @@ div {
   border: 1px solid red;
 }
 div::after {
-  content: '';
+  content: "";
   display: block;
   clear: both;
 }

@@ -1,17 +1,17 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import FlexboxGeneric from "/src/blogComponents/flexbox/FlexboxGeneric.astro"
-  import FlexboxAxes from "/src/blogComponents/flexbox/FlexboxAxes.astro"
+layout: "@layouts/BlogPost.astro"
 title: "CSS Flexbox Ultimate Guide"
 date: "2021-11-22"
 description: "Flexbox is easy to get started with but hard to master which is why I created this ultimate guide to teach you not only the basics, but also the more advanced features of flexbox."
-tags: ['CSS']
+tags: ["CSS"]
 ---
+
+import FlexboxGeneric from "@blogComponents/flexbox/FlexboxGeneric.astro"
+import FlexboxAxes from "@blogComponents/flexbox/FlexboxAxes.astro"
 
 Laying out elements in CSS is something that used to be pretty difficult to do. We were forced to use annoying hacks like floating elements with clearfixes, but then flexbox was created. Flexbox revolutionized CSS layouts and is by far one of the most defining features of CSS to come out in the last 10 years. In this article I will teach you exactly what flexbox is, how you can use it, and all the advanced nuances you need to understand.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: fYq5PXgSsbE`
 
 ## What Is Flexbox?
@@ -35,6 +35,7 @@ By default the main axis (shown in green) goes horizontally across the container
 ### `justify-content`
 
 For all these examples we will assume that the flex-items have a width of 20%.
+
 ```css
 .flex-item {
   width: 20%;
@@ -124,6 +125,7 @@ With all of these properties you can easily lay elements out along the main axis
 ### `align-items`
 
 For all these examples we will assume that the flex-items all have a width of 20%, but that the elements are all different heights.
+
 ```css
 .flex-item {
   width: 20%;
@@ -158,7 +160,11 @@ This will stretch all items to fill the full height of the cross axis unless the
 }
 ```
 
-<FlexboxGeneric align="stretch" variedHeight firstElementStyles="height: initial;" />
+<FlexboxGeneric
+  align="stretch"
+  variedHeight
+  firstElementStyles="height: initial;"
+/>
 
 #### `flex-start`
 
@@ -321,7 +327,10 @@ By setting a `flex-grow` of 1 we are telling the second element that it should g
 }
 ```
 
-<FlexboxGeneric firstElementStyles="flex-grow: 1;" secondElementStyles="flex-grow: 1;" />
+<FlexboxGeneric
+  firstElementStyles="flex-grow: 1;"
+  secondElementStyles="flex-grow: 1;"
+/>
 
 In this example we set both the first and second element to a `flex-grow` of 1 so now each of those element will receive 1 part of the remaining space. To determine how much space that is we just add up all the `flex-grow` numbers for each item in the container (1 + 1 = 2) and then divide the `flex-grow` of each item by that number. Since our `flex-grow` for each item is 1 each item will get 1/2 of the remaining space added to it.
 
@@ -339,7 +348,10 @@ We can make more complex layouts, though, by giving some elements more or less o
 
 In this example we are saying the first element should get 2 parts of the remaining space while the second element only gets 1 part. When we do the math we will see that the first element gets 2/3 of the remaining space while the second element only gets 1/3 the remaining space.
 
-<FlexboxGeneric firstElementStyles="flex-grow: 2;" secondElementStyles="flex-grow: 1;" />
+<FlexboxGeneric
+  firstElementStyles="flex-grow: 2;"
+  secondElementStyles="flex-grow: 1;"
+/>
 
 At first glance you may think this code is saying that the first element should be twice the size of the second element but flex grow only cares about the remaining space after all elements are added to the container. Since by default our 3 elements take up 60% of the container size the remaining space to divide between the elements is only 40% of the container size. We can actually modify how this remaining space is calculated, though, by using `flex-basis`
 
@@ -359,7 +371,11 @@ In the above code we set the `flex-basis` of the first element to 40% so now ins
 
 This property is really only useful when you want to change the width of elements in the flex container so they work better with `flex-grow`. For example let's say you want to create 3 equal size elements in your container, but they all have different widths to start with that you cannot change.
 
-<FlexboxGeneric firstElementStyles="width: 10%;" secondElementStyles="width: 20%;" thirdElementStyles="width: 30%;" />
+<FlexboxGeneric
+  firstElementStyles="width: 10%;"
+  secondElementStyles="width: 20%;"
+  thirdElementStyles="width: 30%;"
+/>
 
 ```css
 .flex-item {
@@ -367,7 +383,11 @@ This property is really only useful when you want to change the width of element
 }
 ```
 
-<FlexboxGeneric firstElementStyles="width: 10%; flex-grow: 1;" secondElementStyles="width: 20%; flex-grow: 1;" thirdElementStyles="width: 30%; flex-grow: 1;" />
+<FlexboxGeneric
+  firstElementStyles="width: 10%; flex-grow: 1;"
+  secondElementStyles="width: 20%; flex-grow: 1;"
+  thirdElementStyles="width: 30%; flex-grow: 1;"
+/>
 
 You may think just setting `flex-grow` to 1 would make them all the same size, but since they start out at different widths they will end up at different widths since the amount of extra space added to the elements is exactly the same for each independent of their size.
 
@@ -380,7 +400,11 @@ To get around this issue you need to give all elements the same `flex-basis` so 
 }
 ```
 
-<FlexboxGeneric firstElementStyles="flex-basis: 0; flex-grow: 1;" secondElementStyles="flex-basis: 0; flex-grow: 1;" thirdElementStyles="flex-basis: 0; flex-grow: 1;" />
+<FlexboxGeneric
+  firstElementStyles="flex-basis: 0; flex-grow: 1;"
+  secondElementStyles="flex-basis: 0; flex-grow: 1;"
+  thirdElementStyles="flex-basis: 0; flex-grow: 1;"
+/>
 
 Now the last sizing property we have to talk about is `flex-shrink` which we have actually already seen in action.
 
@@ -453,6 +477,7 @@ When you are working in flexbox you are usually working with just one line of it
 Since our items have a width of 50% normally they would shrink to ensure they all fit on one line, but we set the `flex-wrap` property to `wrap` which means that if an item would overflow the container it is instead put on a new line. This is fine if you are using wrap to ensure that even if your list of items grows to be too large they still will look good, but if you are using wrapping to create a two dimensional layout you are using flexbox wrong. Instead you should look towards using CSS grid. You can check out my [CSS grid tutorial video](https://youtu.be/9zBsdzdE4sM) for more information on CSS grid.
 
 If you want to stop a flex container from wrapping you need to set the wrap property to `nowrap`.
+
 ```css
 .flex-container {
   flex-wrap: nowrap;
@@ -462,6 +487,7 @@ If you want to stop a flex container from wrapping you need to set the wrap prop
 ### Advanced Wrapping Layout
 
 If you use `flex-wrap` in a column layout then the items will wrap onto new columns instead of rows.
+
 ```css
 .flex-container {
   flex-direction: column;
@@ -498,7 +524,12 @@ For example in a normal flexbox layout the `align-content` property is set to `n
 ```
 
 <div style="height: 250px; margin-bottom: 1rem;">
-  <FlexboxGeneric width="50%" alignContent="flex-end" height="100px" wrap="wrap" />
+  <FlexboxGeneric
+    width="50%"
+    alignContent="flex-end"
+    height="100px"
+    wrap="wrap"
+  />
 </div>
 
 As you can see all the items are positioned at the bottom of the container which is the end of the cross axis. If we were to use a column layout instead then `align-content` would position the elements horizontally.
@@ -517,9 +548,13 @@ As you can see all the items are positioned at the bottom of the container which
 ```
 
 <div style="height: 250px; margin-bottom: 1rem;">
-  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" />
+  <FlexboxGeneric
+    height="100px"
+    wrap="wrap"
+    direction="column"
+    alignContent="center"
+  />
 </div>
-
 
 ## Advanced Flexbox Properties
 
@@ -528,6 +563,7 @@ Now this covers all the basic and even intermediate properties for flexbox so no
 ### Adding Gaps
 
 One thing that we haven't covered so far is the ability to add gaps between elements in a flexbox container. You could try to do this with margins/padding, but the easier way is to use the `gap` property. This property will add space between each item based on the value we pass to `gap`.
+
 ```css
 .flex-container {
   gap: 10px;
@@ -553,7 +589,13 @@ As you can see each of our items above has a gap of 10px between them. This gap 
 ```
 
 <div style="height: 250px; margin-bottom: 1rem;">
-  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" gap="10px" />
+  <FlexboxGeneric
+    height="100px"
+    wrap="wrap"
+    direction="column"
+    alignContent="center"
+    gap="10px"
+  />
 </div>
 
 As you can see each of our rows/columns has a 10px gap.
@@ -575,7 +617,13 @@ We can also go a step further and define only a row gap or only a column gap.
 ```
 
 <div style="height: 250px; margin-bottom: 1rem;">
-  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" rowGap="10px" />
+  <FlexboxGeneric
+    height="100px"
+    wrap="wrap"
+    direction="column"
+    alignContent="center"
+    rowGap="10px"
+  />
 </div>
 
 ```css {6}
@@ -593,9 +641,14 @@ We can also go a step further and define only a row gap or only a column gap.
 ```
 
 <div style="height: 250px; margin-bottom: 1rem;">
-  <FlexboxGeneric height="100px" wrap="wrap" direction="column" alignContent="center" columnGap="10px" />
+  <FlexboxGeneric
+    height="100px"
+    wrap="wrap"
+    direction="column"
+    alignContent="center"
+    columnGap="10px"
+  />
 </div>
-
 
 ### Ordering Elements
 
@@ -603,15 +656,15 @@ By default we can order elements in normal order or reverse order by using `flex
 
 ```css
 .flex-item:nth-child(1) {
-  order: 2
+  order: 2;
 }
 
 .flex-item:nth-child(2) {
-  order: 1
+  order: 1;
 }
 
 .flex-item:nth-child(3) {
-  order: 1
+  order: 1;
 }
 ```
 
@@ -626,12 +679,15 @@ Now this may seem like a cool trick that allows you to really change how your pa
 ### Flex Shorthand
 
 We already talked about the 3 main properties used to size a flex item, `flex-grow`, `flex-shrink`, and `flex-basis`. Usually you will only need to define one of these at a time, but if you want to define multiple at once you can use the `flex` shorthand property which defines all 3 properties.
+
 ```css
 .flex-item {
   flex: 1 0 10px;
 }
 ```
+
 The above code is the same as:
+
 ```css
 .flex-item {
   flex-grow: 1;
@@ -639,7 +695,9 @@ The above code is the same as:
   flex-basis: 10px;
 }
 ```
+
 The way this property works is the first value is passed to `flex-grow`, the second value is passed to `flex-shrink`, and the third property is passed to `flex-basis`. If you only define the first property then it will just set the `flex-grow` property. CSS is smart enough, though, that if you pass a width value, such as 10px, as the only property to `flex` then it will set just the `flex-basis`.
+
 ```css
 .flex-item {
   flex: 2;
@@ -651,6 +709,7 @@ The way this property works is the first value is passed to `flex-grow`, the sec
   flex-basis: 0;
 }
 ```
+
 ```css
 .flex-item {
   flex: 10px;
@@ -662,6 +721,7 @@ The way this property works is the first value is passed to `flex-grow`, the sec
   flex-basis: 10px;
 }
 ```
+
 When using the `flex` shorthand `flex-grow` will default to 0 unless defined, `flex-shrink` will default to 1, and `flex-basis` will default to 0. This is important to note since `flex-basis` is normally `auto`, but if you use the `flex` shorthand it will default `flex-basis` to 0 unless defined.
 
 ## Conclusion

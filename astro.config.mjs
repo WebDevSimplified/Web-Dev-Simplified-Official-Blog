@@ -13,21 +13,21 @@ import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 
 // https://astro.build/config
+import mdx from "@astrojs/mdx"
+
+// https://astro.build/config
 export default defineConfig(
   /** @type {import('astro').AstroUserConfig} */
   {
-    integrations: [preact(), sitemap()],
+    integrations: [preact(), sitemap(), mdx()],
     site: "https://blog.webdevsimplified.com",
     markdown: {
       // TODO: Maybe use shiki and see if it is better and has line highlighting.
-      syntaxHighlight: false,
-      remarkPlugins: [
-        "remark-gfm",
-        codeHighlightPre,
-        "remark-prism",
-        youtubeEmbed,
-        responsiveImages,
-      ],
+      syntaxHighlight: "prism",
+      remarkPlugins: ["remark-gfm", youtubeEmbed, responsiveImages],
     },
   }
 )
+
+// TODO: Add line highlighting to code blocks.
+// TODO: Check to see if my plugins can be replaced with official integrations.

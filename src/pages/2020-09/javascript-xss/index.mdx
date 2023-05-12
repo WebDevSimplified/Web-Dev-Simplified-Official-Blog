@@ -1,16 +1,16 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import XSS from "/src/blogComponents/xss/XSS.jsx"
+layout: "@layouts/BlogPost.astro"
 title: "How To Prevent The Most Common Cross Site Scripting Attack"
 date: "2020-09-07"
 description: "A quick guide on how cross site scripting works and how to ensure your site is not vulnerable."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
+
+import XSS from "@blogComponents/xss/XSS.jsx"
 
 For this article I decided to take it all the way back to a video I created in 2018 which talks about cross site scripting. Cross site scripting is something most people have heard of but never really think about when creating their site which leads to many potential vulnerabilities. In this article I will show you what cross site scripting is, how it happens, and most importantly how to avoid it.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: ns1LX6mEvyM`
 
 ## What Is Cross Site Scripting?
@@ -23,7 +23,7 @@ In the example for this article we will be using a site that has a search box an
 
 You should notice that when you submit the page it will update the URL at the top of the page. This is important since if you send this URL to another user they will have the same search query pre-populated for them.
 
-*Note: This is not actually changing any URLs on this page since that would open this blog to cross site scripting. This is just emulating what that would look like.*
+_Note: This is not actually changing any URLs on this page since that would open this blog to cross site scripting. This is just emulating what that would look like._
 
 ## How To Perform Cross Site Scripting
 
@@ -47,7 +47,11 @@ The easiest way to fix this issue is to use `innerText` instead of `innerHTML` s
 
 In general I recommend not using `innerHTML` unless you specifically know that no user input will be used within it since it leads to easy cross site scripting vulnerabilities. By just changing from `innerHTML` to `innerText` we can fix the previous cross site scripting example. Here is what an example of using `innerText` would look like.
 
-<XSS client:visible vulnerable={false} initialValue="<img src onerror=alert('hacked') />" />
+<XSS
+  client:visible
+  vulnerable={false}
+  initialValue="<img src onerror=alert('hacked') />"
+/>
 
 ## Conclusion
 

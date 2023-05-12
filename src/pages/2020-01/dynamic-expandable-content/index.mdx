@@ -16,38 +16,18 @@ Multiline overflow content is incredibly tricky to do correctly and a real pain 
 
 To start let's imagine that we have a blog with the following markup.
 
+{/* prettier-ignore */}
 ```html
 <article>
   <h2>Blog Article One</h2>
   <p>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur,
-    alias.
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, alias.
   </p>
 </article>
 <article>
   <h2>Blog Article Two</h2>
   <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati sapiente
-    odio earum? Sapiente odit aut excepturi nulla? Exercitationem tempore non
-    est neque hic, eveniet distinctio quidem cum perspiciatis ipsum nihil
-    necessitatibus rem dolorem earum. Ipsam tempora tempore consequuntur quia?
-    Molestiae reiciendis incidunt veniam, consequatur fuga nesciunt, ipsa error
-    quod sint nisi eius corrupti voluptatum id? Explicabo, repudiandae
-    consectetur! Dolorum, dolor? Modi fugit corrupti harum a sunt autem
-    incidunt. Iusto, dolorum vero modi repellat ratione magni dolores
-    praesentium, esse quam itaque molestias quae! Deserunt reprehenderit commodi
-    odio dolor porro aliquid omnis! Natus, nihil voluptas voluptates eveniet
-    voluptatem quasi velit quam beatae corporis? Modi odio vel quisquam suscipit
-    doloremque veritatis a adipisci minus vitae incidunt deserunt nisi quo
-    facilis ducimus commodi molestias consectetur expedita libero illo, dicta
-    est nam eaque eveniet quam. Reprehenderit atque eius quam exercitationem
-    fuga suscipit ut quidem omnis mollitia, fugiat ex repellat provident
-    quibusdam sunt minus voluptate temporibus quis ullam beatae, voluptatibus,
-    esse nemo. Eligendi esse, nisi vitae, dignissimos consequatur molestiae
-    inventore ipsam libero aliquid dolor molestias odio voluptas velit
-    distinctio vero ab unde ad, sunt blanditiis minima? Aliquid praesentium
-    tempora, ex qui deleniti animi aperiam, at sequi assumenda reprehenderit,
-    libero nisi consequuntur sunt aut quod quos asperiores!
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati sapiente odio earum? Sapiente odit aut excepturi nulla? Exercitationem tempore non est neque hic, eveniet distinctio quidem cum perspiciatis ipsum nihil necessitatibus rem dolorem earum. Ipsam tempora tempore consequuntur quia? Molestiae reiciendis incidunt veniam, consequatur fuga nesciunt, ipsa error quod sint nisi eius corrupti voluptatum id? Explicabo, repudiandae consectetur! Dolorum, dolor? Modi fugit corrupti harum a sunt autem incidunt. Iusto, dolorum vero modi repellat ratione magni dolores praesentium, esse quam itaque molestias quae! Deserunt reprehenderit commodi odio dolor porro aliquid omnis! Natus, nihil voluptas voluptates eveniet voluptatem quasi velit quam beatae corporis? Modi odio vel quisquam suscipit doloremque veritatis a adipisci minus vitae incidunt deserunt nisi quo facilis ducimus commodi molestias consectetur expedita libero illo, dicta est nam eaque eveniet quam. Reprehenderit atque eius quam exercitationem fuga suscipit ut quidem omnis mollitia, fugiat ex repellat provident quibusdam sunt minus voluptate temporibus quis ullam beatae, voluptatibus, esse nemo. Eligendi esse, nisi vitae, dignissimos consequatur molestiae inventore ipsam libero aliquid dolor molestias odio voluptas velit distinctio vero ab unde ad, sunt blanditiis minima? Aliquid praesentium tempora, ex qui deleniti animi aperiam, at sequi assumenda reprehenderit, libero nisi consequuntur sunt aut quod quos asperiores!
   </p>
 </article>
 ```
@@ -56,13 +36,13 @@ As you can see we have one really short article and another article that is quit
 
 The first thing we need to do is to limit the size of the text and add a button that will allow us to toggle the full display of the text. To do this I am wrapping the article text inside a div that will also contain the button for expanding the text. This will look like this.
 
+{/* prettier-ignore */}
 ```html
 <article>
   <h2>Blog Article One</h2>
   <div data-expandable>
     <p data-expand-text>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur,
-      alias.
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, alias.
     </p>
     <button data-expand-button>Read More</button>
   </div>
@@ -71,28 +51,7 @@ The first thing we need to do is to limit the size of the text and add a button 
   <h2>Blog Article Two</h2>
   <div data-expandable>
     <p data-expand-text>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-      sapiente odio earum? Sapiente odit aut excepturi nulla? Exercitationem
-      tempore non est neque hic, eveniet distinctio quidem cum perspiciatis
-      ipsum nihil necessitatibus rem dolorem earum. Ipsam tempora tempore
-      consequuntur quia? Molestiae reiciendis incidunt veniam, consequatur fuga
-      nesciunt, ipsa error quod sint nisi eius corrupti voluptatum id?
-      Explicabo, repudiandae consectetur! Dolorum, dolor? Modi fugit corrupti
-      harum a sunt autem incidunt. Iusto, dolorum vero modi repellat ratione
-      magni dolores praesentium, esse quam itaque molestias quae! Deserunt
-      reprehenderit commodi odio dolor porro aliquid omnis! Natus, nihil
-      voluptas voluptates eveniet voluptatem quasi velit quam beatae corporis?
-      Modi odio vel quisquam suscipit doloremque veritatis a adipisci minus
-      vitae incidunt deserunt nisi quo facilis ducimus commodi molestias
-      consectetur expedita libero illo, dicta est nam eaque eveniet quam.
-      Reprehenderit atque eius quam exercitationem fuga suscipit ut quidem omnis
-      mollitia, fugiat ex repellat provident quibusdam sunt minus voluptate
-      temporibus quis ullam beatae, voluptatibus, esse nemo. Eligendi esse, nisi
-      vitae, dignissimos consequatur molestiae inventore ipsam libero aliquid
-      dolor molestias odio voluptas velit distinctio vero ab unde ad, sunt
-      blanditiis minima? Aliquid praesentium tempora, ex qui deleniti animi
-      aperiam, at sequi assumenda reprehenderit, libero nisi consequuntur sunt
-      aut quod quos asperiores!
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati sapiente odio earum? Sapiente odit aut excepturi nulla? Exercitationem tempore non est neque hic, eveniet distinctio quidem cum perspiciatis ipsum nihil necessitatibus rem dolorem earum. Ipsam tempora tempore consequuntur quia? Molestiae reiciendis incidunt veniam, consequatur fuga nesciunt, ipsa error quod sint nisi eius corrupti voluptatum id? Explicabo, repudiandae consectetur! Dolorum, dolor? Modi fugit corrupti harum a sunt autem incidunt. Iusto, dolorum vero modi repellat ratione magni dolores praesentium, esse quam itaque molestias quae! Deserunt reprehenderit commodi odio dolor porro aliquid omnis! Natus, nihil voluptas voluptates eveniet voluptatem quasi velit quam beatae corporis? Modi odio vel quisquam suscipit doloremque veritatis a adipisci minus vitae incidunt deserunt nisi quo facilis ducimus commodi molestias consectetur expedita libero illo, dicta est nam eaque eveniet quam. Reprehenderit atque eius quam exercitationem fuga suscipit ut quidem omnis mollitia, fugiat ex repellat provident quibusdam sunt minus voluptate temporibus quis ullam beatae, voluptatibus, esse nemo. Eligendi esse, nisi vitae, dignissimos consequatur molestiae inventore ipsam libero aliquid dolor molestias odio voluptas velit distinctio vero ab unde ad, sunt blanditiis minima? Aliquid praesentium tempora, ex qui deleniti animi aperiam, at sequi assumenda reprehenderit, libero nisi consequuntur sunt aut quod quos asperiores!
     </p>
     <button data-expand-button>Read More</button>
   </div>
@@ -176,6 +135,7 @@ One thing that is obvious, though, is that the short blog article acts really st
 
 In order to check for overflow we need to determine the size of the container the text is in and the size of the text to see if the container is larger than the text. This can be done by adding the following to out JavaScript.
 
+{/* prettier-ignore */}
 ```js {1,4,10-17}
 const expandableElements = document.querySelectorAll("[data-expandable]")
 const expandableButtons = document.querySelectorAll("[data-expand-button]")
@@ -190,8 +150,7 @@ function checkForOverflow() {
   expandableElements.forEach(expandableElement => {
     if (expandableElement.classList.contains("expanded")) return
     const expandableText = expandableElement.querySelector("[data-expand-text]")
-    const overflowing =
-      expandableText.scrollHeight > expandableText.clientHeight
+    const overflowing = expandableText.scrollHeight > expandableText.clientHeight
     expandableElement.dataset.overflow = overflowing
   })
 }

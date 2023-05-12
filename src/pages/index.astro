@@ -25,9 +25,7 @@ let permalink = "https://blog.webdevsimplified.com"
 
 // Data Fetching: List all Markdown posts in the repo.
 
-let allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>(
-  "./**/2020-01/dynamic-expandable-content/*.mdx"
-)
+let allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>("./**/*.mdx")
 const allPosts = allMarkdownPosts
   .map(post => ({
     title: post.frontmatter.title,

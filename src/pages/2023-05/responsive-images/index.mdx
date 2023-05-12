@@ -1,12 +1,12 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import Tangent from "/src/blogComponents/lib/Tangent.astro"
+layout: "@layouts/BlogPost.astro"
 title: "How To Speed Up Page Load With Responsive Images"
 date: "2023-05-08"
 description: "Image loading is a major factor in page load times which is why it is important to use responsive images to minimize the amount of data that is transferred to users."
 tags: ["HTML"]
 ---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
 
 Making sure your images look good on all screen sizes is a difficult task since you need to consider the size of the image, where the image is placed, how much of the image is shown, the speed of the user's connection, and so much more. What ends up happening is most developers will just use the same image for all screen sizes and let the browser resize the image to fit the screen. This is a bad practice because the browser will still download the full size image (which is generally very large) even if it is only being displayed at a fraction of its size. This is a waste of your user's bandwidth and will slow down your page load times significantly (especially on slower connections).
 
@@ -57,7 +57,15 @@ This is great because now on small screen sizes the browser will download a smal
 />
 
 <Tangent>
-  When doing your testing you may have noticed that the image downloaded was actually larger than you expected. For example, if your screen width was 700px your browser may still have downloaded the 1600px wide image instead of the 800px wide image. This is because the browser also takes into account the pixel density of your screen. If you are on a high resolution device or your have a high zoom level on your browser the browser will download a larger image to make sure it looks good on your screen since each CSS pixel actually corresponds to multiple pixels on your screen. To check your devices pixel density you can use <code>window.devicePixelRatio</code> in the console.
+  When doing your testing you may have noticed that the image downloaded was
+  actually larger than you expected. For example, if your screen width was 700px
+  your browser may still have downloaded the 1600px wide image instead of the
+  800px wide image. This is because the browser also takes into account the
+  pixel density of your screen. If you are on a high resolution device or your
+  have a high zoom level on your browser the browser will download a larger
+  image to make sure it looks good on your screen since each CSS pixel actually
+  corresponds to multiple pixels on your screen. To check your devices pixel
+  density you can use <code>window.devicePixelRatio</code> in the console.
 </Tangent>
 
 ### How To Handle Different Pixel Densities
@@ -75,7 +83,9 @@ Sometimes you have an image that will always be the same size on the screen, but
 The above code is very similar to our previous `srcset` example, but the major difference is we are using units like `1.5x` and `2x` instead of hard coded pixel values. This unit refers to the pixel density of the screen. For example if someone's screen has a pixel density of 1.25 device pixels per CSS pixel the `logo-150.jpg` image will be used since that is the smallest image that can be used without stretching/blurring pixels.
 
 <Tangent>
-  You don't need to include the <code>1x</code> unit as that is the default. If you only have 2 images you can use <code>logo-100.jpg, logo-200.jpg 2x</code> instead of <code>logo-100.jpg 1x, logo-200.jpg 2x</code>.
+  You don't need to include the <code>1x</code> unit as that is the default. If
+  you only have 2 images you can use <code>logo-100.jpg, logo-200.jpg 2x</code>{" "}
+  instead of <code>logo-100.jpg 1x, logo-200.jpg 2x</code>.
 </Tangent>
 
 ## `img` `sizes` Attribute
@@ -183,8 +193,15 @@ The `picture` element lets you define multiple `source` elements that are used t
 ```
 
 <picture>
-  <source media="(max-width: 500px)" srcset="/articleAssets/2023-05/responsive-images/hiking-narrow.jpg" />
-  <img style="border-radius: 1rem; width: 100%;" src="/articleAssets/2023-05/responsive-images/hiking-wide.jpg" alt="Someone jumping on a hike" />
+  <source
+    media="(max-width: 500px)"
+    srcset="/articleAssets/2023-05/responsive-images/hiking-narrow.jpg"
+  />
+  <img
+    style="border-radius: 1rem; width: 100%;"
+    src="/articleAssets/2023-05/responsive-images/hiking-wide.jpg"
+    alt="Someone jumping on a hike"
+  />
 </picture>
 
 If you grow/shrink the size of your browser you should see the image change between the two different versions. If you are on a mobile device you may need to zoom in/out to see the image change. We have a more cropped version of the image for smaller screen sizes since the focal point of the image, the person, becomes too small on smaller screen sizes.

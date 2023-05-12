@@ -1,13 +1,13 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import LazyLoadedImage from '/src/blogComponents/lazyLoadedImage/LazyLoadedImage.astro'
-  import Tangent from "/src/blogComponents/lib/Tangent.astro"
+layout: "@layouts/BlogPost.astro"
 title: "Speed Up Your Site Instantly With Lazy Loaded Images - Advanced Lazy Loading"
 date: "2023-05-01"
 description: "Lazy loading images is one of the easiest ways to speed up your site, but there are a few advanced techniques you can use to make your lazy loading even better."
 tags: ["HTML", "CSS", "JavaScript"]
 ---
+
+import LazyLoadedImage from "@blogComponents/lazyLoadedImage/LazyLoadedImage.astro"
+import Tangent from "@blogComponents/lib/Tangent.astro"
 
 <div style="display: flex; gap: 1rem; align-items: center;">
   <LazyLoadedImage isAlwaysLoading />
@@ -33,7 +33,14 @@ As I mentioned at the start of this article, lazy loading images is as simple as
 
 All of the images on this page are lazy loaded so you will notice that if you scroll down the page, the images will not load until they are almost on the screen. You can easily see this by viewing the Network tab and filtering to just image requests.
 
-<Tangent>When you look in the Network tab you may notice that each image has a random id attached to it. The reason I did this was because if you load the same image on your page multiple times the browser will only download it once so I added a unique id to each image so the browser would think they are different images and download them individually so you can see the effects of lazy loading in your dev tools.</Tangent>
+<Tangent>
+  When you look in the Network tab you may notice that each image has a random
+  id attached to it. The reason I did this was because if you load the same
+  image on your page multiple times the browser will only download it once so I
+  added a unique id to each image so the browser would think they are different
+  images and download them individually so you can see the effects of lazy
+  loading in your dev tools.
+</Tangent>
 
 The biggest downside to this basic lazy loading is that the user will see a blank space where the image should be until the image is downloaded. It will look something like the below image.
 

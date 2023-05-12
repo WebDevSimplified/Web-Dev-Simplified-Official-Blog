@@ -1,12 +1,12 @@
 ---
-setup: |
-  import Layout from '/src/layouts/BlogPost.astro'
-  import HtmlDialog from '/src/blogComponents/htmlDialog/HtmlDialog.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Modals Will Never Be The Same - HTML dialog Element"
 date: "2023-04-24"
 description: "The new HTML dialog element makes working with accessible modals so much easier. In this article I explain everything you need to know about the new dialog element to use it in your next project."
 tags: ["HTML"]
 ---
+
+import HtmlDialog from "@blogComponents/htmlDialog/HtmlDialog.astro"
 
 Modals have been a part of web development for decades now, but they have always been a bit of a pain to work with. The main reason modals have been such a pain is because it is difficult to make a truly accessible modal that conforms to all accessibility standards. This is why the new HTML `dialog` element is so exciting. The `dialog` element makes it so much easier to create accessible modals, and in this article I will explain everything you need to know about the `dialog` element to use it in your next project.
 
@@ -53,8 +53,9 @@ dialog.showModal() // Opens a modal
 By using the `show()` and `showModal()` methods you can choose exactly how you want your `dialog` element to work since sometimes you want a true modal while other times you want more of a popup style dialog. To close a `dialog` element you just need to use the `close()` method.
 
 <p>
-  Alternatively, if your <code>dialog</code> element is a modal you can use the <kbd>Esc</kbd> key to close it.
-<p>
+  Alternatively, if your <code>dialog</code> element is a modal you can use the{" "}
+  <kbd>Esc</kbd> key to close it.
+</p>
 
 ```js
 const dialog = document.querySelector("dialog")
@@ -102,8 +103,13 @@ If you have a form in your dialog you can set the `method` attribute of your for
 <HtmlDialog isModal>
   <form method="dialog">
     <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-end;">
-      <input style="font-size: inherit; padding: .25em;" type="text">
-      <button style="padding: .25em .5em; font-size: inherit; cursor: pointer;" type="submit">Submit</button>
+      <input style="font-size: inherit; padding: .25em;" type="text" />
+      <button
+        style="padding: .25em .5em; font-size: inherit; cursor: pointer;"
+        type="submit"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </HtmlDialog>
@@ -124,10 +130,22 @@ This can be taken a step further since on any submit button in your form you can
 <HtmlDialog isModal>
   <form onsubmit="if (event.submitter.matches('[data-cancel]')) return; event.preventDefault(); alert('Normally this would submit the form')">
     <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-end;">
-      <input style="font-size: inherit; padding: .25em;" type="text">
+      <input style="font-size: inherit; padding: .25em;" type="text" />
       <div>
-        <button style="padding: .25em .5em; font-size: inherit; cursor: pointer;" data-cancel formmethod="dialog" type="submit">Cancel</button>
-        <button style="padding: .25em .5em; font-size: inherit; cursor: pointer;" type="submit">Submit</button>
+        <button
+          style="padding: .25em .5em; font-size: inherit; cursor: pointer;"
+          data-cancel
+          formmethod="dialog"
+          type="submit"
+        >
+          Cancel
+        </button>
+        <button
+          style="padding: .25em .5em; font-size: inherit; cursor: pointer;"
+          type="submit"
+        >
+          Submit
+        </button>
       </div>
     </div>
   </form>
