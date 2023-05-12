@@ -24,12 +24,7 @@ export default defineConfig(
       remarkPlugins: [
         "remark-gfm",
         codeHighlightPre,
-        [
-          "remark-prism",
-          {
-            plugins: ["prismLineHighlightModified.js"],
-          },
-        ],
+        "remark-prism",
         youtubeEmbed,
         responsiveImages,
       ],

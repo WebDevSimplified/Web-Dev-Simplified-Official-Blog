@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "JavaScript Cookies vs Local Storage vs Session Storage"
 date: "2020-08-17"
 description: "An in depth analysis of all the differences between cookies, localStorage, and sessionStorage."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
 
 Storing data in the browser is a fairly simple task, but there are three different ways to do it and it can be difficult to know which storage option is best for your particular use case. In this video I will be covering all three of the different ways to store data in a user's browser so you can choose the exact option that works best for you.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: GihQAC1I39Q`
 
 ## What Are Cookies, Local Storage, And Session Storage Used For?
@@ -44,64 +44,84 @@ Lastly, we need to talk about the differences in syntax between these different 
 ### Storing Data
 
 In order to set data using local storage or session storage you simple use the `setItem` function. This function takes two string parameters. The first parameter is the name and the second parameter is the value to associate with that name. You can think of this very similar to a key value pair in a JSON object.
-```js
-localStorage.setItem('name', 'Kyle')
 
-sessionStorage.setItem('name', 'Kyle')
+```js
+localStorage.setItem("name", "Kyle")
+
+sessionStorage.setItem("name", "Kyle")
 ```
 
 In order to do the same with cookies is a bit more complex. You need to access the `document.cookie` object and set that to your cookie. To do this all you need to do is set `document.cookie` to a string where the name and value are separated by an equals sign.
+
 ```js
-document.cookie = 'name=Kyle'
+document.cookie = "name=Kyle"
 ```
+
 This will create a cookie with the name `name` and the value `Kyle`, but this cookie will be expired since the default expiration date is in the past. In order to set an expiration date manually we need to pass the `expires` key a UTC date value. We also need to make sure we separate the `expires` key from our `name` key with a semicolon.
+
 ```js
 document.cookie = `name=Kyle; expires=${new Date(9999, 0, 1).toUTCString()}`
 ```
+
 This creates a cookie with an expiration date of 01/01/9999 which essentially is like creating a cookie that never expires.
 
 Now if you want to store multiple sets of different data you just need to duplicate the above code.
-```js
-localStorage.setItem('name', 'Kyle')
-localStorage.setItem('lastName', 'Smith')
 
-sessionStorage.setItem('name', 'Kyle')
-sessionStorage.setItem('lastName', 'Smith')
+```js
+localStorage.setItem("name", "Kyle")
+localStorage.setItem("lastName", "Smith")
+
+sessionStorage.setItem("name", "Kyle")
+sessionStorage.setItem("lastName", "Smith")
 ```
+
 Even with cookies you just set `document.cookie` to a new string and it will add a new cookie without overwriting your old cookies.
+
 ```js
 document.cookie = `name=Kyle; expires=${new Date(9999, 0, 1).toUTCString()}`
-document.cookie = `lastName=Smith; expires=${new Date(9999, 0, 1).toUTCString()}`
+document.cookie = `lastName=Smith; expires=${new Date(
+  9999,
+  0,
+  1
+).toUTCString()}`
 ```
 
 ### Getting Data
 
 In order to get data from local storage and session storage it is as easy as calling the `getItem` method. This method takes a single parameter which is the name of the key value pair and will return the value.
-```js
-localStorage.setItem('name', 'Kyle')
-localStorage.getItem('name') // Kyle
 
-sessionStorage.setItem('name', 'Kyle')
-sessionStorage.getItem('name') // Kyle
+```js
+localStorage.setItem("name", "Kyle")
+localStorage.getItem("name") // Kyle
+
+sessionStorage.setItem("name", "Kyle")
+sessionStorage.getItem("name") // Kyle
 ```
 
 Cookies are a bit more difficult since there is no way to get an individual cookie. The only way to get cookies is to get all the cookies at once by accessing the `document.cookie` object.
+
 ```js
 document.cookie = `name=Kyle; expires=${new Date(9999, 0, 1).toUTCString()}`
-document.cookie = `lastName=Smith; expires=${new Date(9999, 0, 1).toUTCString()}`
+document.cookie = `lastName=Smith; expires=${new Date(
+  9999,
+  0,
+  1
+).toUTCString()}`
 document.cookie // name=Kyle; lastName=Smith
 ```
 
 ### Removing Data
 
 As like the previous examples removing data from local storage and session storage is as easy as calling a single method. This method is the `removeItem` method and takes a single parameter which is the name of the key value pair to remove.
-```js
-localStorage.removeItem('name')
 
-sessionStorage.removeItem('name')
+```js
+localStorage.removeItem("name")
+
+sessionStorage.removeItem("name")
 ```
 
 Cookies as usual are a bit more difficult. To remove a cookie you need to set the cookie again but give it a blank value and a past expiration date.
+
 ```js
 document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
 ```

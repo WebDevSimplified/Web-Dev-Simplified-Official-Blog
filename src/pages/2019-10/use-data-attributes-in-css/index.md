@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: Why You Should Use Data Attributes In CSS
 date: "2019-10-21"
 description: "A quick breakdown of exactly how to use data attributes with CSS to create dynamic content."
-tags: ['CSS']
+tags: ["CSS"]
 ---
 
 Your first thought from this title is probably that you think I am telling you to use data attributes as selectors in your CSS like this `[data-attribute] { color: white }`, but in reality I am talking about using the value of data attributes as content for your CSS. You can do this by using the `attr()` function in CSS. This function will return the value of any data attribute which can then be used in the CSS. In order to explain this further let's use the example below.
@@ -31,6 +31,7 @@ This is a pretty common problem and can be solved by making some HTML that looks
   <span class="badge">5</span>
 </div>
 ```
+
 and some CSS like this:
 
 ```css
@@ -87,11 +88,13 @@ Now I am sure your head is racing with cool things you can do with the `attr()` 
 ```html
 <div data-length="10%"></div>
 ```
+
 ```css
 [data-length] {
-  width: attr(data-length)
+  width: attr(data-length);
 }
 ```
+
 Sadly this is not yet supported in CSS. Currently, only the content property can be set with the `attr()` function, but this type of functionality is planned for the future of CSS. In the future `attr()` will be able to take a type so that instead of returning a string it can actually return a specific type of unit like this `attr(data-background color)`. This would expect the `data-background` attribute to be set and then it would convert that value to a color. This is of course only an experimental feature of CSS, though, and no browsers support it yet. If you want to read more on the experimental use cases you can checkout the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/CSS/attr).
 
 Because of the limitations of this function it is limited in its uses, but it is still great in cases like a notification icon or a simple tool tip.

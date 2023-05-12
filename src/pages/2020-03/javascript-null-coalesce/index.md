@@ -1,48 +1,58 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "JavaScript Null Coalesce"
 date: "2020-03-16"
 description: "Null coalesce is a new JavaScript language feature which makes assigning default values for null/undefined incredibly easy."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
 
 In [last week's article](/2020-03/javascript-optional-chaining) I talked about optional chaining which is incredibly useful when trying to access methods and properties on potentially null objects. In this article I want to talk about another amazing JavaScript feature for handling null/undefined and that is the null coalesce operator. You are probably familiar with the logical or operator (`||`) for handling default values.
+
 ```js
 const tries = options.tries || 10
 ```
+
 This code is flawed, though, since if `options.tries` is 0 then the default value of 10 will be used since 0 is a falsey value. In order to fix this the following code must be used.
+
 ```js
 const tries = options.tries == null ? 10 : options.tries
 ```
+
 This code now will only use the default value if `option.tries` is null or undefined. The only problem is this code is pretty clunky to write, so that is why the null coalesce operator was created.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: v2tJ3nzXh8I?start=41`
 
 ## What Is The Null Coalesce Operator
 
 The null coalesce operator is a new operator in JavaScript that works very similar to the logical or operator, but it will check for null/undefined instead of falsey.
+
 ```js
 const tries = options.tries ?? 10
 ```
+
 The above code uses the null coalesce operator (`??`) to check if `options.tries` is null or undefined. If `options.tries` is null or undefined then it will evaluate the right side of the operator which is 10 so 10 will be returned. Here are a few examples of the null coalesce operator being used to emphasize how it works.
+
 ```js
 undefined ?? 10 // Result: 10
-null ?? 10      // Result: 10
-0 ?? 10         // Result: 0
-false ?? 10     // Result: false
-'Hi' ?? 10      // Result: Hi
-20 ?? 10        // Result: 20
+null ?? 10 // Result: 10
+0 ?? 10 // Result: 0
+false ?? 10 // Result: false
+"Hi" ?? 10 // Result: Hi
+20 ?? 10 // Result: 20
 ```
+
 As you can see only the values of null or undefined will cause the right side of the null coalesce operator to be evaluated. Any other value, even if it is falsey, will cause the right side of the operator to never be evaluated or returned. Because of this, the null coalesce operator is incredibly useful when dealing with default values for variables since falsey values like 0 will not be overridden by the default value.
 
 ## Using The Null Coalesce Operator With Logical Or/And
 
 It is possible to use the null coalesce operator with other logical operators like AND (`&&`) and OR (`||`), but parenthesis must be used in order to specify the order in which the logical operators evaluate.
+
 ```js
 0 || null ?? 10   // Uncaught SyntaxError: Unexpected token '??'
 (0 || null) ?? 10 // 10
 ```
+
 In the above example when no parenthesis are used an error is thrown since JavaScript is not sure what order to evaluate the operators. In the second example, though, the value 10 is returned since first `0 || null` is evaluated which returns null and then `null ?? 10` is evaluated which returns 10.
 
 ## Browser Support

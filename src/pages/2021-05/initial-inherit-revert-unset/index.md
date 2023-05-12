@@ -1,12 +1,13 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "CSS Initial vs Inherit vs Unset vs Revert"
 date: "2021-05-31"
 description: "Understanding how to undo and remove styles in CSS is a skill most developers never learn, but it is incredibly useful."
-tags: ['CSS']
+tags: ["CSS"]
 ---
 
 If you have ever written CSS before then chances are you have had to write CSS like this.
+
 ```css
 .btn {
   background: none;
@@ -15,9 +16,10 @@ If you have ever written CSS before then chances are you have had to write CSS l
   font-family: Roboto;
 }
 ```
+
 This is because browsers give us default CSS values that we often manually remove or use a CSS reset to remove. It is often frustrating running into these default styles as they can be a pain to workaround, so in this article I will show you all the different ways you can inherit/reset CSS styles to get the exact look you want.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: N8tFrMZp_wA`
 
 ## What Does `initial` Do?
@@ -47,6 +49,7 @@ For example, if I give a div a 1px solid black border and put a child inside tha
 This is a very useful value to have since some elements, like buttons, have a specific `font-family` set in the browser style sheet, but you most likely want to inherit that `font-family` to match the rest of your site. This is why I almost always set my buttons to inherit their `font-family`.
 
 It is important to remember that the `inherit` property value makes the element inherit its value from its parent element. It does not inherit its value from the cascade.
+
 ```css
 div {
   color: red;
@@ -60,11 +63,13 @@ p.important {
   color: inherit;
 }
 ```
+
 ```html
 <div>
   <p class="important blue">This is red</p>
 </div>
 ```
+
 In the above example the p tag would have red text since it is inheriting its color from the parent div. It does not move down the cascade to the next most specific selector on that element.
 
 ## What Does `unset` Do?
@@ -72,6 +77,7 @@ In the above example the p tag would have red text since it is inheriting its co
 `unset` is an interesting property since it will either do the same thing as `initial` or `inherit`. If a CSS property naturally inherits, such as `color`, `font-family`, etc. then it will act the same as `inherit`. If a CSS property does not naturally inherit, such as `display`, `border`, etc. then it wil act the same as `initial`. At first this may not seem very useful since you can just manually put `inherit`/`initial` as the value, but this value shines when using the `all` property.
 
 The `all` property allows you to set one value for every single property of an element. This is really useful if you want to remove all browser specific styles from an element such as a button.
+
 ```css
 .btn-all {
   all: unset;
@@ -84,6 +90,7 @@ The `all` property allows you to set one value for every single property of an e
   font-family: inherit;
 }
 ```
+
 By using `all` we can reset everything about an element to the initial values or make sure they inherit which is ideal when creating styles for HTML elements from scratch. This is pretty much the only use case for `unset`, though.
 
 ## What Does `revert` Do?

@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: What Is Short Circuiting?
 date: "2019-10-07"
 description: "A detailed breakdown of what short circuiting is, how it works, and why it is important."
-tags: ['Technical Discussion']
+tags: ["Technical Discussion"]
 ---
 
 I want to talk about short circuiting in programming. It is something that doesn't really get talked about much, but is incredibly important to understand. Before I jump any further into why it is important, I need to define what short circuiting is.
@@ -19,7 +19,7 @@ Now from these examples you are probably thinking this is pretty pointless, but 
 React is not the only use case for short circuiting, though. Another, even more common, use case is when you want to assign a default value to a variable. This can be done by doing this `const variable = variableValue || 'default'` . This code will assign `variable` to `variableValue` if it exists or if `variableValue` does not exist it will set it to `'default'`. This again works via short circuiting since the computer will look at the first section `variableValue` and if it is something that evaluates to `true`, such as an object, then the computer will skip the `'default'` section of the boolean logic. If `variableValue` evaluates to `false`, though, the computer cannot skip anything and it will thus set the variable to `'default'`. This is essentially the same as the following code.
 
 ```javascript
-let variable = 'default'
+let variable = "default"
 if (variableValue) variable = variableValue
 ```
 

@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "What's New In React 18?"
 date: "2021-06-14"
 description: "React 18 introduces a ton of new features related to performance and loading which you should be excited about."
-tags: ['React']
+tags: ["React"]
 ---
 
 React 17 launched not too long ago and with it came a pretty disappointing lack of changes. React 18 on the other hand is packed full of new features that will improve performance and loading of nearly every app. In this article I will be talking about the new features coming to React 18 and how you can start using them today.
@@ -13,14 +13,16 @@ React 17 launched not too long ago and with it came a pretty disappointing lack 
 Suspense is the feature that pretty much everyone has been waiting for. We were teased with the idea of Suspense years ago and it is now finally coming to React 18. Before we get into the code around Suspense we first need to talk about what Suspense does.
 
 Imagine you have a site that looks something like this:
+
 ```jsx
 <Container>
-  <Navbar />      {/*  50ms */}
-  <Sidebar />     {/* 150ms */}
+  <Navbar /> {/*  50ms */}
+  <Sidebar /> {/* 150ms */}
   <BlogArticle /> {/* 100ms */}
-  <Comments />    {/* 200ms */}
+  <Comments /> {/* 200ms */}
 </Container>
 ```
+
 We have 4 main components that each have their own unique loading time next to them. This time is essentially the time it takes for that individual component to get its data from the database on your server and represents the rough loading time for that component's data. In our example all of the components take a total of 500ms to load.
 
 One problem, though, is that our page must wait 150ms for the sidebar data and 200ms for the comments data when the user really only cares about reading the article as quickly as possible. The sidebar and comments are components that don't need to be available right away and can instead load later letting the entire page render and load quicker.
@@ -63,7 +65,9 @@ function handleClick() {
 
 return <button onClick={handleClick}>Click</button>
 ```
+
 In the above example both state changes would be batched together in React 17 and 18 since they are inside an event handler. This is nice since our component only needs to rerender once to handle these state changes. In React 17, though, if we move the state changes so they aren't directly tied to an event handler we no longer have those state changes batched together and rerender twice instead.
+
 ```jsx
 const [count, setCount] = useState(0)
 const [otherState, setOtherState] = useState()
@@ -77,6 +81,7 @@ function handleClick() {
 
 return <button onClick={handleClick}>Click</button>
 ```
+
 Since the state changes are inside the fetch promise it is no longer a part of the click event handler so the component will rerender twice (once for each state call). This has been changed in React 18, though, so that now, no matter where the state changes are, they will always be batched. That means in React 18 both of these examples will only cause the component to rerender once.
 
 ## Handling Slow Updates
@@ -88,7 +93,7 @@ React 18 adds in the idea of urgent updates and transition updates. An urgent up
 A transition update on the other hand is an update that is not urgent and is something a user does not expect to happen instantly. A good example of this is filtering a list of items. Most state updates you do that aren't directly tied to interacting with an input are most likely transition updates. With React 17, though, everything is considered an urgent update since there are no transition updates. In React 18 all updates are by default urgent unless you specifically mark them as transition updates.
 
 ```jsx
-import { startTransition } from 'react'
+import { startTransition } from "react"
 
 // Urgent: Show what was typed
 setInputValue(input)
@@ -98,6 +103,7 @@ startTransition(() => {
   setSearchQuery(input)
 })
 ```
+
 Marking an update as a transition is as easy as just wrapping it inside a `startTransition` function. This will tell React to run this code in the background. Using a transition also helps with performance beyond just running the code in the background, since if an urgent state update is made then React will stop working on transition updates to ensure the urgent update is run as quickly as possible. Also, if the urgent update causes changes that effect the transition update, such as typing into a text box that is filtering a list, then React will throw out the old transition and start a new transition update with the new data.
 
 ## Upgrading To React 18
@@ -105,18 +111,24 @@ Marking an update as a transition is as easy as just wrapping it inside a `start
 Luckily, upgrading to React 18 is incredibly easy since React 18 is mostly just adding new features and isn't really removing or breaking anything. The only real thing to worry about is ensuring you use the new `createRoot` API.
 
 First you need to install React 18. Currently, it is in Alpha as I am writing this article so you will need to install the alpha version of React.
+
 ```
 npm install react@alpha react-dom@alpha
 ```
+
 Once that is done you will need to find where you are rendering your root component. Generally this is inside index.html. Most likely what you have will look something like this.
+
 ```jsx
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById("root"))
 ```
+
 You need to change this to the following.
+
 ```jsx
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<App />)
 ```
+
 This new `createRoot` API is what allows React to use a lot of the new features such as Suspense so it is important you make these changes. Once you have done that, though, you are done upgrading and can start using React 18's fancy new features. It is really that easy.
 
 ## Conclusion

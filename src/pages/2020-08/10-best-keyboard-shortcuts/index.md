@@ -1,16 +1,16 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "10 Essential Keyboard Shortcuts For Programmers"
 date: "2020-08-10"
 description: "These are my 10 favorite keyboard shortcuts that I use everyday as a programmer."
-tags: ['Technical Discussion']
+tags: ["Technical Discussion"]
 ---
 
 As a programmer you spend a lot of time typing on a keyboard, well that is if you aren't stuck in meetings all day :P. In order to optimize the time you spend in front of a keyboard it is best to learn useful keyboard shortcuts that can save you a few seconds every time you use them. That may not sound like a lot, but if you are using these shortcuts hundreds or thousands of times a day you could end up saving yourself hours of work each week.
 
 In this article I will be covering my 10 (it is actually a few more than 10) favorite keyboard shortcuts that work in nearly all text editors. These shortcuts may not work in all editors, though, but they are guaranteed to work in Visual Studio Code. Also, if you are on a Mac computer just replace any use of Ctrl with Cmd and you should be good to go. With that out of the way lets dive into the first set of shortcuts.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: GmdN0kQ2rIs`
 
 ## 1. Copy/Cut/Paste Entire Lines

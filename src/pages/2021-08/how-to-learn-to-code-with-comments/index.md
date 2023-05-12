@@ -1,19 +1,20 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Learn To Code Faster With Comments"
 date: "2021-08-16"
 description: "Building projects from scratch is hard, but if you utilize comments correctly you can make writing projects from scratching trivial."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 By far the number one thing new developers struggle with is building their own projects from scratch. It is easy to watch a tutorial and build what they are building, but as soon as you are left on your own with a blank text editor most beginner developers freeze up and have no idea where to start. If this sounds like you then this article is perfect since I will be showing you how to fix this problem with something as simple as comments.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: Qvmp4F-hOKA`
 
 ## Break Apart Projects
 
 Imagine you are tasked with building out a modal and are given some HTML that looks like this, but nothing else.
+
 ```html
 <button id="open-modal-btn">Open Modal</button>
 
@@ -24,11 +25,13 @@ Imagine you are tasked with building out a modal and are given some HTML that lo
   <button id="close-modal-btn">Close Modal</button>
 </div>
 ```
+
 Depending on your skill level this could be a trivial task, but it is perfect for an example of how comments can be useful.
 
 If you just jump straight into the code and start trying to make this modal then chances are you will get stuck and be unsure where to start or what to do next, especially if you have never built a modal before. This is why instead when you are presented with a problem that you are unsure of you need to think through what the steps are to complete that project without any code.
 
 In our example we know that we have a button that we can click to open the modal and we also have an overlay that we need to show when we click on that button. We also have a close button that should close the modal and overlay when we click on it. With this in mind we can easily write out a guideline of steps to take to complete this project.
+
 ```js
 /*
   TODO: 1. Select the elements we need based on their IDs
@@ -49,6 +52,7 @@ In our example we know that we have a button that we can click to open the modal
 // BONUS: Add a click event listener to the overlay that removes
 //        the class "open" from the modal and the overlay
 ```
+
 Now instead of having the vague and large task of creating a modal we have a step by step guide of what we need to do. With these steps in place we can build the program in much the same way you can follow the steps to build furniture from IKEA, because without those steps you are just staring at a bunch of parts with no idea where to put them.
 
 You also will notice that I broke out everything dealing with the overlay into a BONUS section. This is because the overlay is not really necessary to get the modal working at first. Generally, I find it best to do the bare minimum at first when starting a project so you can get something that works as quickly as possible. Then once you have the modal opening and closing you can work on the overlay.
@@ -56,6 +60,7 @@ You also will notice that I broke out everything dealing with the overlay into a
 ## Write Pseudo Code
 
 Another great way you can use comments is to write out pseudo code for what you need to do to get a single part of your project to work. Imagine you have a project where you need to write some simple validation for a sign up form. You could just start writing the code, but you may forget things or get stuck so writing pseudo code first will help with ensuring the project gets done right.
+
 ```js
 // TODO: Create an event listener for when the form is submitted and do the following inside of it.
 //    TODO: Create an array to store all error messages and clear any old error messages
@@ -66,6 +71,7 @@ Another great way you can use comments is to write out pseudo code for what you 
 //      4. Ensure the terms checkbox is checked
 //    TODO: If there are any errors then prevent the form from submitting and show the error messages
 ```
+
 This code lays out in detail what each section of code should do so now instead of having to worry about the logic of the code and the syntax at the same time you only need to worry about the syntax since the logical portion is done.
 
 ## Separate Logic From Syntax

@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "The Complete JavaScript Promise Guide"
 date: "2021-09-13"
 description: "I promise this will be the best guide on promises you ever read."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
 
 Promises in JavaScript look confusing at first but I promise you by the end of this article you will be a master of promises.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: DHvZLI7Db8E`
 
 ## What Is A Promise
@@ -22,9 +22,10 @@ If you are familiar with callbacks then you may realize that promises solve a si
 ## Implementing Promises
 
 Below is an example of how to write the above scenario using callbacks.
+
 ```js
 function handleJimWork(successCallback, errorCallback) {
-   // Slow method that runs in the background
+  // Slow method that runs in the background
   const success = doJimWork()
   if (success) {
     successCallback()
@@ -33,16 +34,20 @@ function handleJimWork(successCallback, errorCallback) {
   }
 }
 
-handleJimWork(() => {
-  console.log('Success')
-}, () => {
-  console.error("Error")
-})
+handleJimWork(
+  () => {
+    console.log("Success")
+  },
+  () => {
+    console.error("Error")
+  }
+)
 ```
 
 In this example we have a `handleJimWork` function that takes in a callback for what to do on success and failure. We then run the `doJimWork` function which is a slow function that runs in the background. This would be similar to doing something like a fetch request to get information from a server. Then based upon the result of running this slow background function we get a result of either true or false depending on if Jim was able to successfully get through the work day. Depending on that value we either call the success or error callback. Then when we call `handleJimWork` we pass in both a success and error function which will run depending on the success of `doJimWork`.
 
 Now let's look at how we convert this to use promises.
+
 ```js
 function handleJimWork() {
   return new Promise((resolve, reject) => {
@@ -57,15 +62,18 @@ function handleJimWork() {
 }
 
 const promise = handleJimWork()
-promise.then(() => {
-  console.log('Success')
-}).catch(() => {
-  console.error("Error")
-})
+promise
+  .then(() => {
+    console.log("Success")
+  })
+  .catch(() => {
+    console.error("Error")
+  })
 ```
+
 You will immediately notice that the code is very similar, but with one big change. Instead of passing callbacks to `handleJimWork` we instead are using the `reject`, and `resolve` methods of a promise. We are also returning a promise from `handleJimWork` and then when we call `handleJimWork` we are using that promise by calling the `.then` and `.catch` methods on the promise.
 
-First, lets start by breaking down what is happening in `handleJimWork`. If you want to convert a function to use promises you need to always return a promise from that function since you need access to a promise object to check if the promise was successful or not. This is similar to Jim *giving* you his promise that he will pay you back after work. When we create this promise object it takes a function with two parameters: `resolve` and `reject`. These parameters are functions that correlate with a success and failure state.
+First, lets start by breaking down what is happening in `handleJimWork`. If you want to convert a function to use promises you need to always return a promise from that function since you need access to a promise object to check if the promise was successful or not. This is similar to Jim _giving_ you his promise that he will pay you back after work. When we create this promise object it takes a function with two parameters: `resolve` and `reject`. These parameters are functions that correlate with a success and failure state.
 
 The `resolve` function is the success function and should be called whenever the promise was successful. This replaces our `successCallback`.
 
@@ -96,11 +104,13 @@ function handleJimWork() {
   })
 }
 
-handleJimWork().then(amount => {
-  console.log(`Jim paid you ${amount} dollars`)
-}).catch(reason => {
-  console.error(`Error: ${reason}`)
-})
+handleJimWork()
+  .then(amount => {
+    console.log(`Jim paid you ${amount} dollars`)
+  })
+  .catch(reason => {
+    console.error(`Error: ${reason}`)
+  })
 ```
 
 In the above example I modified our code slightly so that now the `resolve` and `reject` methods are actually called with a parameter. In the case of `resolve` we pass in the amount of money that Jim pays us back and in the `reject` case we pass in the reason why Jim cannot pay us back. Then in `.then` and `.catch` we use the parameters passed to `resolve` and `reject` to give us more detailed information about what happens. You may also notice I simplified our code a bit by not extracting the result of `handleJimWork` into its own `promise` variable. In most cases when you write promises you will just directly chain `.then` and `.catch` onto the end of the function instead of creating a variable to store the promise in.
@@ -108,6 +118,7 @@ In the above example I modified our code slightly so that now the `resolve` and 
 ## Promise Chaining
 
 Just by looking at the above examples promises may not seem that great, but the real power of promises comes in the ability to chain them together which solves the problem of callback hell.
+
 ```js
 function one(callback) {
   doSomething()
@@ -132,7 +143,9 @@ one(() => {
   })
 })
 ```
+
 In the above example we have three functions that all do something and we need to call them in order so once the first function finishes we call the second and so on. Then finally at the end we log out that they have all three finished. This is a common problem in JavaScript and with callbacks you start to run into a nested mess as you can see. With promises, though, there is no nested mess to worry about since you can chain promises.
+
 ```js
 function one() {
   return new Promise(resolve => {
@@ -155,17 +168,22 @@ function three() {
   })
 }
 
-one().then(() => {
-  return two()
-}).then(() => {
-  return three()
-}).then(() => {
-  console.log("We did them all")
-})
+one()
+  .then(() => {
+    return two()
+  })
+  .then(() => {
+    return three()
+  })
+  .then(() => {
+    console.log("We did them all")
+  })
 ```
+
 In the above example we converted `one`, `two`, and `three` to promises and then we just chain together each `.then` of the previous promise into the next. That is because if you return a promise from a `.then` or `.catch` that promise will be used with the next `.then` or `.catch` in the chain.
 
 In this example we are calling `one` and in the first `.then` we are calling `two` and returning the promise `two` returns. Since we are returning a promise from a `.then` JavaScript is smart enough to run the code in that promise and once it finishes call the next `.then` in the chain. This is repeated again with `three` and we finally get the log printed at the end. We can even clean this up a bit further.
+
 ```js
 one()
   .then(two)
@@ -174,6 +192,7 @@ one()
     console.log("We did them all")
   })
 ```
+
 The above code works exactly the same since the functions `two` and `three` return promises when called.
 
 ## Advanced Promise Features
@@ -183,21 +202,26 @@ So far we have covered just the most basic use cases for promises, but there is 
 ### `.finally`
 
 The `.finally` method works very similar to `.then` and `.catch` in that it is chained onto a promise, but the code in `.finally` will run whether the promise fails or succeeds.
+
 ```js {6-8}
 handleJimWork()
   .then(amount => {
     console.log(`Jim paid you ${amount} dollars`)
-  }).catch(reason => {
+  })
+  .catch(reason => {
     console.error(`Error: ${reason}`)
-  }).finally(() => {
+  })
+  .finally(() => {
     console.log("This always runs")
   })
 ```
+
 `.finally` is great if you need to do some clean up or you want to do the same thing whether a promise succeeds or fails.
 
 ### `Promise.all`
 
 The rest of the methods in this section will all be on the `Promise` object itself. The `Promise.all` method takes an array of promises and will wait for **all** of them to resolve before calling `.then` with the results of **all** the promises. If **any** of the promises reject, though, it will immediately call `.catch` with the error of the failed promise.
+
 ```js
 function one() {
   return new Promise(resolve => {
@@ -213,25 +237,22 @@ function two() {
   })
 }
 
-Promise.all([
-  one(),
-  two()
-]).then(messages => {
-  console.log(messages)
-  // ["From One", "From Two"]
-}).catch(error => {
-  // First error if any error
-})
+Promise.all([one(), two()])
+  .then(messages => {
+    console.log(messages)
+    // ["From One", "From Two"]
+  })
+  .catch(error => {
+    // First error if any error
+  })
 ```
 
 ### `Promise.allSettled`
 
 This method is very similar to `Promise.all`. The only difference is that `Promise.allSettled` will wait for **all** promises to succeed and/or fail before calling `.then`. `Promise.allSettled` also never calls `.catch` and instead will tell you if each promise failed or succeeded in the `.then`.
+
 ```js
-Promise.allSettled([
-  one(),
-  two()
-]).then(messages => {
+Promise.allSettled([one(), two()]).then(messages => {
   console.log(messages)
   /* [
     { status: "fulfilled", value: "From One" },
@@ -243,36 +264,37 @@ Promise.allSettled([
 ### `Promise.any`
 
 This method takes an array of promise just like the previous methods, but it will only wait for **one** promise to resolve. Once **one** promise in the list is successful it will call `.then` with the result of the **first successful** promise.
+
 ```js
-Promise.any([
-  one(),
-  two()
-]).then(firstMessage => {
-  console.log(firstMessage)
-  // Message from whichever resolved first
-}).catch(error => {
-  // Generic error saying all promises failed
-})
+Promise.any([one(), two()])
+  .then(firstMessage => {
+    console.log(firstMessage)
+    // Message from whichever resolved first
+  })
+  .catch(error => {
+    // Generic error saying all promises failed
+  })
 ```
 
 ### `Promise.race`
 
 This method is very similar to `Promise.any`, but it only waits until **one** promise either **fails or succeeds** unlike `Promise.any` which only cares about the first success. `Promise.race` will wait until the **first** promise fails or succeeds and then call `.then` or `.catch` accordingly.
+
 ```js
-Promise.race([
-  one(),
-  two()
-]).then(firstMessage => {
-  console.log(firstMessage)
-  // Message from first promise to finish if it was a success
-}).catch(firstError => {
-  // Message from first promise to finish if it was an error
-})
+Promise.race([one(), two()])
+  .then(firstMessage => {
+    console.log(firstMessage)
+    // Message from first promise to finish if it was a success
+  })
+  .catch(firstError => {
+    // Message from first promise to finish if it was an error
+  })
 ```
 
 ### `Promise.resolve`
 
 This method is a shorthand for returning a promise that resolves immediately. This is useful if you need to pass a promise to something but do not already have a promise.
+
 ```js
 Promise.resolve(200).then(amount => {
   console.log(amount)
@@ -283,6 +305,7 @@ Promise.resolve(200).then(amount => {
 ### `Promise.reject`
 
 This method is the same as `Promise.resolve`, but for returning a failing promise.
+
 ```js
 Promise.reject("Error").catch(message => {
   console.error("Error")

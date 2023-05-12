@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: Why You Shouldn't Use Class Selectors In JavaScript
 date: "2019-10-14"
 description: "A breakdown of why the common practice of using class selectors in JavaScript makes code impossible to refactor, and what you should do instead."
-tags: ['CSS', 'JavaScript']
+tags: ["CSS", "JavaScript"]
 ---
 
 If you have been doing web development for any amount of time then you have most likely run across or written code that looks like this `document.querySelector('.class')`. Now there is technically nothing wrong with this code and you will see code like this more often than not, but what if I told you there was a much better way to select elements in JavaScript.
@@ -15,18 +15,21 @@ That better way to select elements is by using data attributes. If you are not f
 ## Why Data Attributes Are Perfect For JavaScript Selectors
 
 The first and most obvious reason is that you can be more expressive in your selectors. Since a data attribute can have a value you can use that value in the selector to make easy dynamic selectors. For example, let's imagine we have an element that can toggle between active and inactive when clicked on. If we used a class based approach we would need to have a class for active and inactive which would lead us to have elements that look like this:
+
 ```html
 <div class="active">...</div>
 <div class="inactive">...</div>
 ```
 
 Now this is a bit messy especially when we have to use JavaScript to add/remove the classes so what most people do is remove the active class and have no class mean active. This makes the JavaScript code much cleaner and the HTML will now look something like this:
+
 ```html
 <div>...</div>
 <div class="inactive">...</div>
 ```
 
 The problem with this approach is that now it is not obvious that the element is active since there is no class denoting it as active and you need to remember that no class means active. In order to fix this problem we can use data attributes. This would make the elements look like this
+
 ```html
 <div data-active="true">...</div>
 <div data-active="false">...</div>

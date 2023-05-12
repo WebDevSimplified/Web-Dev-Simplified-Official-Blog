@@ -1,18 +1,18 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Accept Payments With Stripe"
 date: "2021-07-26"
 description: "Almost every application needs some way to accept payments so in this article I will show you how to easily configure Stripe in just a few lines of code."
-tags: ['JavaScript', 'Node.js', 'Express']
+tags: ["JavaScript", "Node.js", "Express"]
 ---
 
 So you just created an amazing application and now you need to actually get paid for it but you have no idea where to start. That is perfect because in this article I will show you step by step how to setup Stripe with Node.js and accept payments through this beautiful UI.
 
 ![Stripe Checkout Example](/articleAssets/2021-07/stripe-checkout/stripe-checkout.jpg)
 
-*Before we get started I do want to mention that [Stripe's documentation](https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout) is amazing and I highly recommend using their documentation alongside this article.*
+_Before we get started I do want to mention that [Stripe's documentation](https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout) is amazing and I highly recommend using their documentation alongside this article._
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: 1r-F3FIONl8`
 
 ## Setup
@@ -26,6 +26,7 @@ You will need a Node.js server to integrate Stripe so if you do not already have
 1. Run `npm init` to create a package.json file for your project
 2. Run `npm i stripe express dotenv` to install stripe, express, and dotenv
 3. Create a file called `server.js` and include the following code.
+
 ```js
 // Load environment variables from the .env file into process.env
 require("dotenv").config()
@@ -52,6 +53,7 @@ app.listen(3000)
 ## Connecting The Client Side
 
 Before we write any more code for the server we are going to focus on how you connect the client side of your application to the server. In my opinion the best way to do this is with a fetch request since most likely your server will be an API that you are calling from your client. The code to do this is as follows.
+
 ```js
 // Initiate a POST request to the server
 // If the server is on a different domain than the client
@@ -89,6 +91,7 @@ fetch("/create-checkout-session", {
     console.error(e.error)
   })
 ```
+
 This is a lot of code so let's break down exactly what is happening. On the client we are making a request to an endpoint on our server and sending along the id and quantity of each item the customer wants to purchase. Then if the request is successful we redirect the customer to the url returned from the API.
 
 #### Important Notes
@@ -99,6 +102,7 @@ This is a lot of code so let's break down exactly what is happening. On the clie
 ## Connecting The Server Side
 
 We now are able to make a request from the client to the server on an endpoint called `/create-checkout-session`. The next step for us is to create this endpoint on our server and return a valid URL to the client by adding the following code inside our server.js file.
+
 ```js
 // Create a post request for /create-checkout-session
 app.post("/create-checkout-session", async (req, res) => {
@@ -136,6 +140,7 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 })
 ```
+
 Now this code is a bit more complex so let me break it down. Essentially we have an endpoint that is taking all the item information from our client. This information is in the form of a JSON object that has an `items` key which contains an array of items with an `id` and a `quantity`.
 
 The first thing we do is call `stripe.checkout.sessions.create` which takes a single object containing all the information for checkout:
@@ -145,18 +150,20 @@ The first thing we do is call `stripe.checkout.sessions.create` which takes a si
 3. `success_url`: This is the URL we will direct customers to after a successful payment.
 4. `cancel_url`: This is the URL we will direct customers to if they cancel the purchase.
 5. `line_items`: This is an array of items that the customer is purchasing. The format for each line item is as follows:
-    * `price_data`: This is an object that contains the information on the product such as name and price. It is important to note that all prices in Stripe are defined in cents so a 10 dollar item would have a `unit_amount` of 1000.
-    * `quantity`: This is the number of the item the customer wants to buy.
+   - `price_data`: This is an object that contains the information on the product such as name and price. It is important to note that all prices in Stripe are defined in cents so a 10 dollar item would have a `unit_amount` of 1000.
+   - `quantity`: This is the number of the item the customer wants to buy.
 
 Finally after we have the session created we can get the URL from that session and send it to our client. This URL will direct the user to Stripe checkout page where they can enter all their payment information.
 
 ## Finishing Touches
 
 This is all the code we need to write for the project, but we still need to finish setting up our environment variables. To do this we can create a file called `.env` at the root of our server. Inside that file we want to store key value pairs for our Stripe private key and our server url.
+
 ```ini
 STRIPE_PRIVATE_KEY=<your_key>
 CLIENT_URL=https://client.com
 ```
+
 Now in order to get your Stripe private key you just need to go to your Stripe account dashboard under the Developers section in the sidebar and click on [API Keys](https://dashboard.stripe.com/apikeys). Here you can view your secret key. It is important to note that Stripe has a test and live mode, though, and that you will want to make sure you click the View test data toggle in the sidebar to access your test API key to use in development.
 
 With this API key you can create charges that will show up in the test data section of your Stripe account without actually spending any real money. If you want to test for a successful charge just use a card with the number 4242&nbsp;4242&nbsp;4242&nbsp;4242, an expiration date in the future, and any CVC. Stripe also has tons of other cards you can use for testing that result in different error/success messages. You can view them all [here](https://stripe.com/docs/testing#cards).

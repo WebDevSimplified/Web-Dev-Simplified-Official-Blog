@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Structure React Projects From Beginner To Advanced"
 date: "2022-07-11"
 description: "React's unopinionated nature makes it hard to know how to structure projects which is why in this article I am covering 3 different ways of laying out your folder structure in React."
-tags: ['React', 'Technical Discussion']
+tags: ["React", "Technical Discussion"]
 ---
 
 React is incredibly flexible due to the fact that it is entirely unopinionated in how you structure and write your code. This flexibility, though, makes it difficult to structure a React project since there are no standards set by React. In this article I will be covering 3 different folder structures that can be used across various sized projects. Theses structures will go in order from the simplest to the most complex, but don't just jump to the most advanced/complex structure because depending on your project size a simpler approach may be better.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: UUga4-z7b6s`
 
 ## Preface
@@ -45,7 +45,7 @@ You will notice that this folder structure doesn't say what to do with things li
 
 ![Intermediate Folder Structure](/articleAssets/2022-07/react-folder-structure/intermediate.png)
 
-Already from the image above you will notice that this folder structure includes a ton more folders which cover pretty much any file type you can think of in a React project. For the most part with a folder structure like this you should have almost no files in the root of your `src` folder other than things like your `index.js` file. 
+Already from the image above you will notice that this folder structure includes a ton more folders which cover pretty much any file type you can think of in a React project. For the most part with a folder structure like this you should have almost no files in the root of your `src` folder other than things like your `index.js` file.
 
 The other big change between this folder structure and the simple folder structure is that we now are breaking our project into pages which encapsulate all the logic for specific pages into one single location. This is really useful on larger projects since now your can find all the information related to your pages in one folder instead of having to search across multiple folders and sift through unrelated files to find what you want.
 
@@ -81,13 +81,13 @@ The `data` folder is similar to the `assets` folder, but this is for storing our
 
 ### `utils`
 
-The final new folder is the `utils` folder. This folder is for storing all utility functions such as formatters. This is a pretty straightforward folder and all the files in this folder should likewise be straightforward. I generally like to only store pure functions in this folder since if a utility function has side effects then it is most likely not just a simple utility function. Obviously there are exceptions to this rule, though. *Also, if you are unfamiliar with pure functions check out my [complete pure functions guide](/2020-09/pure-functions)*.
+The final new folder is the `utils` folder. This folder is for storing all utility functions such as formatters. This is a pretty straightforward folder and all the files in this folder should likewise be straightforward. I generally like to only store pure functions in this folder since if a utility function has side effects then it is most likely not just a simple utility function. Obviously there are exceptions to this rule, though. _Also, if you are unfamiliar with pure functions check out my [complete pure functions guide](/2020-09/pure-functions)_.
 
 ### Pros
 
 The biggest benefit to this new system is that all your files have their own folder. The actual root `src` folder should have almost no files in it.
 
-Another huge benefit is that your files are now collocated based on the page they are used in. This is good since generally as a project grows it is more and more important to have files that are used together stored together since it makes understanding, writing, and reading code easier as it reduces the amount of *global* code stored in your general `components`, `hooks`, etc. folders.
+Another huge benefit is that your files are now collocated based on the page they are used in. This is good since generally as a project grows it is more and more important to have files that are used together stored together since it makes understanding, writing, and reading code easier as it reduces the amount of _global_ code stored in your general `components`, `hooks`, etc. folders.
 
 ### Cons
 
@@ -109,19 +109,20 @@ The massive change between these two structures is the `features` folder. This f
 
 The actual structure of this folder follows the `pages` structure in that there are individual folders for each feature (authentication, todos, projects, etc.) and inside those folders are all the files for that feature. The biggest difference you will notice between the `pages` folder and the `features` folder, though, is that within each feature you have another set of folders. This folder structure for each feature is a complete copy of all the folders inside the `src` folder (other than the `features` folder obviously) and an `index.js` file. This means that within your feature all your code can be organized by type (context, hook, etc.) while still be collocated together.
 
-The `index.js` file is then used as a way to expose a *public* API for everything that is usable outside the feature folder for that given feature. It is common that you will want to have a bunch of code that is *private* to the specific feature you are working on, but with JS if you create an export in a file it can be used in any other file you want. In larger projects this can become a problem if we only want to expose a few components/methods for our feature which is where the `index.js` file comes in. This file should export only the code you want to be accessible outside the feature and then every time you use code for this feature in your application you should import it from the `index.js` file. Doing this is really nice since your global code footprint is much smaller this way and using the features becomes easier since you have a limited API to work with. This can even be enforced by an ESLint rule which disallows any import from a `feature` folder that doesn't come from `index.js`.
+The `index.js` file is then used as a way to expose a _public_ API for everything that is usable outside the feature folder for that given feature. It is common that you will want to have a bunch of code that is _private_ to the specific feature you are working on, but with JS if you create an export in a file it can be used in any other file you want. In larger projects this can become a problem if we only want to expose a few components/methods for our feature which is where the `index.js` file comes in. This file should export only the code you want to be accessible outside the feature and then every time you use code for this feature in your application you should import it from the `index.js` file. Doing this is really nice since your global code footprint is much smaller this way and using the features becomes easier since you have a limited API to work with. This can even be enforced by an ESLint rule which disallows any import from a `feature` folder that doesn't come from `index.js`.
+
 ```json
 {
   "rules": {
-    "no-restricted-imports": [
-      "error", { "patterns": ["@/features/*/*"] }
-    ]
+    "no-restricted-imports": ["error", { "patterns": ["@/features/*/*"] }]
   }
 }
 ```
-*Above code from [Bullet Proof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md).*
+
+_Above code from [Bullet Proof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)._
 
 This import rules utilizes absolute imports (which I recommend using on larger projects). You can set this up by using a `.jsconfig` or `.tsconfig` file with the following code.
+
 ```js
 {
   "compilerOptions": {
@@ -145,7 +146,7 @@ The first new folder is the `layouts` folder and this one is really simple. This
 
 The `lib` folder is another fairly simple folder. This folder contains facades for the various different libraries you use in your project. For example, if you use the `axios` library then this folder would contain a file for that `axios` library that creates your own API overtop of the `axios` API which you then use in your application. This means that instead of importing `axios` directly in your project you would import the file from this folder associated with `axios`.
 
-Doing this makes is much easier to update, and replace libraries since all the library specific code is in one place in your application. It also makes it easier to customize third party libraries to your own need. *This pattern is called the Facade Pattern which you can learn more about in my [Ultimate Facade Pattern Guide](/2022-07/facade-pattern).*
+Doing this makes is much easier to update, and replace libraries since all the library specific code is in one place in your application. It also makes it easier to customize third party libraries to your own need. _This pattern is called the Facade Pattern which you can learn more about in my [Ultimate Facade Pattern Guide](/2022-07/facade-pattern)._
 
 ### `services`
 
@@ -153,7 +154,7 @@ The final new folder is the `services` folder. This folder contains all your cod
 
 ### Pros
 
-The biggest pro by far of this structure is the ease of adding/updating code. Since the bulk of the code is broken down into different features it is easy to add new features or update existing features. This separation also simplifies the codebase since now files can be considered *private* which helps with understanding the codebase.
+The biggest pro by far of this structure is the ease of adding/updating code. Since the bulk of the code is broken down into different features it is easy to add new features or update existing features. This separation also simplifies the codebase since now files can be considered _private_ which helps with understanding the codebase.
 
 Another benefit is that the code outside the `features` folder is generally pretty simple to understand since most of the business logic is wrapped up inside the `features` folder. This again makes understanding and working with the code that much easier.
 

@@ -1,25 +1,28 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "JavaScript Resize Observer Ultimate Guide"
 date: "2022-01-31"
 description: "Detecting element size changes is something that is normally difficult to do, but with resize observer it is incredibly easy."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
 
 Resize Observer is one of 3 observer based JavaScript APIs with the other two being Intersection Observer and Mutation Observer. While I do not think Resize Observer is as useful as something like Intersection Observer it is still useful to know. Right now Resize Observer is the only way to detect element size changes and makes changing content/styles on a page based on resizing so much easier.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: M2c37drnnOA`
 
 ## Your First Resize Observer
 
 Creating a Resize Observer is actually quite simple since all you need to do is pass a function to the `ResizeObserver` constructor.
+
 ```js
 const observer = new ResizeObserver(entries => {
   console.log(entries)
 })
 ```
+
 In the above example we created a brand new Resize Observer and in the function we passed to it we are just logging out the `entries` parameter. This `entries` parameter is the only argument that the function accepts and it just outputs the information related to each element when it changes size. That may sound confusing but let's take a look at a simple example.
+
 ```js {2-5,8}
 const observer = new ResizeObserver(entries => {
   entries.forEach(entry => {
@@ -30,6 +33,7 @@ const observer = new ResizeObserver(entries => {
 
 observer.observe(document.getElementById("test"))
 ```
+
 In the above code we are calling the `observe` method on our Resize Observer and telling it to observe size changes for the element with the id test. These size changes can occur in many ways such as the window size changing, elements being added/removed from the page, user interaction, and much more. Essentially, any time an element you are observing changes size it will trigger the function passed to `ResizeObserver`.
 
 In our code we are looping through all the elements in the `entries` array. This array just lists all the elements we are observing that have had their size change. We are then looping through those entries and for each one we are checking the `contentRect` property. This property contains information such as the width, height, top, left, bottom, right, etc. of our element. Finally, we are using the `target` property of our entry to get the current element that is being observed and changing its background to the appropriate color.
@@ -41,6 +45,7 @@ Unlike the other observer APIs, Resize Observer has very limited options you can
 ### Box
 
 The `box` property allows you to change which box model is used to determine size changes. By default the `content-box` is used, but you can also use the `border-box`, and the `device-pixel-content-box`. The `border-box` option takes into account things like border and padding changes, while the `content-box` only includes the actual content of the element. The `device-pixel-content-box` is similar to the `content-box` option but it takes into account the actual pixel size of the device it is rendering too. This means that the `device-pixel-content-box` will change at a different rate than the `content-box` depending on the pixel density of the device.
+
 ```js {3}
 const observer = new ResizeObserver(changeColor)
 
@@ -72,17 +77,20 @@ This covers all the basic use cases and options for Resize Observers, but there 
 ### Second Callback Parameter
 
 The callback you pass to new Resize Observers actually has two parameters. The first parameter is the `entries` parameter we have talked a bunch about. The second parameter is simply the observer that is observing the changes.
+
 ```js {2}
 const observer = new ResizeObserver((entries, o) => {
   console.log(o === observer)
   // True
 })
 ```
+
 This parameter is useful when you need to do something with the observer from within the callback since you may not always have access to the observer variable from the callback depending on where the callback is defined.
 
 ### Unobserve and Disconnect
 
 It is important to stop observing elements when they no longer need to be observed, such as after they are removed from the page in order to avoid memory leaks or performance issues. This can be done with the `unobserve` method or the `disconnect` method which are both methods on the Resize Observer. The `unobserve` method takes a single element as its only parameter and it stops observing that single element. The `disconnect` method takes no parameters and will stop observing all elements.
+
 ```js {5}
 new ResizeObserver((entries, observer) => {
   entries.forEach(entry => {

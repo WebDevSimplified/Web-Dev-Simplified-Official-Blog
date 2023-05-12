@@ -1,16 +1,16 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "All 24 CSS Viewport Units Explained"
 date: "2022-08-01"
 description: "There are 24 total viewport units in CSS which all serve a specific purpose and my goal in this article is to explain each unit to you."
-tags: ['CSS']
+tags: ["CSS"]
 ---
 
 CSS used to only have four viewport units you needed to know and they were able to cover pretty much every use case imaginable. As time went on, though, and technology changed, these four viewport units were no longer enough to handle all use cases. Because of this CSS added 20 more viewport units which sounds like a lot, but they are broken down into six main viewport units with three unique modifiers giving us a total of 24 combinations.
 
 In this article I will be breaking down each of the six main viewport units and the three modifiers so you can confidently use viewport units in all situations.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: 5m6JOJLy5B0`
 
 ## Original Four Viewport Units
@@ -19,13 +19,14 @@ The main CSS viewport units are `vw`, `vh`, `vmin`, and `vmax`. Chances are you 
 
 ### `vw`
 
-`vw` stands for *Viewport Width* and represents a percentage of the width of the viewport. The number placed before `vw` is the percentage of the width of the viewport this length will be. For example if you wrote `10vw` then this would represent a length of 10% of the width of your viewport.
+`vw` stands for _Viewport Width_ and represents a percentage of the width of the viewport. The number placed before `vw` is the percentage of the width of the viewport this length will be. For example if you wrote `10vw` then this would represent a length of 10% of the width of your viewport.
 
 The viewport is just a fancy word for the size of your screen, so if you were on a large desktop with a width of 1920px, `10vw` would represent 192px. If you were instead on a mobile phone with a width of 300px, then `10vw` would only be 30px.
 
 ### `vh`
 
-`vh` stands for *Viewport Height* and is the exact same as `vw` but for the height instead of the width. These two units can be used in combination to easily make an element fill the entire size of the screen.
+`vh` stands for _Viewport Height_ and is the exact same as `vw` but for the height instead of the width. These two units can be used in combination to easily make an element fill the entire size of the screen.
+
 ```css
 .full-screen {
   width: 100vw;
@@ -36,6 +37,7 @@ The viewport is just a fancy word for the size of your screen, so if you were on
 ### `vmin` and `vmax`
 
 `vmin` and `vmax` represent the maximum and minimum viewport dimension. For example if you were on a phone that is 300px wide and 800px tall, `vmin` would represent the width of the viewport and `vmax` would represent the height of the device. These units are really useful if you need to size an element based on the smallest/largest dimension of a screen. For example, the following CSS will create a square that is as large as possible without overflowing in any direction since it will never be larger than 100% of the smallest screen dimension.
+
 ```css
 .no-overflow {
   width: 100vmin;
@@ -49,7 +51,8 @@ CSS has been trying to move away from a strict top/bottom, left/right, height/wi
 
 ### `vi`
 
-`vi` stands for *Viewport Inline* and represents the inline direction of your document. In a horizontal writing direction this corresponds with the width of your viewport, while in a vertical writing direction this represents the height of your viewport. The easy way to remember the direction of inline is to remember that it is the same direction that your text goes. Another way to remember this is if you have two inline elements (for example two spans) next to each other the direction they stack is your inline direction.
+`vi` stands for _Viewport Inline_ and represents the inline direction of your document. In a horizontal writing direction this corresponds with the width of your viewport, while in a vertical writing direction this represents the height of your viewport. The easy way to remember the direction of inline is to remember that it is the same direction that your text goes. Another way to remember this is if you have two inline elements (for example two spans) next to each other the direction they stack is your inline direction.
+
 ```css
 .horizontal {
   writing-mode: horizontal-tb;
@@ -64,7 +67,8 @@ CSS has been trying to move away from a strict top/bottom, left/right, height/wi
 
 ### `vb`
 
-`vb` stands for *Viewport Block* and represents the block direction of your document. This is the opposite of `vi` so in a horizontal writing direction this will correspond with the viewport height and in a vertical document this will represent the width of your viewport. If you struggle to remember this unit just remember that the block direction will always be the direction that block elements (for example two divs) will stack on top of one another.
+`vb` stands for _Viewport Block_ and represents the block direction of your document. This is the opposite of `vi` so in a horizontal writing direction this will correspond with the viewport height and in a vertical document this will represent the width of your viewport. If you struggle to remember this unit just remember that the block direction will always be the direction that block elements (for example two divs) will stack on top of one another.
+
 ```css
 .horizontal {
   writing-mode: horizontal-tb;
@@ -87,15 +91,15 @@ So far everything we have covered in this article has used no modifier which is 
 
 ### `s` Modifier
 
-The `s` modifier stands for *Small* and represents the smallest possible viewport. In our mobile phone example this would be the size of the viewport when the URL bar is shown. If you set an element to `100svh` it would take up 100% of the height of the screen based on the size of the screen when the URL bar is shown. It does not matter if the URL bar is visible or not this unit will always base its size off what the viewport would be if the URL bar is showing.
+The `s` modifier stands for _Small_ and represents the smallest possible viewport. In our mobile phone example this would be the size of the viewport when the URL bar is shown. If you set an element to `100svh` it would take up 100% of the height of the screen based on the size of the screen when the URL bar is shown. It does not matter if the URL bar is visible or not this unit will always base its size off what the viewport would be if the URL bar is showing.
 
 ### `l` Modifier
 
-The `l` modifier stands for *Large* and represents the largest possible viewport. This is pretty much the opposite of the `s` modifier. In our mobile phone example this would be the size of the viewport when the URL bar is **NOT** shown. If you set an element to `100lvh` it would take up 100% of the height of the screen based on the size of the screen when the URL bar is **NOT** shown. It does not matter if the URL bar is visible or not this unit will always base its size off what the viewport would be if the URL bar is **NOT** showing which means if you set an element to `100lvh` and the URL bar is showing it will technically be larger than the screen.
+The `l` modifier stands for _Large_ and represents the largest possible viewport. This is pretty much the opposite of the `s` modifier. In our mobile phone example this would be the size of the viewport when the URL bar is **NOT** shown. If you set an element to `100lvh` it would take up 100% of the height of the screen based on the size of the screen when the URL bar is **NOT** shown. It does not matter if the URL bar is visible or not this unit will always base its size off what the viewport would be if the URL bar is **NOT** showing which means if you set an element to `100lvh` and the URL bar is showing it will technically be larger than the screen.
 
 ### `d` Modifier
 
-The `d` modifier stands for *Dynamic* and represents the current viewport size. This is like a combination of the `s` and `l` modifier. In our mobile phone example this would always be the size of the current viewport no matter if the URL bar is showing or not. If our URL bar is showing then the `d` modifier is the same size as the `s` modifier, while if the URL bar is **NOT** showing the `d` modifier is the same size as the `l` modifier.
+The `d` modifier stands for _Dynamic_ and represents the current viewport size. This is like a combination of the `s` and `l` modifier. In our mobile phone example this would always be the size of the current viewport no matter if the URL bar is showing or not. If our URL bar is showing then the `d` modifier is the same size as the `s` modifier, while if the URL bar is **NOT** showing the `d` modifier is the same size as the `l` modifier.
 
 During the transition between the URL bar being shown and hidden this unit will scale in size dynamically so it will always fill all available space. This is great if you need to guarantee an element is always sized based on the viewport, but can be taxing since it will cause a lot of repaints as the size constantly changes.
 

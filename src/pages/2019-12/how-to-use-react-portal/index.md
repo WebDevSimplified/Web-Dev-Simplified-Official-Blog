@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: The Forgotten React Renderer - React Portal
 date: "2019-12-16"
 description: "React portal lets components be rendered outside their parent component which is incredibly useful in specific scenarios explained in depth in this article."
-tags: ['React']
+tags: ["React"]
 ---
 
 React's rendering system is absolutely amazing and makes working with dynamic content so much easier than standard JavaScript. One big problem with React's rendering system, though, is that it makes it difficult to dynamically render content outside the parent component. For example, if there is a button buried deep in the app structure that opens a modal there is no good way to render the modal since putting the modal component in the same component with the button will make the modal have the same parent as the button. Luckily, React thought of this already and built React portal to handle these scenarios.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: LyLa7dU5tp8`
 
 ## What Does React Portal Do?
@@ -106,7 +106,7 @@ In normal JavaScript code if an element is interacted with, for example a click 
 function Component() {
   const [open, setOpen] = useState(false)
   return (
-    <div className="component" onClick={() => console.log('click')}>
+    <div className="component" onClick={() => console.log("click")}>
       <button onClick={() => setOpen(true)}>Open Modal</button>
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         Fancy Modal

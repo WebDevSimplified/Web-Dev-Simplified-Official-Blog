@@ -1,17 +1,17 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Every Important HTTP Status Code Explained"
 date: "2022-12-12"
 description: "HTTP status codes are vital to creating an API and in this article I will explain all the important HTTP status codes and when to use them."
-tags: ['Technical Discussion']
+tags: ["Technical Discussion"]
 ---
 
 Just by using the internet you have probably come across some HTTP status codes, such as the 404 status code, but that is just scraping the surface of possibilities. There are over 50 unique HTTP status codes across five different categories. Luckily, you don't need to know all of these or really even most of them. In this article I will be breaking down what each of the five sections are as well as the most important status codes from each of those sections. With this information you can confidently build robust APIs that return the proper HTTP status code which will make your API easier to use.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: wJa5CTIFj7U`
 
-*Also, if you want a full list of every HTTP status code with explanations (including the ones not in this article), I highly recommend checking out the [HTTP status codes page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) from MDN.*
+_Also, if you want a full list of every HTTP status code with explanations (including the ones not in this article), I highly recommend checking out the [HTTP status codes page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) from MDN._
 
 ## 100 Level Status Codes
 

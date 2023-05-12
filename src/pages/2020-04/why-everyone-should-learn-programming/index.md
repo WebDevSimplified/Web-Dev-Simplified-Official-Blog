@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Why Everyone Should Learn Programming"
 date: "2020-04-06"
 description: "While not everyone should be a programmer I think it is crucial that everyone learns at least the basics of programming."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 If you are a frequent reader of my blog then you most likely are learning programming to become a programmer of some form. Obviously if you want to be a programmer it make sense to learn programming, but what about everyone else that does not want to be a programmer? Should they learn programming? I think they definitely should, but probably not for the reasons you think.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: _BFaPx0mAGs`
 
 ## What Is Programming?

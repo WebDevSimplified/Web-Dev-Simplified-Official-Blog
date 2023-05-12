@@ -1,16 +1,16 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Do You Need To Know Math?"
 date: "2021-04-19"
 description: "Programmers learn a ton of math in school, but do you really need to know math to be a programmer?"
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 Programming and math are about as closely tied as peanut butter and jelly or the sun and the moon. It seems you can't talk about one without eventually talking about the other as well.
 
 My goal with this article is to figure out if there is a reason programming and math are always talked about together and if programmers actually need to know math to be successful.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: 40uBqG0yhJg`
 
 ## Why Do Programmers Learn Math?

@@ -1,42 +1,52 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: How To Use Modern CSS Without Breaking Old Browsers
 date: "2019-12-30"
 description: "An in depth tutorial on the @supports CSS at-rule, and how it can be used to write modern CSS without breaking older browser support."
-tags: ['CSS']
+tags: ["CSS"]
 ---
 
 So you just heard about the newest CSS feature and you are dying to use it in your code, but your boss wants to support old browsers still. Normally this would be the end of the line for your dreams of using modern CSS features, but luckily that is not the case. The `@supports` at-rule, also known as a feature query, lets you use different CSS styles based on the browser's support for a given feature. This means you can finally use modern CSS features without breaking older browser support.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: ZzuYbhKVPE0`
 
 ## Feature Query Syntax
 
 For nearly all use cases a feature query has the same syntax as a media query. For example, a media query for a mobile view may look like this
+
 ```css
-@media (max-width: 700px) {}
+@media (max-width: 700px) {
+}
 ```
+
 while a feature query that checks if CSS grid is supported would look like this
+
 ```css
-@supports (display: grid) {}
+@supports (display: grid) {
+}
 ```
+
 The syntax is very similar and everything inside the curly brackets for the feature query will only apply if the browser supports the `grid` value for the `display` property. Also like media queries, feature queries support `and`, `or`, and `not` when defining queries. For example, the following code checks if the browser supports CSS grid and flexbox.
+
 ```css
-@supports (display: grid) and (display: flex) {}
+@supports (display: grid) and (display: flex) {
+}
 ```
 
 This query checks if the browser does **not** support position sticky.
+
 ```css
-@supports not (position: sticky) {}
+@supports not (position: sticky) {
+}
 ```
 
 Lastly, this query can be used to check for the perspective property including any browser prefix support.
 
 ```css
 @supports (perspective: 1px) or (-moz-perspective: 1px) or
-          (-webkit-perspective: 1px) or (-ms-perspective: 1px) or
-          (-o-perspective: 1px) {}
+  (-webkit-perspective: 1px) or (-ms-perspective: 1px) or (-o-perspective: 1px) {
+}
 ```
 
 The syntax is quite straightforward, but the power of this simple feature query is immense.
@@ -87,7 +97,6 @@ In order to fix this, the following CSS can be used.
   top: 0;
   background-color: red;
 }
-
 
 @supports not (position: sticky) {
   .sticky {

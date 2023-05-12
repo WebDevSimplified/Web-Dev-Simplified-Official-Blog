@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Why You Should Trade Money For Time"
 date: "2020-04-13"
 description: "You are used to trading time for money at your job, but trading your money for time is just as important if not more important."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 More than likely you have spent a good portion of your life trading your time for money in the form of a job or freelance work. There is obviously nothing wrong with this since we all need to pay the bills somehow, but this habit of trading time for money is ingrained in most of our lives which leads to bad habits. In this article I want to challenge the idea of trading time for money by asking how we can buy back some of our lost time by trading money for time.

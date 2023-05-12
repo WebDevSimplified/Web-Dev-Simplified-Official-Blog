@@ -1,33 +1,40 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import BlogHeader from '../components/BlogHeader.astro';
-import BlogPost from '../components/BlogPost.astro';
+import "../styles/theme.css"
+import "../styles/blog.css"
+import "../styles/prism-highlight.css"
+import BaseHead from "../components/BaseHead.astro"
+import BlogHeader from "../components/BlogHeader.astro"
+import BlogPost from "../components/BlogPost.astro"
 import "prismjs/themes/prism-okaidia.css"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
-import ConvertkitForm from '../components/ConvertkitForm.astro'
-import UserSettingsLoad from '../components/UserSettingsLoad.astro'
-import '../styles/theme.css'
-import '../styles/blog.css'
-import '../styles/prism-highlight.css'
+import ConvertkitForm from "../components/ConvertkitForm.astro"
+import UserSettingsLoad from "../components/UserSettingsLoad.astro"
 
-const { content } = Astro.props;
-const { title, description, date, author = "Kyle Cook", permalink, tags } = content;
+const { content } = Astro.props
+const {
+  title,
+  description,
+  date,
+  author = "Kyle Cook",
+  permalink,
+  tags,
+} = content
 const url = Astro.request.url
 ---
 
-<html lang={content.lang || 'en'}>
-	<head>
-		<BaseHead {title} {description} {permalink} />
-	</head>
+<html lang={content.lang || "en"}>
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
 
-	<body>
-		<UserSettingsLoad />
-		<ConvertkitForm />
-		<BlogHeader />
-		<div class="wrapper">
-			<BlogPost {title} {author} {date} {tags} {url}>
-				<slot />
-			</BlogPost>
-		</div>
-	</body>
+  <body>
+    <UserSettingsLoad />
+    <ConvertkitForm />
+    <BlogHeader />
+    <div class="wrapper">
+      <BlogPost {title} {author} {date} {tags} {url}>
+        <slot />
+      </BlogPost>
+    </div>
+  </body>
 </html>

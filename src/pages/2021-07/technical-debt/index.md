@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Manage Technical Debt?"
 date: "2021-07-05"
 description: "Technical debt may seem inevitable, but there are many techniques you can use to manage technical debt."
-tags: ['Technical Discussion']
+tags: ["Technical Discussion"]
 ---
 
 If you have ever worked on a project of any significant size or age then you are well aware of how difficult it can be to avoid and work with technical debt. It constantly slows you down and makes programming a slog instead of a fun creative process. Most people think technical debt is unavoidable, but it can actually be largely avoided or mitigated with practice.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: nXMYHrERh80`
 
 ## What Is Technical Debt
@@ -45,7 +45,7 @@ These changes do not have to be and probably should not be large. Instead you ar
 
 Sometimes technical debt becomes so large that it grinds progress to a halt and prohibits you from making the changes you want to. This is the equivalent of a library that is a complete mess. When this happens sometimes the only solution is to stop all new features and clean up old technical debt. This scenario is where all the large refactors and redesigns of the application are done. Unlike the previous technique, these changes will be large in scope and will take a significant amount of time. It is essentially the equivalent to the library closing overnight to reorganize all the books.
 
-This large refactor is generally something most people dread since they usually wait until it is too late and the debt is massive. This would be like never closing a library and then having to shut down for days/weeks to fix all the disorganized books. Instead we should try to be more like a library and take more frequent smaller breaks to do these refactors. If you can dedicate a single two week sprint, or even just a single day in your sprint to making larger refactors it can make a big difference. You technical debt will be reduced and it won't cause the company to essentially shut down for weeks or months at a time. 
+This large refactor is generally something most people dread since they usually wait until it is too late and the debt is massive. This would be like never closing a library and then having to shut down for days/weeks to fix all the disorganized books. Instead we should try to be more like a library and take more frequent smaller breaks to do these refactors. If you can dedicate a single two week sprint, or even just a single day in your sprint to making larger refactors it can make a big difference. You technical debt will be reduced and it won't cause the company to essentially shut down for weeks or months at a time.
 
 ## Technical Debt Can Be Good
 

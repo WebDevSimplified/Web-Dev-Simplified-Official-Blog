@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: How To Effectively Test For Colorblind Accessibility
 date: "2019-09-23"
 description: "A quick tip on how to easily test any site for colorblind accessibility."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 If you do not already know, accessibility is the idea of making a site easy to use for people with all forms of disabilities. This could be something as extreme as blindness, or as mild as colorblindness, but it is always something that inhibits normal use of a website. The biggest problem with creating accessible sites is that most developers do not suffer from any of these disabilities, which is why simulating a disability is one of the best and easiest ways to test a site for accessibility. That is where the Chrome extension [Let's get color blind](https://chrome.google.com/webstore/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck) comes in. This extension allows you to simulate various types of color blindness on a website with ease. If you do not use Chrome for your browser there are most likely other extensions for your browser of choice. There are also websites that do this same thing, but they are more cumbersome to work with.

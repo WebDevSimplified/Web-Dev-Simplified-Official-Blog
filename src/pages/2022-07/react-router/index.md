@@ -1,12 +1,13 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Ultimate React Router v6 Guide"
 date: "2022-07-25"
 description: "React Router is by far the most popular routing library in React and this article goes in depth on everything you need to know about React Router."
-tags: ['React']
+tags: ["React"]
 ---
 
 React Router is the most popular routing library in React, but it can be a bit complicated to wrap your head around some of the more complex features. That is why in this article I will be breaking down everything you need to know about React Router so you can use even the most advanced features with ease. This article will be broken down into 4 sections.
+
 1. React Router Basics
 2. Advanced Route Definitions
 3. Handling Navigation
@@ -22,6 +23,7 @@ Before we start diving into the advanced features of React Router, I first want 
 In this tutorial I will be focusing on `react-router-dom`, but as I said both libraries are nearly identical.
 
 Once you have this library there are three things you need to do in order to use React Router.
+
 1. Setup your router
 2. Define your routes
 3. Handle navigation
@@ -29,6 +31,7 @@ Once you have this library there are three things you need to do in order to use
 ### Configuring The Router
 
 The easiest step by far is setting up your router. All you need to do is import the specific router you need (`BrowserRouter` for the web and `NativeRouter` for mobile) and wrap your entire application in that router.
+
 ```jsx {4,9-11}
 import React from "react"
 import ReactDOM from "react-dom/client"
@@ -44,11 +47,13 @@ root.render(
   </React.StrictMode>
 )
 ```
+
 Generally you will import your router in the `index.js` page of your application and it will wrap your `App` component. The router works just like a context in React and provides all the necessary information to your application so you can do routing and use all the custom hooks from React Router.
 
 ### Defining Routes
 
 The next step in React Router is to define your routes. This is generally done at the top level of your application, such as in the `App` component, but can be done anywhere you want.
+
 ```jsx
 import { Route, Routes } from "react-router-dom"
 import { Home } from "./Home"
@@ -63,6 +68,7 @@ export function App() {
   )
 }
 ```
+
 Defining routes is as simple as defining a single `Route` component for each route in your application and then putting all those `Route` components in a single `Routes` component. Whenever your URL changes React Router will look at the routes defined in your `Routes` component and it will render the content in the `element` prop of the `Route` that has a `path` that matches the URL. In the above example if our URL was `/books` then the `BookList` component would be rendered.
 
 The nice thing about React Router is that when you navigate between pages it will only refresh the content inside your `Routes` component. All the rest of the content on your page will stay the same which helps with performance and user experience.
@@ -70,6 +76,7 @@ The nice thing about React Router is that when you navigate between pages it wil
 ### Handling Navigation
 
 The final step to React Router is handling navigation. Normally in an application you would navigate with anchor tags, but React Router uses its own custom `Link` component to handle navigation. This `Link` component is just a wrapper around an anchor tag that helps ensure all the routing and conditional re-rendering is handled properly so you can use it just like your would a normal anchor tag.
+
 ```jsx {1,10-11}
 import { Route, Routes, Link } from "react-router-dom"
 import { Home } from "./Home"
@@ -80,8 +87,12 @@ export function App() {
     <>
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/books">Books</Link></li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/books">Books</Link>
+          </li>
         </ul>
       </nav>
 
@@ -93,6 +104,7 @@ export function App() {
   )
 }
 ```
+
 In our example we added two links to the home and books page. You will also notice that we used the `to` prop to set the URL instead of the `href` prop you are used to using with an anchor tag. This is the only difference between the `Link` component and an anchor tag and is something that you need to remember as it is an easy mistake to accidentally use an `href` prop instead of the `to` prop.
 
 Another thing to note about our new code is that the nav we are rending at the top of our page is outside of our `Routes` component which means when we change pages this nav section will not be re-rendered as only the content in the `Routes` component will change when the URL changes.
@@ -100,6 +112,7 @@ Another thing to note about our new code is that the nav we are rending at the t
 ## Advanced Route Definitions
 
 This is where React Router really gets interesting. There is a lot of cool stuff you can do with routing to make more complex routes, easier to read, and overall much more functional. This can be done through five main techniques.
+
 1. Dynamic Routing
 2. Routing Priority
 3. Nested Routes
@@ -109,6 +122,7 @@ This is where React Router really gets interesting. There is a lot of cool stuff
 ### Dynamic Routing
 
 The simplest and most common advanced feature in React Router is handling dynamic routes. In our example, let's assume that we want to render out a component for individual books in our application. We could hardcode each of those routes, but if we have hundreds of books or the ability for users to create books then it is impossible to hardcode all these routes. Instead we need a dynamic route.
+
 ```jsx {4}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -116,25 +130,27 @@ The simplest and most common advanced feature in React Router is handling dynami
   <Route path="/books/:id" element={<Book />} />
 </Routes>
 ```
+
 The final route in the above example is a dynamic route that has a dynamic parameter of `:id`. Defining dynamic routes in React Router is as simple as putting a colon in front of whatever you want the dynamic part of your route to be. In our case our dynamic route will match any URL that starts with `/book` and ends with some value. For example, `/books/1`, `/books/bookName`, and `/books/literally-anything` will all match our dynamic route.
 
 Pretty much always when you have a dynamic route like this you want to access the dynamic value in your custom component which is where the `useParams` hook comes in.
+
 ```jsx {1,4,7}
 import { useParams } from "react-router-dom"
 
 export function Book() {
   const { id } = useParams()
 
-  return (
-    <h1>Book {id}</h1>
-  )
+  return <h1>Book {id}</h1>
 }
 ```
+
 The `useParams` hook takes no parameters and will return an object with keys that match the dynamic parameters in your route. In our case our dynamic parameter is `:id` so the `useParams` hook will return an object that has a key of `id` and the value of that key will be the actual id in our URL. For example, if our URL was `/books/3` our page would render **Book 3**.
 
 ### Routing Priority
 
 When we were just dealing with hard coded routes it was pretty easy to know which route would be rendered, but when dealing with dynamic routes it can be a bit more complicated. Take these routes for example.
+
 ```jsx {5}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -143,11 +159,13 @@ When we were just dealing with hard coded routes it was pretty easy to know whic
   <Route path="/books/new" element={<NewBook />} />
 </Routes>
 ```
+
 If we have the URL `/books/new` which route would this match? Technically, we have two routes that match. Both `/books/:id` and `/books/new` will match since the dynamic route will just assume that `new` is the `:id` portion of the URL so React Router needs another way to determine which route to render.
 
 In older versions of React Router whichever route was defined first would be the one that is rendered so in our case the `/books/:id` route would be rendered which is obviously not what we want. Luckily, version 6 of React Router changed this so now React Router will use an algorithm to determine which route is most likely the one you want. In our case we obviously want to render the `/books/new` route so React Router will select that route for us. The actual way this algorithm works is very similar to CSS specificity since it will try to determine which route that matches our URL is the most specific (has the least amount of dynamic elements) and it will select that route.
 
 While we are on the topic of routing priority I also want to talk about how to create a route that matches anything.
+
 ```jsx {6}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -157,11 +175,13 @@ While we are on the topic of routing priority I also want to talk about how to c
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
 A `*` will match anything at all which makes it perfect for things like a 404 page. A route that contains a `*` will also be less specific than anything else so you will never accidentally match a `*` route when another route would have also matched.
 
 ### Nested Routes
 
 Finally, we have come to my favorite part of React Router which is how they handle route nesting. In the above example we have three routes that start with `/books` so we can nest those routes inside of each other to clean up our routes.
+
 ```jsx {3-7}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -173,6 +193,7 @@ Finally, we have come to my favorite part of React Router which is how they hand
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
 This nesting is pretty simple to do. All you need to do is make a parent `Route` that has the `path` prop set to the shared path for all your child `Route` components. Then inside the parent `Route` you can put all the child `Route` components. The only difference is that the `path` prop of the child `Route` components no longer includes the shared `/books` route. Also, the route for `/books` is replaced with a `Route` component that has no `path` prop, but instead has an `index` prop. All this is saying is that the path of the index `Route` is the same as the parent `Route`.
 
 Now if this is all you could do with nested routes it would be only marginally useful, but the true power of nested routes comes in how it handles shared layouts.
@@ -180,6 +201,7 @@ Now if this is all you could do with nested routes it would be only marginally u
 #### Shared Layouts
 
 Let's imagine that we want to render a nav section with links to each book as well the new book form from any of our book pages. To do this normally we would need to make a shared component to store this navigation and then import that into every single book related component. This is a bit of a pain, though, so React Router created its own solution to solve this problem. If you pass an `element` prop to a parent route it will render that component for every single child `Route` which means you can put a shared nav or other shared components on every child page with ease.
+
 ```jsx {3}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -191,6 +213,7 @@ Let's imagine that we want to render a nav section with links to each book as we
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
 ```jsx
 import { Link, Outlet } from "react-router-dom"
 
@@ -199,9 +222,15 @@ export function BooksLayout() {
     <>
       <nav>
         <ul>
-          <li><Link to="/books/1">Book 1</Link></li>
-          <li><Link to="/books/2">Book 2</Link></li>
-          <li><Link to="/books/new">New Book</Link></li>
+          <li>
+            <Link to="/books/1">Book 1</Link>
+          </li>
+          <li>
+            <Link to="/books/2">Book 2</Link>
+          </li>
+          <li>
+            <Link to="/books/new">New Book</Link>
+          </li>
         </ul>
       </nav>
 
@@ -210,9 +239,11 @@ export function BooksLayout() {
   )
 }
 ```
+
 The way our new code will work is whenever we match a route inside the `/book` parent `Route` it will render the `BooksLayout` component which contains our shared navigation. Then whichever child `Route` is matched will be rendered wherever the `Outlet` component is placed inside our layout component. The `Outlet` component is essentially a placeholder component that will render whatever our current page's content is. This structure is incredibly useful and makes sharing code between routes incredibly easy.
 
 Now the final way you can share layouts with React Router is by wrapping child `Route` components in a parent `Route` that only defines an `element` prop and no `path` prop.
+
 ```jsx {8-11}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -228,11 +259,13 @@ Now the final way you can share layouts with React Router is by wrapping child `
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
 This bit of code will create two routes, `/contact` and `/about`, which both are rendered inside the `OtherLayout` component. This technique of wrapping multiple `Route` components in a parent `Route` component with no `path` prop is useful if you want those routes to share a single layout even if they don't have a similar path.
 
 #### Outlet Context
 
 The final important thing to know about `Outlet` components is they can take in a `context` prop which will work just like React context.
+
 ```jsx {14}
 import { Link, Outlet } from "react-router-dom"
 
@@ -241,9 +274,15 @@ export function BooksLayout() {
     <>
       <nav>
         <ul>
-          <li><Link to="/books/1">Book 1</Link></li>
-          <li><Link to="/books/2">Book 2</Link></li>
-          <li><Link to="/books/new">New Book</Link></li>
+          <li>
+            <Link to="/books/1">Book 1</Link>
+          </li>
+          <li>
+            <Link to="/books/2">Book 2</Link>
+          </li>
+          <li>
+            <Link to="/books/new">New Book</Link>
+          </li>
         </ul>
       </nav>
 
@@ -252,6 +291,7 @@ export function BooksLayout() {
   )
 }
 ```
+
 ```jsx {1,5,8}
 import { useParams, useOutletContext } from "react-router-dom"
 
@@ -260,10 +300,13 @@ export function Book() {
   const context = useOutletContext()
 
   return (
-    <h1>Book {id} {context.hello}</h1>
+    <h1>
+      Book {id} {context.hello}
+    </h1>
   )
 }
 ```
+
 As you can see from this example, we are passing down a context value of `{ hello: "world" }` and then in our child component we are using the `useOutletContext` hook to access the value for our context. This is a pretty common pattern to use since often you will have shared data between all your child components which is the ideal use case for this context.
 
 ### Multiple Routes
@@ -273,6 +316,7 @@ Another incredibly powerful thing you can do with React Router is use multiple `
 #### Separate `Routes`
 
 If you want to render two different sections of content that both depend on the URL of the application then you need multiple `Routes` components. This is very common if for example you have a sidebar you want to render certain content in for certain URLs and also a main page that should show specific content based on the URL.
+
 ```jsx {16-20}
 import { Route, Routes, Link } from "react-router-dom"
 import { Home } from "./Home"
@@ -303,19 +347,23 @@ export function App() {
   )
 }
 ```
+
 In the above example we have two `Routes`. The main `Routes` defines all the main components for our page and then we have a secondary `Routes` inside the `aside` that will render the sidebar for our books page when we are at `/books`. This means if our URL is `/books` both of our `Routes` components will render out content since they both have a unique match for `/books` in their `Routes`.
 
 Another thing that you can do with multiple `Routes` components is hardcode the `location` prop.
+
 ```jsx {1}
 <Routes location="/books">
   <Route path="/books" element={<BookSidebar />}>
 </Routes>
 ```
+
 By hardcoding a `location` prop like this we are overriding the default behavior or React Router so no matter what the URL of our page is this `Routes` component will match its `Route` as if the URL was `/books`.
 
 #### Nested `Routes`
 
 The other way to use multiple `Routes` components is to nest them inside one another. This is pretty common if you have lots of routes and want to clean up your code by moving similar routes into their own files.
+
 ```jsx {3}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -323,6 +371,7 @@ The other way to use multiple `Routes` components is to nest them inside one ano
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
 ```jsx
 import { Routes, Route } from "react-router-dom"
 import { BookList } from "./pages/BookList"
@@ -343,6 +392,7 @@ export function BookRoutes() {
   )
 }
 ```
+
 Nesting `Routes` in React Router is pretty simple. All you need to do is create a new component to store your nested `Routes` this component should have a `Routes` component and inside that `Routes` component should be all the `Route` components that you are matching with the parent `Route`. In our case we are moving all our `/books` routes into this `BookRoute` component. Then in the parent `Routes` you need to define a `Route` that has a path equal to the path all your nested `Routes` share. In our case that would be `/books`. The important thing, though, is you need to end your parent `Route` `path` with a `*` otherwise it will not properly match the child routes.
 
 Essentially, the code we have written says that whenever a route starts with `/book/` it should search inside the `BookRoutes` component to see if their is a `Route` that matches. This is also why we have another `*` route in `BookRoutes` so that we can ensure if our URL does not match any of the `BookRoutes` it will properly render the `NotFound` component.
@@ -350,6 +400,7 @@ Essentially, the code we have written says that whenever a route starts with `/b
 ### `useRoutes` Hook
 
 The final thing you need to know about defining routes in React Router is that you can use a JavaScript object to define your routes instead of JSX if you prefer.
+
 ```jsx
 import { Route, Routes } from "react-router-dom"
 import { Home } from "./Home"
@@ -368,6 +419,7 @@ export function App() {
   )
 }
 ```
+
 ```jsx
 import { Route, Routes } from "react-router-dom"
 import { Home } from "./Home"
@@ -378,25 +430,27 @@ export function App() {
   const element = useRoutes([
     {
       path: "/",
-      element: <Home />
+      element: <Home />,
     },
     {
       path: "/books",
       children: [
         { index: true, element: <BookList /> },
-        { path: ":id", element: <Book /> }
-      ]
-    }
+        { path: ":id", element: <Book /> },
+      ],
+    },
   ])
 
   return element
 }
 ```
+
 These two components both hae the exact same routes the only difference is how they were defined. If you do decide you want to use the `useRoutes` hook all the props that you would normally pass to your `Route` components are instead just passed as key/value pairs of an object.
 
 ## Handling Navigation
 
 Now that we know how to define our routes we need to talk about how to navigate between those routes. This section will be broken down into three sections.
+
 1. Link Navigation
 2. Manual Navigation
 3. Navigation Data
@@ -404,16 +458,20 @@ Now that we know how to define our routes we need to talk about how to navigate 
 ### Link Navigation
 
 First I want to talk about link navigation since it is the simplest and most common form of navigation you will encounter. We have already seen the most basic form of link navigation using the `Link` component
+
 ```jsx
 <Link to="/">Home</Link>
 <Link to="/books">Books</Link>
 ```
+
 These `Link` components can get a bit more complex, though. For example you can have absolute links like the above links or you can have links that are relative to the current component being rendered.
+
 ```jsx
 <Link to="/">Home</Link>
 <Link to="../">Back</Link>
 <Link to="edit">Edit</Link>
 ```
+
 For example imagine we are in the `/books/3` route with the above links. The first link will lead to the `/` route since it is an absolute route. Any route that starts with a `/` is an absolute route. The second link will lead to the route `/books` since it is a relative link that goes up one level from `/books/3` to `/books`. Finally, our third link will go to the `/books/3/edit` page since it will add the path in the `to` prop to the end of the current link since it is a relative link.
 
 Besides the `to` prop, there are also 3 other props that are important to the `Link` component.
@@ -421,17 +479,21 @@ Besides the `to` prop, there are also 3 other props that are important to the `L
 #### `replace`
 
 The `replace` prop is a boolean that when set to `true` will cause this link to replace the current page in the browser history. Imagine you have the following browser history.
+
 ```
 /
 /books
 /books/3
 ```
+
 If you click on a link that goes to the `/books/3/edit` page but it has the `replace` property set to `true` your new history will look like this.
+
 ```
 /
 /books
 /books/3/edit
 ```
+
 The page your were currently on was replaced with the new page. This means that if you click the back button on the new page it will bring you back to the `/books` page instead of the `/books/3` page.
 
 #### `reloadDocument`
@@ -445,6 +507,7 @@ The final prop is called `state`. This prop lets you pass data along with your `
 ### `NavLink`
 
 The next element I want to talk about is the `NavLink` component. This component works exactly the same as the `Link` component, but it is specifically for showing active states on links, for example in nav bars. By default if the `to` property of a `NavLink` is the same as the URL of the current page the link will have an `active` class added to it which you can use for styling. If this is not enough you can instead pass a function with an `isActive` parameter to the `className`, or `style` props, or as the children of the `NavLink`.
+
 ```jsx
 <NavLink
   to="/"
@@ -453,6 +516,7 @@ The next element I want to talk about is the `NavLink` component. This component
   Home
 </NavLink>
 ```
+
 The `NavLink` also has one prop called `end` which is used to help with nested routing. For example, if we are on the `/books/3` page that means we are rendering the `Book` component which is nested inside our `/books` route. This means that if we have a `NavLink` with a `to` prop set to `/books` it will be considered active. This is because a `NavLink` is considered active if the URL matches the `to` prop of the `NavLink` or if the current `Route` being rendered is inside a parent component that has a `path` that matches the `to` prop of the `NavLink`. If you do not want this default behavior you can set the `end` prop to `true` which will make it so the URL of the page must exactly match the `to` prop of the `NavLink`.
 
 ### Manual Navigation
@@ -462,25 +526,30 @@ Now sometimes you want to manually navigate a user based on things like submitti
 #### `Navigate` Component
 
 The `Navigate` component is a really simple component that when rendered will automatically redirect the user to the `to` prop of the `Navigate` component.
+
 ```jsx
 <Navigate to="/" />
 ```
+
 The `Navigate` component shares all the props of the `Link` component so you can pass it the `to`, `replace`, and `state` props. This component is not really something I use much as more often than not I want to redirect a user based on some form of interaction like a form submission.
 
 #### `useNavigation` Hook
 
 The `useNavigation` hook on the other hand is a hook I use all the time. This hook is a really simple hook that takes no parameters and returns a single `navigate` function which you can use to redirect a user to specific pages. This `navigate` function takes two parameters. The first parameter is the `to` location you want to redirect the user to and the second parameter is an object that can have keys for `replace`, and `state`.
+
 ```js
 const navigate = useNavigate()
 
 function onSubmit() {
   // Submit form results
-  navigate("/books", { replace: true, state: { bookName: "Fake Title" }})
+  navigate("/books", { replace: true, state: { bookName: "Fake Title" } })
 }
 ```
+
 The above code will redirect the user to the `/books` route. It will also replace the current route in history and pass along some state information as well.
 
 Another way you can use the `navigate` function is to pass it a number. This will allow you to simulate hitting the forward/back button.
+
 ```js
 navigate(-1) // Go back one page in history
 navigate(-3) // Go back three pages in history
@@ -490,6 +559,7 @@ navigate(1) // Go forward one page in history
 ### Navigation Data
 
 Finally it is time to talk about passing data between pages. There are 3 main ways you can pass data between pages.
+
 1. Dynamic Parameters
 2. Search Parameters
 3. State/Location Data
@@ -501,6 +571,7 @@ We have already talked about how to use dynamic parameters in URLs by using the 
 #### Search Parameters
 
 Search parameters are all of the parameters that come after the `?` in a URL (`?name=Kyle&age=27`). In order to work with search parameters you need to use the `useSearchParams` hook which works very similarly to the `useState` hook.
+
 ```jsx
 import { useSearchParams } from "react-router-dom"
 
@@ -520,15 +591,19 @@ export function SearchExample() {
   )
 }
 ```
+
 In this example we have an input that as we type in will update the search portion of our URL. For example if our input has the value of 32 our URL will look like `http://localhost:3000?n=32`. The `useSearchParams` hook takes an initial value just like `useState` and in our case our initial value has `n` set to 3. This hook then returns two values. The first value is all our our search parameters and the second value is a function for updating our search parameters. The set function just takes a single argument that is the new value of your search parameters. The first value that contains the search parameters is a bit more confusing, though. This is because this value is of the type `URLSearchParams`. That is why we need to use the `.get` syntax on line 5 above.
 
 #### State/Location Data
 
 The final type of data you can store is state and location data. This information is all accessible via the `useLocation` hook. Using this hook is very simple as it returns one value and takes no parameters.
+
 ```js
 const location = useLocation()
 ```
+
 If we have the following URL `http://localhost/books?n=32#id` then the return value of `useLocation` would look like this.
+
 ```js
 {
   pathname: "/books",
@@ -538,10 +613,13 @@ If we have the following URL `http://localhost/books?n=32#id` then the return va
   state: null
 }
 ```
+
 This location object contains all the information related to our URL. It also contains a unique key that you can use to do caching if you want to cache information for when a user clicks the back button to come back to a page. You also will notice that we have a state property being returned from `useLocation` as well. This state data can be anything and is passed between pages without being stored in the URL. For example if you click on a `Link` that looks like this:
+
 ```jsx
 <Link to="/books" state={{ name: "Kyle" }}>
 ```
+
 then the state value in the location object will be set to `{ name: "Kyle" }`.
 
 This can be really useful if for example you wan to send across simple messages between pages that shouldn't be stored in the URL. A good example of this would be something like a success message that gets sent to the page you are redirected to after creating a new book.
@@ -553,7 +631,6 @@ Now that covers 95% of what you need to know about React Router, but the library
 ### `BrowserRouter`
 
 To start I will cover the `BrowserRouter` since it is the one we are already familiar with. This is the default router you should use if you are working on a web app and is the router you will use in 99% of all your applications since it covers all the normally routing use cases you have. Each of the other routers I will talk about have very specific use cases where you would want to use them so if you don't fit those use cases then the `BrowserRouter` is what you should use.
-
 
 ### `NativeRouter`
 
@@ -580,6 +657,7 @@ Because of how React Router works, you need to have your components wrapped in a
 ### `StaticRouter`
 
 The final router is the `StaticRouter` and this router again has a very specific use case. This router is specifically meant for server rendering your React applications since it takes in a single `location` prop and renders out your application using that `location` prop as the URL. This router cannot actually do any routing and will just render a single static page, but that is perfect for server rendering since you want to just render the HTML of your application on the server and then the client can set up all your routing and so on.
+
 ```jsx
 <StaticRouter location="/books">
   <App />

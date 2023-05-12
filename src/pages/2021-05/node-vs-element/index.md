@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "JavaScript Node Vs Element"
 date: "2021-05-17"
 description: "Nodes and elements are very similar in JavaScript, but there are a few important differences to understand."
-tags: ['JavaScript']
+tags: ["JavaScript"]
 ---
 
 If you have worked with the DOM in JavaScript you have probably noticed that there are multiple ways to access the same element (`nextSibling`, `nextElementSibling`). This is really confusing since it is not obvious which you should use or even what the differences are between them. In this article I will go over these exact differences by explaining the difference between nodes and elements.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: rhvec8cXLlo`
 
 ## Elements vs Nodes
@@ -17,14 +17,14 @@ Of the two, elements are the easiest to understand since they are just HTML elem
 
 Nodes are the more generic version of an element. A node could be an HTML element, but it could also be anything else in an HTML document, such as text or comments. This makes nodes harder to work with since most often when working with the DOM you don't care about things like text nodes or comments nodes and only care about the element nodes. I generally avoid working with nodes because of this reason. Below is a list of all important Node types.
 
-* Element Node
-* Text Node
-* CData Section Node
-* Processing Instruction Node
-* Comment Node
-* Document Node
-* Document Type Node
-* Document Fragment Node
+- Element Node
+- Text Node
+- CData Section Node
+- Processing Instruction Node
+- Comment Node
+- Document Node
+- Document Type Node
+- Document Fragment Node
 
 When you are navigating the DOM always prefer the method that selects elements instead of nodes. Usually these methods have the word element in them or the version that selects nodes will have the word node in it so you can distinguish them.
 
@@ -38,6 +38,6 @@ A NodeList on the other hand can contain any type of node including elements. No
 
 ## Conclusion
 
-*I was only able to cover a few of the DOM traversal methods in this article, but if you want to see how every DOM traversal method in JavaScript works check out my [FREE JS DOM traversal cheat sheet](https://webdevsimplified.com/js-dom-traversal-cheat-sheet.html).*
+_I was only able to cover a few of the DOM traversal methods in this article, but if you want to see how every DOM traversal method in JavaScript works check out my [FREE JS DOM traversal cheat sheet](https://webdevsimplified.com/js-dom-traversal-cheat-sheet.html)._
 
 Nodes and elements are very similar, but there are a few subtle differences you must understand. In general I prefer working with elements inside a NodeList whenever possible as they are the easiest to work with in my opinion.

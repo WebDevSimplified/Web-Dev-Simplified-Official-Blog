@@ -1,5 +1,5 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "All 4 JavaScript Scopes Explained"
 date: "2022-10-10"
 description: "There are 4 different scopes in JavaScript which each behave differently and you need to understand those differences to truly master JavaScript."

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": ["src/layouts/*"],
+      "@blogComponents/*": ["src/blogComponents/*"]
+    }
+  }
+}

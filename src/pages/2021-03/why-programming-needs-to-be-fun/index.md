@@ -1,16 +1,16 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "Why Programming Needs To Be Fun"
 date: "2021-03-01"
 description: "If you are unable to make programming fun you will never be able to become a programmer."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
-By far the most asked question I get is *"Which programming language should I learn first?"* or *"Which project should I build?"*
+By far the most asked question I get is _"Which programming language should I learn first?"_ or _"Which project should I build?"_
 
 Now there is technically nothing wrong with these questions, but by asking these questions you are hindering your abilities to become a developer.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: h3lX6ZaL5RU`
 
 ## The Problem With These Questions
@@ -35,9 +35,9 @@ It may also be difficult to determine what parts of programming you enjoy the mo
 
 What most people don't realize is that companies don't really care what languages you know as a junior developer. As long as you are are passionate about learning and have some programming skills that is all that matters.
 
-## How To Choose The *Right* Project?
+## How To Choose The _Right_ Project?
 
-So hopefully at this point you are focused on a few languages that are your favorites which means you can start thinking about which projects you want to build. You may already be typing into Google something like "*What are the best projects to build in X language?*" If this is you then stop immediately. This will lead to the same level of burnout and failure that I mentioned at the start of this article.
+So hopefully at this point you are focused on a few languages that are your favorites which means you can start thinking about which projects you want to build. You may already be typing into Google something like "_What are the best projects to build in X language?_" If this is you then stop immediately. This will lead to the same level of burnout and failure that I mentioned at the start of this article.
 
 Instead you need to ask yourself what your passions are. Do you love video games? If so try building out your own really simple game. Maybe you are a sports fan instead. If that is the case try to build out an application that compiles sports data together from various APIs.
 

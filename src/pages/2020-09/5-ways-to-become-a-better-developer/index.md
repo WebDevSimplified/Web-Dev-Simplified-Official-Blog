@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "5 Ways To Become A Better Developer"
 date: "2020-09-21"
 description: "Here are some quick tips you can use to improve your development skills."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 Programming is hard. There is a seemingly infinite amount of things to learn and new technologies are being released all the time. This can be incredibly overwhelming, especially when you are first starting out, so in this article I will breakdown five tips you can use to become a better developer and breakthrough the overwhelm.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: DSfYggOdldk`
 
 ## 1. Challenge Yourself With New Things

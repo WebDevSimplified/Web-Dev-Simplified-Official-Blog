@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: How To Learn Any Topic Fast
 date: "2019-11-18"
 description: "A simple step by step guide on how to learn any new technology or topic quickly and efficiently."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 Web development is one of the quickest moving fields in software development which means there are tons, and I mean tons, of new topics and technologies to learn every year. It is overwhelming having so many new things to learn, but with this simple step by step guide to learning you can confidently and quickly learn any new topic you want.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: CJJtA1NTqN4`
 
 ## Step 1: Research
@@ -19,7 +19,7 @@ It is also important that this research is purely about learning the pros/cons o
 
 Lastly, you should become familiar with popular libraries/frameworks that are used with the technology. For example if you wanted to learn Node.js, knowing that Express is a popular web framework would be something you discover in this step.
 
-*If you were researching JWT [this video](https://youtu.be/7Q17ubqLfaM) would be an example of a good research video.*
+_If you were researching JWT [this video](https://youtu.be/7Q17ubqLfaM) would be an example of a good research video._
 
 ## Step 2: Learn How To Implement And Get Started
 

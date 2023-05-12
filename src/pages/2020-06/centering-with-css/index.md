@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Center Vertically In CSS"
 date: "2020-06-29"
 description: "Every method you need to know to center elements in CSS."
-tags: ['CSS']
+tags: ["CSS"]
 ---
 
 Centering an element vertically in CSS used to be one of the hardest things to do in CSS. There are countless Stack Overflow posts on the topic, and still more being posted to this day. Luckily, with modern advances in CSS, centering elements has never been easier.
@@ -11,11 +11,13 @@ Centering an element vertically in CSS used to be one of the hardest things to d
 ## The Basic Approach
 
 The most basic approach to centering elements in CSS is using hard coded heights with absolute positioning. If we had a parent div that was 300px tall and a child div inside it that was 100px, then we could just add in a hard coded top of 100px to the child to center it.
+
 ```html
 <div class="parent">
   <div class="child"></div>
 </div>
 ```
+
 ```css
 .parent {
   position: relative;
@@ -35,12 +37,14 @@ The most basic approach to centering elements in CSS is using hard coded heights
   background-color: blue;
 }
 ```
+
 <div style="height: 300px; position: relative; width: 300px; background-color: var(--theme-red);">
   <div style="height: 100px; position: absolute; top: 100px; left: 100px; width: 100px; background-color: var(--theme-blue);"></div>
 </div>
 <br />
 
 This obviously has a bunch of drawbacks, but the most obvious is that if the height of the parent is not defined in CSS then this will not work. For example if the parent height was determined based on a bunch of text inside it then the height would change based on the amount of text. To fix this we can use margin auto instead of an exact top value.
+
 ```css {10-14}
 .parent {
   position: relative;
@@ -78,6 +82,7 @@ Now our elements are centered properly no matter how large the parent container 
 ## Using Transforms
 
 Before we move into some of the more modern ways to center elements I want to talk about one of my favorite ways to center an absolute positioned element, and that is with transform. If you translate an element -50% then it will move 50% of its height/width to the left/top which makes centering elements incredibly easy once you have the top left corner of the element centered.
+
 ```css {10-12}
 .parent {
   position: relative;
@@ -113,15 +118,28 @@ The top and left property put the top left corner of the box in the center of th
 ## Flexbox
 
 All of these previous ways to center elements work fine, but they have some major drawbacks. They either need to have pre-defined heights, or make use of absolute positioning which can be a nightmare to work with. What if we want to have a parent with 3 different height children where the size of the largest child is height of the parent and the smaller children are centered vertically. This is something that is pretty much impossible to do with the previous techniques, but is unbelievably easy with flexbox.
+
 ```html
 <div class="parent">
-  <div>Text...<div>
-  <div>Text...<div>
-  <div>Text...<div>
+  <div>
+    Text...
+    <div>
+      <div>
+        Text...
+        <div>
+          <div>
+            Text...
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 ```
+
 ```css {2-3}
-.parent { 
+.parent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,15 +165,28 @@ You may notice from the above code that we didn't need to apply any centering st
 ## Grid
 
 Just like with flexbox, CSS grid makes centering elements incredibly easy. You will actually notice most of the CSS is exactly the same, except for the display has been changed to grid and the width of the children is defined in the parent `grid-template-columns`.
+
 ```html
 <div class="parent">
-  <div>Text...<div>
-  <div>Text...<div>
-  <div>Text...<div>
+  <div>
+    Text...
+    <div>
+      <div>
+        Text...
+        <div>
+          <div>
+            Text...
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 ```
+
 ```css {2,5}
-.parent { 
+.parent {
   display: grid;
   align-items: center;
   justify-content: center;

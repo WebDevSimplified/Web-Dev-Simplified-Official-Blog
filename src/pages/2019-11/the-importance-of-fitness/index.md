@@ -1,9 +1,9 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: How Physical Activity Will Make You A Better Developer
 date: "2019-11-25"
 description: "A brief explanation of why fitness and physical health is so important, especially for programmers."
-tags: ['Non-Technical Discussion']
+tags: ["Non-Technical Discussion"]
 ---
 
 This is going to be a bit of a different article since I am not covering a technical topic, but that doesn't mean this is any less important. If anything the topic of physical health and fitness is one of the most important topics I have ever talked about. Learning to incorporate fitness and health into your life will not only make you healthier and live longer, but it will also drastically increase the quality of your life and your abilities as a developer.
@@ -16,7 +16,7 @@ Luckily at this time, I met a guy named Zach, who I became good friends with and
 
 ## How Working Out Gives You Energy
 
-The biggest benefit I noticed, by far, was my massive increase in energy. It seems entirely counterintuitive that going to the gym and exhausting yourself lifting weights or running could give you more energy, but it really does. This huge energy increase was most apparent at my job, since I worked long hours (about 10 hours a day, 7 days a week) with lots and lots of stairs. In a single day cleaning movie theaters I would climb around 200 flights of stairs and walk many, many miles, but since I was physically active both at work and outside of work I never felt exhausted or out of energy. 
+The biggest benefit I noticed, by far, was my massive increase in energy. It seems entirely counterintuitive that going to the gym and exhausting yourself lifting weights or running could give you more energy, but it really does. This huge energy increase was most apparent at my job, since I worked long hours (about 10 hours a day, 7 days a week) with lots and lots of stairs. In a single day cleaning movie theaters I would climb around 200 flights of stairs and walk many, many miles, but since I was physically active both at work and outside of work I never felt exhausted or out of energy.
 
 I know this seems ridiculous. I didn't even really believe it myself until I stopped working out. My Freshman year in college I was very lazy and inconsistent with working out and my energy levels plummeted. I felt tired even after getting a full night's sleep, even though my day had no physically demanding tasks or work. My Freshman year of college was probably the least demanding point in my life since it was the first time in a long time I had no job, yet I was more tired than ever. It wasn't until I started becoming more physically active and lifting again my Sophomore year that I realized my energy levels were directly tied to how physically active I was.
 

@@ -1,14 +1,14 @@
 ---
-setup: import Layout from '/src/layouts/BlogPost.astro'
+layout: "@layouts/BlogPost.astro"
 title: "How To Use Context In React With Hooks"
 date: "2020-06-01"
 description: "An in depth look at every aspect of the the context API and the useContext hook in React."
-tags: ['React']
+tags: ["React"]
 ---
 
 React released the Context API as a much needed solution for state that spans across multiple nested components. Unfortunately, the API for context was a bit bulky and difficult to use in class components. With the release of hooks, the React team decided to re-think how you interact with context and drastically simplified the code through the use of the `useContext` hook.
 
-*If you prefer to learn visually, check out the video version of this article.*
+_If you prefer to learn visually, check out the video version of this article._
 `youtube: 5LrDIWkK_Bc`
 
 ## What Is The Context API?
@@ -21,7 +21,7 @@ This is where the Context API comes in. With the context API you can specify cer
 const ThemeContext = React.createContext()
 
 function App() {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState("dark")
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -30,11 +30,13 @@ function App() {
   )
 }
 ```
+
 ```jsx
 function ChildComponent() {
   return <GrandChildComponent />
 }
 ```
+
 ```jsx
 class GrandChildComponent {
   render() {
@@ -44,7 +46,7 @@ class GrandChildComponent {
           return (
             <>
               <div>The theme is {theme}</div>
-              <button onClick={() => setTheme('light')}>
+              <button onClick={() => setTheme("light")}>
                 Change To Light Theme
               </button>
             </>
@@ -55,6 +57,7 @@ class GrandChildComponent {
   }
 }
 ```
+
 In the above code we are creating a new context using `React.createContext`. This gives us a variable that has two parts.
 
 The first part is the provider which provides a value to all components nested inside of it. In our case the value is a single object with the `theme` and `setTheme` properties.
@@ -66,6 +69,7 @@ This second part of the context is what makes context hard to work with. Having 
 ## `useContext`
 
 In order to use context in a function component you no longer need to wrap your JSX in a consumer. Instead all you need to do is pass your context to the `useContext` hook and it will do all the magic for you. Here is an example.
+
 ```jsx {2}
 function GrandChildComponent() {
   const { theme, setTheme } = useContext(ThemeContext)
@@ -73,13 +77,12 @@ function GrandChildComponent() {
   return (
     <>
       <div>The theme is {theme}</div>
-      <button onClick={() => setTheme('light')}>
-        Change To Light Theme
-      </button>
+      <button onClick={() => setTheme("light")}>Change To Light Theme</button>
     </>
   )
 }
 ```
+
 With the help of `useContext` we were able to cut out all the consumer portion of the context and remove all the complex nesting. Now context works just like a normal function where you call the context and it will give you the values inside of it for you to use later in the code. This drastically simplifies code related to context and makes working with context so much more enjoyable.
 
 Also, setting up a context provider for use with the `useContext` hook is exactly the same as you would do for a normal context consumer, so you can use all the same code for the context provider portion of the class component example at the start of the article.

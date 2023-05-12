@@ -1,61 +1,69 @@
 ---
 // Component Imports
-import BaseHead from '../components/BaseHead.astro';
-import BlogHeader from '../components/BlogHeader.astro';
-import BlogList from '/src/components/BlogList.jsx';
-import ConvertkitForm from '../components/ConvertkitForm.astro'
-import UserSettingsLoad from '../components/UserSettingsLoad.astro'
-import '../styles/theme.css'
-import '../styles/blog.css'
+import "../styles/theme.css"
+import "../styles/blog.css"
+import BaseHead from "../components/BaseHead.astro"
+import BlogHeader from "../components/BlogHeader.astro"
+import BlogList from "/src/components/BlogList.jsx"
+import ConvertkitForm from "../components/ConvertkitForm.astro"
+import UserSettingsLoad from "../components/UserSettingsLoad.astro"
 
 interface MarkdownFrontmatter {
-	date: number
-	title: string
-	description: string
-	tags: string[]
+  date: number
+  title: string
+  description: string
+  tags: string[]
 }
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
 // It will run during the build, but never in the browser.
 // All variables are available to use in the HTML template below.
-let title = 'Web Dev Simplified Blog';
-let description = 'Web Dev Simplified Blog';
-let permalink = 'https://blog.webdevsimplified.com';
+let title = "Web Dev Simplified Blog"
+let description = "Web Dev Simplified Blog"
+let permalink = "https://blog.webdevsimplified.com"
 
 // Data Fetching: List all Markdown posts in the repo.
 
-let allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>('./**/*.md');
+let allMarkdownPosts = await Astro.glob<MarkdownFrontmatter>(
+  "./**/2020-01/dynamic-expandable-content/*.mdx"
+)
 const allPosts = allMarkdownPosts
-	.map(post => ({ title: post.frontmatter.title, description: post.frontmatter.description, tags: post.frontmatter.tags, date: new Date(post.frontmatter.date), url: post.url }))
-	.sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .map(post => ({
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    tags: post.frontmatter.tags,
+    date: new Date(post.frontmatter.date),
+    url: post.url,
+  }))
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead {title} {description} {permalink} />
+  <head>
+    <BaseHead {title} {description} {permalink} />
 
-		<style>
-			.content {
-				margin-top: 4rem;
-				margin-bottom: 8rem;
-			}
+    <style>
+      .content {
+        margin-top: 4rem;
+        margin-bottom: 8rem;
+      }
 
-			.content :global(main > * + *) {
-				margin-top: 1rem;
-			}
-		</style>
-	</head>
+      .content :global(main > * + *) {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
 
-	<body>
-		<UserSettingsLoad />
-		<ConvertkitForm />
-		<BlogHeader />
-		<div class="wrapper">
-			<BlogList client:load allPosts={allPosts} />
-		</div>
-	</body>
+  <body>
+    <UserSettingsLoad />
+    <ConvertkitForm />
+    <BlogHeader />
+    <div class="wrapper">
+      <BlogList client:load allPosts={allPosts} />
+    </div>
+  </body>
 </html>
