@@ -31,3 +31,5 @@ export default defineConfig(
 
 // TODO: Add line highlighting to code blocks.
 // TODO: Check to see if my plugins can be replaced with official integrations.
+// TODO: Move over to the content folder
+// TODO: Add TS Support
