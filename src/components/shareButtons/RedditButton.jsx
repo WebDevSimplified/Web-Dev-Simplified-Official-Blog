@@ -11,6 +11,7 @@ export default function RedditButton({ url, title }) {
     <button
       className="share-icon"
       onClick={() => openShareDialog({ width: 660, height: 460 })}
+      aria-label="Share on Reddit"
     >
       <Icon
         color="#ff4500"

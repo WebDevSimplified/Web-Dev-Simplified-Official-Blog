@@ -15,6 +15,7 @@ export default function LinkedInButton({ url, title, source }) {
   return (
     <button
       className="share-icon"
+      aria-label="Share On LinkedIn"
       onClick={() => openShareDialog({ width: 750, height: 600 })}
     >
       <Icon

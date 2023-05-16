@@ -5,6 +5,7 @@ export default function NativeShareButton({ url, title }) {
     <button
       className="share-icon"
       onClick={() => navigator.share({ url, title })}
+      aria-label="Share This Article"
     >
       <Icon
         color="#7f7f7f"
