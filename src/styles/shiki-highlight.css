@@ -1,0 +1,23 @@
+.shiki .highlighted-line {
+  background-color: var(--theme-code-highlight-bg);
+  border-left: 0.25em solid var(--color-blue);
+  width: 100%;
+}
+
+.shiki .line {
+  display: inline-block;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.shiki {
+  overflow-x: auto;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-radius: 0.5rem;
+}
+
+.shiki > code {
+  width: 100%;
+  display: inline-block;
+}

@@ -90,7 +90,7 @@ Creating documents in MongoDB is actually pretty simple since there are only two
 
 This function takes a single object and creates a document with the specified information within the specified collection. You also notice we don't pass an ID when we create documents. This is because every MongoDB document automatically has an `_id` property added to it with a unique id.
 
-```mongodb
+```js
 // Insert a user with the name Kyle
 db.users.insertOne({ name: "Kyle" })
 ```
@@ -99,7 +99,7 @@ db.users.insertOne({ name: "Kyle" })
 
 This function works just like `insertOne`, but it takes an array of objects to be inserted instead.
 
-```mongodb
+```js
 // Insert a user with the age of 26 and a second user with the name Kyle
 db.users.insertMany([{ age: 26 }, { name: "Kyle" }])
 ```
@@ -112,7 +112,7 @@ Reading data within MongoDB is much more complicated and is where almost all the
 
 If you want to get all the documents within a single collection you can use the `find` method with no additional parameters.
 
-```mongodb
+```js
 // Get all users
 db.users.find()
 ```
@@ -121,7 +121,7 @@ db.users.find()
 
 Generally when you get documents you only want to get some of them. If you pass an object to the `find` method it will return all documents that match that filter object. By default the filter object will do equality comparisons and if you pass multiple fields in the same filter object it will only return documents that match all the fields in the filter. Later in this article I will be covering some of the more complex filter options you can use which is where most of the complexity of MongoDB comes from.
 
-```mongodb
+```js
 // Get all users with the name Kyle
 db.users.find({ name: "Kyle" })
 
@@ -133,7 +133,7 @@ db.users.find({ "address.zip": "12345" })
 
 The final way to use the `find` method is by passing a second object to select which fields you want returned. The object contains a key which is the field and a value of either 0 or 1 to determine if that field is returned or not. By default the `_id` property is always returned unless specifically told not.
 
-```mongodb
+```js
 // Get all users with the name Kyle and return the name, age, and _id fields
 db.users.find({ name: "Kyle" }, { name: 1, age: 1 })
 
@@ -145,7 +145,7 @@ db.users.find({}, { age: 0 })
 
 This is the same as find in every way except it just returns the first document that matches the filter.
 
-```mongodb
+```js
 // Get the first user with the name Kyle
 db.users.findOne({ name: "Kyle" })
 ```
@@ -154,7 +154,7 @@ db.users.findOne({ name: "Kyle" })
 
 This final method returns the count of all documents that match the filter passed to it.
 
-```mongodb
+```js
 // Get the count of users with the name Kyle
 db.users.countDocuments({ name: "Kyle" })
 ```
@@ -167,7 +167,7 @@ Updating documents in MongoDB is a bit more complex than in SQL since there are 
 
 The main way to update a document is with the `updateOne` function. This will update the first document that matches the filter passed to it and will then update the document based on the information passed in the second parameter to `updateOne`. This second parameter takes a bunch of different options which we will cover later in this article.
 
-```mongodb
+```js
 // Update the age of the first user with an age of 20 to 21
 db.users.updateOne({ age: 20 }, { $set: { age: 21 } })
 ```
@@ -176,7 +176,7 @@ db.users.updateOne({ age: 20 }, { $set: { age: 21 } })
 
 This works exactly the same as `updateOne`, but it will update all documents that match the filter object instead of just the first.
 
-```mongodb
+```js
 // Update the age of all users with the age of 14 by adding 2 to their age
 db.users.updateMany({ age: 14 }, { $incr: { age: 2 } })
 ```
@@ -185,7 +185,7 @@ db.users.updateMany({ age: 14 }, { $incr: { age: 2 } })
 
 This works similarly to `updateOne`, but it will instead replace the entire document and not just update specific fields. Generally this is not something you want to do as it will delete all fields in the object (except the id field) that are not specified within the object passed to `replaceOne`.
 
-```mongodb
+```js
 // Replace the first user with an age of 14 with an object that only has a name field
 db.users.replaceOne({ age: 14 }, { name: "Kyle" })
 ```
@@ -198,7 +198,7 @@ Update and read were pretty complicated so luckily delete is very simple.
 
 This method will delete the first object that matches the filter object passed to it.
 
-```mongodb
+```js
 // Delete the first user with the age of 20
 db.users.deleteOne({ age: 20 })
 ```
@@ -207,7 +207,7 @@ db.users.deleteOne({ age: 20 })
 
 This is the same as `deleteOne` but it will delete all documents that match the filter object instead of just one.
 
-```mongodb
+```js
 // Delete all users with the age of 14
 db.users.deleteMany({ age: 14 })
 ```
@@ -224,67 +224,67 @@ The first way to make the above methods more useful is to expand on the filter o
 
 The easiest complex filter to understand is the `$eq` filter since it checks for equality and works exactly the same as how our simple filters do.
 
-```mongodb
+```js
 // This is essentially the same as db.users.find({ name: "Kyle" })
-db.users.find({ name: { $eq: "Kyle" }})
+db.users.find({ name: { $eq: "Kyle" } })
 ```
 
 #### `$neq`
 
 The `$neq` filter is the exact opposite of `$eq` and checks for inequality.
 
-```mongodb
+```js
 // Get all users with a name other than Kyle
-db.users.find({ name: { $neq: "Kyle" }})
+db.users.find({ name: { $neq: "Kyle" } })
 ```
 
 #### `$gt` / `$gte`
 
 These filters check for when a value is greater than or greater than or equal to another value.
 
-```mongodb
+```js
 // Get all users with an age greater than 18
-db.users.find({ age: { $gt: 18 }})
+db.users.find({ age: { $gt: 18 } })
 
 // Get all users with an age greater than or equal to 21
-db.users.find({ age: { $gte: 21 }})
+db.users.find({ age: { $gte: 21 } })
 ```
 
 #### `$lt` / `$lte`
 
 This is the same as `$gt` and `$gte` except for checking less than and less than or equal to.
 
-```mongodb
+```js
 // Get all users with an age less than 18
-db.users.find({ age: { $lt: 18 }})
+db.users.find({ age: { $lt: 18 } })
 
 // Get all users with an age less than or equal to 21
-db.users.find({ age: { $lte: 21 }})
+db.users.find({ age: { $lte: 21 } })
 ```
 
 #### `$in`
 
 This will return all documents that match one of the values in the array.
 
-```mongodb
+```js
 // Get all users with the name Kyle or John
-db.users.find({ name: { $in: ["Kyle", "John"] }})
+db.users.find({ name: { $in: ["Kyle", "John"] } })
 ```
 
 #### `$nin`
 
 This is the opposite of `$in` and returns all documents with values not in the array.
 
-```mongodb
+```js
 // Get all users with a name other than Kyle or John
-db.users.find({ name: { $nin: ["Kyle", "John"] }})
+db.users.find({ name: { $nin: ["Kyle", "John"] } })
 ```
 
 #### `$and`
 
 This checks that all conditions in the array are true. This is not normally needed, though, since passing multiple key value pairs to the same filter object by default does an and operation.
 
-```mongodb
+```js
 // Get all users with the name Kyle and the age 22
 db.users.find({ $and: [{ name: "Kyle" }, { age: 22 }] })
 // This is the same as db.users.find({ age: 22, name: "Kyle" })
@@ -294,7 +294,7 @@ db.users.find({ $and: [{ name: "Kyle" }, { age: 22 }] })
 
 This is the same as `$and`, but it does an or check instead of an and check.
 
-```mongodb
+```js
 // Get all users with the name Kyle or the age 22
 db.users.find({ $or: [{ name: "Kyle" }, { age: 22 }] })
 ```
@@ -303,28 +303,28 @@ db.users.find({ $or: [{ name: "Kyle" }, { age: 22 }] })
 
 This negates the filter passed to it. Again this is generally not needed much as you can create pretty much the same filter using other filter combinations.
 
-```mongodb
+```js
 // Get all users with a name other than Kyle
-db.users.find({ $name: { $not: { $eq: "Kyle" }}})
+db.users.find({ $name: { $not: { $eq: "Kyle" } } })
 ```
 
 #### `$exists`
 
 This will filter documents based on if a field exists on the document or not. This will only check the field, though, and not the value. That means if a document has a field with a value of null it will still show up in the `$exists` query.
 
-```mongodb
+```js
 // Get all users with a name field defined
-db.users.find({ $name: { $exists: true }})
+db.users.find({ $name: { $exists: true } })
 
 // Get all users without a name field
-db.users.find({ $name: { $exists: false }})
+db.users.find({ $name: { $exists: false } })
 ```
 
 #### `$expr`
 
 This filter allows you to do comparisons between multiple different fields on your document.
 
-```mongodb
+```js
 // Get all users that have a balance greater than their debt
 db.users.find({ $expr: { $gt: ["$balance", "$debt"] } })
 ```
@@ -337,7 +337,7 @@ When talking about updates I mentioned that you can pass a lot of information to
 
 If you want to just change the value of a field from one value to another the `$set` option is your best option.
 
-```mongodb
+```js
 // Update the first user with an age of 12 to also have the name Kyle
 db.users.updateOne({ age: 12 }, { $set: { name: "Kyle" } })
 ```
@@ -346,7 +346,7 @@ db.users.updateOne({ age: 12 }, { $set: { name: "Kyle" } })
 
 If you want to increment/decrement a number field you can use the `$inc` option and pass it a number to add to the given field.
 
-```mongodb
+```js
 // Update the first user with an age of 12 by subtracting 2 from its age
 db.users.updateOne({ age: 12 }, { $inc: { age: -2 } })
 ```
@@ -355,7 +355,7 @@ db.users.updateOne({ age: 12 }, { $inc: { age: -2 } })
 
 This lets you rename a field.
 
-```mongodb
+```js
 // Rename the age field to years on all users
 db.users.updateMany({}, { $rename: { age: "years" } })
 ```
@@ -364,7 +364,7 @@ db.users.updateMany({}, { $rename: { age: "years" } })
 
 This lets you remove a field from a document. You must pass an empty string as the value for the field you want to remove.
 
-```mongodb
+```js
 // Remove the age field from all users with the age of 12
 db.users.updateOne({ age: 12 }, { $unset: { age: "" } })
 ```
@@ -373,7 +373,7 @@ db.users.updateOne({ age: 12 }, { $unset: { age: "" } })
 
 This lets you add a value to an array field.
 
-```mongodb
+```js
 // Add John to the friends array for all users
 db.users.updateMany({}, { $push: { friends: "John" } })
 ```
@@ -382,7 +382,7 @@ db.users.updateMany({}, { $push: { friends: "John" } })
 
 This is the opposite of `$push` and removes a value from an array field.
 
-```mongodb
+```js
 // Remove John from the friends array for all users
 db.users.updateMany({}, { $pull: { friends: "John" } })
 ```
@@ -395,7 +395,7 @@ The last concept I want to talk about with MongoDB is the ability to modify read
 
 This will sort the results of read query. The results will be sorted in ascending order if you pass 1 to the field and descending order if you pass -1. Also if you want to sort by multiple fields they will be sorted in the order you pass them to sort.
 
-```mongodb
+```js
 // Get all users sorted by name in ascending order and then if any names are the same sort by age in descending order
 db.users.find().sort({ name: 1, age: -1 })
 ```
@@ -404,7 +404,7 @@ db.users.find().sort({ name: 1, age: -1 })
 
 This will only return the number of documents you tell it to.
 
-```mongodb
+```js
 // Get the first 2 users
 db.users.find().limit(2)
 ```
@@ -413,7 +413,7 @@ db.users.find().limit(2)
 
 This will skip a set number of documents from the beginning of the find. This is useful in combination with limit to do pagination.
 
-```mongodb
+```js
 // Get all users except the first 4
 db.users.find().skip(4)
 ```
