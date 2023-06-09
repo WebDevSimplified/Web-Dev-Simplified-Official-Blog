@@ -1,28 +1,23 @@
----
-import BlogPost from "../layouts/BlogPost.astro"
+import rss from "@astrojs/rss"
 
-export async function getStaticPaths({ rss }) {
-  const allPosts = await Astro.glob("../**/*.md")
-  const sortedPosts = allPosts.sort(
+export function get(context) {
+  let allMarkdownPosts = Object.values(
+    import.meta.glob("./**/*.mdx", { eager: true })
+  )
+  const allPosts = allMarkdownPosts.sort(
     (a, b) => b.frontmatter.date.valueOf() - a.frontmatter.date.valueOf()
   )
 
-  rss({
+  return rss({
     title: "Web Dev Simplified Blog",
     description: "Web Dev Simplified Blog",
     customData: `<language>en-us</language>`,
-    items: sortedPosts.map(item => ({
+    site: context.site,
+    items: allPosts.map(item => ({
       title: item.frontmatter.title,
       description: item.frontmatter.description,
       link: item.url,
       pubDate: item.frontmatter.date,
     })),
   })
-
-  return []
 }
----
-
-<BlogPost {...props} />
-
-<!-- TODO: Fix rss feed if needed -->
