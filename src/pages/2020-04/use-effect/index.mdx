@@ -123,6 +123,7 @@ function WindowSizeList({ url }) {
   useEffect(() => {
     setItems(CustomApi.getList(url))
   }, [url])
+
   // TODO: Setup resize event listener on mount
   // TODO: Cleanup resize event listener on un-mount
 

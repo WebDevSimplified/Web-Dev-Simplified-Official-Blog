@@ -1,10 +1,10 @@
 ---
 export interface Props {
-	title: string;
-	description: string;
-	permalink: string;
+	title: string
+	description: string
+	permalink: string
 }
-const { title, description, permalink } = Astro.props;
+const { title, description, permalink } = Astro.props
 ---
 
 <!-- Global Metadata -->
@@ -31,4 +31,14 @@ const { title, description, permalink } = Astro.props;
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap"
+/>
+
+<!-- Analytics -->
+<script
+	defer
+	data-domain="blog.webdevsimplified.com"
+	data-api="https://royal-surf-e76e.kyle-0ed.workers.dev/api/e"
+	src="https://royal-surf-e76e.kyle-0ed.workers.dev/js/script.js"></script>
