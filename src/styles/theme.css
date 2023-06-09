@@ -56,7 +56,7 @@
   --theme-code-inline-bg: var(--color-gray-200);
   --theme-code-text: var(--color-gray-100);
   --theme-code-bg: #272822;
-  --theme-code-highlight-bg: var(--color-gray-700);
+  --theme-code-highlight-bg: var(--color-gray-800);
   --theme-popup-bg: var(--color-gray-200);
   --theme-tangent-bg: var(--color-gray-200);
   --theme-tangent-border: var(--color-gray-300);
@@ -87,7 +87,6 @@
   --theme-popup-bg: var(--color-gray-700);
   --theme-tangent-bg: var(--color-gray-700);
   --theme-tangent-border: var(--color-gray-600);
-  --theme-tangent-code-inline-bg: var(--color-gray-800);
 
   --theme-red: var(--color-red-dark);
   --theme-blue: var(--color-blue-dark);

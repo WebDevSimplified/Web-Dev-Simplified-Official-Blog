@@ -6,33 +6,29 @@
 // You can disable this by removing "@ts-check" and `@type` comments below.
 import youtubeEmbed from "./src/plugins/youtubeEmbed.mjs"
 import responsiveImages from "./src/plugins/responsiveImages.mjs"
-import codeHighlightPre from "./src/plugins/codeHighlightPre.mjs"
-import preact from "@astrojs/preact" // @ts-check
+import myRemarkShiki from "./src/plugins/myRemarkShiki.mjs"
 
 import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
+import mdx from "@astrojs/mdx"
+import preact from "@astrojs/preact" // @ts-check
 
 // https://astro.build/config
 export default defineConfig(
   /** @type {import('astro').AstroUserConfig} */
   {
-    integrations: [preact(), sitemap()],
+    integrations: [preact(), sitemap(), mdx()],
     site: "https://blog.webdevsimplified.com",
     markdown: {
-      // TODO: Maybe use shiki and see if it is better and has line highlighting.
       syntaxHighlight: false,
-      remarkPlugins: [
-        "remark-gfm",
-        codeHighlightPre,
-        [
-          "remark-prism",
-          {
-            plugins: ["prismLineHighlightModified.js"],
-          },
-        ],
-        youtubeEmbed,
-        responsiveImages,
-      ],
+      // TODO: Add official Shiki integration when line highlighting is supported
+      remarkPlugins: [myRemarkShiki, youtubeEmbed, responsiveImages],
     },
   }
 )
+
+// TODO: Check to see if my plugins can be replaced with official integrations.
+// TODO: Implement experimental assets integration
+// TODO: Move over to the content folder
+// TODO: Add TS Support
+// TODO: Add analytic conversion tracking (for things like newsletter signups)

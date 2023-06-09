@@ -338,7 +338,7 @@ kbd {
   }
 }
 
-code:not([class*="language-"]) {
+:not(.shiki) > code {
   padding: 0.1em 0.25em;
   text-shadow: none;
   color: var(--theme-text);
