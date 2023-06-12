@@ -4,19 +4,25 @@ const form = document.querySelector(".formkit-sticky-bar")
 const fromNewsletter = queryParams.get("fromNewsletter")
 
 if (fromNewsletter === "true") {
+  queryParams.delete("fromNewsletter")
+  const stringifiedParams = queryParams.toString()
   history.replaceState(
     null,
     null,
-    `${location.pathname}?${queryParams.toString()}${location.hash}`
+    `${location.pathname}${stringifiedParams ? `?${queryParams.toString()}` : ""
+    }${location.hash}`
   )
   localStorage.setItem("subscribed-to-newsletter", true)
 }
 
 if (fromNewsletter === "false") {
+  queryParams.delete("fromNewsletter")
+  const stringifiedParams = queryParams.toString()
   history.replaceState(
     null,
     null,
-    `${location.pathname}?${queryParams.toString()}${location.hash}`
+    `${location.pathname}${stringifiedParams ? `?${queryParams.toString()}` : ""
+    }${location.hash}`
   )
   localStorage.removeItem("subscribed-to-newsletter")
   localStorage.removeItem("date-of-last-newsletter-link")
@@ -87,5 +93,5 @@ document.addEventListener("click", e => {
   if (e.target.matches("[data-formkit-close]")) {
     sessionStorage.setItem("form-closed", true)
   }
-})
+  })
 </script>

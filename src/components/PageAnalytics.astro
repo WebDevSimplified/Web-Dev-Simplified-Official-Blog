@@ -19,10 +19,12 @@ plausible("pageview", {
     })
 
     if (shouldClean) {
+      const stringifiedParams = queryParams.toString()
       history.replaceState(
         null,
         null,
-        `${location.pathname}?${queryParams}${location.hash}`
+        `${location.pathname}${stringifiedParams ? `?${queryParams.toString()}` : ""
+        }${location.hash}`
       )
     }
   },
