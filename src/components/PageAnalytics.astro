@@ -1,0 +1,30 @@
+<script is:inline>
+const theme = localStorage.getItem("THEME")
+const readingWidth = localStorage.getItem("READING_WIDTH")
+const subscribedToNewsletter = localStorage.getItem(
+  "subscribed-to-newsletter"
+)
+
+plausible("pageview", {
+  props: { theme, readingWidth, subscribedToNewsletter },
+  callback: () => {
+    let shouldClean = false
+    const queryParams = new URLSearchParams(location.search)
+
+    Array.from(queryParams.keys()).forEach(key => {
+      if (key.startsWith("utm_")) {
+        queryParams.delete(key)
+        shouldClean = true
+      }
+    })
+
+    if (shouldClean) {
+      history.replaceState(
+        null,
+        null,
+        `${location.pathname}?${queryParams}${location.hash}`
+      )
+    }
+  },
+})
+</script>

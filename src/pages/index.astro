@@ -3,10 +3,8 @@
 import "../styles/theme.css"
 import "../styles/blog.css"
 import BaseHead from "../components/BaseHead.astro"
-import BlogHeader from "../components/BlogHeader.astro"
 import BlogList from "/src/components/BlogList.jsx"
-import ConvertkitForm from "../components/ConvertkitForm.astro"
-import UserSettingsLoad from "../components/UserSettingsLoad.astro"
+import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
 
 interface MarkdownFrontmatter {
   date: number
@@ -57,11 +55,7 @@ const allPosts = allMarkdownPosts
   </head>
 
   <body>
-    <UserSettingsLoad />
-    <ConvertkitForm />
-    <BlogHeader />
-    <div class="wrapper">
-      <BlogList client:load allPosts={allPosts} />
-    </div>
+    <BaseTopOfBody />
+    <BlogList client:load allPosts={allPosts} />
   </body>
 </html>

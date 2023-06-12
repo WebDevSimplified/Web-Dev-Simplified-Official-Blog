@@ -3,10 +3,8 @@ import "../styles/theme.css"
 import "../styles/blog.css"
 import "../styles/shiki-highlight.css"
 import BaseHead from "../components/BaseHead.astro"
-import BlogHeader from "../components/BlogHeader.astro"
 import BlogPost from "../components/BlogPost.astro"
-import ConvertkitForm from "../components/ConvertkitForm.astro"
-import UserSettingsLoad from "../components/UserSettingsLoad.astro"
+import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
 
 const { content } = Astro.props
 const {
@@ -26,9 +24,7 @@ const url = Astro.request.url
   </head>
 
   <body>
-    <UserSettingsLoad />
-    <ConvertkitForm />
-    <BlogHeader />
+    <BaseTopOfBody />
     <div class="wrapper">
       <BlogPost {title} {author} {date} {tags} {url}>
         <slot />

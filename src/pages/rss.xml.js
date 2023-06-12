@@ -21,3 +21,5 @@ export function get(context) {
     })),
   })
 }
+
+// TODO: Make work with Content folders

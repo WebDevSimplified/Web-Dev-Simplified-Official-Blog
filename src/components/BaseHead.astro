@@ -39,6 +39,15 @@ const { title, description, permalink } = Astro.props
 <!-- Analytics -->
 <script
 	defer
-	data-domain="blog.webdevsimplified.com"
+	data-domain={import.meta.env.PROD ? "blog.webdevsimplified.com" : "testing"}
 	data-api="https://royal-surf-e76e.kyle-0ed.workers.dev/api/e"
-	src="https://royal-surf-e76e.kyle-0ed.workers.dev/js/script.js"></script>
+	src={`https://royal-surf-e76e.kyle-0ed.workers.dev/js/script.manual${
+		import.meta.env.PROD ? "" : ".local"
+	}.js`}></script>
+<script is:inline>
+window.plausible =
+	window.plausible ||
+	function () {
+		; (window.plausible.q = window.plausible.q || []).push(arguments)
+	}
+</script>

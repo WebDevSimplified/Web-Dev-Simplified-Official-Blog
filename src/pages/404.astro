@@ -1,0 +1,70 @@
+---
+import "../styles/theme.css"
+import "../styles/blog.css"
+import BaseHead from "src/components/BaseHead.astro"
+import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
+
+let title = "404 - Not Found"
+let description = "Web Dev Simplified Blog"
+let permalink = "https://blog.webdevsimplified.com"
+---
+
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+
+  <body>
+    <BaseTopOfBody />
+    <main class="wrapper">
+      <h1 class="header">404 - Not Found</h1>
+      <p>We could not find the page you were looking for.</p>
+      <a href="/" class="btn">Back To Home</a>
+    </main>
+    <style>
+      .wrapper {
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      .header {
+        margin-top: 2rem;
+        font-size: 5rem;
+      }
+
+      @media (max-width: 800px) {
+        .header {
+          font-size: 4rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .header {
+          font-size: 3rem;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 2rem;
+        background-color: transparent;
+        color: var(--theme-text);
+        border: 1px solid var(--theme-accent);
+        border-radius: 0.5em;
+        padding: 0.5em 0.75em;
+        transition: 150ms ease-in-out;
+        cursor: pointer;
+      }
+
+      .btn:hover,
+      .btn.active {
+        background-color: var(--theme-bg-accent);
+        color: var(--theme-accent);
+        text-decoration: none;
+      }
+    </style>
+    <script>
+      plausible("404", { props: { path: document.location.pathname } })
+    </script>
+  </body>
+</html>
