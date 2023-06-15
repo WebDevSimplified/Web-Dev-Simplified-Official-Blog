@@ -3,7 +3,7 @@ import dateFormatter from "../utils/dateFormatter.js"
 
 export default function BlogPostPreview({ post }) {
   return (
-    <article class="blog-preview-wrapper">
+    <article className="blog-preview-wrapper">
       <header
         style={{
           alignItems: "flex-start",

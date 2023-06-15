@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks"
+import { useState } from "react"
 
 const EXPAND_TEXT_STYLES = {
   lineHeight: 1.5,

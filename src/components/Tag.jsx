@@ -19,14 +19,14 @@ export default function Tag({ tag, onTagSelect, marginTop = ".875em" }) {
         style={{ marginTop }}
       >
         <span
-          class="tag-name"
+          className="tag-name"
           style={{
             borderRadius: tag.count != null ? ".25em 0 0 .25em" : ".25em",
           }}
         >
           {tag.name}
         </span>
-        {tag.count && <div class="tag-count">{tag.count}</div>}
+        {tag.count && <div className="tag-count">{tag.count}</div>}
       </label>
     </>
   )

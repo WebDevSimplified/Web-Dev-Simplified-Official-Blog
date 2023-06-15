@@ -213,6 +213,19 @@ kbd {
   border: 1px solid var(--theme-text-lighter);
 }
 
+/* TODO: Make this less hacky or just remove */
+.full-width-article-element {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 125ch;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
 @media (max-width: 50em) {
   .preview-title {
     font-size: 1.75rem;
@@ -227,9 +240,12 @@ kbd {
     margin-bottom: 2rem;
   }
 
-  .wrapper {
+  .wrapper,
+  .full-width-article-element {
     padding-left: 1rem;
     padding-right: 1rem;
+    width: 100%;
+    position: static;
   }
 
   h1 {
@@ -266,7 +282,8 @@ kbd {
     margin-bottom: 1rem;
   }
 
-  .wrapper {
+  .wrapper,
+  .full-width-article-element {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }

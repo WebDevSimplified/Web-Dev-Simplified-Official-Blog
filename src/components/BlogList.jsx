@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks"
+import { useState } from "react"
 import TagBar from "./TagBar.jsx"
 import SearchBar from "./SearchBar.jsx"
 import BlogPostPreview from "./BlogPostPreview.jsx"
@@ -45,13 +45,13 @@ export default function BlogList({ allPosts }) {
   }
 
   return (
-    <div class="wrapper">
+    <div className="wrapper">
       <SearchBar query={searchQuery} onChange={handleSearchChange} />
       <TagBar tags={tags} onTagSelect={handleTagSelect} />
       <main className="content">
         <section className="blog-post-list" aria-label="Blog post list">
           {filteredPosts.map(p => (
-            <BlogPostPreview post={p} />
+            <BlogPostPreview key={p.url} post={p} />
           ))}
         </section>
       </main>

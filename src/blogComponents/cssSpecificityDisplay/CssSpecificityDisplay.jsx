@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect } from "react"
 import { calculate } from "specificity/dist/specificity.mjs"
 
 const WRAPPER_STYLES = {
@@ -139,7 +139,7 @@ export default function CssSpecificityDisplay(props) {
       </div>
       {showInput && (
         <input
-          class="token selector"
+          className="token selector"
           style={INPUT_STYLES}
           type="text"
           value={inputText}

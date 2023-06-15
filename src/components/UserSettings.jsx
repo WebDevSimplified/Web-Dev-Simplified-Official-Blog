@@ -1,5 +1,5 @@
 import { useLocalStorage } from "../utils/useStorage"
-import { useEffect, useState, useRef } from "preact/hooks"
+import { useEffect, useState, useRef } from "react"
 import Styles from "./userSettings.module.css"
 
 const THEME_OPTIONS = {
@@ -66,7 +66,9 @@ export default function UserSettings() {
             onChange={e => setTheme(e.target.value)}
           >
             {Object.entries(THEME_OPTIONS).map(([key, value]) => (
-              <option value={key}>{value}</option>
+              <option key={key} value={key}>
+                {value}
+              </option>
             ))}
           </select>
         </div>
@@ -78,7 +80,9 @@ export default function UserSettings() {
             onChange={e => setReadingWidth(e.target.value)}
           >
             {Object.entries(READING_WIDTH_OPTIONS).map(([key, value]) => (
-              <option value={key}>{value}</option>
+              <option key={key} value={key}>
+                {value}
+              </option>
             ))}
           </select>
         </div>

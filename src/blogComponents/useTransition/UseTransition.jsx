@@ -1,4 +1,4 @@
-import { useState, useRef } from "preact/hooks"
+import { useState, useRef } from "react"
 
 const LIST_SIZE = 5
 

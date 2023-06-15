@@ -7,17 +7,16 @@
 import youtubeEmbed from "./src/plugins/youtubeEmbed.mjs"
 import responsiveImages from "./src/plugins/responsiveImages.mjs"
 import myRemarkShiki from "./src/plugins/myRemarkShiki.mjs"
-
 import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import mdx from "@astrojs/mdx"
-import preact from "@astrojs/preact" // @ts-check
+import react from "@astrojs/react" // @ts-check
 
 // https://astro.build/config
 export default defineConfig(
   /** @type {import('astro').AstroUserConfig} */
   {
-    integrations: [preact(), sitemap(), mdx()],
+    integrations: [react(), sitemap(), mdx()],
     site: "https://blog.webdevsimplified.com",
     markdown: {
       syntaxHighlight: false,

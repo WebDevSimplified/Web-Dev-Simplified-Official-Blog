@@ -1,0 +1,9 @@
+.markdown-body * {
+  all: revert;
+}
+
+.markdown-body code {
+  all: revert;
+}
+
+/* TODO: Maybe implement this with all custom CSS to avoid the revert hack */
