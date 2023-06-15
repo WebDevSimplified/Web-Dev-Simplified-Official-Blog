@@ -4,7 +4,7 @@ import { ScrollSync, ScrollSyncPane } from "react-scroll-sync"
 import remarkGfm from "remark-gfm"
 import rehypeRaw from "rehype-raw"
 import "github-markdown-css/github-markdown-dark.css"
-import "./markdownEditor.css"
+import "./MarkdownEditor.css"
 
 export default function MarkdownEditor({
   initialValue = "",
