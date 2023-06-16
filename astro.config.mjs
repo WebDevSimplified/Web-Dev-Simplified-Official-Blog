@@ -31,3 +31,4 @@ export default defineConfig(
 // TODO: Move over to the content folder
 // TODO: Add TS Support
 // TODO: Add analytic conversion tracking (for things like newsletter signups)
+// TODO: Optimize/Shrink Images
