@@ -26,7 +26,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
-    "react-scroll-sync": "^0.11.0",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "specificity": "^0.4.1"

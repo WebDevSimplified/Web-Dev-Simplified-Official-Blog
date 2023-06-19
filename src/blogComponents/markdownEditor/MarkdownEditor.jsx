@@ -1,10 +1,9 @@
 import { useState } from "react"
 import ReactMarkdown from "react-markdown"
-import { ScrollSync, ScrollSyncPane } from "react-scroll-sync"
 import remarkGfm from "remark-gfm"
 import rehypeRaw from "rehype-raw"
 import "github-markdown-css/github-markdown-dark.css"
-import "./markdownEditor.css"
+import "./MarkdownEditor.css"
 
 export default function MarkdownEditor({
   initialValue = "",
@@ -14,56 +13,50 @@ export default function MarkdownEditor({
   const [value, setValue] = useState(initialValue)
   return (
     <div style={{ height }}>
-      <ScrollSync>
-        <div
-          className={isFullWidth ? "full-width-article-element" : ""}
+      <div
+        className={isFullWidth ? "full-width-article-element" : ""}
+        style={{
+          display: "flex",
+          alignItems: "stretch",
+          height,
+          marginTop: "1rem",
+        }}
+      >
+        <textarea
+          value={value}
+          onChange={e => setValue(e.target.value)}
           style={{
-            display: "flex",
-            alignItems: "stretch",
-            height,
-            marginTop: "1rem",
+            resize: "none",
+            flexGrow: 0,
+            flexShrink: 0,
+            fontSize: "inherit",
+            padding: "1rem",
+            overflowY: "auto",
+            width: "50%",
+            borderRadius: 0,
+          }}
+        />
+        <div
+          className="markdown-body"
+          style={{
+            border: "1px solid var(--theme-text-lighter)",
+            borderLeft: "none",
+            width: "50%",
+            flexGrow: 0,
+            flexShrink: 0,
+            padding: "1rem",
+            overflowY: "auto",
+            color: "var(--color-white)",
           }}
         >
-          <ScrollSyncPane>
-            <textarea
-              value={value}
-              onChange={e => setValue(e.target.value)}
-              style={{
-                resize: "none",
-                flexGrow: 0,
-                flexShrink: 0,
-                fontSize: "inherit",
-                padding: "1rem",
-                overflowY: "auto",
-                width: "50%",
-                borderRadius: 0,
-              }}
-            />
-          </ScrollSyncPane>
-          <ScrollSyncPane>
-            <div
-              className="markdown-body"
-              style={{
-                border: "1px solid var(--theme-text-lighter)",
-                borderLeft: "none",
-                width: "50%",
-                flexGrow: 0,
-                flexShrink: 0,
-                padding: "1rem",
-                overflowY: "auto",
-                color: "var(--color-white)",
-              }}
-            >
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw]}
-                remarkPlugins={[remarkGfm]}
-              >
-                {value}
-              </ReactMarkdown>
-            </div>
-          </ScrollSyncPane>
+          <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
+            remarkPlugins={[remarkGfm]}
+          >
+            {value}
+          </ReactMarkdown>
         </div>
-      </ScrollSync>
+      </div>
     </div>
   )
 }
