@@ -1,8 +1,8 @@
 ---
 export interface Props {
-	title: string
-	description: string
-	permalink: string
+  title: string
+  description: string
+  permalink: string
 }
 const { title, description, permalink } = Astro.props
 ---
@@ -32,22 +32,23 @@ const { title, description, permalink } = Astro.props
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
-	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap"
 />
 
 <!-- Analytics -->
 <script
-	defer
-	data-domain={import.meta.env.PROD ? "blog.webdevsimplified.com" : "testing"}
-	data-api="https://royal-surf-e76e.kyle-0ed.workers.dev/api/e"
-	src={`https://royal-surf-e76e.kyle-0ed.workers.dev/js/script.manual${
-		import.meta.env.PROD ? "" : ".local"
-	}.js`}></script>
+  defer
+  data-domain={import.meta.env.PROD ? "blog.webdevsimplified.com" : "testing"}
+  data-api="https://royal-surf-e76e.kyle-0ed.workers.dev/api/e"
+  src={`https://royal-surf-e76e.kyle-0ed.workers.dev/js/script.manual${
+    import.meta.env.PROD ? "" : ".local"
+  }.js`}
+></script>
 <script is:inline>
 window.plausible =
-	window.plausible ||
-	function () {
-		; (window.plausible.q = window.plausible.q || []).push(arguments)
-	}
+  window.plausible ||
+  function () {
+    ; (window.plausible.q = window.plausible.q || []).push(arguments)
+  }
 </script>

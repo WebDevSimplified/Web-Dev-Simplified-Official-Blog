@@ -14,9 +14,11 @@ export default function BlogPostPreview({ post }) {
           textAlign: "left",
         }}
       >
-        <a href={post.url} style={{ display: "inline-block", width: "100%" }}>
-          <h1 className="preview-title">{post.title}</h1>
-        </a>
+        <h2 className="preview-title">
+          <a className="preview-title" href={post.url}>
+            {post.title}
+          </a>
+        </h2>
         <p
           style={{
             margin: 0,
