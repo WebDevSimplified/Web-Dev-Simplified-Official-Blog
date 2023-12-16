@@ -1,0 +1,34 @@
+---
+import "../styles/theme.css"
+import "../styles/blog.css"
+import "../styles/shiki-highlight.css"
+import BaseHead from "../components/BaseHead.astro"
+import BlogPost from "../components/BlogPost.astro"
+import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
+
+const { content } = Astro.props
+const {
+  title,
+  description,
+  date,
+  author = "Kyle Cook",
+  permalink,
+  tags,
+} = content
+const url = Astro.request.url
+---
+
+<html lang={content.lang || "en"}>
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+
+  <body>
+    <BaseTopOfBody />
+    <div class="wrapper">
+      <BlogPost {title} {author} {date} {tags} {url}>
+        <slot />
+      </BlogPost>
+    </div>
+  </body>
+</html>

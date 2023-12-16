@@ -1,0 +1,118 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "New CSS Property margin-trim"
+date: "2023-12-11"
+description: "The new CSS property margin-trim is very simple, but incredibly useful when working in a component based design system."
+tags: ["CSS"]
+---
+
+import MarginTrimCard from "@blogComponents/marginTrim/MarginTrimCard.astro"
+
+One of the most annoying things to deal with in CSS is margins. They have weird interactions with collapsing and more often than not you end up with extra spacing where you don't want it. This becomes an even larger pain when moving to a component based design system since now you need to ensure your components all work well with each other without leaking styles outside themselves.
+
+The new `margin-trim` property helps solve part of this problem by making it very easy to remove extra margin from the children of an element.
+
+## The Problem
+
+Let's say we have a simple card with a list of children inside it.
+
+```html
+<div class="card">
+  <div class="child">Child 1</div>
+  <div class="child">Child 2</div>
+  <div class="child">Child 3</div>
+</div>
+```
+
+```css
+.card {
+  background-color: var(--accent-color);
+  padding: 1rem;
+}
+
+.child {
+  margin-bottom: 2rem;
+}
+```
+
+This will result in the following:
+
+<MarginTrimCard />
+
+As you can see, the bottom margin of the last child is forcing the card to have extra
+space on the bottom which makes the card taller than it should be. This is relatively
+easy to fix if we change our CSS by using the `:last-child` selector to remove the
+margin from the last child.
+
+```css
+.child {
+  margin-bottom: 1rem;
+}
+
+.child:last-child {
+  margin-bottom: 0;
+}
+```
+
+This will result in the following:
+
+<MarginTrimCard isTrimmed />
+
+This works, but it is not ideal since this code does not work well in a component based system. Our child component needs to know that the parent component wants to remove margin from it. This is not ideal since it means that the child component is now coupled to the parent component. We could instead write our CSS like this to make it so the parent component handles everything.
+
+```css
+.card {
+  background-color: var(--accent-color);
+  padding: 1rem;
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+```
+
+This still isn't ideal, though, since now we are selecting elements outside the parent component which breaks the encapsulation of the component. This is where the `margin-trim` property comes in.
+
+## `margin-trim` Solution
+
+The `margin-trim` property is a very simple property that allows you to specify which edges of an element should be trimmed and it will remove all excess spacing from those edges. This means that we can now write our CSS like this:
+
+```css {4}
+.card {
+  background-color: var(--accent-color);
+  padding: 1rem;
+  margin-trim: block-end;
+}
+
+.child {
+  margin-bottom: 1rem;
+}
+```
+
+This will result in the following:
+
+<MarginTrimCard isTrimmed />
+
+As you can see, the `margin-trim` property removed the extra margin from the bottom of the card without us needing to write any extra CSS.
+
+This property can be used for any of the 4 directions `block-start`, `block-end`, `inline-start`, and `inline-end`. It can also be used with just `block` or `inline` to remove margin from both the start and end of the specified axis.
+
+```css
+.card {
+  /* All these assume the direction is left to right, top to bottom */
+  margin-trim: block; /* Removes from top and bottom */
+  margin-trim: inline; /* Removes from left and right */
+  margin-trim: block-start block-end; /* Removes from top and bottom */
+  margin-trim: inline-start; /* Removes from left */
+}
+```
+
+By using `margin-trim` we are able to keep all our CSS inside the component without the need for any complex children selectors or `:last-child` selectors which makes it much easier to maintain and refactor our code.
+
+## Browser Support
+
+Unfortunately, Safari is the only browser that supports this feature which leads to just [14% support](https://caniuse.com/mdn-css_properties_margin-trim) across all browsers at the time of writing this article. Hopefully, in the coming months/years this number will increase as more browsers support this useful property.
+
+## Conclusion
+
+The `margin-trim` property is a very simple, but incredibly useful property that makes it easy to remove extra margin from the children of an element. This makes it easier to work with components in a component based design system since you no longer need to worry about parent/child components leaking styles outside themselves.

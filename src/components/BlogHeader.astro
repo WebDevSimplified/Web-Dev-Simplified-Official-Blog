@@ -1,0 +1,36 @@
+---
+import UserSettings from "../components/UserSettings.jsx"
+---
+
+<header class="wrapper">
+  <h1>
+    <a href="/">
+      <span>Web Dev Simplified Blog</span>
+    </a>
+  </h1>
+  <UserSettings client:load />
+</header>
+
+<style>
+  header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    max-width: 100%;
+    display: flex;
+    flex-grow: 1;
+  }
+
+  h1 a {
+    text-decoration: none;
+    display: inline-flex;
+  }
+</style>

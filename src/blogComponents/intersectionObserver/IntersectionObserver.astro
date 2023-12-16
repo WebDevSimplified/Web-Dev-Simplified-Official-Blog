@@ -1,0 +1,141 @@
+---
+const WINDOW_HEIGHT = 400
+const VIEWPORT_HEIGHT = 200
+const MARGIN = 300
+
+const { threshold = 0, percentage = false, rootMargin = 0 } = Astro.props
+---
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .container {
+    margin: 0 auto;
+    margin-top: 1rem;
+    position: relative;
+    max-width: 600px;
+  }
+
+  .scroll-element {
+    overflow: auto;
+    border: 1px solid var(--theme-text);
+    background-color: var(--theme-bg);
+  }
+
+  .main-element,
+  .clone-element {
+    height: 50px;
+    width: 100px;
+    background-color: var(--theme-orange);
+  }
+
+  .clone-container {
+    position: absolute;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.1);
+    left: 0;
+    right: 0;
+    border: 1px solid white;
+    bottom: 0;
+  }
+
+  :root[data-theme="dark"] .clone-container {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .root-margin-lines {
+    height: 100%;
+    position: relative;
+  }
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--theme-red);
+    position: absolute;
+  }
+</style>
+
+<div
+  data-intersection-observer-component
+  class="container"
+  style={`padding-top: ${WINDOW_HEIGHT - VIEWPORT_HEIGHT}px; padding-bottom: ${
+    WINDOW_HEIGHT - VIEWPORT_HEIGHT
+  }px;`}
+>
+  <div
+    data-scroll-element
+    class="scroll-element"
+    style={`height: ${VIEWPORT_HEIGHT}px;`}
+  >
+    <div style={`height: ${WINDOW_HEIGHT}px; padding-top: ${MARGIN}px;`}>
+      <div
+        data-main-element
+        class="main-element"
+        data-threshold={threshold}
+        data-percentage={percentage.toString()}
+        data-root-margin={rootMargin}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    data-clone-container
+    class="clone-container"
+    style={`height: ${WINDOW_HEIGHT}px; padding-top: ${MARGIN}px;`}
+  >
+    <div data-clone-element class="clone-element"></div>
+  </div>
+  {
+    rootMargin !== 0 && (
+      <div class="root-margin-lines">
+        <div class="line" style={`top: ${rootMargin}px`} />
+        <div class="line" style={`bottom: ${VIEWPORT_HEIGHT + rootMargin}px`} />
+      </div>
+    )
+  }
+</div>
+
+<script>
+  const containers = document.querySelectorAll(
+    "[data-intersection-observer-component]"
+  )
+  containers.forEach(container => {
+    const mainElement = container.querySelector("[data-main-element]")
+    const cloneElement = container.querySelector("[data-clone-element]")
+    const cloneContainer = container.querySelector("[data-clone-container]")
+    const scrollElement = container.querySelector("[data-scroll-element]")
+
+    const threshold = JSON.parse(mainElement.dataset.threshold)
+    const percentage = JSON.parse(mainElement.dataset.percentage)
+    const rootMargin = JSON.parse(mainElement.dataset.rootMargin)
+    const observerCallback = (
+      { intersectionRatio, isIntersecting },
+      elements
+    ) => {
+      if (percentage) {
+        elements.forEach(element => {
+          element.textContent = `${Math.round(intersectionRatio * 100)}%`
+        })
+      } else {
+        elements.forEach(element => {
+          element.style.backgroundColor = isIntersecting
+            ? "var(--theme-blue)"
+            : "var(--theme-orange)"
+        })
+      }
+    }
+
+    scrollElement.addEventListener("scroll", e => {
+      cloneContainer.style.bottom = `${e.target.scrollTop}px`
+    })
+    console.log(`${rootMargin}px`)
+    const observer = new IntersectionObserver(
+      entries => observerCallback(entries[0], [mainElement, cloneElement]),
+      { threshold, rootMargin: `${rootMargin}px`, root: scrollElement }
+    )
+    observer.observe(mainElement)
+  })
+</script>

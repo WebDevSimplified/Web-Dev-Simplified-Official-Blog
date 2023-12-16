@@ -1,0 +1,53 @@
+---
+const { parentStyle, oneStyle, twoStyle, threeStyle, scroll } = Astro.props
+---
+
+<div class="window">
+  <div class={`${scroll && "scroll"}`}>
+    <div class="parent" style={parentStyle}>
+      <div class="child one" style={oneStyle}>One</div>
+      <div class="child two" style={twoStyle}>Two</div>
+      <div class="child three" style={threeStyle}>Three</div>
+    </div>
+    {scroll && <div class="space"></div>}
+  </div>
+</div>
+
+<style>
+  .window {
+    transform: translateX(0);
+    position: relative;
+    border: 1px dashed var(--theme-text);
+  }
+
+  .scroll {
+    height: 225px;
+    overflow-y: auto;
+  }
+
+  .parent {
+    background-color: var(--theme-purple);
+    padding: 1rem;
+    margin: 2rem;
+  }
+
+  .space {
+    height: 200px;
+  }
+
+  .child {
+    padding: 1rem;
+  }
+
+  .one {
+    background-color: var(--theme-blue); 
+  }
+
+  .two {
+    background-color: var(--theme-orange);
+  }
+
+  .three {
+    background-color: var(--theme-green);
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+const { variables: variablesString, memory: memoryString = "[]" } = Astro.props
+// TODO: Hopefully eventually be able to do this without eval
+const variables = eval(`(${variablesString})`)
+const memory = eval(`(${memoryString})`)
+const memoryClass = memory.length < Object.entries(variables).length ? "border-bottom" : ""
+---
+
+<div style="display: flex; align-items: stretch;">
+  <table
+    class="value-chart"
+    style="background-color: var(--theme-purple); margin-bottom: 1.75rem; flex-grow: 1; flex-basis: 50%; border-color: var(--theme-text);"
+  >
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {Object.entries(variables).map(([key, value]) => (
+        <tr>
+          <td>{key}</td>
+          <td>{value}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {memory.length > 0 && (
+    <div
+      style="background-color: var(--theme-purple); margin-left: .25rem; margin-bottom: 1.75rem; flex-grow: 1; flex-basis: 50%;"
+    >
+      <table class="value-chart" style="margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {memory.map(([key, value]) => (
+            <tr>
+              <td class={memoryClass}>{key}</td>
+              <td class={memoryClass}>{JSON.stringify(value)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+
+<style>
+  table.value-chart tr:last-child td:not(.border-bottom) {
+    border-bottom: none;
+  }
+
+  table.value-chart td, table.value-chart th {
+    padding: .5rem 1.25rem;
+    font-size: 1.25rem;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  table.value-chart td:last-child, table.value-chart th:last-child {
+    border-right: none;
+  }
+
+  table.value-chart td, table.value-chart th {
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+  }
+
+  .value-chart {
+    --border-color: var(--theme-text-light);
+  }
+
+  :root[data-theme="dark"] .value-chart {
+    --border-color: var(--theme-text-lighter);
+  }
+
+</style>

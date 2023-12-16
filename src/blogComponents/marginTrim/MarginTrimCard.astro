@@ -1,0 +1,33 @@
+---
+const { isTrimmed } = Astro.props
+---
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .card {
+    padding: 1em;
+    background-color: var(--theme-text);
+    border: 1px solid var(--theme-bg);
+    border-radius: 1rem;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+
+  .child {
+    margin-bottom: 2rem;
+    color: var(--theme-bg);
+  }
+
+  .card.trim :last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class={`card ${isTrimmed ? "trim" : ""}`}>
+  <div class="child">Child 1</div>
+  <div class="child">Child 2</div>
+  <div class="child">Child 3</div>
+</div>

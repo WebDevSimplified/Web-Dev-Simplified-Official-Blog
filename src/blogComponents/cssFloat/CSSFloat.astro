@@ -1,0 +1,45 @@
+---
+  const { float, clearfix, border, height = 200, text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit in libero odit, dignissimos corrupti dolore voluptatibus praesentium sapiente corporis nam aspernatur consequuntur reprehenderit dolorem voluptate! Soluta, perferendis nam quibusdam sunt culpa eius id voluptate iste dolor eaque odio, recusandae velit nemo corrupti reprehenderit? Ex deleniti deserunt fugiat velit repellat corporis. Ex deleniti deserunt fugiat velit repellat corporis." } = Astro.props
+---
+<div class="clearfix">
+  <div class={`wrapper ${border && "border"} ${clearfix && "clearfix"} ${float}`}>
+    <img
+      class="img"
+      style={`float: ${float};`}
+      src={`https://dummyimage.com/200x${height}`}
+      alt="Dummy"
+    />
+    <p class="p">{text}</p>
+  </div>
+</div>
+
+<style>
+  .clearfix::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  .right .img {
+    margin-left: 1rem;
+  }
+
+  .left .img {
+    margin-right: 1rem;
+  }
+
+  .wrapper {
+    padding: .5rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+  }
+
+  .border {
+    border: 1px solid var(--theme-red);
+  }
+
+  .p {
+    margin: 0;
+    color: var(--theme-text-lighter);
+  }
+</style>

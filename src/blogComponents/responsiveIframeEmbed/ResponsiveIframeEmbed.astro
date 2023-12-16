@@ -1,0 +1,34 @@
+---
+const { url } = Astro.props
+---
+
+<div class="wrapper">
+  <div class="video-container">
+    <iframe src={url} title="YouTube Embed"></iframe>
+  </div>
+</div>
+
+<style>
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    width: 100%;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wrapper {
+    padding: 1rem;
+    border: 1px solid black;
+    resize: horizontal;
+    overflow: hidden;
+    width: 600px;
+  }
+</style>

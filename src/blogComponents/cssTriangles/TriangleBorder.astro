@@ -1,0 +1,19 @@
+<div class="triangle-border"></div>
+
+<style>
+  .triangle-border {
+    position: relative;
+    background-color: var(--theme-red);
+    width: 100px;
+    height: 100px;
+  }
+
+  .triangle-border::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: calc(50% - 40px);
+    border: 40px solid transparent;
+    border-left-color: var(--theme-blue);
+  }
+</style>
