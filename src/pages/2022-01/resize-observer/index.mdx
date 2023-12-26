@@ -95,8 +95,8 @@ It is important to stop observing elements when they no longer need to be observ
 new ResizeObserver((entries, observer) => {
   entries.forEach(entry => {
     if (entry.contentRect.width < 150) {
-      entry.target.remove()
       observer.unobserve(entry.target)
+      entry.target.remove()
     }
   })
 })
