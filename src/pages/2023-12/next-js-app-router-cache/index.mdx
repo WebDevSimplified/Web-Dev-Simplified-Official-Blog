@@ -6,7 +6,7 @@ description: "Next.js improves your application's performance and reduces costs 
 tags: ["Next.js"]
 ---
 
-import Tangent from "@blogComponents/lib/Tangent.astro";
+import Tangent from "@blogComponents/lib/Tangent.astro"
 
 ## Introduction
 
@@ -39,7 +39,7 @@ For each of the above, I will delve into their specific roles, where they're sto
 
 ### Request Memoization
 
-If you have ever built an application before, you have probably had to fetch and display the same information in multiple places. As an example, if you are fetching some user data, it might need to be displayed in more than one place. There is one problem, though. If our `fetch` request is computationally heavy, this can increase the load on the server if it's continuously fetching from a data source. This becomes even more problematic when we consider the fact that user details are unlikely to change within a single request. So, it doesn’t really make sense to make a fresh `fetch` call each time we want the user details.
+If you have ever built an application before, you have probably had to fetch and display the same information in multiple places. As an example, if you are fetching some user data, it might need to be displayed in more than one place. There is one problem, though. If our `fetch` request is computationally heavy, this can increase the load on the server if it's continuously fetching from a data source. This becomes even more problematic when we consider the fact that user details are unlikely to change within a single request. So, it doesn't really make sense to make a fresh `fetch` call each time we want the user details.
 
 Luckily, Request Memoization solves this exact problem. Whenever we make a `fetch` request in a render cycle (which basically just refers to the process of rendering all the components on a page), its result gets stored for any subsequent requests that have identical parameters.
 
@@ -75,37 +75,37 @@ While Request Memoization in Next.js is tailored only for the `GET` method in th
 To do this, we can uset React's `cache()` function.
 
 ```jsx
-import { cache } from "react";
-import { queryDatabase } from "./databaseClient"; // Assume this is our database client function
+import { cache } from "react"
+import { queryDatabase } from "./databaseClient" // Assume this is our database client function
 
 export default async function fetchUserData(userId) {
   return cache(async () => {
     // Direct database query
-    return queryDatabase("SELECT * FROM users WHERE id = ?", [userId]);
-  });
+    return queryDatabase("SELECT * FROM users WHERE id = ?", [userId])
+  })
 }
 ```
 
-In this code above, the first time `fetchUserData()` is called, it queries the database directly, as there’s no cached result yet. But the next time this function is called with the same `userId` in a different component, it smartly retrieves from the cache. Just like with `fetch`, this memoization is a one-time deal, valid only for the duration of a single render pass, but at least now we know that we aren’t limited to `fetch`.
+In this code above, the first time `fetchUserData()` is called, it queries the database directly, as there's no cached result yet. But the next time this function is called with the same `userId` in a different component, it smartly retrieves from the cache. Just like with `fetch`, this memoization is a one-time deal, valid only for the duration of a single render pass, but at least now we know that we aren't limited to `fetch`.
 
 #### Revalidation
 
 In Next.js, revalidation refers to the process of refreshing old cached data with new data straight from the database. This feature is vital for determining how long the data you serve stays up-to-date in the cache, ensuring that your users always have access to the most relevant information.
 
-As of right now, there is no way we can revalidate the memoized values. This might seem like a limitation, but memoization is generally for a single render pass, and it’s unlikely that your data will change in that short interval. Still, if you find yourself needing to revalidate, there is an option to opt out.
+As of right now, there is no way we can revalidate the memoized values. This might seem like a limitation, but memoization is generally for a single render pass, and it's unlikely that your data will change in that short interval. Still, if you find yourself needing to revalidate, there is an option to opt out.
 
 #### Opting out
 
 To opt out of the cache, we can pass in an `AbortController` signal as a parameter to the `fetch` request.
 
 ```tsx {1, 4, 5}
-const { signal } = new AbortController();
+const { signal } = new AbortController()
 async function fetchUserData(userId) {
   // The `fetch` function is automatically memoized by Next.js during SSR
   const res = await fetch(`https://api.example.com/users/${userId}`, {
     signal,
-  });
-  return res.json();
+  })
+  return res.json()
 }
 ```
 
@@ -128,9 +128,9 @@ To do this, we can use the Data Cache, which is enabled by default in Next.js. T
 
 ```jsx {3}
 export default async function Page({ params }) {
-  const city = params.city;
-  const res = await fetch(`https://api.globetrotter.com/guides/${city}`);
-  const guideData = await res.json();
+  const city = params.city
+  const res = await fetch(`https://api.globetrotter.com/guides/${city}`)
+  const guideData = await res.json()
 
   return (
     <div>
@@ -138,11 +138,11 @@ export default async function Page({ params }) {
       <p>{guideData.content}</p>
       {/* Render the guide data */}
     </div>
-  );
+  )
 }
 ```
 
-In the simple code I have above, all we are doing is making a `fetch` request to an API and dynamically passing in a `city` parameter so we can display travel guides for a given city. The main thing to focus on here is the `fetch` request. If there are four users accessing this page with the same city parameter, Next.js will `fetch` the data after the first user's request and store it in the Data Cache. This means that for the next three users, no actual fetch call is made as it’s retrieved directly from the Data Cache. In other words, the Data Cache allows us to reduce calls to our original data source, providing a much smoother experience for our users.
+In the simple code I have above, all we are doing is making a `fetch` request to an API and dynamically passing in a `city` parameter so we can display travel guides for a given city. The main thing to focus on here is the `fetch` request. If there are four users accessing this page with the same city parameter, Next.js will `fetch` the data after the first user's request and store it in the Data Cache. This means that for the next three users, no actual fetch call is made as it's retrieved directly from the Data Cache. In other words, the Data Cache allows us to reduce calls to our original data source, providing a much smoother experience for our users.
 
 #### `unstable_cache`
 
@@ -151,23 +151,23 @@ So far, we have only seen how to cache `fetch` requests with the Data Cache, but
 If we go back to our previous example of city guides, we might want to pull data directly from our database. For this, we can use the `unstable_cache()` function that's provided by Next.js. This is like Next.js's version of the `cache()`, except it applies to the Data Cache.
 
 ```jsx {4}
-import { getGuides } from "./data";
-import { unstable_cache } from "next/cache";
+import { getGuides } from "./data"
+import { unstable_cache } from "next/cache"
 
 const getCachedGuides = unstable_cache(
-  async (city) => getGuides(city),
+  async city => getGuides(city),
   ["guides-cache-key"]
-);
+)
 
 export default async function Page({ params }) {
-  const guides = await getCachedGuides(params.city);
+  const guides = await getCachedGuides(params.city)
   // ...
 }
 ```
 
 The code above is short, but it can be confusing if this is the first time you are seeing the `unstable_cache()` function being used, so let me explain.
 
-I am using the `getGuides()` function to fetch guides from the database given a city (I left out its implementation as it’s not important). Then, I am declaring a `const` called `getCachedGuides` and using it to store the result I get from calling the `unstable_cache()` function. You will notice there are two parameters: the `getGuides()` function and an array. This array `['guides-cache-key']` acts like a unique identifier and assigns our cached guides a category.
+I am using the `getGuides()` function to fetch guides from the database given a city (I left out its implementation as it's not important). Then, I am declaring a `const` called `getCachedGuides` and using it to store the result I get from calling the `unstable_cache()` function. You will notice there are two parameters: the `getGuides()` function and an array. This array `['guides-cache-key']` acts like a unique identifier and assigns our cached guides a category.
 
 Then, when we call `getCachedGuides()` inside Page, it will act exactly the same as the fetch requests did previously with the Data Cache.
 
@@ -184,7 +184,7 @@ One approach is called time-based revalidation. This is pretty easy to grasp. Es
 const res = fetch(`https://api.globetrotter.com/guides/${city}`, {
   // 3600 seconds equal 1 hour
   next: { revalidate: 3600 },
-});
+})
 ```
 
 With the code above, our application will `fetch` the most updated data from the data source every hour. One potential problem with this approach for our use case is that if an article is added within the revalidation period, users will only see the update after it's revalidated. Also, if no new content is added for hours on end, our code will still refresh the Data Cache.
@@ -196,7 +196,7 @@ When we want to invalidate the cache and fetch new data only when a new article 
 On-demand revalidation shines when you want to refresh data in response to specific events.
 
 ```jsx {10}
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache"
 
 export async function publishArticle() {
   try {
@@ -205,7 +205,7 @@ export async function publishArticle() {
     // ...
   }
 
-  revalidatePath("/guides/paris");
+  revalidatePath("/guides/paris")
 }
 ```
 
@@ -221,13 +221,13 @@ We can control revalidation for specific tags.
 ```jsx
 const res = fetch(`https://api.globetrotter.com/guides/${city}`, {
   next: { tags: ["city-guides"] },
-});
+})
 ```
 
 Here, we're adding `["city-guides"]` tag to our `fetch` request so we can target it with `revalidatePath`.
 
 ```jsx {10}
-import { revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache"
 
 export async function publishArticle() {
   try {
@@ -236,7 +236,7 @@ export async function publishArticle() {
     // ...
   }
 
-  revalidateTag("city-guides");
+  revalidateTag("city-guides")
 }
 ```
 
@@ -252,7 +252,7 @@ There are a few straightforward ways to opt out of the Data Cache.
 ```jsx
 const res = fetch(`https://api.globetrotter.com/guides/${city}`, {
   cache: "no-store",
-});
+})
 ```
 
 In the example above, we've tweaked our `fetch` by adding `cache:"no-store"`. This opts a specific `fetch` request out of the Data Cache.
@@ -262,7 +262,7 @@ In the example above, we've tweaked our `fetch` by adding `cache:"no-store"`. Th
 If we want to change the caching behavior for an entire page and not just a specific `fetch` request, we can add this piece of code to the top level of our file.
 
 ```jsx
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 ```
 
 ##### `export const revalidate = 0`
@@ -281,28 +281,28 @@ The third type of cache I will cover is the Full Route Cache, which is also enab
 
 In Next.js, the pages we render to our clients consist of HTML and something called the React Server Component Payload (RSCP). The payload contains instructions for how the client components should work together with the rendered server components to render the page. The Full Route Cache stores the HTML and RSCP for static pages at Build Time.
 
-Now that we know what it stores, let’s take a look at an example.
+Now that we know what it stores, let's take a look at an example.
 
 ```jsx
-import Link from "next/link";
+import Link from "next/link"
 
 async function getBlogList() {
   const blogPosts = await fetch("https://api.blogposts.com/1", {
     cache: "force-cache",
-  });
+  })
 
-  const blogData = await blogPosts.json();
-  return blogData;
+  const blogData = await blogPosts.json()
+  return blogData
 }
 
 export default async function Page() {
-  const blogData = await getBlogList();
+  const blogData = await getBlogList()
 
   return (
     <div>
       <h1>Blog Posts</h1>
       <ul>
-        {blogData.map((post) => (
+        {blogData.map(post => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`}>
               <a>{post.title}</a>
@@ -312,7 +312,7 @@ export default async function Page() {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 ```
 
@@ -351,18 +351,18 @@ The diagram below demonstrates the step-by-step process of how Full Route Cache 
 
 ### Router Cache
 
-The last cache I am going to talk about is the router cache. It is the only client-side cache in Next.js and can be the source of many bugs if not understood properly. This is mainly because it is enabled by default and caches routes that have already been visited before. Typically, the browser needs to re-fetch the data and re-render a page when it is visited again. This process, of course, takes longer than caching a page, which is why Next.js takes the caching approach. While this approach is an advantage when it comes to page loading speeds, it can also be quite frustrating. Let’s take a look below at why.
+The last cache I am going to talk about is the router cache. It is the only client-side cache in Next.js and can be the source of many bugs if not understood properly. This is mainly because it is enabled by default and caches routes that have already been visited before. Typically, the browser needs to re-fetch the data and re-render a page when it is visited again. This process, of course, takes longer than caching a page, which is why Next.js takes the caching approach. While this approach is an advantage when it comes to page loading speeds, it can also be quite frustrating. Let's take a look below at why.
 
 ```jsx {10,11,12}
 // /page.jsx
 export default async function Page() {
-  const blogData = await getBlogList();
+  const blogData = await getBlogList()
 
   return (
     <div>
       <h1>Blog Posts</h1>
       <ul>
-        {blogData.map((post) => (
+        {blogData.map(post => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`}>
               <a>{post.title}</a>
@@ -372,11 +372,11 @@ export default async function Page() {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 ```
 
-In the code I have above, when the user navigates to `/page`, its RSCP gets stored in the Router Cache. Similarly, when we navigate to `/blog`, its RSCP also gets cached. The problem arises when we navigate back from `/blog` to `/page` within a certain period. This means that if we have anything dynamic on `/page`, it won’t get updated until after the cache is invalidated or we refresh our page. Essentially, what’s happening is that Next.js is retrieving the cached RSCP for `/page` from the Router Cache, sacrificing data freshness for performance. This approach might lead us to see stale data if we were expecting it to update upon navigation.
+In the code I have above, when the user navigates to `/page`, its RSCP gets stored in the Router Cache. Similarly, when we navigate to `/blog`, its RSCP also gets cached. The problem arises when we navigate back from `/blog` to `/page` within a certain period. This means that if we have anything dynamic on `/page`, it won't get updated until after the cache is invalidated or we refresh our page. Essentially, what's happening is that Next.js is retrieving the cached RSCP for `/page` from the Router Cache, sacrificing data freshness for performance. This approach might lead us to see stale data if we were expecting it to update upon navigation.
 
 Before we jump into the details of revalidating this cache, it's worth noting a side point: by default, Next.js also analyzes the structure of our web page, paying special attention to `<Link>` components that the user might click on next. It then preemptively fetches the data or resources for those pages to make them load faster upon request.
 
@@ -417,14 +417,14 @@ In our example, this is useful when a user comments on one of the blog posts. Af
 
 ```jsx
 // After submitting a comment
-router.refresh();
+router.refresh()
 ```
 
 If our site has personalized content that changes based on user login status (like showing recommended articles), logging in or out should update what's displayed.
 
 ```jsx
 // On login or logout
-cookies.set("authToken", userToken); // or cookies.delete('authToken');
+cookies.set("authToken", userToken) // or cookies.delete('authToken');
 ```
 
 By using the above, we update the authentication cookies and the Router Cache is automatically invalidated.
