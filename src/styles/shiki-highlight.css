@@ -1,7 +1,18 @@
 .shiki .highlighted-line {
+  position: relative;
   background-color: var(--theme-code-highlight-bg);
-  border-left: 0.25em solid var(--color-blue);
   width: 100%;
+}
+
+.shiki .highlighted-line::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.25em;
+  background: var(--color-blue);
 }
 
 .shiki .line {
