@@ -20,7 +20,7 @@ The big thing that makes server component different than client components is th
 function ClientComponent() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [errr, setError] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -48,11 +48,10 @@ function ClientComponent() {
 async function ServerComponent() {
   try {
     const data = await fetch("/api/data").then(res => res.json())
+    return <p>{data}</p>
   } catch (error) {
     return <p>Error</p>
   }
-
-  return <p>{data}</p>
 }
 ```
 
