@@ -289,7 +289,7 @@ If we go back to our previous example of city guides, we might want to pull data
 
 ```jsx {4}
 import { getGuides } from "./data"
-import { cache as unstable_cache } from "next/cache"
+import { unstable_cache as cache } from "next/cache"
 
 const getCachedGuides = cache(city => getGuides(city), ["guides-cache-key"])
 
