@@ -1,0 +1,22 @@
+---
+import CalcSizeAccordion from "./CalcSizeAccordion.astro"
+---
+
+<div class="container">
+  <CalcSizeAccordion />
+  <CalcSizeAccordion isCalcSize />
+</div>
+
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    padding: 1rem 0;
+
+    @media (max-width: 40em) {
+      grid-template-columns: 1fr;
+      grid-gap: 1rem;
+    }
+  }
+</style>

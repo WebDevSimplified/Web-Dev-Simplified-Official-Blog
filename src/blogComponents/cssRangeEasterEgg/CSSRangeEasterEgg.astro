@@ -1,10 +1,10 @@
-<p>
+<div class="easter-egg" data-css-media-range-page>
   <slot />
-</p>
+</div>
 
-<style>
+<style is:global>
   @media (999px <= width < 1000px) {
-    p {
+    [data-css-media-range-page].easter-egg * {
       color: var(--theme-red) !important;
     }
   }

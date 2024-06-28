@@ -1,9 +1,9 @@
-<p class="selection">
+<div class="selection" data-pseudo-element-page>
   <slot />
-</p>
+</div>
 
-<style>
-  .selection::selection {
+<style is:global>
+  [data-pseudo-element-page].selection ::selection {
     background-color: var(--theme-red);
     color: white;
   }
