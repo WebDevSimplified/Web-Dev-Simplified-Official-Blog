@@ -1,4 +1,4 @@
-<aside class="tangent">
+<aside class="tangent" data-tangent-component>
   <slot />
 </aside>
 
@@ -14,7 +14,7 @@
     color: var(--theme-text-light);
   }
 
-  :global(.tangent code) {
+  :global([data-tangent-component].tangent code) {
     background-color: var(--theme-tangent-code-inline-bg);
   }
 </style>

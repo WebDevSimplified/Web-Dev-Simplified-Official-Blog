@@ -1,0 +1,85 @@
+---
+const {
+  isCalcSize,
+  body = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit in libero odit, dignissimos corrupti dolore voluptatibus praesentium sapiente corporis nam aspernatur consequuntur reprehenderit dolorem voluptate! Soluta, perferendis nam quibusdam sunt culpa eius id voluptate iste dolor eaque odio, recusandae velit nemo corrupti reprehenderit? Ex deleniti deserunt fugiat velit repellat corporis. Ex deleniti deserunt fugiat velit repellat corporis.",
+  header = isCalcSize ? "Using calc-size()" : "Normal expansion",
+  buttonText = isCalcSize ? "Expand calc-size()" : "Expand normal",
+} = Astro.props
+---
+
+<div class="container">
+  <button data-css-calc-accordion-btn class="btn">{buttonText}</button>
+  <div class="card">
+    <div class="card-header">{header}</div>
+    <div class={`card-body ${isCalcSize ? "calc-size" : ""}`}>{body}</div>
+  </div>
+</div>
+
+<style>
+  .btn {
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    font-size: inherit;
+    background: var(--theme-purple);
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: var(--theme-purple-hover);
+  }
+
+  .card {
+    border: 1px solid var(--theme-text);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .card-body {
+    height: 0;
+    font-size: 0.85rem;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+  }
+
+  .card-body.expand {
+    height: auto;
+  }
+
+  .card-body.expand.calc-size {
+    height: var(--height);
+    height: calc-size(auto);
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll("[data-css-calc-accordion-btn]")
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const body = button.closest(".container").querySelector(".card-body")
+
+      if (body.classList.contains("calc-size")) {
+        ;(body as HTMLElement).style.setProperty(
+          "--height",
+          body.scrollHeight + "px"
+        )
+      }
+
+      body.classList.toggle("expand")
+    })
+  })
+
+  window.addEventListener("resize", () => {
+    const bodies = document.querySelectorAll(".card-body.calc-size")
+
+    bodies.forEach(body => {
+      ;(body as HTMLElement).style.setProperty("--height", "auto")
+      ;(body as HTMLElement).style.setProperty(
+        "--height",
+        body.scrollHeight + "px"
+      )
+    })
+  })
+</script>

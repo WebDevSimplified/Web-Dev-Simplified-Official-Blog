@@ -1,0 +1,108 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "We Can Finally Animate height: auto; in CSS!"
+date: "2024-07-01"
+description: "For decades, height: auto; has been a pain to animate in CSS. But with the introduction of the calc-size() function in CSS, we can finally animate height: auto; without the need for any JavaScript."
+tags: ["CSS"]
+---
+
+import CalcSizeComparison from "@blogComponents/cssCalcSize/CalcSizeComparison.astro"
+
+## Introduction
+
+Animating `height: auto;` in CSS seems like it should be easy, but CSS is unable to animate to/from `height: auto;` since it needs a specific height value to run any animation/transition. This has been a pain point for web developers for decades, and the only way to animate `height: auto;` was to use JavaScript to calculate the height of the element and then animate it. This is obviously not ideal, which is why CSS has finally added the brand new `calc-size()` function which makes this type of animation trivial.
+
+## `calc-size()`
+
+The `calc-size()` function works exactly the same as the `calc()` function, but it has the additional capability of calculating based on sizes that are automatically calculated by the browser. These values are:
+
+    1. `auto`
+    2. `min-content`
+    3. `max-content`
+    4. `fit-content`
+    5. `stretch`
+    6. `contain`
+
+Essentially, what this function does is convert values like `auto` to specific pixel values which it can then use in calculations with other values. This is handy on its own, but where it is most useful is with animating elements that are `auto` sized.
+
+```css {8}
+.element {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.element.open {
+  height: calc-size(auto);
+}
+```
+
+By wrapping our `auto` value in the `calc-size()` function, we can now animate the height of the element from `0` to `auto` without any JavaScript. Here is an example of what this looks like in practice:
+
+<CalcSizeComparison />
+
+The only thing you need to be away of is that you cannot animate between two automatically calculated values, such as `auto` and `min-content`.
+
+Another interesting thing about `calc-size()` is you can actually use it on the non-automatic value in the animation and it will still animate correctly. As long as you have `calc-size` on one of the values in the animation, it will work.
+
+```css {3}
+.element {
+  /* This still works */
+  height: calc-size(0px);
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.element.open {
+  height: auto;
+}
+```
+
+### Doing Actual Calculations
+
+By far the most common use for this will be with animations/transitions as shown above, but since this function works just like `calc` it can actually be used to do certain calculations that used to be impossible.
+
+```css
+.element {
+  width: calc-size(min-content, size + 50px);
+}
+```
+
+The above CSS will set the width of the element to the minimum content size plus `50px`. The syntax for this is a bit confusing so let me explain.
+
+`calc-size` takes two arguments, the first is the size that you want to calculate, and the second is the calculation you want to perform. In this case, we are calculating the `min-content` size of the element and then adding `50px` to that value. The keyword `size` is always used to represent the current size of the first property passed to `calc-size`. This means in our example `size` would be equal to the `min-content` size of the element.
+
+You can even nest multiple `calc-size` functions to perform more complex calculations.
+
+```css
+.element {
+  width: calc-size(calc-size(min-content, size + 50px), size * 2);
+}
+```
+
+This will calculate the `min-content` size of the element, add `50px` to that value, and then multiply the result by `2`.
+
+## Browser Support
+
+This is where we get to the bad news. As of writing this article, `calc-size()` is only supported in Chrome Canary when the `#enable-experimental-web-platform-features` flag is enabled. It is so new there isn't even a caniuse.com page for me to link to yet.
+
+Luckily, this CSS feature is not something that will break your site if it isn't supported. It will just mean that the animation won't work, so you can use it today and it will act as a progressive enhancement for users on browsers that support it.
+
+```css {8-9}
+.element {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.element.open {
+  height: auto;
+  height: calc-size(auto);
+}
+```
+
+With the above CSS the animation will work in browsers that support `calc-size()` while in older browsers it will just show the element without any animation.
+
+## Conclusion
+
+`calc-size()` is a fantastic new addition to CSS that will make animating `auto` based sizes incredibly easy. It also opens up a lot of possibilities for doing calculations that were previously impossible in CSS. I can't wait for this feature to be supported in all browsers!
