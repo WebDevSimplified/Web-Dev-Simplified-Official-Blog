@@ -1,0 +1,24 @@
+---
+const { focusType } = Astro.props
+---
+
+<button class={focusType}><slot /></button>
+
+<style>
+  button {
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    font-size: inherit;
+    background: var(--theme-blue);
+    cursor: pointer;
+  }
+
+  .focus:focus {
+    background: var(--theme-red);
+  }
+
+  .focus-visible:focus-visible {
+    background: var(--theme-red);
+  }
+</style>

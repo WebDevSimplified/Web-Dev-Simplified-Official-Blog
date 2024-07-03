@@ -1,0 +1,27 @@
+---
+const { focusType } = Astro.props
+---
+
+<div class={focusType}><slot /></div>
+
+<style>
+  div {
+    border: 2px solid var(--theme-blue);
+    border-radius: 0.25rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+  }
+
+  .focus-within:focus-within {
+    border-color: var(--theme-red);
+  }
+
+  .focus-visible-within:has(:focus-visible) {
+    border-color: var(--theme-red);
+  }
+</style>

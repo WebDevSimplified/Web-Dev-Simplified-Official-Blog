@@ -11,6 +11,7 @@ const {
   title,
   description,
   date,
+  updatedDate,
   author = "Kyle Cook",
   permalink,
   tags,
@@ -26,7 +27,7 @@ const url = Astro.request.url
   <body>
     <BaseTopOfBody />
     <div class="wrapper">
-      <BlogPost {title} {author} {date} {tags} {url}>
+      <BlogPost {title} {author} {date} {updatedDate} {tags} {url}>
         <slot />
       </BlogPost>
     </div>

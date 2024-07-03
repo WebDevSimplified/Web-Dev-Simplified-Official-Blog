@@ -24,9 +24,20 @@ export default function BlogPostPreview({ post }) {
             margin: 0,
             fontSize: "1rem",
             color: "var(--theme-text-lighter)",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          {dateFormatter.format(post.date)}
+          <span
+            style={{
+              textDecoration: post.updatedDate ? "line-through" : "none",
+            }}
+          >
+            {dateFormatter.format(post.date)}
+          </span>
+          {post.updatedDate && (
+            <>Updated: {dateFormatter.format(post.updatedDate)}</>
+          )}
         </p>
         <TagBar
           marginTop=".25em"

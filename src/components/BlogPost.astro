@@ -6,11 +6,12 @@ import ShareButtons from "/src/components/ShareButtons.jsx"
 export interface Props {
   title: string
   date: string
+  updatedDate: string
   url: string
   tags: string[]
 }
 
-const { title, date, tags, url } = Astro.props
+const { title, date, updatedDate, tags, url } = Astro.props
 const siteUrl = Astro.site.href
 ---
 
@@ -19,7 +20,16 @@ const siteUrl = Astro.site.href
     <div>
       <header>
         <h1 class="title">{title}</h1>
-        <p class="publish-date">{dateFormatter.format(new Date(date))}</p>
+        <p class={`publish-date ${updatedDate && "old-date"}`}>
+          {dateFormatter.format(new Date(date))}
+        </p>
+        {
+          updatedDate && (
+            <p class="publish-date">
+              Updated: {dateFormatter.format(new Date(updatedDate))}
+            </p>
+          )
+        }
         <div style="margin-bottom: 1rem">
           <TagBar
             tags={tags.map(tag => {
@@ -73,6 +83,11 @@ const siteUrl = Astro.site.href
 
   .publish-date {
     color: var(--theme-text-lighter);
+  }
+
+  .publish-date.old-date {
+    font-size: 0.9rem;
+    text-decoration: line-through;
   }
 
   .title {
