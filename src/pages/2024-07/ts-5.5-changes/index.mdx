@@ -1,0 +1,139 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "4 New TypeScript 5.5 Features"
+date: "2024-07-15"
+description: "TypeScript 5.5 may seem like a small update, but it comes with one of the most requested features for fixing array filtering as well as 3 other really cool features that I love."
+tags: ["TypeScript"]
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+## Introduction
+
+Unlike most libraries, TypeScript does not use semantic versioning which means major new features and breaking changes can be introduced in any version update. This is why version 5.5 can include such large changes even though it is not a major version update by semantic versioning standards. In this article, I will go over the 4 new features in TypeScript 5.5 that I think are the most interesting, but you can also read the [full release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-5-5/) yourself.
+
+<Tangent>
+  If you have never heard of semantic versioning and want to learn more I have a
+  full [semantic versioning article](/2020-01/semantic-versioning) you can read.
+</Tangent>
+
+## Array Filtering Improvement
+
+If you have ever tried to filter an array in TypeScript to narrow the types of items allowed you have most likely ran into the surprising result that the TypeScript type never changes.
+
+```typescript
+// v5.4
+const array = [1, 2, 3, null]
+
+// TypeScript still thinks numbers is (number | null)[]
+// This means TypeScript still thinks our numbers array has null values
+const numbers = array.filter(item => item != null)
+
+numbers.forEach(number => {
+  // TypeScript will error here because it thinks number could be null
+  console.log(number + 1)
+})
+```
+
+When we look at this code it is obvious our `numbers` array no longer has `null` values, but TypeScript is not smart enough to realize this. That is until now. With TypeScript version 5.5 this code will now work as we expect.
+
+```typescript
+// v5.5
+const array = [1, 2, 3, null]
+
+// TypeScript now knows that numbers is number[]
+const numbers = array.filter(item => item != null)
+
+numbers.forEach(number => {
+  // No errors
+  console.log(number + 1)
+})
+```
+
+This will even work if we pass another function to our `filter` function or have other more complex logic.
+
+```typescript
+// v5.5
+const people = [{ name: "Kyle", age: 27 }, { name: "John" }]
+
+// TypeScript now knows that peopleWithAge is ({ name: string, age: number })[]
+// This means TypeScript knows that peopleWithAge only has objects with an age and name property
+const peopleWithAge = people.filter(person => person.age != null)
+
+peopleWithAge.forEach(person => {
+  // No errors
+  console.log(`${person.name} will be ${person.age + 1} years old next year`)
+})
+```
+
+## Object Key Inference Improvement
+
+Another problem that TypeScript used to have is they struggled to infer the type of an object that was accessed via an index after that object's index type had been narrowed. This sounds really complicated when written out so let's look at an example that makes this easy to understand.
+
+```typescript
+// v5.4
+function upperCaseKey(obj: Record<string, unknown>, key: string) {
+  if (typeof obj[key] === "string") {
+    // Error: TypeScript still thinks obj[key] is unknown
+    return obj[key].toUpperCase()
+  }
+}
+```
+
+As you can see in this code we have narrowed the type of `obj[key]` to be a string, but TypeScript is not smart enough to realize that this type has been narrowed inside the `if` block. This is why in version 5.4 we get an error. To get around this we would need to create a new variable to store the narrowed type.
+
+```typescript {3}
+// v5.4
+function upperCaseKey(obj: Record<string, unknown>, key: string) {
+  const value = obj[key]
+  if (typeof value === "string") {
+    // No errors
+    return value.toUpperCase()
+  }
+}
+```
+
+This new code has no errors, but it is not ideal since we created a new variable in memory just to solve a TypeScript error. This is why in version 5.5 TypeScript has improved this behavior and made it so these index accessed types work with no changes needed.
+
+```typescript
+// v5.5
+function upperCaseKey(obj: Record<string, unknown>, key: string) {
+  if (typeof obj[key] === "string") {
+    // No errors
+    return obj[key].toUpperCase()
+  }
+}
+```
+
+## Regular Expression Checking
+
+In the previous versions of TypeScript if you had a regular expression in your code it was completely ignored by the TypeScript type checker. This meant that you could have a regular expression that was invalid and TypeScript would not tell about it. This is no longer the case in TypeScript 5.5, though, as TypeScript will check your regular expressions to let you know if there are any potential problems with them.
+
+```typescript
+const regex1 = /extra(parens))?/
+// Error: Unexpected ')'. Did you mean to escape it with backslash?
+
+const regex2 = /capture(?<group>.+) \k<namedImport>/
+// Error: There is no capturing group named 'namedImport' in this regular expression.
+```
+
+This is just a small example of the many different errors that TypeScript can now catch with regular expressions.
+
+## New Set methods
+
+The final feature I want to talk about is the new methods that have been added to the `Set` class. TypeScript 5.5 has added support for all the new `Set` methods introduced to JavaScript recently. This includes the `intersection`, `union`, `difference`, and all other methods.
+
+```typescript
+const set1 = new Set([1, 2, 3])
+const set2 = new Set([3, 4, 5])
+
+const intersection = set1.intersection(set2)
+const union = set1.union(set2)
+const difference = set1.difference(set2)
+```
+
+This is a nice quality of life feature since these new `Set` methods are really useful and now we can use them in TypeScript without any type issues.
+
+## Conclusion
+
+TypeScript 5.5 may seem like a small update, but it comes with quite a few quality of life improvements. The array filtering improvement is by far my favorite and I am glad to see it finally added. I cannot wait to see what TypeScript has in store for us in the future.
