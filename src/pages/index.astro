@@ -8,6 +8,7 @@ import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
 
 interface MarkdownFrontmatter {
   date: number
+  updatedDate?: number
   title: string
   description: string
   tags: string[]
@@ -30,6 +31,9 @@ const allPosts = allMarkdownPosts
     description: post.frontmatter.description,
     tags: post.frontmatter.tags,
     date: new Date(post.frontmatter.date),
+    updatedDate: post.frontmatter.updatedDate
+      ? new Date(post.frontmatter.updatedDate)
+      : undefined,
     url: post.url,
   }))
   .sort((a, b) => b.date.valueOf() - a.date.valueOf())

@@ -1,0 +1,25 @@
+---
+const { focusType, placeholder } = Astro.props
+---
+
+<input placeholder={placeholder} class={focusType} />
+
+<style>
+  input {
+    background: var(--theme-code-inline-bg);
+    border: 2px solid var(--theme-blue);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: inherit;
+    color: inherit;
+    outline: none;
+  }
+
+  .focus:focus {
+    border-color: var(--theme-red);
+  }
+
+  .focus-visible:focus-visible {
+    border-color: var(--theme-red);
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "Do You Know All 4 CSS Focus Styles?"
+date: "2024-07-29"
+description: "Handling focus in CSS is quite a bit more complicated than it seems and in this article I cover the 3 main CSS focus methods as well as a secret fourth focus method."
+tags: ["CSS"]
+---
+
+import CSSFocusButton from "@blogComponents/cssFocusCrashCourse/CssFocusButton.astro"
+import CSSFocusInput from "@blogComponents/cssFocusCrashCourse/CssFocusInput.astro"
+import CSSFocusContainer from "@blogComponents/cssFocusCrashCourse/CssFocusContainer.astro"
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+## Introduction
+
+It may seem strange to write an entire article on handling focus in CSS since it is a pretty simple property at first glance. That is until you realize that CSS actually has 3 (plus one secret) focus methods that all behave differently. These properties even have different behaviors depending on what elements you use them on which makes it even more confusing. In this article I will be breaking down all 4 focus methods, showing you when to use each one, and how they differ from each other.
+
+## What Is Focus?
+
+Before we dive into each focus method we need to understand what a focus state is. When an element is focused it means that it is currently selected by the user. This can happen when a user clicks on an element, uses the tab key to navigate through a page, or even when a user interacts with an element using a screen reader.
+
+The focus state is important for accessibility reasons as it helps users understand where they are on a page and what they are interacting with. Imagine trying to fill out a form and not knowing which input you are currently typing in. This is what the web would be like if there were no focus states.
+
+## `:focus`
+
+The main focus method is the `:focus` pseudo-class. This is the what most people think of when they think of focus styles in CSS, but this pseudo-class has quite a few problems which is why I almost never use it.
+
+```css {5}
+button {
+  background-color: blue;
+}
+
+button:focus {
+  background-color: red;
+}
+```
+
+The styles within the `:focus` pseudo-class will be applied whenever an element is focused. It doesn't matter how the element was focused (clicked on, keyboard navigation, screen readers, etc.) it will always show the focus styles. You can see this in action in the example below.
+
+<CSSFocusButton focusType="focus">Focus Me</CSSFocusButton>
+
+As you can see it doesn't matter how you focus this button it will always turn red. This is generally not ideal since when you click on a button you don't generally want it to show focus styles after you have finished clicking on it, but you do want the focus state to persist when using keyboard navigation since this focus state tells the user where they are on the page.
+
+<Tangent>
+  If you are having trouble focusing on the button with the keyboard try
+  clicking on the text just above the button and then clicking the
+  <kbd>Tab</kbd> key.
+</Tangent>
+
+## `:focus-visible`
+
+I mentioned how `:focus` is not always ideal since it shows the focus styles no matter how the element was focused. This is where the `:focus-visible` pseudo-class comes in. This pseudo-class is a bit smarter than `:focus` since it only shows the focus styles when the browser deems the user needs those styles to know where they are on the page and what element they currently have focused. I almost always use `:focus-visible` over `:focus` since it provides a better user experience.
+
+```css {5}
+button {
+  background-color: blue;
+}
+
+button:focus-visible {
+  background-color: red;
+}
+```
+
+<CSSFocusButton focusType="focus-visible">
+  Focus Me With Keyboard
+</CSSFocusButton>
+
+As you can see the above button above does not show any focus styles when it is clicked, but if you use the keyboard to navigate to this element it will show the focus styles.
+
+<Tangent>
+  If you look closely you may notice that there is a ring that appears around
+  the button when you use keyboard navigation to focus it. This is part of the
+  default browser styles and is called the `outline` property. The browser
+  applies this `outline` property using the `:focus-within` pseudo-class which
+  is why it only appears when needed to assist the user in knowing where they
+  are on the page.
+</Tangent>
+
+One thing to note about `:focus-visible` is that it works differently when used on different elements. For example, if you use `:focus-visible` on an input element it will show the focus style no matter what. It doesn't matter if you click the input or use keyboard navigation it will always show the focus styles. This is because the browser deems it important to show the focus styles on input elements no matter how they are focused.
+
+```css {5}
+input {
+  border-color: blue;
+}
+
+input:focus-visible {
+  border-color: red;
+}
+```
+
+<CSSFocusInput focusType="focus-visible" placeholder="Focus Me" />
+
+## `:focus-within`
+
+The `:focus-within` pseudo-class is a bit different than the previous two focus methods. This pseudo-class is used to apply styles to a parent element based on the `:focus` state of its children. If any of the children would show the `:focus` state then the parent will also show the `:focus-within` state.
+
+```css {5}
+.container {
+  border-color: blue;
+}
+
+.container:focus-within {
+  border-color: red;
+}
+```
+
+<CSSFocusContainer focusType="focus-within">
+  <CSSFocusButton focusType="focus">:focus</CSSFocusButton>
+  <CSSFocusButton focusType="focus-visible">:focus-visible</CSSFocusButton>
+  <CSSFocusButton>No Focus Styles</CSSFocusButton>
+</CSSFocusContainer>
+
+In the above example there is container that will show a red border anytime one of its children is focused. There are 3 buttons in that container. The first has a `:focus` style, the second has a `:focus-visible` style, and the third has no focus styles. As you can see it doesn't matter which button you click the container will always show the `:focus-within` styles since one of its children is focused.
+
+It is important to know that the child elements do not need to have a focus style defined for the parent to show the `:focus-within` state. The parent will show the `:focus-within` state as long as one of its children is focused. This works with any element that can be focused, not just buttons.
+
+## The Secret Fourth Focus Method
+
+The final focus method is a bit different since there is no built in CSS pseudo class for `:focus-visible-within`. Instead we have to write our own custom CSS selector that does the same thing. This custom selector combines hwo `:focus-within` and `:focus-visible` work to create a focus method that only shows focus styles when a child of the element would have its `:focus-visible` styles shown.
+
+```css {5}
+.container {
+  border-color: blue;
+}
+
+.container:has(:focus-visible) {
+  border-color: red;
+}
+```
+
+<CSSFocusContainer focusType="focus-visible-within">
+  <CSSFocusButton focusType="focus">:focus</CSSFocusButton>
+  <CSSFocusButton focusType="focus-visible">:focus-visible</CSSFocusButton>
+  <CSSFocusButton>No Focus Styles</CSSFocusButton>
+  <CSSFocusInput focusType="focus" placeholder=":focus" />
+</CSSFocusContainer>
+
+I have pretty much the same code in this example as the previous example, but I added a single input element to the container. This input element has a `:focus` style applied to it. This container will only show the custom `:focus-visible-within` styles when I use the keyboard to navigate to any of the buttons or when I focus the input in any way. If I click on any of the buttons the container will not show the custom `:focus-visible-within` styles.
+
+The way this `:focus-visible-within` works is by using the `:has` pseudo element to only select the `.container` if at least one child element has the `:focus-visible` pseudo-class applied to it.
+
+<Tangent>
+  If you want to learn more about the `:has` selector and why I love it you can
+  check out my complete [:has selector article](/2022-09/css-has-selector).
+</Tangent>
+
+## Conclusion
+
+Hopefully this article has helped you understand how each focus method differs from the others and when each should be used. Personally, I almost never use `:focus` as `:focus-visible` is almost always a better user experience. I don't tend to use `:focus-within` or the custom `:focus-visible-within` as much, but when you need them they are incredibly useful.

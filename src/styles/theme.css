@@ -87,6 +87,7 @@
   --theme-popup-bg: var(--color-gray-700);
   --theme-tangent-bg: var(--color-gray-700);
   --theme-tangent-border: var(--color-gray-600);
+  --theme-tangent-code-inline-bg: var(--color-gray-500);
 
   --theme-red: var(--color-red-dark);
   --theme-blue: var(--color-blue-dark);
