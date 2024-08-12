@@ -1,0 +1,96 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "aspect-ratio Is One Of My Favorite CSS Properties"
+date: "2024-08-12"
+description: "The aspect-ratio CSS property makes responsive design (especially with images/videos) so much easier and it only takes a few minutes to learn."
+tags: ["CSS"]
+---
+
+## Introduction
+
+The `aspect-ratio` CSS property is a relatively simple property that solves many problems with responsive design in CSS. In this quick article I will explain everything you need to know about this property (including many lesser known features).
+
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: pKO1ktPQByk?start=369`
+
+## `aspect-ratio` Basics
+
+`aspect-ratio` is a simple CSS property that lets you force any element to stay at a specific aspect ratio no matter what size it grows to. It is defined by putting the desired width ratio followed by a `/` and then the desired height ratio. For example, if you want an element to always be a 16:9 aspect ratio, you would use `aspect-ratio: 16 / 9;`.
+
+```css {2}
+.element {
+  aspect-ratio: 16 / 9;
+  background-color: blue;
+  width: 50%;
+}
+```
+
+<div style="background-color: var(--theme-blue); width: 50%; aspect-ratio: 16 / 9; margin-left: auto; margin-right: auto;" />
+
+The only thing you need to be aware of is that at least one dimension (width or height) must be an `auto` based size. This is pretty self explanatory, though, since if you specify a hard coded width and height, the `aspect-ratio` proprety would do nothing.
+
+```css {5-6}
+.element {
+  /* Doesn't work */
+  aspect-ratio: 16 / 9;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+```
+
+<div style="background-color: var(--theme-red); width: 100px; height: 100px; aspect-ratio: 16 / 9; margin-left: auto; margin-right: auto;" />
+
+By default if both sizes are set to `auto`, the `aspect-ratio` will change the `height` to match the aspect ratio and let the `width` be whatever `auto` size is.
+
+```css {4-5}
+.element {
+  aspect-ratio: 3 / 1;
+  background-color: blue;
+  width: auto;
+  height: auto;
+}
+```
+
+<div style="background-color: var(--theme-blue); width: auto; height: auto; aspect-ratio: 3 / 1; margin-left: auto; margin-right: auto;" />
+
+## `aspect-ratio` Advanced Features
+
+The basic use case of `aspect-ratio` will cover 90% of your use cases, but there are a few additional ways you can use this property that you should know about. The first is that this property can actually be defined without specifying a height ratio. If you only specify a width ratio, the height ratio will default to 1.
+
+```css {3}
+.element {
+  /* Same as 2 / 1 */
+  aspect-ratio: 2;
+  background-color: blue;
+  width: 50%;
+}
+```
+
+<div style="background-color: var(--theme-blue); width: 50%; aspect-ratio: 2; margin-left: auto; margin-right: auto;" />
+
+Another interesting thing with `aspect-ratio` is you can specify a value of `auto` alongside your aspect ratio which will do interesting things with elements such as videos and images which need to be loaded in. While the image/video is loading, the element will be the aspect ratio you specified, but once the image/video is loaded, the element will adjust to the aspect ratio of the image/video.
+
+```css {2}
+.element {
+  aspect-ratio: auto 16 / 9;
+  background-color: blue;
+}
+```
+
+_Assumming the image itself has an aspect ratio of 1:1._
+
+<div style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start;">
+  <div style="background-color: var(--theme-blue); width: 100%; aspect-ratio: auto 16 / 9; margin-left: auto; margin-right: auto; color: white; display: flex; justify-content: center; align-items: center;">
+    Loading...
+  </div>
+  <div style="background-color: var(--theme-purple); width: 100%; aspect-ratio: 1 / 1; margin-left: auto; margin-right: auto; color: white; display: flex; justify-content: center; align-items: center;">
+    Loaded
+  </div>
+</div>
+
+This is useful if you want to have a placeholder for an image or video that is loading, but then have the element adjust to the actual aspect ratio of the image/video once it is loaded.
+
+## Conclusion
+
+The `aspect-ratio` CSS property is a simple property, but it has tons of use cases (especially around responsive design). Also, it is available in all major browsers so you can use it today without any issues.
