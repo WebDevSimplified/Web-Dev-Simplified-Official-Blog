@@ -369,3 +369,9 @@ kbd {
 [data-reading-width="wide"] .wrapper {
   max-width: 100ch;
 }
+
+figcaption {
+  font-size: 0.875rem;
+  color: var(--theme-text-light);
+  text-align: center;
+}

@@ -1,0 +1,89 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "How To Build Projects 100% Faster"
+date: "2024-10-07"
+description: "Learning how to properly plan projects is one of the most important skills you can learn since it will lead to you finishing more projects quicker."
+tags: ["Non-Technical Discussion"]
+---
+
+## Introduction
+
+If you are reading this then chances are your head is full of amazing project ideas, but when you sit down to build them you always get stuck, give up, or just never finish. This is the most common problem developers face (and one I still struggle with to this day), but this problem can actually be solved quite easily with just a little bit of planning.
+
+In this article I will breakdown how I plan projects quickly and in a way that makes them easy to build and finish.
+
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: pjmMOyRlcUs`
+
+## My Secret Weapon
+
+You are probably expecting me to have some super fancy tool that I use for planning out projects, but in reality the best tool I have ever used for planning projects is a simple whiteboard. I know this sounds too simple to be true, but I have been using a whiteboard (or similar tools) for the last decade to plan projects and it has never failed me. Without fail when I think I can get away with not planning a project I always end up regretting it and usually fail to even finish the project.
+
+You also do not need to use a whiteboard. Any similar tool will work fine. For example a simple piece of paper, a digital whiteboard tool like [Excalidraw](https://excalidraw.com), or even a blank text document will all work. I just prefer a whiteboard as it is easy to change things as you plan and I can sit it on the desk right next to me.
+
+<figure style="max-width: 500px; margin-left: auto; margin-right: auto;">
+  <img
+    style="width: 100%;"
+    src="/articleAssets/2024-10/whiteboard-planning/job-board-whiteboard.jpg"
+    alt="Whiteboard planning for job board project"
+  />
+  <figcaption>Whiteboard planning for a job board project</figcaption>
+</figure>
+
+The reason a whiteboard is so effective is because it is an entirely free form place for me to write down ideas, draw out diagrams, create UI designs, and even plan out entire features. There are hundreds of tools out there specifically designed for each of these tasks (such as Figma for UI design, ERD tools for database design, etc.), but the problem with these tools is they are too strict and don't give you the flexibility you need when early in the planning phase. These tools are much better suited for once you have planned out exactly how everything will work and you are ready to make polished versions of your plans.
+
+## How To Plan Effectively
+
+The most important thing to do when in the planning phase is to get a rough idea out of your head and onto paper (or in this case a whiteboard). Personally, I really like to write down a general idea of the pages in my application as well as a general idea of the different data models I will have in my application. Below is an example of a whiteboard plan for a Calendly clone project.
+
+<figure style="max-width: 500px; margin-left: auto; margin-right: auto;">
+  <img
+    style="width: 100%;"
+    src="/articleAssets/2024-10/whiteboard-planning/calendly-clone-whiteboard.jpg"
+    alt="Whiteboard plan for Calendly clone project"
+  />
+  <figcaption>Whiteboard plan for a Calendly clone project</figcaption>
+</figure>
+
+As you can see this plan is broken into 2 distinct sections. The top of the whiteboard is diagram of the main models in my database as well as how they link to one another. The bottom half is a list of all the pages in my application broken down between admin and guest pages since this particular project has a separate admin and guest section.
+
+Now if you have seen the video of me building this Calendly project (linked below) you will notice that the database models in my plan are missing many tables that are in the final project. This is pretty common since it is nearly impossible to plan out every single detail of a project before you start building it. The goal of this plan is to get a rough idea of what you need to build and how everything will interact with one another.
+
+`youtube: 0Oacr8VrnNk`
+
+As you are building the project you will then want to constantly come back to your plan and update it as you add/change things. Essentially, every time I run into an issue where I realize my existing plan will not work I immediately go back into planning mode and plan out what changes I need to make before I do any coding.
+
+## The Benefits Of Planning
+
+So I have talked a lot about how to plan, but how exactly does planning help you build projects faster?
+
+### Benefit #1
+
+For me the biggest reason is that I can build projects faster after planning because the plan gives me a distinct list of all the tasks I need to perform to finish a project. I can easily take my list of data models and pages and convert that into tasks I need to complete. For example, if I planned out that I need a model for storing todos then I can create tasks for creating the model in the database and creating a show, edit, and create page.
+
+Having a list of tasks like this makes it much harder to get overwhelmed since there is always something manageable to work on. It also makes it easier to track your progress so you know how far you have come which helps with motivation. The most common reason people quit a project is because they don't know what to do next or they keep adding more and more features with no end in sight. By planning everything ahead of time it gives you a clear path to follow and a distinct end point.
+
+### Benefit #2
+
+The second biggest benefit of planning is that it allows you to figure out how large a project is before you actually start building it. This is a huge benefit since it is easy to think a project will only take you a few days/weeks when in reality it is a multi-month sized project. Until you start planning and writing things out it is impossible to truly know how large a project is.
+
+For example, in the job board project shown below I spent 15-30 minutes planning out everything you see which helped me realize the project was much bigger than I originally planned. Even with all the stuff I had written down so far I still had more I wanted to add which meant this project that I thought was going to be a small project was turning into a massive project.
+
+<figure style="max-width: 500px; margin-left: auto; margin-right: auto;">
+  <img
+    style="width: 100%;"
+    src="/articleAssets/2024-10/whiteboard-planning/job-board-whiteboard.jpg"
+    alt="Whiteboard planning for job board project"
+  />
+  <figcaption>Whiteboard planning for a job board project</figcaption>
+</figure>
+
+By realizing this ahead of time I made the decision to not build this project and instead focus on multiple smaller projects. I could have also decided to reduce the number of features in this project to a more manageable size to make it fit within the time frame I had set for myself. By spending those 15-30 minutes planning I saved myself hundreds of hours of wasted time building a project that I would never finish.
+
+### Benefit #3
+
+The final benefit of planning is that it allows you to see potential issues before you start building. By writing down all the data models, pages, and how things interact before building it is easy to see any potential problems that you haven't thought of yet. The most common issue I run into is realizing that my data models actually need to be more complex than I originally had thought which would require a complete rewrite of the project. By planning this out ahead of time I can see these issues before I start building and make the necessary changes to my plan.
+
+## Conclusion
+
+Planning is the most important part of building a project and is the one thing that will make you finish projects faster. By spending just a little bit of time planning out your project you can save yourself hundreds of hours of wasted time building projects that you will never finish. I highly recommend you start planning out your projects today and see how much faster you can build projects.
