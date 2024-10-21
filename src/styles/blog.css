@@ -354,6 +354,19 @@ kbd {
   }
 }
 
+pre:not(.shiki) {
+  line-height: normal;
+  overflow-x: auto;
+  background: var(--theme-code-inline-bg);
+  color: var(--theme-text);
+  padding: 0.5em;
+}
+
+pre:not(.shiki) > code {
+  border-radius: 0;
+  padding: 0;
+}
+
 :not(.shiki) > code {
   padding: 0.1em 0.25em;
   text-shadow: none;

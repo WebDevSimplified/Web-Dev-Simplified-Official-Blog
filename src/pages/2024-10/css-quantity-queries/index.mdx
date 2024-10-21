@@ -1,0 +1,116 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "CSS Quantity Queries Are Really Cool"
+date: "2024-10-21"
+description: "Quantity queries are an incredible CSS feature that allows you to style elements based on the number of elements in a container without using any JavaScript at all."
+tags: ["CSS"]
+---
+
+import CSSQuantityQuery from "@blogComponents/cssQuantityQuery/CSSQuantityQuery"
+
+## Introduction
+
+Quantity queries have been around for over 15 years, yet almost no one knows about them. I had never even heard of them until a few months ago. They are an incredible CSS feature that allows you to style elements based on the number of elements in a container without using any JavaScript at all. This has a ton of different use cases and are surprisingly easy to write once you understand how they work.
+
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: yYKX72xjFx8`
+
+## Quantity Queries In Action
+
+Before I start explaining exactly how quantity queries work I think it is best to show you an interactive example of how they work. Just choose the type of query and the number of elements and as long as the condition you set is true the elements will change from blue to orange using only CSS.
+
+_If you want to see the CSS output generated from this form use the [form at the bottom of the page](#calculator)_
+
+<CSSQuantityQuery client:load />
+
+I know it seems crazy but the color of these boxes is determined entirely by CSS.
+
+## Understanding Quantity Queries
+
+Now that you have an idea of what quantity queries can do let's take a look at how to write them. There are three main types of quantity queries that you can write (at least, at most, between), but they all follow the same basic structure.
+
+### At Least Query
+
+Here is what a quantity query for at most 3 elements looks like:
+
+```css
+ul li:nth-last-child(n + 3),
+ul li:nth-last-child(n + 3) ~ li {
+  background-color: orange;
+}
+```
+
+<CSSQuantityQuery client:load hideForm initialQueryType="≥" initialAmount={3} />
+
+This may look complicated but if we break down each part of this selector it actually becomes quite easy to understand.
+
+- `ul li` - This is the simplest part of the selector since all it does is select all the `li` elements in a `ul`.
+- `:nth-last-child(n + 3)` - This selector just selects all the elements in a list except for the last 3. If we change the 3 to a 2 it would select all the elements except for the last 2.
+
+This explains the entire first line of our CSS selector which essentially selects all the elements except for the last 3. The second line of our selector is exactly the same as the first line except it adds `~ li` to the end. This makes it so that all the `li` elements after the ones that were selected in the first line are also selected. Essentially, it selects all the elements except for the first element in the list as long as the list has at least 3 elements.
+
+By combining these two selectors we can select all the elements in a list as long as their are at least 3 elements in the list.
+
+### At Most Query
+
+The at most query is actually quite similar to the at least query. Here is an example for at most 3 elements.
+
+```css
+ul li:nth-last-child(-n + 3):first-child,
+ul li:nth-last-child(-n + 3):first-child ~ li {
+  background-color: orange;
+}
+```
+
+<CSSQuantityQuery client:load hideForm initialQueryType="≤" initialAmount={3} />
+
+- `ul li` - This is identical to the at least query.
+- `:nth-last-child(-n + 3)` - This is the reverse of the at least query and selects only the last 3 elements in a list.
+- `:first-child` - This is used to select the first element in the list which when combined with `:nth-last-child(-n + 3)` makes sure it only selects the first element in a list if it also happens to be within the last 3 elements. This is important because without this the selector would select the first element in the list even if there were more than 3 elements in the list.
+
+The first line of our selector selects the first element in the list as long as our list is at most 3 elements long. We then repeat that same selector and add `~ li` to the end to select all the elements after the first element in the list. This makes it so that all the elements in the list are selected as long as their are at most 3 elements in the list.
+
+### Between Query
+
+The between query looks the most complicated but it is simply just taking the at least and at most queries and combining them into one selector.
+
+```css
+ul li:nth-last-child(n + 2):nth-last-child(-n + 4):first-child,
+ul li:nth-last-child(n + 2):nth-last-child(-n + 4):first-child ~ li {
+  background-color: orange;
+}
+```
+
+<CSSQuantityQuery
+  client:load
+  hideForm
+  initialQueryType="Between"
+  initialAmount={2}
+  initialAmount2={4}
+/>
+
+If you look closely you will notice that the `:nth-last-child(n + 2)` is just an at least 2 query and the `:nth-last-child(-n + 4):first-child` is just an at most 4 query. By combining these two selectors we can select all the elements in a list as long as the list has between 2 and 4 elements.
+
+## Advanced Uses
+
+Up until this point I have shown you how to change the styles of elements in a list based on the number of elements in a list, but oftentimes you will want to change the styles of the container itself based on the number of elements in the list. This is actually quite easy to do and only requires a slight modification to the selectors we have already written.
+
+All you need to do is take the first selector and wrap everything after the `ul` in a `:has` selector. You can then remove the second line of the selector since we only need to select the container once. This new selector will select the container as long as the list meets the quantity query specified.
+
+```css
+ul:has(li:nth-last-child(n + 3)) {
+  background-color: orange;
+}
+```
+
+The above example will select the `ul` container if there are at least 3 elements in it.
+
+## Calculator
+
+Here is a calculator you can use to generate your own query selectors. The only thing you will need to change is the `ul` and `li` elements since those should be whatever selector makes sense for your code.
+
+<CSSQuantityQuery client:load showQuery />
+
+## Conclusion
+
+Quantity queries are an incredibly powerful CSS feature that can be used to style elements based on the number of elements in a container. They are surprisingly easy to write once you understand how they work and can be used in a variety of different ways. They can also be used with modern CSS to select and style the container based on the number of children in it which is really useful.
