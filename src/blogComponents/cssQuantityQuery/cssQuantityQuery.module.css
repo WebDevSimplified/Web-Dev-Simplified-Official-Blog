@@ -1,0 +1,12 @@
+.btn {
+  border: none;
+  border-radius: 0.25em;
+  padding: 0.5em 0.75em;
+  font-size: inherit;
+  background: var(--theme-purple);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--theme-purple-hover);
+}
