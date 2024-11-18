@@ -1,0 +1,33 @@
+---
+const { isContents } = Astro.props
+---
+
+<div class="css-advanced-display-grid">
+  <div class="css-advanced-display-item">Item 1</div>
+  <div class="css-advanced-display-item">Item 2</div>
+  <div class={`css-advanced-display-wrapper ${isContents ? "css-advanced-display-contents" : "css-advanced-display-item"}`}>
+    <div class={isContents ? "css-advanced-display-item" : undefined}>Item 3</div>
+    <div class={isContents ? "css-advanced-display-item" : undefined}>Item 4</div>
+  </div>
+  <div class="css-advanced-display-item">Item 5</div>
+  <div class="css-advanced-display-item">Item 6</div>
+</div>
+
+<style>
+  .css-advanced-display-wrapper:hover > * {
+    background-color: var(--theme-red);
+  }
+
+  .css-advanced-display-contents {
+    display: contents;
+  }
+
+  .css-advanced-display-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .css-advanced-display-item {
+    border: 1px solid var(--theme-text);
+  }
+</style>

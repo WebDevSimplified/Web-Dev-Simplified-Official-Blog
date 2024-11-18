@@ -1,0 +1,154 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "CSS Advanced Display Property - contents, multi-value, flow-root, etc."
+date: "2024-11-18"
+description: "The display property in CSS can do so much more than just flexbox, grid, and none which is why this article is all about deep diving into the lesser known, but equally as powerful other uses of the display property."
+tags: ["CSS"]
+---
+
+import CSSAdvancedDisplay from "@blogComponents/cssAdvancedDisplay/CSSAdvancedDisplay.astro"
+
+## Introduction
+
+If you have used CSS at all then you are already very aware of how the `display` property works, but I bet you didn't know that there are over 20 different `display` property values, and that `display` can take multiple values instead of just one. In this article I am going to show you some of the lesser known `display` property values and how they can be used to create some really cool effects.
+
+{/* TODO: Add in the actual video when it goes live */}
+{/* If you prefer to learn visually, check out the video version of this article._ `youtube: ` */}
+
+## The History of the `display` Property
+
+In order to understand the advanced use cases of the `display` property we need to first understand a little bit of the history of the `display` property since it informs why these new use cases exist.
+
+When the `display` property was first introduced it allowed you to define elements as `block`, `inline`, or `none`. This was useful in defining which elements we wanted to take up the full width of the page, which elements we wanted to only take up the space they needed, and which elements we wanted to hide from the page.
+
+We also had the `inline-block` value which worked as a bit of a hybrid between `block` and `inline` elements since the element would only take up as much space as it needed, but you could also apply `width`, `height`, and other properties to it that you couldn't do with normal `inline` elements.
+
+Many years down the road we were introduced to the `flex` and `grid` values which were revolutionary since it allowed us to change how the children of an element were laid out in ways that were never before possible. This introduced some problems, though, since by default `flex` and `grid` elements were considered `block` elements, but there was no way to create an `inline` flex or grid element. To solve this problem CSS introduced the `inline-flex` and `inline-grid` values.
+
+As you can probably see this is not a very scalable approach to the display property, though, since every time a new value is added (for example if we added a new value called `blockish`) we would also need to add a bunch of new combination values to support the new value (for example `blockish-flex`, `blockish-grid`, `etc.`). This is why CSS changed the display property to now take two values instead of just one.
+
+## Multi-value `display` Property
+
+If we look at all the possible single values for `display` we can break pretty much all of them up into two categories.
+
+    1. Values that impact the children of an element (`inner-display`)
+    2. Values that impact the element itself (`outer-display`)
+
+For example, `block`, and `inline` impact how the element itself is displayed, while `flex`, `grid`, and `table` impact how the children of the element are displayed.
+
+The multi-value `display` property allows you to define both the `inner-display` and `outer-display` values in a single property.
+
+```css
+.new {
+  display: inline flex;
+}
+
+.old {
+  display: inline-flex;
+}
+```
+
+The `new` and `old` classes in the above example are functionally equivalent, but the `new` class is using the multi-value `display` property while the `old` class is using the single value `display` property. It is actually possible to replace all of the old compound single value `display` properties with multi-value `display` properties. [This display value chart](https://drafts.csswg.org/css-display/#display-value-summary) from the CSS specification shows how to convert between all single and multi-value options.
+
+### Default Values
+
+Most of your display code probably only contains a single value (either outer or inner display) and that is totally fine.
+
+If you only provide the `inner-display` value (`flex`, `grid`, etc.) then the `outer-display` value will default to `block`. If you instead only provide the `outer-display` value (`block`, `inline`, etc.) then the `inner-display` value will default to `flow`.
+
+`flow` is essentially just a fancy word for the normal CSS layout that CSS has been using since it was first introduced.
+
+### The Only Triple Value Option
+
+Now up until now I mentioned how the multi-value `display` property can take two values, but there is actually one case where it accepts three values. If you use the `list-item` value then you can also provide any `outer-display` value (`block`, `inline`, etc.) and one of two `inner-display` values (`flow` or `flow-root`).
+
+```css
+.new {
+  display: inline flow list-item;
+}
+```
+
+This is a pretty rare use case since you will almost never define an element as `list-item` since you can just use an `li` element instead, but it is still good to know that it is possible.
+
+### Single Value Only `display` Options
+
+There are also two `display` values that can only be used as single values and not as part of a multi-value `display` property.
+
+    1. `contents`
+    2. `none`
+
+The `none` value is one you have surely used before, but `contents` is a bit of a newer property that I really love. I will explain exactly what it does in the next section.
+
+## Lesser Known `display` Property Values
+
+There are over 20 different `display` property values, but you have probably used less than 10 of them. In this section I am going to show you some of the lesser known `display` property values and how they can be used to create some really cool effects.
+
+### The `contents` Value
+
+By far my favorite lesser known `display` property value is `contents`. The `contents` value is a bit of a weird one since it essentially removes the element itself from the DOM, but keeps all of the children of the element in the DOM.
+
+You may be having a hard time imagining what this would be useful for, so let me show you an example.
+
+```html
+<div class="grid">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div class="wrapper">
+    <div>Item 3</div>
+    <div>Item 4</div>
+  </div>
+  <div>Item 5</div>
+  <div>Item 6</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.wrapper:hover > * {
+  background-color: red;
+}
+```
+
+<CSSAdvancedDisplay />
+
+In the above code I have a two column grid with 6 items which should show as a 2x3 grid. I also want to make it so that whenever I hover over elements 3 and 4 (the second row of my grid) that the entire row changes to a red background. This is a very common use case if you want to make it possible to hover a row of a grid, but this does not work as we expect. Since the `grid` display property only impacts its direct children we actually end up with a grid that has 5 items. The items in the wrapper are both put into the same grid cell.
+
+To get around this we can instead use the `contents` value since it will make CSS pretend that the wrapper element does not exist and instead just apply the grid to the children of the wrapper element.
+
+```css
+.wrapper {
+  display: contents;
+}
+```
+
+<CSSAdvancedDisplay isContents />
+
+As you can see our grid is now laid out as we would expect and we can now hover over the second row of our grid.
+
+### The `flow-root` Value
+
+The `flow-root` value is another lesser known `display` property value that does only one thing different than the `flow` property. It creates a new block formatting context. This is a technical CSS term, but it does 3 specific things.
+
+    1. It prevents floats from escaping the element
+    2. It prevents floats from entering the element from outside
+    3. It prevents margin collapsing
+
+For the most part you probably aren't using floats so the first two points are not that important, but the third point is actually quite useful.
+
+By default in CSS margins will collapse on sibling elements. This means if two elements have a margin of 10px then the space between the two elements will only be 10px and not 20px. This can be quite counter-intuitive which is where the `flow-root` value comes in. If you notice your margins are collapsing and you do not want that you can easily wrap an element in a `flow-root` element to prevent the margins from collapsing.
+
+This block formatting context is also something that `flex` and `grid` elements create which is why you will notice margins do not collapse when elements are `flex` or `grid`.
+
+### Values You Shouldn't use
+
+Just because there are 20+ different `display` values doesn't mean you should use them all. Many of these values are related to styling elements as if they were `table` elements. For example, the `table`, `table-column`, `table-row`, etc. values. These values should never be used since if you want to style something as a table you should be using the `table` HTML element since it is more accessible for screen readers and other assistive technologies.
+
+There is also the `ruby`, `ruby-base-container`, etc. values for styling ruby text. This is something that is really only useful when adding pronunciation guides to Japanese (or other language) characters. Again, though, these styles should not be used since there are specific HTML elements (such as the `ruby` element) that should be used instead.
+
+## Conclusion
+
+The `display` property in CSS is quite a bit more involved than it first looks and the advanced use cases really open up some interesting possibilities.
