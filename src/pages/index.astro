@@ -36,7 +36,11 @@ const allPosts = allMarkdownPosts
       : undefined,
     url: post.url,
   }))
-  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .sort((a, b) => {
+    let aDate = a.updatedDate?.valueOf() ?? a.date.valueOf()
+    let bDate = b.updatedDate?.valueOf() ?? b.date.valueOf()
+    return bDate - aDate
+  })
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
