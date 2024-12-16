@@ -9,11 +9,18 @@ const WRAPPER_STYLES = {
 
 const CONTAINER_STYLES = {
   display: "flex",
+  margin: "auto 0",
+  width: "100%",
+  justifyContent: "center",
 }
 
 const NUMBER_WRAPPER_STYLES = {
   margin: ".6rem",
   textAlign: "center",
+  flexGrow: "1",
+  flexBasis: "2.5em",
+  maxWidth: "2.5em",
+  fontSize: "2.5rem",
 }
 
 const NUMBER_STYLES = {
@@ -21,8 +28,7 @@ const NUMBER_STYLES = {
   justifyContent: "center",
   alignItems: "center",
   borderRadius: ".3em",
-  fontSize: "2.5rem",
-  width: "2.5em",
+  width: "100%",
   height: "2.5em",
   color: "var(--theme-text)",
   fontVariantNumeric: "tabular-nums lining-nums",
@@ -30,6 +36,7 @@ const NUMBER_STYLES = {
 
 const NUMBER_DESCRIPTOR_STYLES = {
   color: "var(--theme-text-lighter)",
+  fontSize: ".75rem",
 }
 
 const INPUT_STYLES = {
