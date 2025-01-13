@@ -1,0 +1,117 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "@property Is One Of The Coolest New CSS Features"
+date: "2025-01-13"
+description: "@property is the next level of custom properties in CSS and it has the potential to completely change the CSS writing experience."
+tags: ["CSS"]
+---
+
+## Introduction
+
+If you ever wrote CSS before custom properties existed you know how much of a game changer they were since they made writing CSS easier and even opened up the possibility to write CSS that we never could before.
+
+The `@property` rule is the next level of custom properties in CSS which not only expands what you can do with CSS, but it has the potential to change the entire CSS writing experience.
+
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: sd34qnxSeoU`
+
+## Custom Property Limitations
+
+Before we can dive into what `@property` is we need to understand the limitations of custom properties that `@property` aims to solve.
+
+_If you don't know what custom properties are or how they work I recommend checking out my [article on CSS custom properties](/2020-02/css-custom-properties) first._
+
+### 1. Custom Properties Have No type
+
+One major limitation with custom properties is they have no type. This may seem like a minor issue, but it actually is the root cause of nearly all issues with custom properties. Imagine you create a custom property called `--color` which you expect to contain a color. It will work fine as long as you specify a color, but if you accidentally specify `10px` it will obviously stop working.
+
+The problem is that as a user you get no feedback when authoring your code that a value such as `10px` is not a valid value for the `--color` custom property. It shows up as a valid value in your code editor and even shows up as valid in the browser dev tools. The only time you know there is an issue is when the CSS doesn't work as expected.
+
+Another issue caused by having no type information is directly related to the second main limitation of custom properties.
+
+### 2. Custom Properties Cannot Be Animated
+
+If you have worked with custom properties extensively in the past this was probably the first limitation you thought of with custom properties. No matter what you do you cannot animate or transition the value of a custom property.
+
+The reason for this is because CSS has no idea what type a custom property is so it doesn't know how to perform an animation. This is why you can animate the `color` property, but you cannot animate a `--color` custom property.
+
+### 3. Custom Properties Always Inherit
+
+The final main limitation of custom properties is that they always inherit. This means if you set a custom property on an element every single descendant of that element will inherit the same value for that custom property. This can make it difficult to deal with custom properties in certain situations since they will leak into parts of your application that you may not want them to.
+
+## How `@property` Solves These Limitations
+
+The `@property` rule was created as a way to solve all of these issues with custom properties and I am really excited by its potential. Creating a `@property` rule is quite a bit different than a normal custom property since you are essentially creating your own CSS property that exists for your entire document.
+
+Here is an example of how you would create a `@property` rule for a color property:
+
+```css
+@property --color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+
+body {
+  --color: red;
+}
+```
+
+The `@property` rule has essentially 4 different parts to it:
+
+1. `name` - This is the name of the property that you are creating. In this case it is `--color`.
+2. `syntax` - This is the type of value that the property can accept. In this case it is a color, but it could be a length, a string, or even a custom type that you define.
+3. `inherits` - This is whether the property should inherit or not. If you set this to `false` then the property will not inherit.
+4. `initial-value` - This is the value that the property will have if it is not set to a specific value.
+
+As you can see by the above code we are essentially adding our very own property to CSS and it works just like a normal CSS property that is part of the CSS specification.
+
+### Benefits Of `@property`
+
+The biggest benefit of the `@property` rule is that it allows you to animate and transition the value just like a normal CSS property. The reason this is possible is because of the type information provided with the property.
+
+This type information also allows the browser and your text editor to provide feedback and autocomplete so you don't provide an invalid value to a property. This means you will know immediately if you provide a length to a color property and you will know that you need to fix it.
+
+Lastly, since you can control the `initial-value` and if the property inherits or not you gain full control over exactly how your property behaves which makes writing clean CSS code much easier.
+
+### Defining The Syntax
+
+By far the most complex part of the `@property` rule is defining the syntax of the property. The syntax is defined using a string that is a combination of the types that the property can accept. For example, if you wanted to create a property that could accept either a color or a length you would define the syntax as `"<color> | <length>"`.
+
+This syntax property has a ton of different ways you can define it and I recommend checking out the [MDN documentation on the syntax property](https://developer.mozilla.org/en-US/docs/Web/CSS/@property/syntax) to see all the different ways you can define the syntax, but I will list a few of the more common features below:
+
+- `<type>` all CSS types are wrapped in angle brackets:
+  ```json
+  /* Any valid number */
+  syntax: "<number>"
+  ```
+- `|` combines multiple values in an or relationship:
+  ```json
+  /* Either a color or a length */
+  syntax: "<color> | <length>"
+  ```
+- `+` space separated list of values:
+  ```json
+  /* One or more colors separated by spaces */
+  syntax: "<color>+"
+  ```
+- `#` comma separated list of values:
+  ```json
+  /* One or more colors separated by commas */
+  syntax: "<color>#"
+  ```
+- `keywords` any value not in angle brackets is a keyword:
+  ```json
+  /* Either the keyword sm, md, or lg */
+  syntax: "sm | med | lg"
+  ```
+
+### Limitations Of `@property`
+
+Right now the biggest limitation of the `@property` rule is VSCode. VSCode does not give proper syntax highlighting for `@property` rules and even worse it does not provide any type checking or autocomplete for the values of the property. There is currently an [open issue on the VSCode GitHub](https://github.com/microsoft/vscode/issues/162030) to fix this, but it has been open for a few years with no progress made.
+
+You may think browser support is another limitation, but the `@property` rule is actually supported in all modern browsers with [over 93% support](https://caniuse.com/mdn-css_at-rules_property).
+
+## Conclusion
+
+The `@property` rule is an incredibly powerful new feature in CSS that has the potential to change the way we write CSS. It solves nearly all the limitations of custom properties and opens up a ton of new possibilities in CSS.
