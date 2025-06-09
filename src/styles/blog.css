@@ -207,7 +207,7 @@ td:last-child {
 
 kbd {
   background: none;
-  padding: 0.25rem;
+  padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
   box-shadow: inset 0 -1px 0 0 var(--theme-text-lighter);
   border: 1px solid var(--theme-text-lighter);

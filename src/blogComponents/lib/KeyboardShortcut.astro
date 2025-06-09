@@ -1,0 +1,11 @@
+---
+const { keys } = Astro.props
+---
+
+{
+  keys.map((key, i) => {
+    // Having this wrap onto another line causes spaces in the output which is not what we want
+    // prettier-ignore
+    return <><kbd>{key}</kbd>{i < keys.length - 1 && <span>&nbsp;</span>}</>
+  })
+}
