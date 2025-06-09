@@ -1,0 +1,142 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "Top 10 Lesser Known Keyboard Shortcuts I Use Every Day"
+date: "2025-06-09"
+description: "Keyboard shortcuts are a great way to speed up your workflow and these are the 10 keyboard shortcuts I use every day that most people don't know about."
+tags: ["Technical Discussion"]
+---
+
+import KeyboardShortcut from "@blogComponents/lib/KeyboardShortcut.astro"
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+## Introduction
+
+Learning keyboard shortcuts is one of the best ways to speed up your workflow and make you more productive. Usually when this topic comes up people will talk about the most common keyboard shortcuts, but I'm not going to waste your time with those. Instead, I am going to cover the top 10 lesser known keyboard shortcuts that I use every day that most people don't know about.
+
+_If you prefer to learn visually, check out the video version of this article._
+`youtube: AvJmpPFoZTg`
+
+<Tangent>
+  _If you want to learn more about the most common keyboard shortcuts check out
+  my article on [10 Essential Keyboard Shortcuts For
+  Programmers](/2020-08/10-best-keyboard-shortcuts)._
+</Tangent>
+
+## FREE Cheat Sheet
+
+If you want a free cheat sheet that includes not only these 10 keyboard shortcuts, but also over 50 other keyboard shortcuts that I use every day then you can download it for free below.
+
+[Download the FREE Keyboard Shortcuts Cheat Sheet](https://webdevsimplified.com/vscode-keyboard-shortcuts-cheat-sheet.html)
+
+<figure style="max-width: 500px; margin-left: auto; margin-right: auto;">
+  <a href="https://webdevsimplified.com/vscode-keyboard-shortcuts-cheat-sheet.html">
+    <img
+      style="width: 100%;"
+      src="/articleAssets/2025-06/lesser-known-keyboard-shortcuts/cheat-sheet-preview.png"
+      alt="Cheat Sheet Preview"
+    />
+  </a>
+  <figcaption style="text-wrap: balance;">
+    This cheat sheet has a Mac and Windows version as well as full light and
+    dark mode support.
+  </figcaption>
+</figure>
+
+## 1. Go To Definition
+
+- Windows: <KeyboardShortcut keys={["F12"]} />
+- Mac: <KeyboardShortcut keys={["F12"]} />
+
+This is probably the most well known of the shortcuts in this article, but also one of the most useful. Whenever you are working with a function or variable that is defined in another location/file you can quickly jump to that function/variable definition by pressing <KeyboardShortcut keys={["F12"]} /> while your cursor is inside the function/variable name. This is useful for quickly seeing how a function works or what a variable is set to without needing to search for it manually. You can also put your mouse over the function/variable name and hold <KeyboardShortcut keys={["ctrl"]} /> / <KeyboardShortcut keys={["⌘"]} /> then left click on it to achieve the same effect.
+
+## 2. Back/Forward Navigation
+
+- Windows:
+  - Back: <KeyboardShortcut keys={["alt", "←"]} />
+  - Forward: <KeyboardShortcut keys={["alt", "→"]} />
+- Mac:
+  - Back: <KeyboardShortcut keys={["⌃", "-"]} />
+  - Forward: <KeyboardShortcut keys={["⌃", "⇧", "-"]} />
+
+Many of the shortcuts in this article will help you navigate between files quickly, but it is quite easy to become lost after navigating multiple times. To help with this you can use the back and forward navigation shortcuts. Pressing <KeyboardShortcut keys={["alt", "←"]} /> will take you back to the last place you were in the code and pressing <KeyboardShortcut keys={["alt", "→"]} /> will take you forward to the next place were in the code. This is incredibly useful to quickly get back to where you were after jumping to a function definition.
+
+## 3. Find All References
+
+- Windows: <KeyboardShortcut keys={["shift", "alt", "F12"]} />
+- Mac: <KeyboardShortcut keys={["⇧", "⌥", "F12"]} />
+
+Similar to the "Go To Definition" shortcut, this shortcut helps you find all references to a function or variable in your code. When you press <KeyboardShortcut keys={["shift", "alt", "F12"]} /> while your cursor is inside a function/variable name it will show you a list in the sidebar of all the places that function/variable is used in your code. This list even splits out the references by file so you can quickly see where the function/variable is used in your project. This can help you avoid breaking changes when refactoring.
+
+## 4. Search For Symbol In File
+
+- Windows: <KeyboardShortcut keys={["ctrl", "shift", "O"]} />
+- Mac: <KeyboardShortcut keys={["⌘", "⇧", "O"]} />
+
+A symbol is a function, class, variable, or any other named entity in your code. This keyboard shortcut allows you to quickly search for symbols in the current file you are working on. By pressing <KeyboardShortcut keys={["ctrl", "shift", "O"]} /> you will open a search box that lets you type in the name of a symbol and it will show you all the symbols that match what you typed in (using fuzzy search) in the current file. This is incredibly useful for quickly navigating to a specific function or class without needing to scroll through the entire file.
+
+## 5. Reopen Last Closed Tab
+
+- Windows: <KeyboardShortcut keys={["ctrl", "shift", "T"]} />
+- Mac: <KeyboardShortcut keys={["⌘", "⇧", "T"]} />
+
+If you are familiar with web browsers then you probably know that you can reopen the last closed browser tab by pressing <KeyboardShortcut keys={["ctrl", "shift", "T"]} />. This works in Visual Studio Code as well. If you accidentally close a file you were working on you can quickly reopen it by pressing this shortcut. You can even press it multiple times to reopen multiple closed files in the order they were closed.
+
+## 6. Navigate Between Open Tabs
+
+- Windows: <KeyboardShortcut keys={["ctrl", "Tab"]} />
+- Mac: <KeyboardShortcut keys={["⌃", "Tab"]} />
+
+While we are on the topic of tabs, you can quickly navigate between open tabs in Visual Studio Code by pressing <KeyboardShortcut keys={["ctrl", "Tab"]} />. This will open a list of all the currently open tabs and you can use the arrow keys to navigate to the tab you want to switch to. This is incredibly useful for quickly switching between files without needing to use your mouse. By default this list will be ordered by the most recently used files making it easy to jump between a few frequently used files.
+
+## 7. Expand/Collapse the Sidebar
+
+- Windows: <KeyboardShortcut keys={["ctrl", "B"]} />
+- Mac: <KeyboardShortcut keys={["⌘", "B"]} />
+
+This one is another more commonly known shortcut, but it is one I use dozens of times a day. If you want to quickly hide or show the sidebar in Visual Studio Code you can press <KeyboardShortcut keys={["ctrl", "B"]} />. This is great for when you need more screen space to see your code and don't need the sidebar open.
+
+## 8. Move Tab To New Split Pane
+
+- Windows:
+  - Move Right: <KeyboardShortcut keys={["ctrl", "alt", "→"]} />
+  - Move Left: <KeyboardShortcut keys={["ctrl", "alt", "←"]} />
+- Mac:
+  - Move Right: <KeyboardShortcut keys={["⌃", "⌘", "→"]} />
+  - Move Left: <KeyboardShortcut keys={["⌃", "⌘", "←"]} />
+
+Often when you are working on a project you will want to have multiple files open at the same time side by side. Usually you would need to use the mouse for this, but you can quickly move a tab between split panes by pressing <KeyboardShortcut keys={["ctrl", "alt", "→"]} /> to move the tab to the right or <KeyboardShortcut keys={["ctrl", "alt", "←"]} /> to move the tab to the left. This command will even create new split panes if there are none available while moving the tab to the right.
+
+## 9. Focus Split Pane
+
+- Windows: <KeyboardShortcut keys={["ctrl", "1/2/3/..."]} />
+- Mac: <KeyboardShortcut keys={["⌘", "1/2/3/..."]} />
+
+While on the topic of split panes, you can quickly focus a specific split pane by pressing <KeyboardShortcut keys={["ctrl", "1"]} /> to focus the first split pane, <KeyboardShortcut keys={["ctrl", "2"]} /> to focus the second split pane, and so on. This combined with the previous shortcut makes it incredibly easy to navigate between multiple files open in split panes without needing to use your mouse.
+
+## 10. Expand/Shrink Selection
+
+- Windows:
+  - Expand: <KeyboardShortcut keys={["shift", "alt", "→"]} />
+  - Shrink: <KeyboardShortcut keys={["shift", "alt", "←"]} />
+- Mac:
+  - Expand: <KeyboardShortcut keys={["⌃", "⇧", "→"]} />
+  - Shrink: <KeyboardShortcut keys={["⌃", "⇧", "←"]} />
+
+Often when writing code you will want to select all the code in a specific block or section. For example, you may want to select all the code inside a function or object. Instead of reaching for your mouse, your can quickly expand or shrink your selection by pressing <KeyboardShortcut keys={["shift", "alt", "→"]} /> to expand the selection of code or <KeyboardShortcut keys={["shift", "alt", "←"]} /> to shrink the selection. This can be used as fine grained as expanding your selection to include the variable name you are inside of or as broad as selecting an entire function body.
+
+## Bonus: Show All Keyboard Shortcuts
+
+- Windows: <KeyboardShortcut keys={["ctrl", "K"]} /> + <KeyboardShortcut keys={["ctrl", "S"]} />
+- Mac: <KeyboardShortcut keys={["⌘", "K"]} /> + <KeyboardShortcut keys={["⌘", "S"]} />
+
+If you want to see a list of all the keyboard shortcuts available in Visual Studio Code you can press <KeyboardShortcut keys={["ctrl", "K"]} /> + <KeyboardShortcut keys={["ctrl", "S"]} />. This will open a list of all the keyboard shortcuts and their current keybindings. You can even search for specific commands or keybindings in this list. This is incredibly useful for finding new keyboard shortcuts to learn or for customizing your keybindings to better suit your workflow.
+
+## Conclusion
+
+This article just scratches the surface of the many keyboard shortcuts available in Visual Studio Code. If you want to master even more keyboard shortcuts, I highly recommend you download my free [Keyboard Shortcuts Cheat Sheet](https://webdevsimplified.com/vscode-keyboard-shortcuts-cheat-sheet.html) which includes over 60 keyboard shortcuts that I use every day. Learning these shortcuts will help you become a more efficient programmer and speed up your workflow significantly.
+
+<Tangent>
+  Learn over 60 VSCode keyboard shortcuts with my free [Keyboard Shortcuts Cheat
+  Sheet](https://webdevsimplified.com/vscode-keyboard-shortcuts-cheat-sheet.html).
+  This cheat sheet covers all the keyboard shortcuts I use daily.
+</Tangent>
