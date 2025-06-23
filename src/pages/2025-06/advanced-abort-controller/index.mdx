@@ -1,0 +1,202 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "These Advanced AbortController Features Are Amazing"
+date: "2025-06-23"
+description: "AbortController is a relatively simple API, but there are many advanced features that really empower AbortController to an amazing tool I use all the time."
+tags: ["JavaScript"]
+---
+
+## Introduction
+
+If you have made API requests then you have probably used `AbortController` to cancel `fetch` requests that are no longer needed. This is especially popular in frameworks like React.
+
+What you probably didn't know, though, is that this is only a small percentage of what `AbortController` can do, and in this article I will be covering all the amazing features of `AbortController` that nearly no one knows.
+
+_If you prefer to learn visually, check out the video version of this article._  
+`youtube: BeZfiCPhZbI`
+
+## The Basics of `AbortController`
+
+_Before we dive into the advanced features I do need to cover the basics so feel free to skip this section if you are already familiar with `AbortController`._
+
+The `AbortController` API works by creating a `signal` that you can pass to certain JavaScript functions. This `signal` tells the function if it should continue or abort. In order to abort a function you just need to call `controller.abort()`, and any function that is listening to that signal will stop what it is doing.
+
+```js
+const controller = new AbortController()
+const signal = controller.signal
+
+fetch("/api/data", { signal })
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => {
+    if (err.name === "AbortError") {
+      console.log("Request was aborted")
+    } else {
+      throw err
+    }
+  })
+
+// Cancel the request
+controller.abort()
+```
+
+Fetch requests are the most common use case for `AbortController`, but it can be used with any API that supports the `signal` option.
+
+## `AbortController` With Event Listeners
+
+You can also use `AbortController` to remove event listeners.
+
+```js
+const controller = new AbortController()
+const signal = controller.signal
+
+window.addEventListener("resize", () => console.log("Resized"), {
+  signal,
+})
+
+// Later, this removes the listener
+controller.abort()
+```
+
+When you create an event listener you can pass along a third parameter which is an options object. If you pass the `signal` property with the `AbortController`'s signal, then when you call `controller.abort()`, it will automatically remove the event listener as if you called `removeEventListener`.
+
+This is especially useful in frameworks like React where you want to clean up event listeners from `useEffect`, or when you have many event listeners you want to remove at the same time.
+
+```js
+useEffect(() => {
+  const controller = new AbortController()
+  const signal = controller.signal
+
+  window.addEventListener("dragstart", () => console.log("Drag started"), {
+    signal,
+  })
+  window.addEventListener("dragend", () => console.log("Drag ended"), {
+    signal,
+  })
+
+  return () => {
+    // Removes all the listeners
+    controller.abort()
+  }
+}, [])
+```
+
+## `AbortSignal` Built In Functions
+
+The `AbortController` API also has some built-in functions that can make your life easier through the `AbortSignal` interface.
+
+### `AbortSignal.timeout()`
+
+One of the most underused features of `AbortController` is `AbortSignal.timeout()`, which creates a signal that automatically aborts after a timeout:
+
+```js
+const signal = AbortSignal.timeout(5000) // 5 seconds
+
+fetch("/api/slow-endpoint", { signal }).catch(err => {
+  if (err.name === "TimeoutError") {
+    console.log("Request timed out")
+  }
+})
+```
+
+The above code creates a `fetch` request that will automatically abort after 5 seconds if it hasn't completed.
+
+No longer do you need to manually handle timeouts with `setTimeout` and `clearTimeout`.
+
+## `AbortSignal.any()`
+
+Another powerful feature is `AbortSignal.any()`, which allows you to create a signal that aborts when any of the provided signals are aborted:
+
+```js
+const controller = new AbortController()
+const signal = AbortSignal.any(
+  controller.signal,
+  AbortSignal.timeout(3000), // 3 seconds
+)
+```
+
+This is great if you want to combine a timeout and a manual abort signal. The request will be aborted if either the manual abort is called or the timeout is reached.
+
+## `AbortSignal.abort()`
+
+You can also create an `AbortSignal` that is already aborted using `AbortSignal.abort()`:
+
+```js
+const signal = AbortSignal.abort()
+fetch("/api/data", { signal }).catch(err => {
+  if (err.name === "AbortError") {
+    console.log("Request was aborted")
+  }
+})
+```
+
+This is probably the least useful of the built-in functions, but it can be handy in certain situations.
+
+## Create Your Own `AbortController` Enabled Functions
+
+The true power in `AbortController` comes from the ability to create your own functions that support aborting. This allows you to build APIs that are cancelable, just like `fetch`.
+
+Doing this is as simple as accepting a signal parameter in your function, checking if it has been aborted, and then listening for the abort event:
+
+```js {3-7,9-13}
+function doSomething(signal) {
+  return new Promise((resolve, reject) => {
+    // Is it already aborted?
+    if (signal.aborted) {
+      reject(signal.reason)
+      return
+    }
+
+    // Listen for abort events
+    signal.addEventListener("abort", () => {
+      clearTimeout(id)
+      reject(signal.reason)
+    })
+
+    // Simulate a long-running operation
+    const id = setTimeout(() => resolve("Did Something"), 5000)
+  })
+}
+```
+
+Making your own abortable API is as simple as that. You can now use this function with an `AbortController`.
+
+```js
+// Cancel the operation after 3 seconds
+const signal = AbortSignal.timeout(3000)
+
+doSomething(signal)
+  .then(result => console.log(result))
+  .catch(err => {
+    if (err.name === "AbortError") {
+      console.log("Operation was aborted")
+    } else {
+      throw err
+    }
+  })
+```
+
+Here is a simple function you can use to make abortable functions easier.
+
+```js
+function makeAbortable(fn) {
+  return signal => {
+    return new Promise((resolve, reject) => {
+      if (signal.aborted) {
+        reject(signal.reason)
+        return
+      }
+
+      signal.addEventListener("abort", () => {
+        reject(signal.reason)
+      })
+
+      fn(resolve, reject, signal)
+    })
+  }
+}
+```
+
+## Conclusion
+
+`AbortController` is a powerful API that goes beyond just canceling `fetch` requests. It can be used to clean up event listeners, create timeout signals, and even build your own abortable functions.
