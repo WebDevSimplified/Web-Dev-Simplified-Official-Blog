@@ -388,3 +388,7 @@ figcaption {
   color: var(--theme-text-light);
   text-align: center;
 }
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
