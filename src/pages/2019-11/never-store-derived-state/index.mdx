@@ -41,14 +41,14 @@ This is all good and there is no derived state, but what if this app needed to a
 ```javascript
 function User() {
   const [users, setUsers] = useState([
-    { id: 1, name: 'Kyle' },
-    { id: 2, name: 'John' }
+    { id: 1, name: "Kyle" },
+    { id: 2, name: "John" },
   ])
   const [selectedUser, setSelectedUser] = useState()
 
   function selectUser(id) {
     const user = users.find(user => user.id === id)
-    setSelectedUser({ ...user }
+    setSelectedUser({ ...user })
   }
 
   function updateUser(id, name) {
@@ -60,7 +60,7 @@ function User() {
     })
   }
 
-  return users.map(user => user.name).join(', ')
+  return users.map(user => user.name).join(", ")
 }
 ```
 
