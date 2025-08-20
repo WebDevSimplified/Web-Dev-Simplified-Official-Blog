@@ -367,7 +367,7 @@ pre:not(.shiki) > code {
   padding: 0;
 }
 
-:not(.shiki) > code {
+:not(.shiki):not(details) > code {
   padding: 0.1em 0.25em;
   text-shadow: none;
   color: var(--theme-text);
@@ -391,4 +391,30 @@ figcaption {
 
 .grecaptcha-badge {
   visibility: hidden !important;
+}
+
+details {
+  padding: 0.5rem 1rem;
+
+  background-color: var(--theme-tangent-bg);
+  border-radius: 0.5rem;
+  border: 1px solid var(--theme-tangent-border);
+  color: var(--theme-text-light);
+
+  &::details-content {
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 1rem;
+  }
+
+  :not(.shiki) code,
+  & > code {
+    background-color: var(--theme-tangent-code-inline-bg);
+  }
+
+  &[open]::details-content {
+    margin-top: 0.5rem;
+  }
 }
