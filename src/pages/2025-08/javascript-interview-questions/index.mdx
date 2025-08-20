@@ -1,0 +1,532 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "Real World JavaScript Interview Questions For All Skill Levels"
+date: "2025-08-18"
+description: "Move beyond the typical 'What is hoisting?' questions. These unique JavaScript interview questions will help you prepare for real-world scenarios and demonstrate deeper understanding of the language."
+tags: ["JavaScript", "Technical Discussion"]
+---
+
+Tired of seeing the same old "What is a closure?" question in every JavaScript interview prep article? So am I which is why I've compiled a list of unique interview questions spread across all skill levels.
+
+## Junior Questions
+
+These questions test fundamental understanding while avoiding the typical gotcha questions that don't reflect real development work.
+
+### Question 1
+
+Consider the following function:
+
+```js
+function createUser(name, favoriteNumber) {
+  if (!name || !favoriteNumber) return
+  return {
+    id: Math.random(),
+    name,
+    favoriteNumber,
+  }
+}
+```
+
+This function requires a `name` and `favoriteNumber` to be passed to it, but in some rare cases developers are noticing that `undefined` is being returned instead of the user object (even when passing a `name` and `favoriteNumber`). Why is this happening and what can be done to fix this issue?
+
+<details>
+  <summary>Answer</summary>
+
+The problem is that in JavaScript, `0` is a falsy value. The condition
+`!favoriteNumber` will be true for any falsy value—including `''`, `0`,
+`null`, `undefined`, and `false`. So when you call `createUser` with `0` as
+the `favoriteNumber`, the function returns early because `!favoriteNumber` is
+true, even though `0` should be a valid value.
+
+To fix this, you should check specifically for `undefined`, or `null`:
+
+```js
+function createUser(name, favoriteNumber) {
+  if (name == null || favoriteNumber == null) return
+
+  return {
+    id: Math.random(),
+    name,
+    favoriteNumber,
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question directly tests your understanding of JavaScript's falsy values and
+  how they affect control flow. This is one of the more common bugs junior developers
+  run into and is usually included in some form in technical interviews.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [JavaScript Type Coercion Explained](/2020-08/==-vs-===)
+  [Stop Using The "!" Bang Operator In JavaScript](/2022-04/stop-using-bang-operator)
+
+</details>
+
+### Question 2
+
+Given the following function that takes an optional `options` parameter:
+
+```js
+function printUser(user, options) {
+  if (options.showName) {
+    console.log(user.name)
+  }
+  if (options.showAge) {
+    console.log(user.age)
+  }
+}
+```
+
+Write as many different ways to default the `options` properties to `false` unless they are defined.
+
+<details>
+  <summary>Answer</summary>
+
+The easiest way would be to define default function parameters:
+
+```js
+function printUser(user, { showName = false, showAge = false } = {}) {
+  if (showName) {
+    console.log(user.name)
+  }
+  if (showAge) {
+    console.log(user.age)
+  }
+}
+```
+
+Another option would be using `||=` to default values. This isn't as ideal as it is more code and overwrites the original options object passed in.
+
+```js
+function printUser(user, options) {
+  options ||= {}
+  options.showName ||= false
+  options.showAge ||= false
+
+  if (options.showName) {
+    console.log(user.name)
+  }
+  if (options.showAge) {
+    console.log(user.age)
+  }
+}
+```
+
+`??=` is a newer alternative that is ideal for null based values since it will only overwrite the value if it is `null` or `undefined` while `||` will overwrite any falsy value.
+
+```js
+function printUser(user, options) {
+  options ??= {}
+  options.showName ??= false
+  options.showAge ??= false
+
+  if (options.showName) {
+    console.log(user.name)
+  }
+  if (options.showAge) {
+    console.log(user.age)
+  }
+}
+```
+
+`?.` is the optional chaining operator, which allows you to safely access deeply nested properties without having to check each level for existence. If any part of the chain is `null` or `undefined`, the expression short-circuits and returns `undefined` instead of throwing an error.
+
+```js
+function printUser(user, options) {
+  if (options?.showName) {
+    console.log(user.name)
+  }
+  if (options?.showAge) {
+    console.log(user.age)
+  }
+}
+```
+
+There are other ways to handle this, but these are the most common. Understanding the differences as well as when to use each is very important.
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your understanding of default parameters, destructuring, and
+  how to handle optional parameters in JavaScript. It also reveals whether you know
+  modern JavaScript features like optional chaining and nullish coalescing.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [(?.) Optional Chaining](/2020-03/javascript-optional-chaining)
+  [(??) Null Coalesce](/2020-03/javascript-null-coalesce)
+  [Destructuring And The Spread Operator](/2020-08/destructuring-and-spread)
+  [What Is Short Circuiting?](/2019-10/what-is-short-circuiting)
+
+</details>
+
+### Question 3
+
+Consider the following code:
+
+```js
+const users = [
+  { name: "Kyle", age: 30 },
+  { name: "Sarah", age: 25 },
+]
+
+function userAgeCheck(user) {
+  user.isAdult = user.age > 18
+  return user
+}
+
+const isAdultUser = userAgeCheck(users[0])
+console.log(isAdultUser.isAdult) // true
+```
+
+After running this code everything seems to be working at first glance, but there is a bug with this code that causes certain data to be mutated that shouldn't. What is this bug and how can it be fixed?
+
+<details>
+  <summary>Answer</summary>
+
+The original `users` array's first object is being mutated as part of calling `userAgeCheck` which is not ideal. This happens because arrays and objects in JavaScript are reference types. The `userAgeCheck` function mutates the original user object by adding a new property, so both `users[0]` and `isAdultUser` point to the same object in memory. Any changes to one affect the other.
+
+To avoid mutating the original object, you can create a shallow copy of the user object before adding the new property:
+
+```js
+function userAgeCheck(user) {
+  return { ...user, isAdult: user.age > 18 }
+}
+```
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your understanding of reference vs value, array mutation, and
+  how to write functions that avoid unintended side effects. These are essential
+  concepts for writing reliable JavaScript code.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [Reference Vs Value - Most People Don't Understand This](/2021-03/js-reference-vs-value)
+  [Destructuring And The Spread Operator](/2020-08/destructuring-and-spread)
+  [Pure Functions](/2020-09/pure-functions)
+
+</details>
+
+## Mid-Level Questions
+
+These questions require a solid grasp of asynchronous programming, error handling, and performance optimization.
+
+### Question 1
+
+You're building a feature where users can subscribe to real-time updates. The current implementation has the following code which isn't optimal:
+
+```js
+async function subscribeToUpdates(userId) {
+  const subscription = await fetch(`/api/subscribe/${userId}`, {
+    method: "POST",
+  })
+  const preferences = await fetch(`/api/users/${userId}/preferences`)
+  const notifications = await fetch(`/api/notifications/${userId}`)
+  // ...
+}
+```
+
+What is the main performance problem with this code? How would you improve it and allow cancellation if the user navigates away?
+
+<details>
+  <summary>Answer</summary>
+
+The main problem with this code is each request is ran in sequence, but they do not depend on each other. This means the total time taken is the sum of all three requests, which can lead to a poor user experience.
+
+We can improve this by running the requests in parallel which means they will only take as long as the longest request to execute.
+
+```js
+async function subscribeToUpdates(userId, abortSignal) {
+  const fetchOptions = { signal: abortSignal }
+  try {
+    const [subscriptionRes, preferencesRes, notificationsRes] =
+      await Promise.all([
+        fetch(`/api/subscribe/${userId}`, { method: "POST", ...fetchOptions }),
+        fetch(`/api/users/${userId}/preferences`, fetchOptions),
+        fetch(`/api/notifications/${userId}`, fetchOptions),
+      ])
+    // ...
+  } catch (error) {
+    if (error.name === "AbortError") return
+    throw error
+  }
+}
+// Usage:
+const controller = new AbortController()
+subscribeToUpdates(userId, controller.signal)
+// Cancel if needed:
+controller.abort()
+```
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your understanding of async/await and how to manage multiple
+  concurrent requests effectively which is something you will do all the time in
+  real-world applications.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [JavaScript Fetch API Ultimate Guide](/2022-01/js-fetch-api)
+  [Better Than Promises - JavaScript Async/Await](/2021-11/async-await)
+  [The Complete JavaScript Promise Guide](/2021-09/javascript-promises)
+
+</details>
+
+### Question 2
+
+Implement a debounce function in JavaScript. The debounce function should take another function and a delay (in milliseconds) and return a new function that only calls the original function after the specified delay has passed without any new calls.
+
+Show your implementation and explain how it works.
+
+<details>
+  <summary>Answer</summary>
+
+Here is a standard debounce implementation:
+
+```js
+function debounce(func, delay) {
+  let timeoutId
+  return (...args) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(func.bind(this, ...args), delay)
+  }
+}
+```
+
+How it works:
+
+- Each time the debounced function is called, it resets the timer.
+- Only after the delay passes with no new calls does the original function run.
+
+Common mistakes:
+
+- Not clearing the timeout, so the function runs multiple times.
+- Not handling the `this` context correctly if used as a method.
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  Debouncing is a fundamental technique for optimizing performance in UI and event
+  handling. Understanding it demonstrates knowledge of closures, timers, and function
+  arguments.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [Debounce And Throttle In JavaScript](/2022-03/debounce-vs-throttle)
+  [React Debounce](/2020-10/react-debounce)
+
+</details>
+
+### Question 3
+
+You're working on an e-commerce site where product data is fetched using the below code. You notice that identical products are being fetched multiple times.
+
+```js
+async function getProduct(id) {
+  return fetch(`/api/products/${id}`).then(res => res.json())
+}
+
+async function getProducts(ids) {
+  return Promise.all(ids.map(getProduct))
+}
+```
+
+How would you implement a memoization function to cache results of `getProduct` so repeated calls with the same id don't refetch? How would you handle cache invalidation?
+
+<details>
+  <summary>Answer</summary>
+
+You can use a Map to cache promises or results by id:
+
+```js
+function memoizeAsync(fn) {
+  const cache = new Map()
+
+  return async function (id) {
+    if (cache.has(id)) return cache.get(id)
+
+    const promise = await fn(id)
+    cache.set(id, promise)
+
+    try {
+      const result = await promise
+      cache.set(id, result)
+      return result
+    } catch (e) {
+      cache.delete(id)
+      throw e
+    }
+  }
+}
+const getProductMemo = memoizeAsync(getProduct)
+```
+
+The reason we cache the promise is so that even if the function is called multiple times before the first promise resolves, it will return the same promise. This prevents unnecessary duplicate requests and ensures that all calls receive the same result.
+
+Cache invalidation can be handled by:
+
+- Time-based expiration (TTL)
+- Manual cache clearing
+- Event-based (e.g., when product data changes)
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  Performance is an important metric in any web application and memoization/caching
+  is one of the most common performance optimization techniques.
+</details>
+
+<details>
+  <summary>Study Resources</summary>
+  [Memoization Patterns in React](/2020-05/memoization-in-react)
+</details>
+
+## Senior Level Questions
+
+These questions assess your ability to design scalable systems and optimize performance in complex applications.
+
+### Question 1
+
+You're optimizing a data visualization dashboard that renders thousands of DOM elements and becomes unresponsive. The current implementation updates all elements on every data change:
+
+```js
+function renderChart(data) {
+  const container = document.getElementById("chart")
+  container.innerHTML = ""
+  data.forEach(item => {
+    const div = document.createElement("div")
+    div.className = "chart-item"
+    div.style.height = item.value + "px"
+    div.textContent = item.label
+    container.appendChild(div)
+  })
+}
+```
+
+How would you redesign this to minimize DOM operations and improve performance? You don't have to write specific code, but rather explain a general approach to the problem.
+
+<details>
+  <summary>Answer</summary>
+
+You can use a virtual DOM approach: build a virtual representation of the UI, diff it with the previous state, and only update changed elements in the real DOM. This reduces unnecessary DOM operations and improves responsiveness.
+
+Example (simplified):
+
+```js
+// Pseudocode for a virtual DOM diff
+function renderVirtualChart(data, prevVdom) {
+  const newVdom = data.map(item => ({
+    key: item.id,
+    value: item.value,
+    label: item.label,
+  }))
+  // ...diff newVdom with prevVdom and update only changed nodes
+}
+```
+
+Libraries like React, Vue, and others use this approach for efficient UI updates.
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your understanding of DOM performance since larger scale enterprise
+  applications often have to render large amounts of data.
+</details>
+
+### Question 2
+
+You're working on a collaborative document editor where multiple users can update the same document in real time. Occasionally, users report that their changes are lost or overwritten by others. The backend uses a REST API and updates are sent as soon as a user makes a change. Here's a simplified version of the update logic:
+
+```js
+async function saveDocument(docId, content) {
+  await fetch(`/api/docs/${docId}`, {
+    method: "PUT",
+    body: JSON.stringify({ content }),
+    headers: { "Content-Type": "application/json" },
+  })
+}
+
+// Called on every keystroke
+editor.on("input", () => {
+  saveDocument(currentDocId, editor.value)
+})
+```
+
+What kind of bug is likely to occur here? How would you redesign this to prevent that bug?
+
+<details>
+  <summary>Answer</summary>
+
+This code is vulnerable to race conditions: if two users (or even one user with a slow network) send updates in quick succession, the last response to return will overwrite previous changes, even if it was sent earlier. This can cause lost updates and inconsistent state.
+
+To fix this, you can:
+
+- Use version numbers or timestamps to track changes and prevent overwrites
+- Implement server-side conflict resolution
+- Batch or debounce updates on the client
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your understanding of race conditions, concurrency, and real-time
+  collaboration challenges in modern web apps.
+</details>
+
+### Question 3
+
+Give an example of a memory leak that could occur in a long-running JavaScript processes (such as a Node.js server).
+
+<details>
+  <summary>Answer</summary>
+
+A common memory leak occurs when you keep references to objects (like sockets) after they are no longer needed. For example:
+
+```js
+const connections = new Set()
+
+server.on("connection", socket => {
+  connections.add(socket)
+})
+```
+
+In this code, every socket is added to the `connections` set but never removed when the connection closes. This causes the set to grow indefinitely, leaking memory.
+
+To fix this remove sockets from the set on 'close'
+
+```js
+socket.on("close", () => {
+  connections.delete(socket)
+})
+```
+
+</details>
+
+<details>
+  <summary>Why This Question Matters?</summary>
+  This question tests your ability to reason about memory management, event-driven
+  architecture, and debugging production issues in JavaScript.
+</details>
+
+## Conclusion
+
+This is just a small subset of questions, but they aim to approach common interview concepts from a real world approach. By focusing on practical scenarios, these questions help you demonstrate your understanding of JavaScript in a way that is relevant to actual development work.
