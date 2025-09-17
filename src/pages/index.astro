@@ -52,7 +52,7 @@ const allPosts = allMarkdownPosts
       {title}
       {description}
       permalink={Astro.url.toString()}
-      image={new URL("/og.", Astro.url).toString()}
+      image={new URL("/og.webp", Astro.url).toString()}
     />
 
     <style>

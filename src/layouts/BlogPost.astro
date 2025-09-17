@@ -21,7 +21,15 @@ const url = Astro.request.url
 
 <html lang={content.lang || "en"}>
   <head>
-    <BaseHead {title} {description} permalink={url} image={new URL(path.join(`${Astro.url.pathname}/og.jpg`), Astro.url).toString()} />
+    <BaseHead
+      {title}
+      {description}
+      permalink={url}
+      image={new URL(
+        path.join(Astro.url.pathname, "og.jpg"),
+        Astro.url,
+      ).toString()}
+    />
   </head>
 
   <body>
