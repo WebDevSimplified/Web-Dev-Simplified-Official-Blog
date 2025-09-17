@@ -13,7 +13,6 @@ const {
   date,
   updatedDate,
   author = "Kyle Cook",
-  permalink,
   tags,
 } = content
 const url = Astro.request.url
@@ -21,7 +20,7 @@ const url = Astro.request.url
 
 <html lang={content.lang || "en"}>
   <head>
-    <BaseHead {title} {description} {permalink} />
+    <BaseHead {title} {description} permalink={url} image={`${url}/og.webp`} />
   </head>
 
   <body>

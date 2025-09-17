@@ -2,14 +2,15 @@ import rss from "@astrojs/rss"
 
 export function get(context) {
   let allMarkdownPosts = Object.values(
-    import.meta.glob("./**/*.mdx", { eager: true })
+    import.meta.glob("./**/*.mdx", { eager: true }),
   )
   const allPosts = allMarkdownPosts.sort(
-    (a, b) => b.frontmatter.date.valueOf() - a.frontmatter.date.valueOf()
+    (a, b) => b.frontmatter.date.valueOf() - a.frontmatter.date.valueOf(),
   )
 
   return rss({
     title: "Web Dev Simplified Blog",
+    // TODO: Update description
     description: "Web Dev Simplified Blog",
     customData: `<language>en-us</language>`,
     site: context.site,

@@ -3,8 +3,9 @@ export interface Props {
   title: string
   description: string
   permalink: string
+  image?: string
 }
-const { title, description, permalink } = Astro.props
+const { title, description, permalink, image } = Astro.props
 ---
 
 <!-- Global Metadata -->
@@ -22,12 +23,14 @@ const { title, description, permalink } = Astro.props
 <meta property="og:url" content={permalink} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+{image && <meta property="og:image" content={image} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={permalink} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
+{image && <meta property="twitter:image" content={image} />}
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com" />

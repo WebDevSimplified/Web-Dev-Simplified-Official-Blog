@@ -23,7 +23,7 @@ export default defineConfig(
       // TODO: Add official Shiki integration when line highlighting is supported
       remarkPlugins: [myRemarkShiki, youtubeEmbed, responsiveImages],
     },
-  }
+  },
 )
 
 // TODO: Check to see if my plugins can be replaced with official integrations.
