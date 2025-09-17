@@ -5,7 +5,6 @@ import "../styles/blog.css"
 import BaseHead from "../components/BaseHead.astro"
 import BlogList from "/src/components/BlogList.jsx"
 import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
-import path from "path"
 
 interface MarkdownFrontmatter {
   date: number
@@ -51,7 +50,7 @@ const allPosts = allMarkdownPosts
 
 <html lang="en">
   <head>
-    <BaseHead {title} {description} {permalink} image={path.join(url, "og.webp")} />
+    <BaseHead {title} {description} {permalink} image="/og.webp" />
 
     <style>
       .content {
