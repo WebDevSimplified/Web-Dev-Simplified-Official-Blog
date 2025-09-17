@@ -20,7 +20,6 @@ interface MarkdownFrontmatter {
 // All variables are available to use in the HTML template below.
 let title = "Web Dev Simplified Blog"
 let description = "In depth articles with interactive examples about every web dev topic."
-let permalink = "https://blog.webdevsimplified.com"
 
 // Data Fetching: List all Markdown posts in the repo.
 
@@ -42,15 +41,13 @@ const allPosts = allMarkdownPosts
     return bDate - aDate
   })
 
-  const url = Astro.request.url
-
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
   <head>
-    <BaseHead {title} {description} {permalink} image="/og.webp" />
+    <BaseHead {title} {description} permalink={Astro.url.toString()} image={new URL("/og.jpg", Astro.url).toString()} />
 
     <style>
       .content {
