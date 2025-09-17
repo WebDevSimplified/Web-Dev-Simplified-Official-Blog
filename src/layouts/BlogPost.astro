@@ -5,6 +5,7 @@ import "../styles/shiki-highlight.css"
 import BaseHead from "../components/BaseHead.astro"
 import BlogPost from "../components/BlogPost.astro"
 import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
+import path from "path"
 
 const { content } = Astro.props
 const {
@@ -13,7 +14,6 @@ const {
   date,
   updatedDate,
   author = "Kyle Cook",
-  permalink,
   tags,
 } = content
 const url = Astro.request.url
@@ -21,7 +21,7 @@ const url = Astro.request.url
 
 <html lang={content.lang || "en"}>
   <head>
-    <BaseHead {title} {description} {permalink} />
+    <BaseHead {title} {description} permalink={url} image={path.join(url, "og.webp")} />
   </head>
 
   <body>
