@@ -10,8 +10,8 @@ export function get(context) {
 
   return rss({
     title: "Web Dev Simplified Blog",
-    // TODO: Update description
-    description: "Web Dev Simplified Blog",
+    description:
+      "In depth articles with interactive examples about every web dev topic.",
     customData: `<language>en-us</language>`,
     site: context.site,
     items: allPosts.map(item => ({
