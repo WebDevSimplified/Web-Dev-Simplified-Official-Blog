@@ -164,7 +164,7 @@ export async function generateOpenGraphImage({
     satoriOptions,
   )
 
-  const webp = await sharp(Buffer.from(svg)).webp({ quality: 100 }).toBuffer()
+  const jpg = await sharp(Buffer.from(svg)).jpeg({ quality: 100 }).toBuffer()
 
-  return new Response(webp, { headers: { "Content-Type": "image/webp" } })
+  return new Response(jpg, { headers: { "Content-Type": "image/jpg" } })
 }
