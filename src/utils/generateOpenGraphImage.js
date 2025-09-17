@@ -164,7 +164,7 @@ export async function generateOpenGraphImage({
     satoriOptions,
   )
 
-  const jpg = await sharp(Buffer.from(svg)).jpeg({ quality: 100 }).toBuffer()
+  const jpg = await sharp(Buffer.from(svg)).jpeg({ quality: 90 }).toBuffer()
 
   return new Response(jpg, { headers: { "Content-Type": "image/jpg" } })
 }

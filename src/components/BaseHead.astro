@@ -23,8 +23,15 @@ const { title, description, permalink, image } = Astro.props
 <meta property="og:url" content={permalink} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-{image && <meta property="og:image" content={image} />}
-
+{
+  image && (
+    <>
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+    </>
+  )
+}
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={permalink} />
@@ -49,9 +56,9 @@ const { title, description, permalink, image } = Astro.props
   }.js`}
 ></script>
 <script is:inline>
-window.plausible =
-  window.plausible ||
-  function () {
-    ; (window.plausible.q = window.plausible.q || []).push(arguments)
-  }
+  window.plausible =
+    window.plausible ||
+    function () {
+      ;(window.plausible.q = window.plausible.q || []).push(arguments)
+    }
 </script>

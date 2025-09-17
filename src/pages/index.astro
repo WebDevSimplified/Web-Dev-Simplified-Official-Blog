@@ -19,7 +19,8 @@ interface MarkdownFrontmatter {
 // It will run during the build, but never in the browser.
 // All variables are available to use in the HTML template below.
 let title = "Web Dev Simplified Blog"
-let description = "In depth articles with interactive examples about every web dev topic."
+let description =
+  "In depth articles with interactive examples about every web dev topic."
 
 // Data Fetching: List all Markdown posts in the repo.
 
@@ -47,7 +48,12 @@ const allPosts = allMarkdownPosts
 
 <html lang="en">
   <head>
-    <BaseHead {title} {description} permalink={Astro.url.toString()} image={new URL("/og.jpg", Astro.url).toString()} />
+    <BaseHead
+      {title}
+      {description}
+      permalink={Astro.url.toString()}
+      image={new URL("/og.", Astro.url).toString()}
+    />
 
     <style>
       .content {
