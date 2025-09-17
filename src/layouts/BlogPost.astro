@@ -26,7 +26,7 @@ const url = Astro.request.url
       {description}
       permalink={url}
       image={new URL(
-        path.join(Astro.url.pathname, "og.jpg"),
+        path.join(Astro.url.pathname, "og.webp"),
         Astro.url,
       ).toString()}
     />
