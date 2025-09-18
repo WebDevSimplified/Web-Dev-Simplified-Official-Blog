@@ -6,11 +6,8 @@ export interface Props {
 }
 const { title, description, permalink } = Astro.props
 const url = new URL(permalink)
-const imageHttpUrl = new URL("og.webp", url)
-imageHttpUrl.protocol = "http:"
-
-const imageHttpsUrl = new URL(imageHttpUrl)
-imageHttpsUrl.protocol = "https:"
+const imageUrl = new URL("og.webp", url)
+imageUrl.protocol = "https:"
 ---
 
 <!-- Global Metadata -->
@@ -28,8 +25,8 @@ imageHttpsUrl.protocol = "https:"
 <meta property="og:url" content={permalink} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={imageHttpUrl.toString()} />
-<meta property="og:image:secure_url" content={imageHttpsUrl.toString()} />
+<meta property="og:image" content={imageUrl.toString()} />
+<meta property="og:image:secure_url" content={imageUrl.toString()} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 
@@ -38,7 +35,7 @@ imageHttpsUrl.protocol = "https:"
 <meta property="twitter:url" content={permalink} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={imageHttpUrl.toString()} />
+<meta property="twitter:image" content={imageUrl.toString()} />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com" />
