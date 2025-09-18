@@ -46,14 +46,9 @@ const allPosts = allMarkdownPosts
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
-    <BaseHead
-      {title}
-      {description}
-      permalink={Astro.url.toString()}
-      image={new URL("/og.webp", Astro.url).toString()}
-    />
+    <BaseHead {title} {description} permalink={Astro.url.toString()} />
 
     <style>
       .content {
