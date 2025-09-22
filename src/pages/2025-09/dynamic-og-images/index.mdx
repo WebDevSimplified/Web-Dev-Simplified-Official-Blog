@@ -1,0 +1,290 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "How to Create Dynamic Open Graph Images Automatically for Your Site"
+date: "2025-09-22"
+description: "Learn how to automatically generate dynamic Open Graph images for your website using JavaScript."
+tags: ["JavaScript", "Technical Discussion", "Node.js"]
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+Open graph images are a crucial part of any site (especially a content heavy site like a blog or ecommerce site). They help improve the appearance of your links when shared on social media platforms, but if you are anything like me creating and managing hundreds of images is a massive pain. Fortunately, there is a better way to handle this: dynamic Open Graph images.
+
+In this article I will show you the exact process I used to create dynamic Open Graph images for this blog and the best part is it will work for any site (even if it isn't written in JavaScript).
+
+<Tangent>
+  If you want to see a live example of my open graph images you can just add
+  `/og.webp` to the end of any blog post URL. For example, [this is the Open
+  Graph image for this post](/2025-09/dynamic-og-images/og.webp).
+</Tangent>
+
+## What are Open Graph Images?
+
+Before we can dive into creating Open Graph images we first need to understand what they are and why they are important. Open Graph images are images that show up in a preview when a link to your site is shared on places like social media, Slack, Discord, and even some texting apps. Below is an example what sharing this link on Facebook looks like with an Open Graph image.
+
+<div style="max-width: 500px; margin-inline: auto;">
+  ![Example of a link on Facebook with an Open Graph
+  image](/articleAssets/2025-09/dynamic-og-images/og-image-facebook.webp)
+</div>
+If you site does not contain an Open Graph image then the preview will have no image
+at all and will look something like this:
+
+<div style="max-width: 500px; margin-inline: auto;">
+  ![Example of a link on Facebook without an Open Graph
+  image](/articleAssets/2025-09/dynamic-og-images/og-image-facebook-no-image.webp)
+</div>
+
+As you can see having no image makes your link much less engaging and will result in significantly fewer clicks to your site.
+
+## Creating Dynamic Open Graph Images
+
+If you have read any other articles on how to create dynamic Open Graph images you have probably seen solutions that involve using a headless browser like Puppeteer to render a page and take a screenshot of it. This will work, but I find it is quite slow, doesn't work well with build tools, and is generally more complex than it needs to be. Instead I am going to show you a much simpler approach that you can run in any build process or even just run from the command line to automatically generate every Open Graph image for your site in a matter of milliseconds per image.
+
+<Tangent>
+  To put into perspective how quick this process is, I am able to generate all
+  143 Open Graph images for this blog in 40 seconds using the free tier of
+  Netlify as part of my build process. Each image takes around 250-300ms to
+  generate. On my local machine I can generate all 143 images in under 25
+  seconds.
+  <br />
+  If build times were a major concern for you and this still isn't fast enough
+  you could set up your build tool to only generate images for new posts or
+  posts that have been updated since the last build which would add only a few
+  seconds to your build time.
+</Tangent>
+
+The way I am able to create such fast image generation is because we never actually render a full web page. Instead we use a library called [Satori](https://github.com/vercel/satori) which can take JSX and render it to an SVG without needing to spin up a browser. We then follow that up with the a library called [Sharp](https://github.com/lovell/sharp) to convert the SVG to an image format that can be used as an Open Graph image.
+
+Let's take a look at some code for generating a very simple Open Graph image.
+
+```jsx
+const svg = await satori(
+  <div
+    style={{
+      background: "linear-gradient(orange, blue)",
+      width: "100%",
+      height: "100%",
+    }}
+  />,
+  { width: 1200, height: 630 },
+)
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+```
+
+<div style="max-width: 500px; margin-inline: auto;">
+  ![Basic Open Graph
+  Image](/articleAssets/2025-09/dynamic-og-images/og-image-basic.webp)
+</div>
+
+In the above code there are a few sections we need to understand. The first section is the call to `satori`. This function takes two arguments. The first argument is the JSX that we want to render. The second argument is an object that contains options for Satori. You should always set the width and height to `1200` and `630` respectively since that is the recommended size for Open Graph images. We will look at other options later when we deal with fonts.
+
+The second piece of code is the call to `sharp`. This function takes the SVG that was generated by Satori and converts it to a WebP image buffer. You can also convert it to other formats like PNG or JPEG if you prefer, but WebP is a great choice because it has good quality while keeping file sizes small. The `quality` option can be set from `1` to `100` with higher numbers resulting in better quality but larger file sizes.
+
+<Tangent>
+  Just because Satori uses JSX does not mean you need to be using React or
+  another framework that uses JSX. You could instead write this same code using
+  an object that is equivalent to the JSX output. Below is the same code as
+  above but written using an object. If you want a more complicated example of
+  using objects instead of JSX you can view [the exact code I use for generating
+  Open Graph
+  images](https://github.com/WebDevSimplified/Web-Dev-Simplified-Official-Blog/blob/master/src/utils/generateOpenGraphImage.js)
+  for this blog.
+</Tangent>
+
+```js
+const svg = await satori(
+  {
+    type: "div",
+    props: {
+      style: {
+        background: "linear-gradient(orange, blue)",
+        width: "100%",
+        height: "100%",
+      },
+    },
+  },
+  { width: 1200, height: 630 },
+)
+
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+```
+
+### Adding Text
+
+Most likely you want to add some text to your Open Graph images, which is a bit more complex since we now need to load a font file as well.
+
+```jsx {1,18-25}
+const font = await fs.readFile("path/to/font.ttf")
+
+const svg = await satori(
+  <div
+    style={{
+      background: "linear-gradient(orange, blue)",
+      width: "100%",
+      height: "100%",
+      fontFamily: "FontName",
+      fontSize: "6rem",
+    }}
+  >
+    Hello World
+  </div>,
+  {
+    width: 1200,
+    height: 630,
+    fonts: [
+      {
+        name: "FontName",
+        data: font,
+        weight: 400,
+        style: "normal",
+      },
+    ],
+  },
+)
+
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+```
+
+<div style="max-width: 500px; margin-inline: auto;">
+  ![Open Graph Image Using
+  Text](/articleAssets/2025-09/dynamic-og-images/og-image-text.webp)
+</div>
+
+You can pass as many fonts as you want to the `fonts` option in Satori which is great for handling bold and non-bold text. Also, you cannot use variable fonts with Satori so make sure you have a separate font file for each weight you want to use.
+
+### Adding Images
+
+Most likely a plain background gradient isn't enough for your Open Graph images. So we will look at adding images next which need to be loaded and converted to base64 before being passed to Satori.
+
+```jsx {2-5,23,32}
+const font = await fs.readFile("path/to/font.ttf")
+const logo = await fs.readFile("path/to/logo.webp", { encoding: "base64" })
+const background = await fs.readFile("path/to/background.svg", {
+  encoding: "base64",
+})
+
+const svg = await satori(
+  <div
+    style={{
+      backgroundImage: "linear-gradient(orange, blue)",
+      width: "100%",
+      height: "100%",
+      fontFamily: "FontName",
+      fontSize: "6rem",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      position: "relative",
+    }}
+  >
+    <div
+      style={{
+        backgroundImage: `url("data:image/svg+xml;base64,${background}")`,
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        inset: 0,
+        opacity: 0.4,
+      }}
+    />
+    <img
+      src={`data:image/webp;base64,${image}`}
+      style={{ width: "200px", height: "200px" }}
+    />
+    <span>Hello World</span>
+  </div>,
+  {
+    width: 1200,
+    height: 630,
+    fonts: [
+      {
+        name: "FontName",
+        data: font,
+        weight: 400,
+        style: "normal",
+      },
+    ],
+  },
+)
+
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+```
+
+<div style="max-width: 500px; margin-inline: auto;">
+  ![Open Graph Image Using Other
+  Images](/articleAssets/2025-09/dynamic-og-images/og-image-images.webp)
+</div>
+
+When you read your images with `fs` you can use the `encoding: "base64"` option to get the image as a base64 string which can then be used in an `img` tag or as a CSS background image. Just make sure you include the correct MIME type in the URL like `data:image/webp;base64,...` or `data:image/svg+xml;base64,...`.
+
+## How To Use Open Graph Images
+
+Now that you can create these images we need to talk about how to render them on your site. If you are using any form of JavaScript based static site generator you can just create a route that generates the image for each page and in that route just return a new response with the correct mime types. For example, if you are using Astro you could use a `og.webp.js` file with `staticPaths` to generate these files dynamically.
+
+```js {4}
+const svg = await satori(/*...*/)
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+
+return new Response(webp, { headers: { "Content-Type": "image/webp" } })
+```
+
+### Non-JS Sites
+
+If your site doesn't use JavaScript you can instead just run this code as a JavaScript file from the command line or as part of your build process to generate all of the Open Graph images and save them to disk. You can use `fs.writeFile` to write the image buffer to a file like so:
+
+```js
+import fs from "fs/promises"
+
+const svg = await satori(/*...*/)
+const webp = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer()
+
+await fs.writeFile("path/to/output.webp", webp)
+```
+
+## How To Add Open Graph Images to Your Site
+
+The last thing we need to talk about is adding these images to your site. Luckily, this is quite easy. All you need to do is add a few meta tags to the `<head>` of your HTML document.
+
+```html
+<meta
+  property="og:title"
+  content="How to Create Dynamic Open Graph Images Automatically for Your Site"
+/>
+<meta
+  property="og:description"
+  content="Learn how to automatically generate dynamic Open Graph images for your website using JavaScript."
+/>
+<meta
+  property="og:image"
+  content="https://blog.webdevsimplified.com/2025-09/dynamic-og-images/og-image.webp"
+/>
+<meta
+  property="og:image:secure_url"
+  content="https://blog.webdevsimplified.com/2025-09/dynamic-og-images/og-image.webp"
+/>
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- X/Twitter Specific -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content="How to Create Dynamic Open Graph Images Automatically for Your Site"
+/>
+<meta
+  name="twitter:description"
+  content="Learn how to automatically generate dynamic Open Graph images for your website using JavaScript."
+/>
+<meta
+  name="twitter:image"
+  content="https://blog.webdevsimplified.com/2025-09/dynamic-og-images/og-image.webp"
+/>
+```
+
+The most important tags are `og:image` and `twitter:image` since those are what actually specify the image to use. The `og:title`, `og:description`, `twitter:title`, and `twitter:description` tags are also important since they specify the title and description to use when your link is shared. The other tags are optional but can help improve how your link looks when shared.
+
+## Conclusion
+
+Creating dynamic Open Graph images is a great way to improve the appearance of your links when shared on social media and other platforms. By using `satori` and `sharp` you can easily generate these images automatically as part of your build process or on demand. This approach is fast, flexible, and works with any site regardless of the technology stack you are using.
+
+If you want to see a full example of how I generate Open Graph images for this blog you can check out [the code on GitHub](https://github.com/WebDevSimplified/Web-Dev-Simplified-Official-Blog/blob/master/src/utils/generateOpenGraphImage.js).
