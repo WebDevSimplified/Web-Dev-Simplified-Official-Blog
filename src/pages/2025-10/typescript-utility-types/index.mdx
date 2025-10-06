@@ -1,0 +1,588 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "The Ultimate Guide to TypeScript Utility Types"
+date: "2025-10-13"
+description: "Every built-in TypeScript utility type explained with practical examples."
+tags: ["TypeScript"]
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+Many developers think they need to learn the intricacies of advanced TypeScript features to write clean TypeScript code, but in reality, mastering the built-in utility types of TypeScript is one of the best things you can do as a developer to write cleaner and more maintainable code. In this article I will be covering every important built-in TypeScript utility type, grouped by category, with practical examples.
+
+<Tangent>
+  Checkout my free complete [TypeScript utility types cheat
+  sheet](https://webdevsimplified.com/typescript-utility-types-cheat-sheet.html)
+  that covers every TypeScript utility type you need to know with code examples.
+</Tangent>
+
+<div style="max-width: 50ch; margin-left: auto; margin-right: auto;">
+  [![TypeScript Utility Types Cheat Sheet
+  Preview](/articleAssets/2025-10/typescript-utility-types/cheat-sheet-preview.png)](https://webdevsimplified.com/typescript-utility-types-cheat-sheet.html)
+</div>
+
+## Object Based Utilities
+
+Most of your TypeScript types will be objects, which is why we are starting with these utilities. They help you reshape and refine object types to make them easier to work with and more maintainable.
+
+### `Pick<Obj, Keys>`
+
+The `Pick` utility creates a new object type that contains only the specified keys from the original object.
+
+```ts
+interface User {
+  id: string
+  name: string
+  email: string
+  age: number
+}
+
+type UserPreview = Pick<User, "name" | "email">
+//   ^= { name: string; email: string }
+```
+
+This type is commonly used when you have code that uses part of an object type but not the whole object.
+
+```tsx
+function UserProfileCard(user: Pick<User, "name" | "email">) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+```
+
+Many developers incorrectly either create a new type with just the fields they need or pass the full object type and ignore the extra fields. Both of these approaches lead to more maintenance work and potential bugs down the line.
+
+```tsx
+// ❌ This function can no longer be called with just a name and email
+function UserProfileCard(user: User) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+
+// ❌ This function may need to be updated if User changes
+function UserProfileCard(user: { name: string; email: string }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+```
+
+### `Omit<Obj, Keys>`
+
+The `Omit` utility is the opposite of `Pick`. It creates a new object type by **excluding** the specified keys from the original object.
+
+```ts
+interface User {
+  id: string
+  name: string
+  email: string
+  age: number
+}
+
+type NewUserForm = Omit<User, "id">
+//   ^= { name: string; email: string; age: number }
+```
+
+This type is commonly used when you have code that uses most of an object type but wants to exclude just a few fields.
+
+```tsx
+function UserForm(user: Omit<User, "id">) {
+  return (
+    <form>
+      <input type="text" defaultValue={user.name} />
+      <input type="email" defaultValue={user.email} />
+      <input type="number" defaultValue={user.age} />
+    </form>
+  )
+}
+```
+
+Just like with `Pick`, many developers incorrectly either create a new type with just the fields they need or pass the full object type and ignore the extra fields. Both of these approaches lead to more maintenance work and potential bugs down the line.
+
+```tsx
+// ❌ This function now requires the id property to be passed in
+function UserForm(user: User) {
+  return (
+    <form>
+      <input type="text" defaultValue={user.name} />
+      <input type="email" defaultValue={user.email} />
+      <input type="number" defaultValue={user.age} />
+    </form>
+  )
+}
+
+// ❌ This function will no longer stay in sync if User changes
+function UserForm(user: { name: string; email: string; age: number }) {
+  return (
+    <form>
+      <input type="text" defaultValue={user.name} />
+      <input type="email" defaultValue={user.email} />
+      <input type="number" defaultValue={user.age} />
+    </form>
+  )
+}
+```
+
+### `Record<Keys, Value>`
+
+The `Record` utility builds a new object type where every key in the provided union maps to the same value type.
+
+```ts
+type SupportedLocale = "en" | "es" | "de"
+const translations: Record<SupportedLocale, string> = {
+  en: "Settings",
+  es: "Configuración",
+  de: "Einstellungen",
+}
+```
+
+This type is commonly used when you need a dictionary-like object but still want to guarantee that every key is present and constrained. Many developers try to use an index signature or manually create an object type, but both of these approaches lead to potential bugs.
+
+```ts
+// ❌ This index signature doesn't guarantee all desired keys are present
+const translations: { [locale: string]: string } = {
+  en: "Settings",
+  es: "Configuración",
+}
+
+// ❌ This manual object type is cumbersome to write and maintain
+const translations: {
+  en: string
+  es: string
+  de: string
+} = {
+  en: "Settings",
+  es: "Configuración",
+  de: "Einstellungen",
+}
+```
+
+### `Partial<Obj>`
+
+The `Partial` utility makes every property of an object optional.
+
+```ts
+type User = {
+  name: string
+  email: string
+  age: number
+}
+type UserUpdate = Partial<User>
+//   ^= { name?: string; email?: string; age?: number }
+```
+
+This type is commonly used when you want to send only the fields that changed while keeping everything else untouched.
+
+```ts
+async function updateUser(id: string, updates: Partial<User>) {
+  return db.user.update({
+    where: { id },
+    data: updates,
+  })
+}
+
+await updateUser("123", { name: "Kyle Cook" })
+```
+
+Many developers incorrectly require full objects or hand-roll optional versions of a type. Both approaches either force unnecessary properties or drift out of sync when the source type changes.
+
+```ts
+// ❌ This forces callers to supply every user field, even unchanged ones
+async function updateUser(id: string, updates: User) {
+  return db.user.update({ where: { id }, data: updates })
+}
+
+// ❌ This type duplicates all keys and must be maintained separately
+type UserUpdateManual = {
+  name?: string
+  email?: string
+  age?: number
+}
+```
+
+### `Required<Type>`
+
+The `Required` utility makes every property of an object mandatory which is perfect for data validation or finalization.
+
+```ts
+interface SignupDraft {
+  email?: string
+  password?: string
+  termsAccepted?: boolean
+}
+
+type FinalizedSignup = Required<SignupDraft>
+//   ^= { email: string; password: string; termsAccepted: boolean }
+```
+
+This type is commonly used when you want to guarantee that certain code receives a fully populated object after validation.
+
+```ts
+function registerSignup(data: Required<SignupDraft>) {
+  return db.signup.create({ data })
+}
+
+const payload = registerSignup({
+  email: "new@user.dev",
+  password: "safe-password",
+  termsAccepted: true,
+})
+```
+
+### `Readonly<Type>`
+
+The `Readonly` utility prevents you from modifying the properties of an object (essentially making them immutable).
+
+```ts
+type User = {
+  name: string
+  email: string
+}
+
+type ImmutableUser = Readonly<User>
+//   ^= { readonly name: string; readonly email: string }
+```
+
+This type is commonly used with configuration objects or other immutable shared state.
+
+```ts
+interface FeatureConfig {
+  id: string
+  title: string
+  defaultEnabled: boolean
+}
+
+const immutableConfig: Readonly<FeatureConfig> = {
+  id: "dark-mode",
+  title: "Dark Mode",
+  defaultEnabled: true,
+}
+```
+
+I often use `as const` combined with `satisfies` to create immutable objects since it gives me the added benefit of inferring the most specific literal types while still ensuring the object conforms to the desired shape.
+
+```ts
+const immutableConfig = {
+  id: "dark-mode",
+  title: "Dark Mode",
+  defaultEnabled: true,
+} as const satisfies FeatureConfig
+```
+
+You can even use `Readonly` with arrays to prevent any mutations.
+
+```ts
+const roles: Readonly<string[]> = ["admin", "editor", "viewer"]
+// roles.push("guest")
+// ❌ Error: Property 'push' does not exist on type 'readonly string[]'
+```
+
+## Function Utilities
+
+The second most common type you will work with in TypeScript is functions. These utilities help you extract and reuse function signatures without duplicating code.
+
+### `ReturnType<Func>`
+
+The `ReturnType` utility gives you the type returned by a function.
+
+```ts
+function getUser(id: string) {
+  return { id, name: "Kyle" }
+}
+
+type User = ReturnType<typeof getUser>
+//   ^= { id: string; name: string }
+```
+
+This type is commonly used when dealing with third-party libraries or helper functions that don't export their return types.
+
+```ts
+import { getUser } from "some-external-lib"
+
+async function printUser(user: ReturnType<typeof getUser>) {
+  console.log(`User: ${user.name} (ID: ${user.id})`)
+}
+
+printUser(getUser("1"))
+```
+
+### `Parameters<Func>`
+
+The `Parameters` utility extracts a function's parameters as a tuple so you can reuse its arguments elsewhere without duplicating the signature.
+
+```ts
+function greet(name: string, age: number) {}
+
+type GreetArgs = Parameters<typeof greet>
+//   ^= [string, number]
+```
+
+This type is commonly used when wrapping or re-exporting a function and you want the wrapper to stay in sync automatically.
+
+```ts
+function getUser(name: string, age: number) {
+  // ...
+}
+
+function getUserDelayed(...args: Parameters<typeof getUser>) {
+  setTimeout(() => getUser(...args), 300)
+}
+
+getUserDelayed("Kyle", 30)
+```
+
+## Other Utilities
+
+There are a few utilities that don't fit into the categories in this article, but they are very important which is why I am including them here instead of at the end of the article.
+
+### `NonNullable<Type>`
+
+The `NonNullable` utility strips `null` and `undefined` from a type so you can work with definite values.
+
+```ts
+type MaybeString = string | undefined | null
+type DefinitelyString = NonNullable<MaybeString>
+//   ^= string
+```
+
+This type is commonly used when you have a type that includes `null` or `undefined` and you want to work with only the definite values.
+
+```ts
+type User = {
+  name: string | undefined
+  address: {
+    street: string
+    city: string
+  } | null
+}
+
+function printUser(userAddress: NonNullable<User["address"]>) {
+  console.log(`${userAddress.street}, ${userAddress.city}`)
+}
+```
+
+Many developers confuse `NonNullable` and `Required` since they both are used to remove null options from types. The key difference is that `Required` only makes an object property mandatory, but it can still be `null` or `undefined`. `NonNullable` on the other hand removes `null` and `undefined` from the type entirely.
+
+```ts
+type User = {
+  name?: string | null
+  age: number
+}
+
+// ❌ name is still possibly null
+type UserRequired = Required<User>
+//   ^= { name: string | null; age: number }
+```
+
+### `Awaited<PromiseType>`
+
+The `Awaited` utility unwraps what a promise resolves to, making async code easier to type. It even works on nested promises.
+
+```ts
+type NestedPromise = Promise<Promise<number>>
+type Resolved = Awaited<NestedPromise>
+//   ^= number
+```
+
+This type is commonly used when you have helper functions or loaders that return promises and you need their resolved value elsewhere.
+
+```ts
+async function getUser(id: string) {
+  return await db.user.findFirst({ where: { id } })
+}
+
+type User = Awaited<ReturnType<typeof getUser>>
+```
+
+I often use `Awaited` in combination with `ReturnType` to extract the resolved value of async functions without having to manually define the return type.
+
+## Union Utilities
+
+Another common pattern in TypeScript is working with unions. These utilities help you filter and refine union types to make them easier to work with.
+
+### `Extract<Union, Subset>`
+
+The `Extract` utility filters a union to only the members that overlap with another union.
+
+```ts
+type Color = "red" | "blue" | "green" | "yellow"
+type WarmColor = Extract<Color, "red" | "yellow">
+//   ^= "red" | "yellow"
+```
+
+This type is commonly used when modeling feature flags or enums where only certain combinations are valid for a specific branch of logic.
+
+```ts
+type ToastType = "success" | "info" | "warning" | "error"
+
+function createDismissibleToast(
+  type: Extract<ToastType, "success" | "info">,
+  message: string,
+) {
+  return { type, message, id: crypto.randomUUID() }
+}
+```
+
+### `Exclude<Union, Members>`
+
+The `Exclude` utility removes specific members from a union, leaving only the remainder. It is the opposite of `Extract`.
+
+```ts
+type Status = "queued" | "running" | "done" | "failed"
+type ActiveStatus = Exclude<Status, "done" | "failed">
+//   ^= "queued" | "running"
+```
+
+This type is commonly used when refining unions based on status or lifecycle.
+
+```ts
+type Status = "queued" | "running" | "done" | "failed"
+
+function createActiveJob(
+  name: string,
+  status: Exclude<Status, "done" | "failed">,
+) {
+  return { name, state: status }
+}
+```
+
+## Class Utilities
+
+Classes are a less common pattern in TypeScript, but they are still widely used. These utilities work nearly identically to the function utilities but are designed specifically for classes.
+
+### `ConstructorParameters<Class>`
+
+The `ConstructorParameters` utility pulls out the arguments as a tuple from a class constructor, just like `Parameters` does for functions.
+
+```ts
+class Database {
+  constructor(public host: string, public port: number) {}
+}
+
+type DatabaseArgs = ConstructorParameters<typeof Database>
+//   ^= [string, number]
+```
+
+This type is used in all the same places as `Parameters`, but for classes.
+
+```ts
+class Database {
+  constructor(public host: string, public port: number) {}
+}
+
+function createDatabase(...args: ConstructorParameters<typeof Database>) {
+  return new Database(...args)
+}
+
+const db = createDatabase("db.internal", 5432)
+```
+
+### `InstanceType<Class>`
+
+The `InstanceType` utility returns the instance type that a class constructor produces, just like `ReturnType` does for functions.
+
+```ts
+class Logger {
+  log(message: string) {
+    console.log(message)
+  }
+}
+
+type LoggerInstance = InstanceType<typeof Logger>
+//   ^= Logger
+```
+
+This type shouldn't be used with classes, though, since you can just use the class name directly as the type.
+
+```ts
+class Logger {
+  log(message: string) {
+    console.log(message)
+  }
+}
+
+// These are the same:
+let logger: Logger
+logger = new Logger()
+
+let logger2: InstanceType<typeof Logger>
+logger2 = new Logger()
+```
+
+## String Transformation Utilities
+
+By far the most underrated utility types in TypeScript are the string transformation utilities. These helpers let you manipulate string literal types to enforce consistent casing and formatting.
+
+### `Uppercase<Str>`
+
+The `Uppercase` utility transforms string literal types to all uppercase.
+
+```ts
+type Str = "Hello World"
+type Upper = Uppercase<Str>
+//   ^= "HELLO WORLD"
+```
+
+### `Lowercase<Str>`
+
+The `Lowercase` utility transforms string literal types to all lowercase.
+
+```ts
+type Str = "Hello World"
+type Lower = Lowercase<Str>
+//   ^= "hello world"
+```
+
+### `Capitalize<Str>`
+
+The `Capitalize` utility changes just the first character of a literal string to uppercase.
+
+```ts
+type Str = "hellO wORLD"
+type Capitalized = Capitalize<Str>
+//   ^= "HellO wORLD"
+```
+
+### `Uncapitalize<Str>`
+
+The `Uncapitalize` utility changes just the first character of a literal string to lowercase.
+
+```ts
+type Str = "HellO wORLD"
+type Uncapitalized = Uncapitalize<Str>
+//   ^= "hellO wORLD"
+```
+
+### Use Case
+
+All the string utility types are commonly used with larger types to enforce consistent casing or reformat strings to new casings.
+
+```ts
+type ClassNames = "Logger" | "Database" | "UserService"
+
+type InstanceNames = ClassNames extends `${infer Name}`
+  ? `${Uncapitalize<Name>}Instance`
+  : never
+//  ^= "loggerInstance" | "databaseInstance" | "userServiceInstance"
+```
+
+## Conclusion
+
+Utility types are tiny, composable building blocks that are perfect for transforming your existing types into new and powerful shapes without needing to needlessly redefine or duplicate types.
+
+<Tangent>
+  If you want to ensure you never forget any of these utility types you should
+  download my free [TypeScript utility types cheat
+  sheet](https://webdevsimplified.com/typescript-utility-types-cheat-sheet.html).
+</Tangent>
