@@ -1,6 +1,6 @@
 import { generateOpenGraphImage } from "src/utils/generateOpenGraphImage"
 
-export function get() {
+export function GET() {
   const count = Object.values(
     import.meta.glob("./**/*.mdx", { eager: true }),
   ).length

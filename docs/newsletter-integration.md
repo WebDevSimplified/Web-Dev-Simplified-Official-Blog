@@ -143,10 +143,10 @@ const observer = new MutationObserver(entries => {
 
 ```
 # Mark as subscribed
-https://localhost:3000/?fromNewsletter=true
+https://localhost:4321/?fromNewsletter=true
 
 # Mark as unsubscribed
-https://localhost:3000/?fromNewsletter=false
+https://localhost:4321/?fromNewsletter=false
 ```
 
 ## Troubleshooting
