@@ -5,13 +5,12 @@ const WRAPPER_STYLES = {
   flexWrap: "wrap",
 }
 
-export default function TagBar({ tags, onTagSelect, marginTop, transitionId }) {
+export default function TagBar({ tags, onTagSelect, marginTop }) {
   return (
     <div style={WRAPPER_STYLES}>
       {tags.map(tag => {
         return (
           <Tag
-            transitionId={transitionId}
             marginTop={marginTop}
             key={tag.name}
             tag={tag}

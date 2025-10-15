@@ -13,28 +13,25 @@ export interface Props {
 
 const { title, date, updatedDate, tags, url } = Astro.props
 const siteUrl = Astro.site.href
-const transitionId = new URL(url).pathname.replaceAll("/", "_").replace(/_$/, "")
 ---
 
 <div class="layout">
   <article class="content">
     <div>
       <header>
-        <h1 class="title" style={{ 'view-transition-name': `blog-title-${transitionId}` }}>{title}</h1>
-        <span class={`publish-date ${updatedDate && "old-date"}`} style={{ 'view-transition-name': `blog-publish-date-${transitionId}` }}>
+        <h1 class="title">{title}</h1>
+        <p class={`publish-date ${updatedDate && "old-date"}`}>
           {dateFormatter.format(new Date(date))}
-        </span>
-        <br />
+        </p>
         {
           updatedDate && (
-            <span class="publish-date" style={{ 'view-transition-name': `blog-update-date-${transitionId}` }}>
+            <p class="publish-date">
               Updated: {dateFormatter.format(new Date(updatedDate))}
-            </span>
+            </p>
           )
         }
         <div style="margin-bottom: 1rem">
           <TagBar
-            transitionId={transitionId}
             tags={tags.map(tag => {
               return { name: tag }
             })}

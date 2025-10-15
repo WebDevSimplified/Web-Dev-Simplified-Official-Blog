@@ -1,11 +1,6 @@
 import "./tag.css"
 
-export default function Tag({
-  tag,
-  onTagSelect,
-  marginTop = ".875em",
-  transitionId,
-}) {
+export default function Tag({ tag, onTagSelect, marginTop = ".875em" }) {
   return (
     <>
       {onTagSelect && (
@@ -21,14 +16,7 @@ export default function Tag({
       <label
         className="tag-label"
         htmlFor={onTagSelect && `tag-${tag.name}`}
-        style={{
-          marginTop,
-          viewTransitionName: transitionId
-            ? `blog-tag-${tag.name
-                .replace(" ", "_")
-                .replace(".", "_")}-${transitionId}`
-            : undefined,
-        }}
+        style={{ marginTop }}
       >
         <span
           className="tag-name"
