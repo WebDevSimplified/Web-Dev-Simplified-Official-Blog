@@ -2,6 +2,8 @@ import TagBar from "./TagBar.jsx"
 import dateFormatter from "../utils/dateFormatter.js"
 
 export default function BlogPostPreview({ post }) {
+  const transitionId = post.url.replaceAll("/", "_").replace(/_$/, "")
+
   return (
     <article className="blog-preview-wrapper">
       <header
@@ -14,7 +16,12 @@ export default function BlogPostPreview({ post }) {
           textAlign: "left",
         }}
       >
-        <h2 className="preview-title">
+        <h2
+          className="preview-title"
+          style={{
+            viewTransitionName: `blog-title-${transitionId}`,
+          }}
+        >
           <a className="preview-title" href={post.url}>
             {post.title}
           </a>
@@ -31,15 +38,23 @@ export default function BlogPostPreview({ post }) {
           <span
             style={{
               textDecoration: post.updatedDate ? "line-through" : "none",
+              viewTransitionName: `blog-publish-date-${transitionId}`,
             }}
           >
             {dateFormatter.format(post.date)}
           </span>
           {post.updatedDate && (
-            <>Updated: {dateFormatter.format(post.updatedDate)}</>
+            <span
+              style={{
+                viewTransitionName: `blog-update-date-${transitionId}`,
+              }}
+            >
+              Updated: {dateFormatter.format(post.updatedDate)}
+            </span>
           )}
         </p>
         <TagBar
+          transitionId={transitionId}
           marginTop=".25em"
           tags={post.tags.map(tag => {
             return { name: tag }
