@@ -197,7 +197,7 @@ Edit `public/_redirects`:
 
 ```bash
 # Test redirect locally
-curl -I http://localhost:3000/old-url
+curl -I http://localhost:4321/old-url
 
 # Check redirect in production
 curl -I https://blog.webdevsimplified.com/old-url

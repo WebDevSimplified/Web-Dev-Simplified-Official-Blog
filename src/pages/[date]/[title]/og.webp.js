@@ -1,6 +1,6 @@
 import { generateOpenGraphImage } from "src/utils/generateOpenGraphImage"
 
-export function get({ props: { post } }) {
+export function GET({ props: { post } }) {
   return generateOpenGraphImage({
     title: post.title,
     tags: post.tags ?? [],
