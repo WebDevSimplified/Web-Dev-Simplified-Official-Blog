@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420">
+  <defs>
+    <style>
+      .label { font: 16px sans-serif; fill: #374151; }
+      .sublabel { font: 13px sans-serif; fill: #6b7280; }
+      .user { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .resource { fill: #d1fae5; stroke: #10b981; stroke-width: 2; }
+      .folder { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .policy { fill: #fce7f3; stroke: #ec4899; stroke-width: 2; }
+      .relation { fill: none; stroke: #6b7280; stroke-width: 2.5; }
+      .arrow { fill: none; stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
+      .inherit { fill: none; stroke: #9ca3af; stroke-width: 2; stroke-dasharray: 5,5; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <!-- Users -->
+  <g transform="translate(50, 30)">
+    <circle class="user" cx="50" cy="50" r="45" />
+    <text x="50" y="45" text-anchor="middle" class="label">Alice</text>
+    <text x="50" y="62" text-anchor="middle" class="sublabel">(Owner)</text>
+  </g>
+
+  <g transform="translate(50, 160)">
+    <circle class="user" cx="50" cy="50" r="45" />
+    <text x="50" y="45" text-anchor="middle" class="label">Charlie</text>
+    <text x="50" y="62" text-anchor="middle" class="sublabel">(Viewer)</text>
+  </g>
+
+  <g transform="translate(50, 290)">
+    <circle class="user" cx="50" cy="50" r="45" />
+    <text x="50" y="45" text-anchor="middle" class="label">David</text>
+    <text x="50" y="62" text-anchor="middle" class="sublabel">(Doc Editor)</text>
+  </g>
+
+  <!-- Folder -->
+  <g transform="translate(300, 30)">
+    <rect class="folder" width="200" height="100" rx="8" />
+    <text x="100" y="35" text-anchor="middle" class="label">Folder</text>
+    <text x="100" y="55" text-anchor="middle" class="sublabel">Engineering</text>
+    <text x="100" y="75" text-anchor="middle" class="sublabel">Owner: Alice</text>
+  </g>
+
+  <!-- Document -->
+  <g transform="translate(300, 250)">
+    <rect class="resource" width="200" height="100" rx="8" />
+    <text x="100" y="35" text-anchor="middle" class="label">Document</text>
+    <text x="100" y="55" text-anchor="middle" class="sublabel">doc-1</text>
+    <text x="100" y="75" text-anchor="middle" class="sublabel">Inside Engineering</text>
+  </g>
+
+  <!-- Relationships to Folder -->
+  <path class="arrow" d="M 145 80 L 300 80">
+    <title>owner</title>
+  </path>
+
+  <path class="arrow" d="M 145 210 L 300 110">
+    <title>viewer</title>
+  </path>
+
+  <!-- Folder contains Document -->
+  <path class="inherit" d="M 400 130 L 400 250">
+    <title>parent</title>
+  </path>
+
+  <!-- David direct editor on document -->
+  <path class="arrow" d="M 145 340 L 300 330">
+    <title>editor</title>
+  </path>
+
+  <!-- Inherited permissions annotations -->
+  <g transform="translate(530, 250)">
+    <rect class="policy" width="240" height="100" rx="8" />
+    <text x="120" y="25" text-anchor="middle" class="label">Access Rules</text>
+    <text x="10" y="48" class="sublabel">• Alice: owner of folder → edit doc</text>
+    <text x="10" y="68" class="sublabel">• Charlie: viewer of folder → view doc</text>
+    <text x="10" y="88" class="sublabel">• David: editor of doc → edit doc</text>
+  </g>
+</svg>

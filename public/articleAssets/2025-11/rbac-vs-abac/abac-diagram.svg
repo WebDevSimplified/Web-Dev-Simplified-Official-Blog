@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <defs>
+    <style>
+      .label { font: 16px sans-serif; fill: #374151; }
+      .sublabel { font: 14px sans-serif; fill: #6b7280; }
+      .box { fill: var(--color-blue-light); stroke: var(--color-blue); stroke-width: 2; }
+      .user { fill: var(--color-yellow-light, hsl(41, 100%, 88%)); stroke: var(--color-orange); stroke-width: 2; }
+      .resource { fill: var(--color-green-light, hsl(158, 78%, 82%)); stroke: var(--color-green); stroke-width: 2; }
+      .policy { fill: var(--color-red-light, hsl(350, 100%, 94%)); stroke: var(--color-red); stroke-width: 2; }
+      .env { fill: var(--color-purple-light, hsl(269, 79%, 90%)); stroke: var(--color-purple); stroke-width: 2; }
+      .arrow { fill: none; stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <!-- Subject Attributes -->
+  <g transform="translate(30, 20)">
+    <rect class="user" width="180" height="120" rx="8" />
+    <text x="90" y="25" text-anchor="middle" class="label">Subject Attributes</text>
+    <text x="90" y="48" text-anchor="middle" class="sublabel">User ID: alice</text>
+    <text x="90" y="66" text-anchor="middle" class="sublabel">Role: editor</text>
+    <text x="90" y="84" text-anchor="middle" class="sublabel">Department: eng</text>
+    <text x="90" y="102" text-anchor="middle" class="sublabel">Clearance: 3</text>
+  </g>
+
+  <!-- Resource Attributes -->
+  <g transform="translate(30, 180)">
+    <rect class="resource" width="180" height="120" rx="8" />
+    <text x="90" y="25" text-anchor="middle" class="label">Resource Attributes</text>
+    <text x="90" y="48" text-anchor="middle" class="sublabel">Type: document</text>
+    <text x="90" y="66" text-anchor="middle" class="sublabel">Owner: bob</text>
+    <text x="90" y="84" text-anchor="middle" class="sublabel">Department: eng</text>
+    <text x="90" y="102" text-anchor="middle" class="sublabel">Locked: false</text>
+  </g>
+
+  <!-- Environment Attributes -->
+  <g transform="translate(30, 340)">
+    <rect class="env" width="180" height="100" rx="8" />
+    <text x="90" y="25" text-anchor="middle" class="label">Environment</text>
+    <text x="90" y="48" text-anchor="middle" class="sublabel">Time: 2PM</text>
+    <text x="90" y="66" text-anchor="middle" class="sublabel">Day: Tuesday</text>
+    <text x="90" y="84" text-anchor="middle" class="sublabel">Location: Office</text>
+  </g>
+
+  <!-- Policy Engine -->
+  <g transform="translate(300, 120)">
+    <rect class="policy" width="280" height="190" rx="8" />
+    <text x="140" y="30" text-anchor="middle" class="label">Policy Engine</text>
+
+    <rect x="20" y="45" width="240" height="30" rx="4" fill="#fff" stroke="#ec4899" />
+    <text x="140" y="65" text-anchor="middle" class="sublabel">IF user.role = "admin" → ALLOW</text>
+
+    <rect x="20" y="85" width="240" height="30" rx="4" fill="#fff" stroke="#ec4899" />
+    <text x="140" y="105" text-anchor="middle" class="sublabel">IF resource.locked → DENY</text>
+
+    <rect x="20" y="125" width="240" height="50" rx="4" fill="#fff" stroke="#ec4899" />
+    <text x="140" y="145" text-anchor="middle" class="sublabel">IF user.dept = resource.dept</text>
+    <text x="140" y="165" text-anchor="middle" class="sublabel">AND env.day != weekend → ALLOW</text>
+  </g>
+
+  <!-- Decision -->
+  <g transform="translate(690, 180)">
+    <rect width="180" height="100" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
+    <text x="90" y="40" text-anchor="middle" class="label">Decision</text>
+    <text x="90" y="65" text-anchor="middle" style="font: bold 20px sans-serif; fill: #16a34a;">
+      ALLOW</text>
+    <text x="90" y="85" text-anchor="middle" class="sublabel">Edit Document</text>
+  </g>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 210 80 L 300 180" />
+  <path class="arrow" d="M 210 240 L 300 240" />
+  <path class="arrow" d="M 210 390 L 300 300" />
+
+  <path class="arrow" d="M 580 230 L 690 220" />
+</svg>
