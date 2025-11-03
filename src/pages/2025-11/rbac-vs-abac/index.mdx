@@ -1,0 +1,503 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "RBAC vs ABAC vs ReBAC: Choosing the Right Permission System in TypeScript"
+date: "2025-11-03"
+description: "Master RBAC, ABAC, and ReBAC with practical TypeScript examples showing how to implement each permission system."
+tags: ["Technical Discussion"]
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+Authorization is one of those things that seems simple at first but can quickly spiral out of control as your application grows. You might start with a simple "admin can do everything" check, but before you know it you're writing convoluted if statements trying to determine if a user can edit a document that belongs to someone in their department but only if it's not locked and the user has the right permissions on Tuesday afternoons. In this article I will walk you through the most common authorization models (RBAC, ABAC, and ReBAC) with practical TypeScript examples that show exactly when each model excels and when it starts to fall apart.
+
+## What is Authorization?
+
+Before we dive into the different models, let's make sure we understand what authorization actually is since many people confuse authentication with authorization. Authorization is the process of determining what actions a user is allowed to perform within your application. Authorization answers the question "what can this user do?" while authentication answers "who is this user?".
+
+```ts
+// Authentication - Who are you?
+const user = await authenticateUser(token)
+
+// Authorization - What can you do?
+const canEdit = await authorizeUser(user, "edit", document)
+```
+
+Every application needs some form of authorization, but the complexity of your authorization logic can vary widely depending on your application's requirements. Let's explore the most common authorization models and see how they can be implemented in TypeScript.
+
+## Role-Based Access Control (RBAC)
+
+RBAC is the most straightforward authorization model and the one you're probably most familiar with. In RBAC, you assign roles to users and then grant permissions to those roles. For example, you might have an "Admin" role that can do everything, an "Editor" role that can edit content, and a "Viewer" role that can only read content.
+
+![RBAC Diagram showing users assigned to roles, with roles having specific permissions to access resources](/articleAssets/2025-11/rbac-vs-abac/rbac-diagram.svg)
+
+### Simple RBAC Implementation
+
+Let's start with the most basic RBAC implementation in TypeScript:
+
+```ts
+type Role = "admin" | "editor" | "viewer"
+
+type User = {
+  id: string
+  name: string
+  role: Role
+}
+
+function canDeleteArticles(user: User) {
+  return user.role === "admin"
+}
+
+function canEditArticles(user: User) {
+  return user.role === "admin" || user.role === "editor"
+}
+
+function canViewArticles(user: User) {
+  return true // Everyone can view
+}
+```
+
+This works fine for very simple applications since the logic is clear and easy to understand. However, this approach does not scale well and already has some significant problems even at a small scale:
+
+```ts
+// ❌ Problem: Fine grained permissions are difficult to check
+if (
+  canDeleteArticles(user) ||
+  (article.userId === user.id && user.role === "editor")
+) {
+  await deleteDocument(id)
+}
+
+// ❌ Problem: Adding a new role means updating every permission function
+function canDelete(user: User): boolean {
+  // Have to add this new role to every permission function and check
+  return user.role === "admin" || user.role === "moderator"
+}
+```
+
+### Improved RBAC with Permission Sets
+
+A better approach is to define permissions per role in a centralized location:
+
+```ts
+type Permission =
+  | "read:articles"
+  | "create:articles"
+  | "edit:articles"
+  | "delete:articles"
+  | "manage:users"
+
+type Role = "admin" | "editor" | "viewer"
+
+const rolePermissions: Record<Role, Permission[]> = {
+  admin: [
+    "read:articles",
+    "create:articles",
+    "edit:articles",
+    "delete:articles",
+    "manage:users",
+  ],
+  editor: ["read:articles", "create:articles", "edit:articles"],
+  viewer: ["read:articles"],
+}
+
+type User = {
+  id: string
+  name: string
+  role: Role
+}
+
+function hasPermission(user: User, permission: Permission): boolean {
+  return rolePermissions[user.role].includes(permission)
+}
+
+if (hasPermission(user, "delete:articles")) {
+  await deleteDocument(id)
+}
+
+if (hasPermission(user, "edit:articles")) {
+  await updateDocument(id, changes)
+}
+```
+
+This is significantly better because adding new permissions or roles only requires updating the `rolePermissions` object. It also is trivially easy to add support for multiple roles since you only need to update one function.
+
+```ts
+type User = {
+  id: string
+  name: string
+  roles: Role[]
+}
+
+function hasPermission(user: User, permission: Permission): boolean {
+  return user.roles.some(role => rolePermissions[role].includes(permission))
+}
+```
+
+### When RBAC Starts to Break Down
+
+RBAC works perfectly when permissions are truly role-based. However, it quickly becomes unwieldy when you need to consider context beyond just the user's role. Let's look at a realistic scenario: a blog.
+
+```ts
+type Article = {
+  id: string
+  title: string
+  content: string
+  authorId: string
+  companyId: string
+  isLocked: boolean
+}
+
+type User = {
+  id: string
+  name: string
+  role: Role
+  companyId: string
+}
+
+// Problem: Can this user edit this article?
+// - Admins can edit anything
+// - Editors can edit articles in their company
+// - Authors can edit their own articles (unless locked)
+// - Users can't edit anything
+
+function canEditArticle(user: User, article: Article): boolean {
+  // Admins can do anything
+  if (user.role === "admin") {
+    return true
+  }
+
+  // Can't edit locked articles (unless admin)
+  if (article.isLocked) {
+    return false
+  }
+
+  // Authors can edit their own articles
+  if (article.authorId === user.id) {
+    return true
+  }
+
+  // Editors can edit articles in their company
+  if (user.role === "editor" && user.companyId === article.companyId) {
+    return true
+  }
+
+  return false
+}
+```
+
+This function works, but notice how the role is just one small piece of the authorization logic. Most of the complexity comes from the relationship between the user and the article (ownership, company, locking). This is a sign that RBAC alone isn't sufficient since the users role is only one small part that determines authorization. This system is also impossible to encode in the simple permission sets we defined earlier.
+
+```ts
+// ❌ Problem: We need an individual permission for each variation of edit
+// These permissions also need their own custom logic to check each case
+type Permission =
+  | "edit:articles:all"
+  | "edit:articles:company"
+  | "edit:articles:own"
+  | "edit:articles:locked"
+```
+
+When you start to run into these problems, it's time to consider a more flexible authorization model like Attribute-Based Access Control (ABAC).
+
+## Attribute-Based Access Control (ABAC)
+
+ABAC takes a fundamentally different approach to authorization. Instead of asking "what role does this user have?", ABAC asks "what attributes does this user have, what attributes does this resource have, and what attributes does the environment have?" These attributes can be anything from the user's role, department, clearance level, to the resource's owner, status, department, and more. Authorization decisions are made by evaluating policies against these attributes.
+
+![ABAC Diagram showing subject, resource, and environment attributes being evaluated by a policy engine to make authorization decisions](/articleAssets/2025-11/rbac-vs-abac/abac-diagram.svg)
+
+This policy engine may just look like the if statements we wrote earlier, but the key difference is that in ABAC, each policy is modular and can be evaluated independently. This makes it much easier to reason about, test, and extend your authorization logic.
+
+### Understanding ABAC
+
+In ABAC, we only care about checking the action we want to perform (edit, delete, etc.) against the attributes of the items involved in the permission check. The three most common items to check attributes on are:
+
+- **Subject Attributes**: Properties of the user (role, department, clearance level, etc.)
+- **Resource Attributes**: Properties of the thing being accessed (owner, status, department, etc.)
+- **Environment Attributes**: Contextual information (time, location, etc.)
+
+Let's rebuild our article system using ABAC:
+
+```ts
+type User = {
+  id: string
+  name: string
+  role: string
+  companyId: string
+}
+
+type Article = {
+  id: string
+  title: string
+  content: string
+  authorId: string
+  companyId: string
+  isLocked: boolean
+}
+
+type Environment = {
+  isWeekend: boolean
+}
+
+type Policy = {
+  name: string
+  evaluate: ({
+    user: User,
+    article: Article,
+    action: string,
+    environment: Environment,
+  }) => boolean
+}
+
+const policies: Policy[] = [
+  {
+    name: "Admins can do anything",
+    evaluate: ({ user }) => user.role === "admin",
+  },
+  {
+    name: "Authors can edit their own documents",
+    evaluate: ({ user, article, action, environment }) => {
+      return (
+        action === "edit" &&
+        article.authorId === user.id &&
+        !article.isLocked &&
+        !environment.isWeekend
+      )
+    },
+  },
+  {
+    name: "Editors can edit documents in their company",
+    evaluate: ({ user, article, action, environment }) => {
+      return (
+        action === "edit" &&
+        user.role === "editor" &&
+        user.companyId === article.companyId &&
+        !article.isLocked &&
+        !environment.isWeekend
+      )
+    },
+  },
+  {
+    name: "Everyone can read",
+    evaluate: ({ action }) => action === "read",
+  },
+]
+
+function isAuthorized(props: {
+  user: Subject
+  article: Article
+  action: string
+  environment: Environment
+}): boolean {
+  return policies.some(policy => policy.evaluate(props))
+}
+
+const canEdit = isAuthorized({ user, article, action: "edit", environment })
+```
+
+This code is quite a bit more complex than the simple RBAC example, but it scales much better as your authorization logic grows. The `isAuthorized` function just checks to see if there is at least one policy that returns true for the given action and attributes and all the custom logic is handled in the individual policies.
+
+<Tangent>
+  If you don't like the structure of this code you could use a library like
+  [CASL](https://casl.js.org/) to define abilities in a more declarative way.
+  Check out my [full CASL video tutorial](https://youtu.be/gL3BJ8_5Jz8) to learn
+  more.
+</Tangent>
+
+### Benefits of ABAC
+
+This ABAC approach has several major advantages:
+
+1. **Policies are modular and testable**: Each policy can be tested in isolation
+2. **Easy to understand**: Each policy has a clear name and purpose
+3. **Easy to add new rules**: Just add a new policy to the array
+4. **Flexible**: Can handle complex scenarios without nested if statements
+5. **Deny support**: You can add deny policies that take precedence over allow policies but I generally recommend avoiding them for simplicity unless absolutely necessary.
+
+### When ABAC Becomes Complex
+
+ABAC is powerful, but it's not always the right choice. ABAC works best when your authorization logic is based on attributes of the subject, resource, and environment. However, when authorization depends heavily on relationships between entities, ABAC can become awkward.
+
+Consider a file storage system like Google Drive where documents can be nested in folders:
+
+```ts
+type Document = {
+  id: string
+  name: string
+  ownerId: string
+  parentFolderId?: string
+  sharedWith: { userId: string; permission: "view" | "edit" }[]
+}
+
+type Folder = {
+  id: string
+  name: string
+  ownerId: string
+  parentFolderId?: string
+  sharedWith: { userId: string; permission: "view" | "edit" }[]
+}
+
+type User = {
+  id: string
+  organizationId: string
+}
+
+// Can this user edit this document?
+// - If they own the document, yes
+// - If they're explicitly shared with edit permission, yes
+// - If they own the parent folder, yes
+// - If they have edit permission on the parent folder, yes
+// - If they have permission on the grandparent folder... yes?
+// - What if the folder is 5 levels deep?
+
+function canEditDocument(user: User, document: Document): boolean {
+  // Owner can edit
+  if (document.ownerId === user.id) {
+    return true
+  }
+
+  // Explicitly shared with edit permission
+  const directShare = document.sharedWith.find(s => s.userId === user.id)
+  if (directShare?.permission === "edit") {
+    return true
+  }
+
+  // Check parent folder permissions... but we need to fetch the folder
+  // Then check the parent's parent... and so on
+  // This becomes a recursive nightmare with ABAC
+
+  // We'd need to load the entire folder hierarchy and check permissions
+  // at each level, which doesn't fit well into the attribute-based model
+}
+```
+
+The problem here is that authorization depends on the hierarchical relationship between documents and folders. While we could store "all ancestor folder IDs" as an attribute on the document, that becomes a maintenance nightmare - every time you move a document, you need to recalculate all inherited permissions. This is where ReBAC comes in.
+
+## Relationship-Based Access Control (ReBAC)
+
+ReBAC (also called Zanzibar-style authorization after Google's internal system) is built around the idea that authorization is fundamentally about relationships between entities. Instead of checking attributes, you check whether a relationship exists.
+
+![ReBAC Diagram showing users connected to documents and folders through various relationships like owner, editor, and viewer, with permission inheritance](/articleAssets/2025-11/rbac-vs-abac/rebac-diagram.svg)
+
+### Understanding ReBAC
+
+In ReBAC, you define:
+
+1. **Objects**: The things being protected (documents, folders, organizations)
+2. **Relations**: The ways users can relate to objects (owner, editor, viewer)
+3. **Rules**: How relations can be derived from other relations
+
+Let's build a Google Drive permission model with ReBAC where permissions can be inherited from parent folders:
+
+```ts
+type ObjectType = "document" | "folder" | "organization"
+type Relation = "owner" | "editor" | "viewer" | "member" | "parent"
+
+type RelationTuple = {
+  object: { type: ObjectType; id: string }
+  relation: Relation
+  subject: { type: "user" | ObjectType; id: string }
+}
+
+// This is our authorization database
+const relationTuples: RelationTuple[] = [
+  // Alice owns the Engineering folder
+  {
+    object: { type: "folder", id: "eng-folder" },
+    relation: "owner",
+    subject: { type: "user", id: "alice" },
+  },
+  // Bob is an editor on the Engineering folder
+  {
+    object: { type: "folder", id: "eng-folder" },
+    relation: "editor",
+    subject: { type: "user", id: "bob" },
+  },
+  // Charlie is a viewer on the Engineering folder
+  {
+    object: { type: "folder", id: "eng-folder" },
+    relation: "viewer",
+    subject: { type: "user", id: "charlie" },
+  },
+  // Document is inside the Engineering folder
+  {
+    object: { type: "document", id: "doc-1" },
+    relation: "parent",
+    subject: { type: "folder", id: "eng-folder" },
+  },
+  // David is explicitly an editor on doc-1 (even though not on folder)
+  {
+    object: { type: "document", id: "doc-1" },
+    relation: "editor",
+    subject: { type: "user", id: "david" },
+  },
+]
+```
+
+Normally these relation tuples would be stored in a database and to check if a user has a certain relation to an object, you would query this database.
+
+### ReBAC Pros/Cons
+
+ReBAC is ideal for scenarios involving:
+
+1. **Hierarchical permissions**: Permissions inherited through folder structures or organizational hierarchies
+2. **Complex sharing**: Google Drive/Docs style sharing where permissions cascade through parent containers
+3. **Team collaboration**: Workspace-based tools where access depends on team membership and document relationships
+
+But it also has its challenges:
+
+1. **Complexity**: The relationship graph can become difficult to query and reason about
+2. **Performance**: Checking deeply nested relationships requires multiple queries or complex queries
+3. **Debugging**: Understanding why someone does or doesn't have access can be challenging
+4. **Overkill**: For simple applications, ReBAC adds unnecessary complexity
+
+## Choosing the Right Model
+
+If you have made it this far you are probably wondering which approach is best for your application. The truth is there is no one-size-fits-all answer and realistically your application will be a hybrid of all these models.
+
+### Start with Simple RBAC
+
+If you're building a new application and you know it will be small, start with simple RBAC. Most simple applications can get away with basic role-based permissions.
+
+```ts
+// Start here for most applications
+const rolePermissions: Record<string, string[]> = {
+  admin: ["read", "write", "delete", "manage-users"],
+  editor: ["read", "write"],
+  viewer: ["read"],
+}
+```
+
+**Use RBAC when:**
+
+- Permissions are truly based on job functions or user types
+- You have a small number of roles/permissions
+- Authorization rules don't depend heavily on resource attributes or relationships
+
+### Choose ABAC When Attributes Matter
+
+If you know you are going to be building a more complex application or you are starting to outgrow RBAC, upgrade to ABAC. Another sign you may want to move to ABAC is if you find yourself writing lots of conditional logic based on user attributes, resource attributes, or environmental factors.
+
+**Use ABAC when:**
+
+- Authorization depends on user attributes (department, clearance level, location)
+- Authorization depends on resource attributes (status, owner, classification)
+- Authorization depends on environmental factors (time, location, device)
+- You need fine-grained, context-aware authorization
+
+### Choose ReBAC When Relationships Dominate
+
+Move to ReBAC when authorization is primarily about relationships between entities rather than attributes. Usually, ReBAC is a small part of a larger permission system since very few apps are purely relationship-based.
+
+**Use ReBAC when:**
+
+- Authorization depends on complex entity relationships (friend, team member, org hierarchy)
+- You need hierarchical permissions (folder permissions apply to contained documents)
+- You're building a social platform or collaborative tool
+- You need to support arbitrary permission sharing (like Google Docs)
+- Authorization rules can be expressed as "who is related to what"
+
+## Conclusion
+
+Authorization is one of those problems that starts simple but can quickly become incredibly complex as your application grows. The key is choosing the right model for your application's needs and being willing to evolve as those needs change.
+
+Remember that there's no one-size-fits-all solution. The best authorization model is the simplest one that meets your requirements. Don't overengineer with ABAC or ReBAC if RBAC will work fine. But also don't be afraid to adopt more sophisticated models when your application's complexity demands it.

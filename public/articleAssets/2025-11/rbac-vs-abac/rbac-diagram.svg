@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 390">
+  <defs>
+    <style>
+      .label { font: 16px sans-serif; fill: #374151; }
+      .sublabel { font: 14px sans-serif; fill: #6b7280; }
+      .box { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .user { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .arrow { fill: none; stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <!-- Users -->
+  <g transform="translate(50, 10)">
+    <rect class="user" width="140" height="83" rx="8" />
+    <text x="70" y="30" text-anchor="middle" class="label">User</text>
+    <text x="70" y="50" text-anchor="middle" class="sublabel">Alice</text>
+    <text x="70" y="66" text-anchor="middle" class="sublabel">Role: Admin</text>
+  </g>
+
+  <g transform="translate(50, 130)">
+    <rect class="user" width="140" height="83" rx="8" />
+    <text x="70" y="30" text-anchor="middle" class="label">User</text>
+    <text x="70" y="50" text-anchor="middle" class="sublabel">Bob</text>
+    <text x="70" y="66" text-anchor="middle" class="sublabel">Role: Editor</text>
+  </g>
+
+  <g transform="translate(50, 250)">
+    <rect class="user" width="140" height="83" rx="8" />
+    <text x="70" y="30" text-anchor="middle" class="label">User</text>
+    <text x="70" y="50" text-anchor="middle" class="sublabel">Charlie</text>
+    <text x="70" y="66" text-anchor="middle" class="sublabel">Role: Viewer</text>
+  </g>
+
+  <!-- Roles with Permissions -->
+  <g transform="translate(300, 10)">
+    <rect class="box" width="200" height="140" rx="8" />
+    <text x="100" y="28" text-anchor="middle" class="label">Admin Role</text>
+    <text x="20" y="50" text-anchor="start" class="sublabel">✓ Read Articles</text>
+    <text x="20" y="67" text-anchor="start" class="sublabel">✓ Create Articles</text>
+    <text x="20" y="84" text-anchor="start" class="sublabel">✓ Edit Articles</text>
+    <text x="20" y="101" text-anchor="start" class="sublabel">✓ Delete Articles</text>
+    <text x="20" y="118" text-anchor="start" class="sublabel">✓ Manage Users</text>
+  </g>
+
+  <g transform="translate(300, 165)">
+    <rect class="box" width="200" height="107" rx="8" />
+    <text x="100" y="28" text-anchor="middle" class="label">Editor Role</text>
+    <text x="20" y="50" text-anchor="start" class="sublabel">✓ Read Articles</text>
+    <text x="20" y="67" text-anchor="start" class="sublabel">✓ Create Articles</text>
+    <text x="20" y="84" text-anchor="start" class="sublabel">✓ Edit Articles</text>
+  </g>
+
+  <g transform="translate(300, 287)">
+    <rect class="box" width="200" height="73" rx="8" />
+    <text x="100" y="30" text-anchor="middle" class="label">Viewer Role</text>
+    <text x="20" y="52" text-anchor="start" class="sublabel">✓ Read Articles</text>
+  </g>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 190 50 L 300 75" />
+  <path class="arrow" d="M 190 170 L 300 215" />
+  <path class="arrow" d="M 190 290 L 300 320" />
+</svg>
