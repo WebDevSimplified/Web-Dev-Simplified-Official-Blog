@@ -3,11 +3,11 @@
     <style>
       .label { font: 16px sans-serif; fill: #374151; }
       .sublabel { font: 14px sans-serif; fill: #6b7280; }
-      .box { fill: var(--color-blue-light); stroke: var(--color-blue); stroke-width: 2; }
-      .user { fill: var(--color-yellow-light, hsl(41, 100%, 88%)); stroke: var(--color-orange); stroke-width: 2; }
-      .resource { fill: var(--color-green-light, hsl(158, 78%, 82%)); stroke: var(--color-green); stroke-width: 2; }
-      .policy { fill: var(--color-red-light, hsl(350, 100%, 94%)); stroke: var(--color-red); stroke-width: 2; }
-      .env { fill: var(--color-purple-light, hsl(269, 79%, 90%)); stroke: var(--color-purple); stroke-width: 2; }
+      .box { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .user { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .resource { fill: #d1fae5; stroke: #10b981; stroke-width: 2; }
+      .policy { fill: #fce7f3; stroke: #ec4899; stroke-width: 2; }
+      .env { fill: #e0e7ff; stroke: #6366f1; stroke-width: 2; }
       .arrow { fill: none; stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
     </style>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">

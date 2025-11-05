@@ -296,6 +296,13 @@ const canEdit = isAuthorized({ user, article, action: "edit", environment })
 
 This code is quite a bit more complex than the simple RBAC example, but it scales much better as your authorization logic grows. The `isAuthorized` function just checks to see if there is at least one policy that returns true for the given action and attributes and all the custom logic is handled in the individual policies.
 
+<Tangent>
+  If you don't like the structure of this code you could use a library like
+  [CASL](https://casl.js.org/) to define abilities in a more declarative way.
+  Check out my [full CASL video tutorial](https://youtu.be/gL3BJ8_5Jz8) to learn
+  more.
+</Tangent>
+
 ### Benefits of ABAC
 
 This ABAC approach has several major advantages:
