@@ -418,3 +418,32 @@ details {
     margin-top: 0.5rem;
   }
 }
+
+/* Expand wrapper for blog posts with sidebar */
+.wrapper:has(.freebie-sidebar) {
+  max-width: calc(80ch + 320px + 2rem);
+}
+
+[data-reading-width="narrow"] .wrapper:has(.freebie-sidebar) {
+  max-width: calc(60ch + 320px + 2rem);
+}
+
+[data-reading-width="wide"] .wrapper:has(.freebie-sidebar) {
+  max-width: calc(100ch + 320px + 2rem);
+}
+
+@media (max-width: 1100px) {
+  .wrapper:has(.freebie-sidebar),
+  [data-reading-width="narrow"] .wrapper:has(.freebie-sidebar),
+  [data-reading-width="wide"] .wrapper:has(.freebie-sidebar) {
+    max-width: 80ch;
+  }
+
+  [data-reading-width="narrow"] .wrapper:has(.freebie-sidebar) {
+    max-width: 60ch;
+  }
+
+  [data-reading-width="wide"] .wrapper:has(.freebie-sidebar) {
+    max-width: 100ch;
+  }
+}

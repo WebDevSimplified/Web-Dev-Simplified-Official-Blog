@@ -1,0 +1,229 @@
+---
+import type { Freebie } from "../data/freebies"
+import Tag from "./Tag"
+
+export interface Props {
+  freebie: Freebie
+}
+
+const { freebie } = Astro.props
+---
+
+<script async src="https://f.convertkit.com/ckjs/ck.6.js"></script>
+<aside class="freebie-sidebar" data-freebie-sidebar>
+  <img src={freebie.image} alt={freebie.title} class="freebie-image" />
+  <span class="freebie-badge">FREE</span>
+  <h3 class="freebie-title">{freebie.title}</h3>
+  <p class="freebie-description">{freebie.description}</p>
+  <form
+    action={`https://app.kit.com/forms/${freebie.kitFormId}/subscriptions`}
+    method="post"
+    class="freebie-form"
+    data-sv-form={freebie.kitFormId}
+    data-uid={freebie.kitFormUrlId}
+    data-freebie-form
+    data-element="content"
+  >
+    <div data-element="errors" class="hidden"></div>
+    <div data-element="fields" style="display: contents;" data-fields-wrapper>
+      <input
+        type="text"
+        name="fields[first_name]"
+        placeholder="First Name"
+        class="freebie-input"
+        aria-label="First Name"
+      />
+      <input
+        type="email"
+        name="email_address"
+        placeholder="Email Address"
+        required
+        class="freebie-input"
+        aria-label="Email Address"
+      />
+      <button data-element="submit" type="submit" class="freebie-submit"
+        >Download Now</button
+      >
+    </div>
+  </form>
+  <p class="freebie-privacy" data-freebie-privacy>
+    No spam. Unsubscribe anytime.
+  </p>
+  <p class="freebie-success hidden" data-freebie-success>
+    Thanks for signing up for my {freebie.title}! Check your email to download
+    it!
+  </p>
+</aside>
+
+<style>
+  .hidden {
+    display: none;
+  }
+
+  .freebie-sidebar {
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+    max-height: calc(100vh - 2rem);
+    width: 100%;
+    max-width: 320px;
+
+    background-color: var(--theme-tangent-bg);
+    border: 1px solid var(--theme-tangent-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .freebie-image {
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: drop-shadow(0 0 10px #000b);
+    min-height: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .freebie-badge {
+    width: fit-content;
+    background-color: var(--theme-freebie-button);
+    color: var(--theme-freebie-button-text);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  .freebie-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--theme-text);
+    line-height: 1.3;
+    margin-bottom: -0.25rem;
+  }
+
+  .freebie-description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--theme-text-light);
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .freebie-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .freebie-input {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--theme-tangent-border);
+    border-radius: 0.5rem;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: inherit;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .freebie-input:focus-visible {
+    outline: none;
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 0 3px var(--theme-bg-accent);
+  }
+
+  .freebie-input::placeholder {
+    color: var(--theme-text-lighter);
+  }
+
+  .freebie-submit {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--theme-freebie-button-text);
+    background-color: var(--theme-freebie-button);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.1s ease;
+  }
+
+  .freebie-submit:hover {
+    background-color: var(--theme-freebie-button-hover);
+  }
+
+  .freebie-submit:active {
+    transform: scale(0.98);
+  }
+
+  .freebie-privacy {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--theme-text-light);
+    text-align: center;
+  }
+
+  .freebie-success {
+    margin: 0;
+    font-size: 0.9rem;
+    background: var(--theme-green);
+    color: var(--theme-text);
+    border-radius: 0.5rem;
+    padding: 0.75em 1em;
+    text-align: center;
+  }
+
+  @media (max-width: 1100px) {
+    .freebie-sidebar {
+      display: none;
+    }
+  }
+
+  :root {
+    --theme-freebie-button: oklch(from var(--theme-accent) calc(l + 0.1) c h);
+    --theme-freebie-button-hover: var(--theme-accent);
+    --theme-freebie-button-text: var(--color-black);
+  }
+
+  :root[data-theme="dark"] {
+    --theme-freebie-button: var(--theme-accent-dark);
+    --theme-freebie-button-hover: var(--theme-accent);
+    --theme-freebie-button-text: var(--color-white);
+  }
+</style>
+
+<script>
+  const forms = document.querySelectorAll("[data-freebie-form]")
+
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.type !== "childList") return
+
+      mutation.addedNodes.forEach(node => {
+        if (node instanceof HTMLElement && node.matches("[data-element]")) {
+          const sidebar = node.closest("[data-freebie-sidebar]")
+          if (sidebar == null) return
+          node.remove()
+          sidebar.querySelector("[data-freebie-privacy]")?.remove()
+          sidebar
+            .querySelector("[data-freebie-success]")
+            ?.classList.remove("hidden")
+        }
+      })
+    })
+  })
+
+  forms.forEach(form => {
+    observer.observe(form, { childList: true })
+  })
+</script>

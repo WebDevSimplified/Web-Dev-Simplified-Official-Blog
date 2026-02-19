@@ -10,7 +10,7 @@ export default function BlogList({ allPosts }) {
       return post.tags.reduce((tagTotals, tag) => {
         return { ...tagTotals, [tag]: (tagTotals[tag] || 0) + 1 }
       }, totals)
-    }, {})
+    }, {}),
   )
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => {
@@ -45,7 +45,7 @@ export default function BlogList({ allPosts }) {
   }
 
   return (
-    <div className="wrapper">
+    <>
       <SearchBar query={searchQuery} onChange={handleSearchChange} />
       <TagBar tags={tags} onTagSelect={handleTagSelect} />
       <main className="content">
@@ -55,6 +55,6 @@ export default function BlogList({ allPosts }) {
           ))}
         </section>
       </main>
-    </div>
+    </>
   )
 }
