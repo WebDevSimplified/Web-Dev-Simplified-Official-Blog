@@ -2,6 +2,8 @@
 import dateFormatter from "../utils/dateFormatter.js"
 import TagBar from "./TagBar.jsx"
 import ShareButtons from "./ShareButtons.jsx"
+import FreebieSidebar from "./FreebieSidebar.astro"
+import type { Freebie } from "../data/freebies"
 
 export interface Props {
   title: string
@@ -9,9 +11,10 @@ export interface Props {
   updatedDate: string
   url: string
   tags: string[]
+  freebie: Freebie
 }
 
-const { title, date, updatedDate, tags, url } = Astro.props
+const { title, date, updatedDate, tags, url, freebie } = Astro.props
 const siteUrl = Astro.site.href
 ---
 
@@ -57,11 +60,20 @@ const siteUrl = Astro.site.href
       <!-- TODO: Add Pagination -->
     </div>
   </article>
+  <FreebieSidebar freebie={freebie} />
 </div>
 
 <style>
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: start;
+  }
+
   .content {
     margin-bottom: 8rem;
+    min-width: 0;
   }
 
   .content :global(main > * + :not(h2):not(h3)) {
@@ -93,6 +105,12 @@ const siteUrl = Astro.site.href
   .title {
     font-size: 2.25rem;
     font-weight: 700;
+  }
+
+  @media (max-width: 1100px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 50em) {

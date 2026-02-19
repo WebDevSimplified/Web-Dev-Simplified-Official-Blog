@@ -5,6 +5,7 @@ import "../styles/shiki-highlight.css"
 import BaseHead from "../components/BaseHead.astro"
 import BlogPost from "../components/BlogPost.astro"
 import BaseTopOfBody from "src/components/BaseTopOfBody.astro"
+import { getFreebie, DEFAULT_FREEBIE_ID } from "../data/freebies"
 
 const { content } = Astro.props
 const {
@@ -14,8 +15,10 @@ const {
   updatedDate,
   author = "Kyle Cook",
   tags,
+  freebie: freebieId = DEFAULT_FREEBIE_ID,
 } = content
 const url = Astro.request.url
+const freebie = getFreebie(freebieId)
 ---
 
 <html lang={content.lang || "en"} prefix="og: https://ogp.me/ns#">
@@ -24,9 +27,9 @@ const url = Astro.request.url
   </head>
 
   <body>
-    <BaseTopOfBody />
     <div class="wrapper">
-      <BlogPost {title} {author} {date} {updatedDate} {tags} {url}>
+      <BaseTopOfBody />
+      <BlogPost {title} {author} {date} {updatedDate} {tags} {url} {freebie}>
         <slot />
       </BlogPost>
     </div>

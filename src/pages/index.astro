@@ -63,7 +63,9 @@ const allPosts = allMarkdownPosts
   </head>
 
   <body>
-    <BaseTopOfBody />
-    <BlogList client:load allPosts={allPosts} />
+    <div class="wrapper">
+      <BaseTopOfBody />
+      <BlogList client:load allPosts={allPosts} />
+    </div>
   </body>
 </html>
