@@ -1,6 +1,6 @@
 ---
 import type { Freebie } from "../data/freebies"
-import Tag from "./Tag"
+import FreebieSidebarContent from "./FreebieSidebarContent.astro"
 
 export interface Props {
   freebie: Freebie
@@ -10,56 +10,57 @@ const { freebie } = Astro.props
 ---
 
 <script async src="https://f.convertkit.com/ckjs/ck.6.js"></script>
-<aside class="freebie-sidebar" data-freebie-sidebar>
-  <img src={freebie.image} alt={freebie.title} class="freebie-image" />
-  <span class="freebie-badge">FREE</span>
-  <h3 class="freebie-title">{freebie.title}</h3>
-  <p class="freebie-description">{freebie.description}</p>
-  <form
-    action={`https://app.kit.com/forms/${freebie.kitFormId}/subscriptions`}
-    method="post"
-    class="freebie-form"
-    data-sv-form={freebie.kitFormId}
-    data-uid={freebie.kitFormUrlId}
-    data-freebie-form
-    data-element="content"
-  >
-    <div data-element="errors" class="hidden"></div>
-    <div data-element="fields" style="display: contents;" data-fields-wrapper>
-      <input
-        type="text"
-        name="fields[first_name]"
-        placeholder="First Name"
-        class="freebie-input"
-        aria-label="First Name"
-      />
-      <input
-        type="email"
-        name="email_address"
-        placeholder="Email Address"
-        required
-        class="freebie-input"
-        aria-label="Email Address"
-      />
-      <button data-element="submit" type="submit" class="freebie-submit"
-        >Download Now</button
-      >
-    </div>
-  </form>
-  <p class="freebie-privacy" data-freebie-privacy>
-    No spam. Unsubscribe anytime.
-  </p>
-  <p class="freebie-success hidden" data-freebie-success>
-    Thanks for signing up for my {freebie.title}! Check your email to download
-    it!
-  </p>
+
+<!-- Desktop sidebar -->
+<aside class="freebie-sidebar">
+  <FreebieSidebarContent freebie={freebie} />
 </aside>
 
-<style>
-  .hidden {
-    display: none;
-  }
+<!-- Mobile button + dialog drawer -->
+<button class="freebie-mobile-btn freebie-btn" data-freebie-open>
+  <svg
+    width="800px"
+    height="800px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <path
+      d="M12 3V16M12 16L16 11.625M12 16L8 11.625"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>Free {freebie.shortTitle}</button
+>
 
+<dialog class="freebie-dialog" data-freebie-dialog>
+  <button class="freebie-close-btn" data-freebie-close aria-label="Close">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18 6L6 18M6 6L18 18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+  <FreebieSidebarContent freebie={freebie} />
+</dialog>
+
+<style>
   .freebie-sidebar {
     position: sticky;
     top: 1rem;
@@ -72,120 +73,134 @@ const { freebie } = Astro.props
     border: 1px solid var(--theme-tangent-border);
     border-radius: 0.75rem;
     padding: 1.25rem;
+
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
-  .freebie-image {
-    width: 100%;
-    object-fit: cover;
-    object-position: top;
-    filter: drop-shadow(0 0 10px #000b);
-    min-height: 0;
-    margin-bottom: 0.5rem;
-  }
-
-  .freebie-badge {
-    width: fit-content;
-    background-color: var(--theme-freebie-button);
-    color: var(--theme-freebie-button-text);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    text-transform: uppercase;
-  }
-
-  .freebie-title {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--theme-text);
-    line-height: 1.3;
-    margin-bottom: -0.25rem;
-  }
-
-  .freebie-description {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--theme-text-light);
-    line-height: 1.5;
-    white-space: pre-wrap;
-  }
-
-  .freebie-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .freebie-input {
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    border: 1px solid var(--theme-tangent-border);
-    border-radius: 0.5rem;
-    background-color: var(--theme-bg);
-    color: var(--theme-text);
-    font-family: inherit;
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
-  }
-
-  .freebie-input:focus-visible {
-    outline: none;
-    border-color: var(--theme-accent);
-    box-shadow: 0 0 0 3px var(--theme-bg-accent);
-  }
-
-  .freebie-input::placeholder {
-    color: var(--theme-text-lighter);
-  }
-
-  .freebie-submit {
+  .freebie-btn {
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    font-weight: 600;
     font-family: inherit;
     color: var(--theme-freebie-button-text);
     background-color: var(--theme-freebie-button);
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      transform 0.1s ease;
+    transition: background-color 0.2s ease;
   }
 
-  .freebie-submit:hover {
+  .freebie-btn:hover {
     background-color: var(--theme-freebie-button-hover);
   }
 
-  .freebie-submit:active {
-    transform: scale(0.98);
+  .freebie-mobile-btn {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 999;
   }
 
-  .freebie-privacy {
-    margin: 0;
-    font-size: 0.75rem;
-    color: var(--theme-text-light);
-    text-align: center;
+  .freebie-mobile-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: middle;
   }
 
-  .freebie-success {
-    margin: 0;
-    font-size: 0.9rem;
-    background: var(--theme-green);
+  /* Dialog drawer styles */
+  .freebie-dialog {
+    display: none;
+  }
+
+  .freebie-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
+
+  .freebie-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  .freebie-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    align-self: flex-end;
+    background: none;
+    border: none;
     color: var(--theme-text);
-    border-radius: 0.5rem;
-    padding: 0.75em 1em;
-    text-align: center;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+
+  .freebie-close-btn:hover {
+    background-color: var(--theme-tangent-border);
   }
 
   @media (max-width: 1100px) {
     .freebie-sidebar {
       display: none;
+    }
+
+    .freebie-mobile-btn {
+      display: flex;
+    }
+
+    .freebie-dialog {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: auto;
+      margin: 0;
+      margin-left: auto;
+      width: 100%;
+      max-width: 360px;
+      height: 100dvh;
+      max-height: 100dvh;
+
+      background-color: var(--theme-tangent-bg);
+      border: none;
+      border-left: 1px solid var(--theme-tangent-border);
+      padding: 1.25rem;
+      align-items: center;
+
+      translate: 100%;
+      transition:
+        translate 0.3s ease-in-out,
+        overlay 0.3s allow-discrete,
+        display 0.3s allow-discrete;
+    }
+
+    .freebie-dialog[open] {
+      display: flex;
+      translate: 0;
+    }
+
+    @starting-style {
+      .freebie-dialog[open] {
+        translate: 100%;
+      }
+    }
+
+    .freebie-dialog::backdrop {
+      transition:
+        opacity 0.3s ease-in-out,
+        overlay 0.3s allow-discrete,
+        display 0.3s allow-discrete;
+    }
+
+    @starting-style {
+      .freebie-dialog[open]::backdrop {
+        opacity: 0;
+      }
     }
   }
 
@@ -203,27 +218,30 @@ const { freebie } = Astro.props
 </style>
 
 <script>
-  const forms = document.querySelectorAll("[data-freebie-form]")
+  const openBtn = document.querySelector("[data-freebie-open]")
+  const dialog = document.querySelector(
+    "[data-freebie-dialog]",
+  ) as HTMLDialogElement
+  const closeBtn = document.querySelector("[data-freebie-close]")
 
-  const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      if (mutation.type !== "childList") return
-
-      mutation.addedNodes.forEach(node => {
-        if (node instanceof HTMLElement && node.matches("[data-element]")) {
-          const sidebar = node.closest("[data-freebie-sidebar]")
-          if (sidebar == null) return
-          node.remove()
-          sidebar.querySelector("[data-freebie-privacy]")?.remove()
-          sidebar
-            .querySelector("[data-freebie-success]")
-            ?.classList.remove("hidden")
-        }
-      })
-    })
+  openBtn?.addEventListener("click", () => {
+    dialog?.showModal()
   })
 
-  forms.forEach(form => {
-    observer.observe(form, { childList: true })
+  closeBtn?.addEventListener("click", () => {
+    dialog?.close()
+  })
+
+  // Close when clicking the backdrop
+  dialog?.addEventListener("click", e => {
+    const rect = dialog.getBoundingClientRect()
+    if (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    ) {
+      dialog.close()
+    }
   })
 </script>
