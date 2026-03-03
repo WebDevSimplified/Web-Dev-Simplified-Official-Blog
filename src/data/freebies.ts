@@ -1,5 +1,6 @@
 export interface Freebie {
   title: string
+  shortTitle: string
   description: string
   image: string
   kitFormId: string
@@ -9,6 +10,7 @@ export interface Freebie {
 export const freebies: Record<string, Freebie> = {
   "web-dev-roadmap": {
     title: "Web Dev Roadmap",
+    shortTitle: "Web Dev Roadmap",
     description:
       "260+ videos, 60+ articles, 120+ projects.\nThe only roadmap you need to become a full-stack web developer.",
     image: "/freebies/web-dev-roadmap.avif",
@@ -17,6 +19,7 @@ export const freebies: Record<string, Freebie> = {
   },
   "ts-util-cheat-sheet": {
     title: "TypeScript Utility Types Cheat Sheet",
+    shortTitle: "TS Cheat Sheet",
     description: "Master 18 must know built in TS utility types!",
     image: "/freebies/ts-util-cheat-sheet.avif",
     kitFormId: "8664388",
@@ -24,6 +27,7 @@ export const freebies: Record<string, Freebie> = {
   },
   "accessibility-checklist": {
     title: "Accessibility Checklist",
+    shortTitle: "Accessibility Checklist",
     description:
       "80+ items, 12+ categories.\nEnsure your website is accessible to all users with this comprehensive checklist.",
     image: "/freebies/accessibility-checklist.avif",
