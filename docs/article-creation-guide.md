@@ -14,6 +14,7 @@ src/pages/YYYY-MM/article-slug/index.mdx
 2. **Article Slug**: Use kebab-case (lowercase with hyphens)
 3. **File Name**: Always `index.mdx`
 4. **Monday Release**: Ensure the date in frontmatter is always a Monday
+5. **No AI Indicators**: Do not emojis, emdashes, or features commonly associated with AI-generated content in the article.
 
 ## Article Frontmatter Template
 
@@ -105,6 +106,7 @@ touch src/pages/YYYY-MM/article-slug/index.mdx
 - Follow content structure best practices
 - Add interactive components as needed
 - Include code examples and explanations
+- Do not include AI indicators in the content (e.g., emojis, emdashes, or features commonly associated with AI-generated content).
 
 ### 4. Add Assets (if needed)
 
