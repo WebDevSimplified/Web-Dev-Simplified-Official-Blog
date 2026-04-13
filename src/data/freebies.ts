@@ -34,6 +34,15 @@ export const freebies: Record<string, Freebie> = {
     kitFormId: "9019792",
     kitFormUrlId: "a485fd2bc3",
   },
+  "css-selector-cheat-sheet": {
+    title: "CSS Selector Cheat Sheet",
+    shortTitle: "CSS Cheat Sheet",
+    description:
+      "Learn every important CSS selector (from basic to advanced) with visual examples and explanations.",
+    image: "/freebies/css-selector-cheat-sheet.avif",
+    kitFormId: "1481102",
+    kitFormUrlId: "4062a025a6",
+  },
 }
 
 export const DEFAULT_FREEBIE_ID = "web-dev-roadmap"
