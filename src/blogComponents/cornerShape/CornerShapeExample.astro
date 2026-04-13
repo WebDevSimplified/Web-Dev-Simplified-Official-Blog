@@ -1,0 +1,149 @@
+---
+interface Props {
+  borderRadius: string
+  cornerShape: string
+  hoverCornerShape?: string
+  selector?: string
+  width?: string
+  height?: string
+}
+
+const {
+  borderRadius,
+  cornerShape,
+  hoverCornerShape = cornerShape,
+  selector,
+  width = "160px",
+  height = "160px",
+} = Astro.props
+---
+
+<div class="cs-example-wrapper">
+  <div class="browser-warning">
+    <div class="warning-content">
+      <div class="warning-icon">!</div>
+      <p class="warning-title">
+        Your browser doesn't support <code>corner-shape</code> yet
+      </p>
+      <p class="warning-text">
+        This example requires browser support for the
+        <code>corner-shape</code> property.
+      </p>
+    </div>
+  </div>
+
+  <div class="cs-example">
+    <div
+      class="cs-box"
+      style={`--br: ${borderRadius}; --cs: ${cornerShape}; --w: ${width}; --h: ${height}; --hover-cs: ${hoverCornerShape}`}
+    >
+    </div>
+    {selector && <code class="cs-label">{selector}</code>}
+  </div>
+</div>
+
+<style>
+  .cs-example-wrapper {
+    position: relative;
+    border: 1px solid var(--theme-divider);
+    border-radius: 0.5rem;
+  }
+
+  .browser-warning {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background-color: hsl(41, 100%, 90%);
+    border: 2px solid var(--theme-yellow);
+    z-index: 10;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  @supports not (corner-shape: round) {
+    .browser-warning {
+      display: flex;
+    }
+  }
+
+  .warning-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .warning-icon {
+    font-size: 1.25rem;
+    font-weight: 900;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: hsl(41, 80%, 40%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .warning-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(41, 80%, 20%);
+    margin: 0;
+  }
+
+  .warning-title code {
+    background-color: hsl(41, 100%, 80%);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+  }
+
+  .warning-text {
+    color: hsl(41, 60%, 30%);
+    margin: 0;
+    max-width: 45ch;
+    font-size: 0.875rem;
+  }
+
+  .warning-text code {
+    background-color: hsl(41, 100%, 80%);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+  }
+
+  .cs-example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cs-box {
+    width: var(--w);
+    height: var(--h);
+    background-color: var(--theme-accent);
+    border-radius: var(--br);
+    corner-shape: var(--cs);
+    transition: corner-shape 0.3s ease;
+  }
+
+  .cs-box:hover {
+    corner-shape: var(--hover-cs, var(--cs));
+  }
+
+  .cs-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: var(--theme-code-inline-bg);
+    color: var(--theme-text);
+    padding: 0.15em 0.5em;
+    border-radius: 0.25em;
+  }
+</style>

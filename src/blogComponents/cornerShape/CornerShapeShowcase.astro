@@ -1,0 +1,208 @@
+---
+
+---
+
+<div class="showcase-wrapper">
+  <div class="browser-warning">
+    <div class="warning-content">
+      <div class="warning-icon">!</div>
+      <p class="warning-title">
+        Your browser doesn't support <code>corner-shape</code> yet
+      </p>
+      <p class="warning-text">
+        The visual examples below require browser support for the{" "}
+        <code>corner-shape</code> CSS property. All boxes may appear as simple rounded
+        corners in your browser.
+      </p>
+    </div>
+  </div>
+
+  <div class="showcase-grid">
+    <div class="showcase-item">
+      <div class="shape-box shape-round"></div>
+      <div class="shape-info">
+        <code class="shape-name">round</code>
+        <span class="shape-desc">Standard circular arc (default)</span>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="shape-box shape-bevel"></div>
+      <div class="shape-info">
+        <code class="shape-name">bevel</code>
+        <span class="shape-desc">Straight lines to a point</span>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="shape-box shape-scoop"></div>
+      <div class="shape-info">
+        <code class="shape-name">scoop</code>
+        <span class="shape-desc">Concave inward curve</span>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="shape-box shape-notch"></div>
+      <div class="shape-info">
+        <code class="shape-name">notch</code>
+        <span class="shape-desc">Sharp concave right angle</span>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="shape-box shape-squircle"></div>
+      <div class="shape-info">
+        <code class="shape-name">squircle</code>
+        <span class="shape-desc">iOS app icon shape</span>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="shape-box shape-square"></div>
+      <div class="shape-info">
+        <code class="shape-name">square</code>
+        <span class="shape-desc">Right-angle corners</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .showcase-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+    border: 1px solid var(--theme-divider);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    min-height: 200px;
+  }
+
+  .browser-warning {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background-color: hsl(41, 100%, 90%);
+    border: 2px solid var(--theme-yellow);
+    z-index: 10;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  @supports not (corner-shape: round) {
+    .browser-warning {
+      display: flex;
+    }
+  }
+
+  .warning-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .warning-icon {
+    font-size: 1.25rem;
+    font-weight: 900;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: hsl(41, 80%, 40%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .warning-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(41, 80%, 20%);
+    margin: 0;
+  }
+
+  .warning-title code {
+    background-color: hsl(41, 100%, 80%);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+  }
+
+  .warning-text {
+    color: hsl(41, 60%, 30%);
+    margin: 0;
+    max-width: 45ch;
+    font-size: 0.875rem;
+  }
+
+  .warning-text code {
+    background-color: hsl(41, 100%, 80%);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 0.5rem 0;
+
+    @media (max-width: 40em) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .showcase-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .shape-box {
+    width: 160px;
+    height: 160px;
+    background-color: var(--theme-accent);
+    border-radius: 40%;
+  }
+
+  .shape-round {
+    corner-shape: round;
+  }
+
+  .shape-bevel {
+    corner-shape: bevel;
+  }
+
+  .shape-scoop {
+    corner-shape: scoop;
+  }
+
+  .shape-notch {
+    corner-shape: notch;
+  }
+
+  .shape-squircle {
+    corner-shape: squircle;
+  }
+
+  .shape-square {
+    corner-shape: square;
+  }
+
+  .shape-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    text-align: center;
+  }
+
+  .shape-desc {
+    font-size: 1rem;
+    color: var(--theme-text-lighter);
+  }
+</style>
+
