@@ -9,6 +9,9 @@ freebie: "ts-util-cheat-sheet"
 
 TypeScript's `strict` mode is a great starting point, but it leaves a surprising number of dangerous patterns unchecked. There is a whole category of compiler options that are disabled by default, and enabling them can catch subtle bugs that would otherwise slip through to production. In this article I will walk through the TSConfig settings that I think should be enabled in nearly every project, organized from settings I consider non-negotiable all the way to JS-only migration helpers.
 
+_If you prefer to learn visually, check out the video version of this article._  
+`youtube: 35cESnxXH6o`
+
 ## Must Have
 
 These settings have essentially no downside and catch real bugs. Enable all of them.
@@ -49,7 +52,7 @@ import path from "path"
 
 export default defineConfig({
   resolve: {
-    tsconfigPaths: true
+    tsconfigPaths: true,
   },
 })
 ```
@@ -92,6 +95,7 @@ array.forEach((_item, index) => {
 ### `allowUnusedLabels: false`
 
 JavaScript has a labeled statement syntax that almost nobody uses intentionally. An unused label is almost always a typo. The classic case is someone who meant to write an object key but accidentally put the key outside the object, creating a label instead:
+
 ```json
 {
   "compilerOptions": {
@@ -300,7 +304,7 @@ This option is especially valuable if you are using Node.js's native TypeScript 
 
 Some TypeScript features emit JavaScript code when compiled; they are not just type annotations. These features cannot be used with type-stripping tools because there is no JavaScript to strip them to:
 
-```ts
+````ts
 // Error: Enums are not erasable syntax.
 // Enums compile to a JavaScript object, so the stripper has no JS to output.
 enum Direction {
@@ -337,7 +341,7 @@ class User {
     this.age = age
   }
 }
-```
+````
 
 The whole purpose of this option to ensure your code will work when your types are stripped out without needing them to be compiled with a tool like `tsc`. If you are using `tsc` to compile your code, this option is not necessary since `tsc` can handle all TypeScript features, but I still enable it since features like enums are generally considered bad practice anyway.
 
@@ -391,7 +395,8 @@ class Animal {
 
 // Error: There is no method 'speak' to override
 class Dog extends Animal {
-  override speak(): string { // TypeScript catches the stale override
+  override speak(): string {
+    // TypeScript catches the stale override
     return "Woof!"
   }
 }
@@ -422,7 +427,7 @@ type User = {
 // Error: Type 'undefined' is not assignable to type 'string'.
 const user: User = {
   name: "Alice",
-  nickname: undefined
+  nickname: undefined,
 }
 
 // Correct: omit the key entirely
