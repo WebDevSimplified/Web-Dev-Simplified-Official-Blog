@@ -1,0 +1,544 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "14 Advanced TSConfig Settings You Should Enable In Every Project"
+date: "2026-04-13"
+description: "These settings go beyond strict mode and catch real bugs before they hit production."
+tags: ["TypeScript"]
+freebie: "ts-util-cheat-sheet"
+---
+
+TypeScript's `strict` mode is a great starting point, but it leaves a surprising number of dangerous patterns unchecked. There is a whole category of compiler options that are disabled by default, and enabling them can catch subtle bugs that would otherwise slip through to production. In this article I will walk through the TSConfig settings that I think should be enabled in nearly every project, organized from settings I consider non-negotiable all the way to JS-only migration helpers.
+
+## Must Have
+
+These settings have essentially no downside and catch real bugs. Enable all of them.
+
+### `paths`: Absolute Path Aliases
+
+The `paths` option lets you define import aliases so you can write clean absolute imports instead of fragile relative ones like `../../../../utils/format`.
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+With this in place you can import from anywhere in your project using the `@/` prefix:
+
+```ts
+// Before: hard to read, breaks when files move
+import { formatDate } from "../../../utils/formatDate"
+import { Button } from "../../components/Button"
+
+// After: clear and refactor-safe
+import { formatDate } from "@/utils/formatDate"
+import { Button } from "@/components/Button"
+```
+
+Note that for bundlers like Vite, Webpack, or Next.js you will also need to configure the alias in the bundler config to match. TypeScript only handles the type-checking side.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite"
+import path from "path"
+
+export default defineConfig({
+  resolve: {
+    tsconfigPaths: true
+  },
+})
+```
+
+### `noUnusedLocals` and `noUnusedParameters`
+
+These two options flag variables and function parameters that are declared but never used. Unused code is often a sign of a bug: a variable you meant to use, a parameter you forgot to reference, or dead code left behind after a refactor.
+
+```json
+{
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+```
+
+```ts
+// Error: 'taxRate' is declared but its value is never read.
+function calculateTotal(price: number, taxRate: number) {
+  return price * 1.08 // Bug! Hardcoded rate instead of using taxRate
+}
+
+// Error: 'userId' is declared but its value is never read.
+function getUser(userId: string) {
+  const userId = "hardcoded-id" // Bug! Shadows the parameter
+  return fetchUser(userId)
+}
+```
+
+If you intentionally want to ignore a parameter (for example in a callback where the signature is fixed), prefix it with an underscore:
+
+```ts
+// The leading underscore tells TypeScript (and readers) this is intentional
+array.forEach((_item, index) => {
+  console.log(index)
+})
+```
+
+### `allowUnusedLabels: false`
+
+JavaScript has a labeled statement syntax that almost nobody uses intentionally. An unused label is almost always a typo. The classic case is someone who meant to write an object key but accidentally put the key outside the object, creating a label instead:
+```json
+{
+  "compilerOptions": {
+    "allowUnusedLabels": false
+  }
+}
+```
+
+```ts
+// This gives no error unless you set allowUnusedLabels: false
+function getConfig() {
+  return {
+    timeout: 5000,
+    retries: 3,
+  }
+  debug: true
+}
+```
+
+### `noFallthroughCasesInSwitch: true`
+
+By default, TypeScript allows `switch` cases to fall through to the next case without a `break`. This is occasionally intentional but is far more often a bug.
+
+```json
+{
+  "compilerOptions": {
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
+
+```ts
+type Status = "pending" | "active" | "inactive"
+
+// Error: Fallthrough case in switch. 'pending' falls through to 'active'
+function getStatusLabel(status: Status): string {
+  switch (status) {
+    case "pending":
+      console.log("Status is pending") // Bug! Forgot to return or break
+    case "active":
+      return "Active"
+    case "inactive":
+      return "Inactive"
+  }
+}
+
+// Correct: every case is explicitly handled
+function getStatusLabel(status: Status): string {
+  switch (status) {
+    case "pending":
+      return "Pending"
+    case "active":
+      return "Active"
+    case "inactive":
+      return "Inactive"
+  }
+}
+```
+
+If you genuinely need fallthrough behavior, TypeScript still allows empty cases (which signal intent clearly):
+
+```ts
+// Intentional fallthrough: TypeScript allows empty cases
+switch (status) {
+  case "pending":
+  case "active":
+    return "Visible"
+  case "inactive":
+    return "Hidden"
+}
+```
+
+### `allowUnreachableCode: false`
+
+Unreachable code is a strong signal that something is wrong: either the logic is incorrect or the code is dead and should be removed.
+
+```json
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false
+  }
+}
+```
+
+```ts
+// Error: Unreachable code detected. The return makes the throw unreachable
+function processPayment(amount: number): string {
+  if (amount <= 0) {
+    return "Invalid amount"
+    throw new Error("Amount must be positive") // Bug! This never runs
+  }
+  return "Payment processed"
+}
+```
+
+## Optional (But Highly Suggested)
+
+These settings are a bit more intrusive as they will require you to be more explicit in certain cases, but they catch real bugs and improve code clarity, so I highly recommend them.
+
+### `noUncheckedIndexedAccess: true`
+
+This is the single most impactful option in this article. By default, TypeScript assumes that accessing an array index or a dictionary key always returns the element type. But arrays can be shorter than you think, and dictionaries can be missing keys, so the real return type should include `undefined`.
+
+```json
+{
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true
+  }
+}
+```
+
+Without this option, TypeScript lies to you:
+
+```ts
+// Without noUncheckedIndexedAccess: TypeScript says this is fine
+const users = ["Alice", "Bob"]
+const user = users[5]
+// TS thinks 'user' is a string, but it's actually undefined at runtime
+
+// Runtime crash: Cannot read properties of undefined
+console.log(user.toUpperCase())
+```
+
+With `noUncheckedIndexedAccess` enabled:
+
+```ts
+// With noUncheckedIndexedAccess: TypeScript catches the potential error
+const users = ["Alice", "Bob"]
+const user = users[5] // Type is now `string | undefined`
+
+// TS Error: 'user' is possibly 'undefined'.
+console.log(user.toUpperCase())
+
+// Correct: guard before use
+if (user != null) {
+  console.log(user.toUpperCase())
+}
+```
+
+The same applies to object index signatures:
+
+```ts
+const scores: Record<string, number> = { alice: 42 }
+
+// Error: 'score' is possibly 'undefined'.
+const score = scores["bob"]
+console.log(score * 2)
+
+// Correct:
+const score = scores["bob"]
+if (score != null) {
+  console.log(score * 2)
+}
+```
+
+### `noPropertyAccessFromIndexSignature: true`
+
+When a type has an index signature, TypeScript by default lets you access its properties using dot notation. This option forces you to use bracket notation for index signature properties, making it visually clear that the property may not exist.
+
+```json
+{
+  "compilerOptions": {
+    "noPropertyAccessFromIndexSignature": true
+  }
+}
+```
+
+```ts
+type Config = {
+  timeout: number // Explicit known property
+  [key: string]: unknown // Index signature for everything else
+}
+
+const config: Config = { timeout: 5000, retries: 3 }
+
+// Explicit property: dot access is fine
+console.log(config.timeout)
+
+// TS Error: Index signature must be access with bracket notation.
+console.log(config.retries)
+
+// Bracket notation: signals to the reader that this might not exist
+console.log(config["retries"])
+```
+
+The main purpose of this option is to catch potential typos.
+
+```ts
+// Error: 'timeot' does not exist on type 'Config'.
+console.log(config.timeot)
+```
+
+Without this option, the typo would be silently accepted as an index signature access, and you would get `undefined` at runtime instead of a compile-time error.
+
+### `erasableSyntaxOnly: true`
+
+This option is especially valuable if you are using Node.js's native TypeScript support (available since Node 22) or another tool that strips types without transforming them.
+
+```json
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true
+  }
+}
+```
+
+Some TypeScript features emit JavaScript code when compiled; they are not just type annotations. These features cannot be used with type-stripping tools because there is no JavaScript to strip them to:
+
+```ts
+// Error: Enums are not erasable syntax.
+// Enums compile to a JavaScript object, so the stripper has no JS to output.
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+
+// Error: Parameter properties are not erasable syntax.
+// This compiles to assignment code in the constructor body.
+class User {
+  constructor(public name: string, private age: number) {}
+}
+
+The TypeScript-only alternatives that work with type stripping:
+
+```ts
+// const enums or union types instead of enums
+const Direction = {
+  Up: "Up",
+  Down: "Down",
+  Left: "Left",
+  Right: "Right",
+} as const
+type Direction = (typeof Direction)[keyof typeof Direction]
+
+// Explicit property declarations instead of parameter properties
+class User {
+  public name: string
+  private age: number
+  constructor(name: string, age: number) {
+    this.name = name
+    this.age = age
+  }
+}
+```
+
+The whole purpose of this option to ensure your code will work when your types are stripped out without needing them to be compiled with a tool like `tsc`. If you are using `tsc` to compile your code, this option is not necessary since `tsc` can handle all TypeScript features, but I still enable it since features like enums are generally considered bad practice anyway.
+
+## Personal Preference
+
+These settings are useful in the right context, but can generate noise in codebases where the patterns they flag are used intentionally.
+
+### `noImplicitOverride: true`
+
+This option is most valuable in codebases with significant class inheritance. When a child class overrides a parent method, it must use the `override` keyword, making the intent explicit and preventing accidental overrides when the parent class changes.
+
+```json
+{
+  "compilerOptions": {
+    "noImplicitOverride": true
+  }
+}
+```
+
+```ts
+class Animal {
+  speak(): string {
+    return "..."
+  }
+}
+
+// Error: You must use the 'override' modifier when overriding a method
+class Dog extends Animal {
+  speak(): string {
+    return "Woof!"
+  }
+}
+
+// Correct: intent is explicit
+class Dog extends Animal {
+  override speak(): string {
+    return "Woof!"
+  }
+}
+```
+
+The real value shows up when the base class changes:
+
+```ts
+class Animal {
+  // Renamed from speak() to makeSound()
+  makeSound(): string {
+    return "..."
+  }
+}
+
+// Error: There is no method 'speak' to override
+class Dog extends Animal {
+  override speak(): string { // TypeScript catches the stale override
+    return "Woof!"
+  }
+}
+```
+
+Without `noImplicitOverride`, the renamed child method would silently become a new method instead of an override, a subtle and hard-to-debug bug.
+
+This is also helpful in cases where you accidentally override a method instead of creating a new one. This is easy to do in complex OOP hierarchies, since a method name that is unique in the child class might already exist in a parent class several levels up, and you might not even be aware of it.
+
+### `exactOptionalPropertyTypes: true`
+
+By default, TypeScript treats an optional property (`foo?: string`) the same as a property that can be explicitly set to `undefined` (`foo: string | undefined`). This option enforces that distinction strictly.
+
+```json
+{
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": true
+  }
+}
+```
+
+```ts
+type User = {
+  name: string
+  nickname?: string // Optional: the key may be absent entirely
+}
+
+// Error: Type 'undefined' is not assignable to type 'string'.
+const user: User = {
+  name: "Alice",
+  nickname: undefined
+}
+
+// Correct: omit the key entirely
+const user: User = {
+  name: "Alice",
+}
+
+// Or provide an actual value:
+const user: User = {
+  name: "Alice",
+  nickname: "Ali",
+}
+```
+
+This matters most when interacting with APIs or code that checks `"nickname" in user` vs `user.nickname !== undefined` since these two are not equivalent, and `exactOptionalPropertyTypes` forces you to be precise about which you mean.
+
+## JS Only (Migration Helpers)
+
+If you are working on a JavaScript project and gradually migrating to TypeScript, these two options are essential tools.
+
+### `allowJs: true`
+
+Allows TypeScript files to import from `.js` files (and vice versa). This is the foundation of any incremental migration, letting you have `.ts` and `.js` files living side-by-side in the same project.
+
+```json
+{
+  "compilerOptions": {
+    "allowJs": true
+  }
+}
+```
+
+```ts
+// user.ts (TypeScript file)
+import { formatDate } from "./utils" // Can import from utils.js
+
+export type User = {
+  id: string
+  name: string
+  createdAt: Date
+}
+```
+
+```js
+// utils.js (still plain JavaScript)
+export function formatDate(date) {
+  return date.toISOString().split("T")[0]
+}
+```
+
+### `checkJs: true` and `// @ts-check`
+
+Once `allowJs` is enabled, `checkJs` tells TypeScript to type-check your JavaScript files as well. This is powerful but comes in two flavors:
+
+#### For Smaller Projects
+
+```json
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true
+  }
+}
+```
+
+This turns on type checking for all `.js` files globally. TypeScript will infer types where it can and flag issues it finds. This is great for small projects or when you want to be aggressive about migrating to TypeScript, but it can be overwhelming in larger codebases with many existing issues.
+
+#### For Larger Projects
+
+Leave `checkJs` as `false` and add `// @ts-check` to individual files as you migrate them. This gives you incremental adoption and lets you prioritize which files to check first.
+
+```js
+// @ts-check
+
+// Error: Must pass a string to parseFloat
+parseFloat(123.45)
+```
+
+The file-by-file approach is generally better for large codebases because it prevents you from being overwhelmed by thousands of errors all at once, and it lets your team tackle the migration gradually without blocking other work.
+
+## Putting It All Together
+
+Here is a complete `tsconfig.json` that combines all of the settings from this article:
+
+```json
+{
+  "compilerOptions": {
+    // Always recommended
+    "strict": true,
+
+    // Path aliases
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Must Have
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+
+    // Optional (highly suggested)
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "erasableSyntaxOnly": true,
+
+    // Personal preference
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+
+    // JS migration helpers (if applicable)
+    "allowJs": true,
+    "checkJs": false
+  }
+}
+```
+
+TypeScript's default settings are conservative by design since they need to work for the widest possible range of projects. But for most new projects you have full control over the compiler, and there is no reason to leave these safety nets disabled. Start with the Must Have settings, add the Optional ones, and then decide which Personal Preference options fit your team's style. Each one is a tiny configuration change that could save you hours of debugging.
