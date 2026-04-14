@@ -1,0 +1,349 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "I Love the New CSS corner-shape Property"
+date: "2026-04-20"
+description: "Learn how the new CSS corner-shape property lets you create angled, concave, and squircle corners for some truly unique designs."
+tags: ["CSS"]
+freebie: "css-selector-cheat-sheet"
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+import CornerShapeShowcase from "@blogComponents/cornerShape/CornerShapeShowcase.astro"
+import CornerShapeExample from "@blogComponents/cornerShape/CornerShapeExample.astro"
+import CornerShapePlayground from "@blogComponents/cornerShape/CornerShapePlayground"
+
+For years, `border-radius` has been the only tool we have for shaping corners in CSS. It is genuinely powerful (we can make pill buttons, circles, and all manner of rounded rectangles), but it only ever gives us one type of corner: a circular or elliptical arc. Every rounded corner on the web looks essentially the same. That changes with the new `corner-shape` CSS property, which lets you control the actual shape of a corner, not just its size.
+
+_If you prefer to learn visually, check out the video version of this article._  
+`youtube: AhBL2MYlQj0`
+
+## Why `corner-shape` Matters
+
+The limitation of `border-radius` is subtle but real. No matter what radius you set, the curve you get is always a circular arc. Designers have long wanted:
+
+- **Angled corners**: straight lines meeting at a point, like a diamond or a cut-gem effect
+- **Concave corners**: corners that curve _inward_, creating scooped-out shapes
+- **Squircles**: the rounded-square hybrid used by iOS app icons, which is mathematically a superellipse, not a circle
+
+Before `corner-shape`, achieving any of these required `clip-path`, SVG masks, or complex border tricks, all of which are fragile and hard to combine with other CSS features like `box-shadow` or `border`. The `corner-shape` property solves this cleanly at the CSS level.
+
+## How `corner-shape` Works
+
+The `corner-shape` property works together with `border-radius`. Think of it this way:
+
+- **`border-radius`** defines _how far_ from the corner the curve extends (the size of the corner)
+- **`corner-shape`** defines _what shape_ that corner takes (the type of curve)
+
+Without a `border-radius`, `corner-shape` has no visible effect because there is no corner area to reshape. The two properties are a team.
+
+```css
+.element {
+  /* border-radius sets the corner size */
+  border-radius: 1rem;
+  /* corner-shape sets the corner shape */
+  corner-shape: round;
+}
+```
+
+Here is a preview of some of the things you can do with `corner-shape`, each with the same `border-radius: 40%`:
+
+<CornerShapeShowcase />
+
+### Interactive Playground
+
+<CornerShapePlayground client:load />
+
+## `round`
+
+`round` is the default value and produces the same circular arc you already know from `border-radius`. You will never need to write it explicitly unless you are overriding another value, but it is important to know it exists.
+
+```css
+.card {
+  border-radius: 1rem;
+  corner-shape: round; /* This is the default */
+}
+```
+
+<CornerShapeExample
+  borderRadius="1rem"
+  cornerShape="round"
+  width="240px"
+  height="120px"
+/>
+
+## `bevel`
+
+`bevel` replaces the curved arc with straight lines from point to point. This is great for creating hexagonal or diamond shapes.
+
+```css
+/* With a large border-radius, you get a diamond */
+.diamond {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  corner-shape: bevel;
+}
+
+/* With a smaller border-radius, you get a cut-corner effect */
+.cut-corner {
+  border-radius: 1.5rem;
+  corner-shape: bevel;
+}
+```
+
+1
+
+<div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(160px, auto)); margin: 2rem 0; justify-content: center;">
+  <CornerShapeExample
+    borderRadius="50%"
+    cornerShape="bevel"
+    selector=".diamond"
+  />
+  <CornerShapeExample
+    borderRadius="1.5rem"
+    cornerShape="bevel"
+    selector=".cut-corner"
+  />
+</div>
+
+## `scoop`
+
+`scoop` is the inverse of `round`. Instead of the corner curving outward like a rounded rectangle, it curves _inward_, creating a concave indentation at each corner.
+
+```css
+.scooped-card {
+  border-radius: 1.5rem;
+  corner-shape: scoop;
+}
+
+/* With a large radius, you get a pronounced pinched/star effect */
+.pinched {
+  border-radius: 40%;
+  corner-shape: scoop;
+}
+```
+
+<div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(160px, auto)); margin: 2rem 0; justify-content: center;">
+  <CornerShapeExample
+    borderRadius="1.5rem"
+    cornerShape="scoop"
+    selector=".scooped-card"
+  />
+
+  <CornerShapeExample
+    borderRadius="40%"
+    cornerShape="scoop"
+    selector=".pinched"
+  />
+</div>
+
+## The `square` Value
+
+`square` may seem counterintuitive since it completely removes the visual effect of `border-radius`, giving right-angle corners even when `border-radius` is set, but this value is useful for animation. Rather than animating `border-radius` from a value down to `0`, you can keep `border-radius` constant and transition `corner-shape` between values, which makes it easy to create smooth transitions between shape types.
+
+```css
+.button {
+  border-radius: 0.5rem;
+  corner-shape: square;
+  transition: corner-shape 0.3s ease;
+}
+
+.button:hover {
+  corner-shape: round;
+}
+```
+
+<CornerShapeExample
+  borderRadius="1.5rem"
+  cornerShape="square"
+  hoverCornerShape="round"
+/>
+
+## `notch`
+
+`notch` is the concave counterpart to `square`. While `square` gives right-angle corners, `notch` cuts a straight line _into_ the element, creating a sharp indentation at each corner.
+
+```css
+.notched {
+  border-radius: 1.5rem;
+  corner-shape: notch;
+}
+```
+
+<CornerShapeExample
+  borderRadius="1.5rem"
+  cornerShape="notch"
+  width="240px"
+  height="120px"
+/>
+
+## `squircle`
+
+`squircle` produces the rounded-square hybrid. The difference from `round` is subtle, but `squircle` has a more rectangular shape with a softer curve that is especially noticeable at larger `border-radius` values.
+
+```css
+.squircle {
+  border-radius: 28%;
+  corner-shape: squircle;
+}
+
+.round {
+  border-radius: 28%;
+  corner-shape: round;
+}
+```
+
+Before `corner-shape`, getting a proper squircle required custom SVG or `clip-path` with complex coordinate math. Now it is one CSS property.
+
+<div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(160px, auto)); margin: 2rem 0; justify-content: center;">
+  <CornerShapeExample borderRadius="40%" cornerShape="round" selector=".round" />
+
+  <CornerShapeExample
+    borderRadius="40%"
+    cornerShape="squircle"
+    selector=".squircle"
+  />
+</div>
+
+## `superellipse()`
+
+The `superellipse()` function is the mathematical foundation that all `corner-shape` keyword values are built on. Each keyword is a shorthand for a specific `superellipse(n)` value:
+
+| Keyword    | Equivalent                | Shape                     |
+| ---------- | ------------------------- | ------------------------- |
+| `notch`    | `superellipse(-infinity)` | Sharp concave right angle |
+| `scoop`    | `superellipse(-1)`        | Concave arc               |
+| `bevel`    | `superellipse(0)`         | Straight diagonal line    |
+| `round`    | `superellipse(1)`         | Standard elliptical arc   |
+| `squircle` | `superellipse(2)`         | Rounded square            |
+| `square`   | `superellipse(infinity)`  | Right-angle corners       |
+
+The `n` parameter controls curvature:
+
+- **Negative values** produce concave (inward) shapes. The more negative, the sharper the notch.
+- **`n = 0`** produces a straight bevel with no curvature.
+- **`n = 1`** is a standard circular arc, matching the behavior of `border-radius` alone.
+- **Larger positive values** produce shapes that look increasingly square.
+
+You use `superellipse()` when you want a shape that falls _between_ the named keywords:
+
+```css
+/* Between bevel (n=0) and round (n=1) */
+/* A subtly curved bevel */
+.soft-bevel {
+  border-radius: 1.5rem;
+  corner-shape: superellipse(0.5);
+}
+
+/* Between round (n=1) and squircle (n=2) */
+/* Squarer than round, rounder than squircle */
+.soft-squircle {
+  border-radius: 40%;
+  corner-shape: superellipse(1.5);
+}
+
+/* Between bevel (n=0) and scoop (n=-1) */
+/* Gentle concave curve */
+.gentle-scoop {
+  border-radius: 1.5rem;
+  corner-shape: superellipse(-0.5);
+}
+```
+
+<div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(160px, auto)); margin: 2rem 0; justify-content: center;">
+  <CornerShapeExample
+    borderRadius="1.5rem"
+    cornerShape="superellipse(0.5)"
+    selector=".soft-bevel"
+  />
+
+{" "}
+
+<CornerShapeExample
+  borderRadius="40%"
+  cornerShape="superellipse(1.5)"
+  selector=".soft-squircle"
+/>
+
+  <CornerShapeExample
+    borderRadius="1.5rem"
+    cornerShape="superellipse(-0.5)"
+    selector=".gentle-scoop"
+  />
+</div>
+
+## Controlling Individual Corners
+
+Just like `border-radius` has individual corner longhand properties (`border-top-left-radius`, etc.), `corner-shape` has its own set of longhands for per-corner control:
+
+- `corner-top-left-shape`
+- `corner-top-right-shape`
+- `corner-bottom-right-shape`
+- `corner-bottom-left-shape`
+
+This lets you mix and match shapes on different corners for creative effects:
+
+```css
+/* Speech bubble tail */
+.speech-bubble {
+  border-radius: 1rem;
+  corner-shape: round;
+  /* Make the bottom-right corner pointed for a speech tail */
+  corner-bottom-right-shape: square;
+}
+
+/* Mixed decorative element */
+.mixed-corners {
+  border-radius: 2rem;
+  corner-top-left-shape: round;
+  corner-top-right-shape: bevel;
+  corner-bottom-right-shape: scoop;
+  corner-bottom-left-shape: superellipse(4);
+}
+```
+
+The `corner-shape` shorthand also accepts up to four values following the same clockwise pattern as `border-radius` (top-left, top-right, bottom-right, bottom-left):
+
+```css
+/* Shorthand: top-left  top-right  bottom-right  bottom-left */
+.mixed-shorthand {
+  border-radius: 2rem;
+  corner-shape: round bevel scoop superellipse(4);
+}
+```
+
+<div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(160px, auto)); margin: 2rem 0; justify-content: center;">
+  <CornerShapeExample
+    borderRadius="1rem"
+    cornerShape="round round square round"
+    selector=".speech-bubble"
+    width="200px"
+    height="100px"
+  />
+
+{" "}
+
+<CornerShapeExample
+  borderRadius="2rem"
+  cornerShape="round bevel scoop superellipse(4)"
+  selector=".mixed-shorthand"
+  height="100px"
+/>
+
+</div>
+
+## Interactive Playground
+
+Try different values and see exactly what CSS is generated. Use the shape buttons to switch between `round`, `squircle`, `square`, `bevel`, `scoop`, `notch`, and `superellipse()`, and adjust the sliders to fine-tune the result:
+
+<CornerShapePlayground client:load />
+
+## Browser Support
+
+`corner-shape` currently only has [69% support](https://caniuse.com/mdn-css_properties_corner-shape) and is only available in Chromium-based browsers as of April 2026.
+
+Because `border-radius` degrades gracefully when `corner-shape` is not recognized, you can start using `corner-shape` today for progressive enhancement without any risk to unsupported browsers. The shape will simply fall back to a standard rounded corner.
+
+## Conclusion
+
+The `corner-shape` property is a small addition to CSS that unlocks a surprisingly large design space. For the first time, we can create angled, concave, squircle, and notched corners entirely in CSS without `clip-path`, without SVG, and without losing access to `box-shadow`, `border`, or `overflow`.
