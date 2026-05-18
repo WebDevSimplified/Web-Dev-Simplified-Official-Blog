@@ -193,12 +193,6 @@ export default function CornerShapePlayground() {
           Your browser doesn't support{" "}
           <code style={styles.warningCode}>corner-shape</code> yet
         </p>
-        <p style={styles.warningText}>
-          This interactive demo requires browser support for the{" "}
-          <code style={styles.warningCode}>corner-shape</code> CSS property. You
-          can interact with the controls, but the preview will only show
-          standard rounded corners.
-        </p>
       </div>
 
       <div style={styles.inner}>
