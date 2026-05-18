@@ -23,7 +23,7 @@ const {
     <div class="warning-content">
       <div class="warning-icon">!</div>
       <p class="warning-title">
-        Your browser doesn't support <code>corner-shape</code> yet
+        <code>corner-shape</code> not supported
       </p>
     </div>
   </div>
@@ -49,8 +49,9 @@ const {
     display: none;
     position: absolute;
     inset: 0;
-    background-color: hsl(41, 100%, 90%);
-    border: 2px solid var(--theme-yellow);
+    background-color: var(--theme-tangent-bg);
+    border: 2px solid var(--theme-tangent-border);
+    color: var(--theme-tangent-text);
     z-index: 10;
     border-radius: 0.5rem;
     flex-direction: column;
@@ -80,7 +81,7 @@ const {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: hsl(41, 80%, 40%);
+    background-color: var(--theme-red);
     color: #fff;
     display: flex;
     align-items: center;
@@ -88,30 +89,15 @@ const {
   }
 
   .warning-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: hsl(41, 80%, 20%);
     margin: 0;
+    font-size: 1rem;
   }
 
   .warning-title code {
-    background-color: hsl(41, 100%, 80%);
+    background-color: var(--theme-tangent-code-inline-bg);
     padding: 0.1em 0.3em;
     border-radius: 0.2em;
     font-size: 0.9em;
-  }
-
-  .warning-text {
-    color: hsl(41, 60%, 30%);
-    margin: 0;
-    max-width: 45ch;
-    font-size: 0.875rem;
-  }
-
-  .warning-text code {
-    background-color: hsl(41, 100%, 80%);
-    padding: 0.1em 0.3em;
-    border-radius: 0.2em;
   }
 
   .cs-example {

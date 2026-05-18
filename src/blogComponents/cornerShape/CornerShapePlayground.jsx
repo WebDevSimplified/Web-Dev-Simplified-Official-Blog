@@ -16,7 +16,7 @@ const WARNING_CSS = `
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
   @supports not (corner-shape: round) {
     .cs-playground-warning {
@@ -36,8 +36,9 @@ const styles = {
   warning: {
     position: "absolute",
     inset: 0,
-    backgroundColor: "hsl(41, 100%, 90%)",
-    border: "2px solid var(--theme-yellow)",
+    backgroundColor: "var(--theme-tangent-bg)",
+    border: "2px solid var(--theme-tangent-border)",
+    color: "var(--theme-tangent-text)",
     zIndex: 10,
     padding: "1.5rem",
     textAlign: "center",
@@ -48,7 +49,7 @@ const styles = {
     width: "2rem",
     height: "2rem",
     borderRadius: "50%",
-    backgroundColor: "hsl(41, 80%, 40%)",
+    backgroundColor: "var(--theme-red)",
     color: "#fff",
     display: "flex",
     alignItems: "center",
@@ -56,23 +57,15 @@ const styles = {
     flexShrink: 0,
   },
   warningTitle: {
-    fontSize: "1.125rem",
-    fontWeight: "700",
-    color: "hsl(41, 80%, 20%)",
     margin: 0,
+    fontSize: "1.25rem",
   },
   warningCode: {
-    backgroundColor: "hsl(41, 100%, 80%)",
+    backgroundColor: "var(--theme-tangent-code-inline-bg);",
     padding: "0.1em 0.3em",
     borderRadius: "0.2em",
     fontSize: "0.9em",
     fontFamily: "monospace",
-  },
-  warningText: {
-    color: "hsl(41, 60%, 30%)",
-    margin: 0,
-    maxWidth: "45ch",
-    fontSize: "0.875rem",
   },
   inner: {
     padding: "1.5rem",
