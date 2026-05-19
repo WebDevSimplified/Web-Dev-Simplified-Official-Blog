@@ -61,7 +61,7 @@ const styles = {
     fontSize: "1.25rem",
   },
   warningCode: {
-    backgroundColor: "var(--theme-tangent-code-inline-bg);",
+    backgroundColor: "var(--theme-tangent-code-inline-bg)",
     padding: "0.1em 0.3em",
     borderRadius: "0.2em",
     fontSize: "0.9em",

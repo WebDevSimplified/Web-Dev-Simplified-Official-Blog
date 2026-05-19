@@ -11,6 +11,7 @@ import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import mdx from "@astrojs/mdx"
 import react from "@astrojs/react" // @ts-check
+import responsiveTables from "./src/plugins/responsiveTables.mjs"
 
 // https://astro.build/config
 export default defineConfig(
@@ -21,7 +22,12 @@ export default defineConfig(
     markdown: {
       syntaxHighlight: false,
       // TODO: Add official Shiki integration when line highlighting is supported
-      remarkPlugins: [myRemarkShiki, youtubeEmbed, responsiveImages],
+      remarkPlugins: [
+        myRemarkShiki,
+        youtubeEmbed,
+        responsiveImages,
+        responsiveTables,
+      ],
     },
   },
 )
