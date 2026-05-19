@@ -153,10 +153,16 @@ blockquote .source {
   overflow: hidden;
 }
 
+.responsive-table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 table {
   font-size: 1rem;
   border-collapse: collapse;
   width: 100%;
+  overflow-x: auto;
 }
 
 thead {
