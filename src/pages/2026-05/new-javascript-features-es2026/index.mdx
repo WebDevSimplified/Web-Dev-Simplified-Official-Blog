@@ -1,0 +1,290 @@
+---
+layout: "@layouts/BlogPost.astro"
+title: "Every New JavaScript Feature Worth Knowing Right Now"
+date: "2026-05-25"
+description: "ES2025 has fully landed in browsers, ES2026 is wrapping up, and a few ES2027 proposals just crossed the finish line. Here is every new feature that is actually worth your time."
+tags: ["JavaScript"]
+---
+
+import Tangent from "@blogComponents/lib/Tangent.astro"
+
+JavaScript has been adding features at a pace we have not seen in years. Between ES2025, ES2026, and a few ES2027 proposals that just crossed the finish line recently, there are a lot of genuinely useful things landing in browsers right now. Some of these fill gaps that have been around for years, like doing set math without converting everything to arrays first or handling binary data without reaching for a library. Others, like `using` for resource cleanup and the Temporal date API, are the kinds of features that will reshape how you think about whole categories of problems and are tools I have been waiting years to use.
+
+I am going to start with the features available in all browsers and end with the latest features that I am most excited about that are still in the process of rolling out.
+
+## New Set Methods (ES2025)
+
+If you have ever needed the common elements between two arrays, you have probably written something like `arr1.filter(x => arr2.includes(x))`. It works, but it is not great. It also does not generalize to any of the other set operations you might need.
+
+`Set` now has all seven set theory methods built in:
+
+```js
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+
+a.union(b) // Set {1, 2, 3, 4, 5, 6}
+a.intersection(b) // Set {3, 4}
+a.difference(b) // Set {1, 2}
+a.symmetricDifference(b) // Set {1, 2, 5, 6}
+
+a.isSubsetOf(b) // false
+a.isSupersetOf(b) // false
+a.isDisjointFrom(b) // false
+```
+
+None of these mutate the original set. `union`, `intersection`, `difference`, and `symmetricDifference` all return a new `Set`. The last three return a boolean.
+
+The thing I find most useful is that these methods accept any iterable as their argument, not just another `Set`. So you can pass an array directly:
+
+```js
+const evens = new Set([2, 4, 6, 8])
+evens.intersection([3, 4, 5, 6]) // Set {4, 6}
+```
+
+These are now baseline and available in all modern browsers. If you want to brush up on how `Set` itself works, check out my [JavaScript Sets article](/2021-01/javascript-sets).
+
+## Iterator Helpers (ES2025)
+
+This is a feature that is underrated, but super exciting. Arrays have had helper methods like `.map()`, `.filter()`, and `.reduce()` forever, which makes chaining transformations easy. Iterators and generators have never had this, which meant working with them was far more awkward than it needed to be.
+
+Iterator helpers add a full suite of lazy, chainable methods directly to the iterator prototype:
+
+```js
+function* numbers() {
+  let i = 0
+  while (true) yield i++
+}
+
+const result = numbers()
+  .filter(n => n % 2 === 0)
+  .map(n => n * n)
+  .take(5)
+  .toArray()
+
+// [0, 4, 16, 36, 64]
+```
+
+The key word there is **lazy**. Unlike array methods, these do not process every element upfront. The `take(5)` call stops the entire chain after 5 values, which makes this completely safe to use with infinite generators like the one above. With array methods you could never do this since `.filter()` would try to process an infinite number of elements.
+
+The full set of available methods includes `.map()`, `.filter()`, `.take()`, `.drop()`, `.flatMap()`, `.reduce()`, `.forEach()`, `.some()`, `.every()`, `.find()`, and `.toArray()`. They work the same way as their array equivalents.
+
+You can also use these on a regular array by calling `.values()` first:
+
+```js
+const result = [1, 2, 3, 4, 5, 6, 7, 8]
+  .values()
+  .filter(n => n % 2 === 0)
+  .map(n => n * n)
+  .toArray()
+
+// [4, 16, 36, 64]
+```
+
+These are now baseline and available in all modern browsers. For a deeper look at generators and iterators, see my [generators article](/2021-01/javascript-generators).
+
+<Tangent>
+  If you are unfamiliar with the base array methods in JavaScript you should
+  checkout my free [Array Methods Cheat
+  Sheet](https://webdevsimplified.com/js-array-methods-cheat-sheet.html).
+</Tangent>
+
+## Promise.try (ES2025)
+
+This one is small but solves a real annoyance. If you have a function that might throw an error or return a rejected promise, you would normally need to wrap it in a `try/catch` block since `.catch()` only handles rejected promises, not synchronous throws:
+
+```js
+// This does NOT catch synchronous throws
+somePromise.then(() => functionThatMightThrowSync())
+```
+
+`Promise.try` fixes this by converting any synchronous errors into rejections, so you can handle both cases with a single `.catch()`:
+
+```js
+Promise.try(() => {
+  if (!userId) throw new Error("No user ID") // sync throw
+  return fetch(`/api/users/${userId}`).then(r => r.json()) // async rejection
+})
+  .then(user => console.log(user))
+  .catch(err => console.error(err)) // handles both cases
+```
+
+Any function you pass to `Promise.try` will have its sync throws converted to rejections, so your `.catch()` always fires regardless of where the error came from. This is now baseline in all modern browsers.
+
+## Import Attributes (ES2025)
+
+You may not know this, but importing JSON files in JavaScript was not supported by JavaScript and required a bundler like Vite to work. This changes with Import Attributes, which let you import non-JS resources directly:
+
+```js
+import config from "./config.json" with { type: "json" }
+
+console.log(config.version)
+```
+
+The `with { type: "json" }` part tells the browser what kind of module this is. This is not just syntax sugar. It is a security measure: without it, a server could theoretically serve a JavaScript file at a JSON URL, which would get executed. The explicit `type` prevents that by failing if the MIME type does not match.
+
+Dynamic imports support it too:
+
+```js
+const data = await import("./data.json", { with: { type: "json" } })
+```
+
+This is now baseline and available in all modern browsers. Unfortunately, there is no way to import files other than JSON currently, but that is on the roadmap for a future version.
+
+## RegExp.escape (ES2025)
+
+If you have ever built a regular expression dynamically from user input, you know the problem. Characters like `.`, `*`, `+`, `?`, `(`, `[`, and several others have special meaning in regex patterns, so passing raw user input into `new RegExp(userInput)` will not work like the user expects.
+
+`RegExp.escape` handles this properly:
+
+```js
+const query = "gmail.com"
+const pattern = new RegExp(RegExp.escape(query), "i")
+```
+
+Without escaping, a user searching for "gmail.com" would accidentally match "gmailXcom" or any string where any character appears in the position of the `.`. It is one of those things you almost never think about until it causes a real bug. This is now available in all modern browsers.
+
+_If you want to master Regular Expressions checkout my full crash course video._
+`youtube: rhzKDrUiJVk`
+
+## Array.fromAsync (ES2026)
+
+`Array.from` is a great way to convert any iterable into an array. `Array.fromAsync` does the same thing for async iterables, which come up a lot when dealing with streams, paginated APIs, and async generators:
+
+```js
+async function* fetchPages(url) {
+  let page = 1
+  while (true) {
+    const data = await fetch(`${url}?page=${page}`).then(r => r.json())
+    if (data.items.length === 0) break
+    yield data.items
+    page++
+  }
+}
+
+const allItems = await Array.fromAsync(fetchPages("/api/items"))
+```
+
+This has been in all major browsers for a while now and is baseline.
+
+## Error.isError (ES2026)
+
+Checking whether something is an `Error` sounds trivial until you run into the case where `instanceof Error` returns `false`. This happens when code crosses iframe or realm boundaries, because the `Error` constructor in one realm is a different object from the `Error` in another. The `instanceof` check relies on object identity, so it fails.
+
+`Error.isError` is a proper realm-agnostic check:
+
+```js
+Error.isError(new Error("oops")) // true
+Error.isError(new TypeError("bad")) // true
+Error.isError({ message: "fake" }) // false
+Error.isError("just a string") // false
+```
+
+This is a nice quality of life feature for easily checking if any value is an error without worrying about edge cases. Browser support is nearly complete with [84% of browsers](https://caniuse.com/mdn-javascript_builtins_error_iserror) supporting this feature as of May 2026.
+
+## Map.getOrInsert (ES2026)
+
+There is a pattern that comes up constantly when building up a `Map` incrementally: check if a key exists, and if it does not, insert a default value before continuing. Before this feature, you either wrote the check yourself or used a helper:
+
+```js
+// The old pattern
+if (!map.has(key)) {
+  map.set(key, [])
+}
+const arr = map.get(key)
+```
+
+`Map.prototype.getOrInsert` collapses this into one call:
+
+```js
+const arr = map.getOrInsert(key, [])
+```
+
+It returns the existing value if the key is present, or inserts and returns the default value if it is not. Note that the default value is always evaluated, so if it is expensive to compute, use `getOrInsertComputed` instead, which takes a function:
+
+```js
+const set = map.getOrInsertComputed(key, () => new Set())
+```
+
+This function has only [77% support](https://caniuse.com/mdn-javascript_builtins_map_getorinsert), but it is fully supported in all major browsers as of May 2026 so once users update their browser this will quickly climb to 90+% support.
+
+## Math.sumPrecise (ES2026)
+
+Floating point arithmetic in JavaScript is a bit of a meme at this point, but it is a real problem that all programming languages have to deal with.
+
+```js
+const arr = [0.1, 0.2, 0.3]
+arr.reduce((a, b) => a + b) // 0.6000000000000001
+```
+
+Computers have a hard time representing decimal number accurately (especially when doing arithmetic), which is why we get weird rounding errors like this. `Math.sumPrecise` was created to solve this issue by using a compensated summation algorithm that avoids this:
+
+```js
+Math.sumPrecise([0.1, 0.2, 0.3]) // 0.6
+```
+
+This function has only [67% support](https://caniuse.com/mdn-javascript_builtins_math_sumprecise), but just like `Map.getOrInsert`, it is fully supported in all major browsers as of May 2026 so once users update their browser this will quickly climb to 90+% support.
+
+## Explicit Resource Management (ES2027)
+
+This feature is one I have been waiting years for.
+
+The core idea is that many objects require cleanup when you are done with them: database connections, file handles, event listeners, timers. The typical way to guarantee cleanup is a `try/finally` block, which gets verbose fast, especially when you have multiple resources to manage.
+
+The `using` keyword handles this automatically for you. When you declare a variable with the `using` keyword, JavaScript will automatically clean up the connections for that variable when it goes out of scope (through garbage collection). This is done by calling a special `[Symbol.dispose]()` function on the variable automatically:
+
+```js
+class DatabaseConnection {
+  connect() { /* ... */ }
+  query(sql) { /* ... */ }
+
+  // This is called automatically when the variable goes out of scope
+  [Symbol.dispose]() {
+    this.close()
+    console.log("Connection closed")
+  }
+}
+
+function runQuery() {
+  // The `using` keyword is what makes all this happen automatically
+  using conn = new DatabaseConnection()
+  conn.connect()
+  return conn.query("SELECT * FROM users")
+  // conn[Symbol.dispose]() is called here automatically
+}
+```
+
+The async equivalent uses `await using` and calls `[Symbol.asyncDispose]()`:
+
+```js
+async function processFile() {
+  await using file = await openFile("data.txt")
+  const contents = await file.read()
+  return contents
+  // file[Symbol.asyncDispose]() is awaited here automatically
+}
+```
+
+This is a genuinely big deal for any code that deals with resources. It brings to JavaScript what `using` does in C# and `with` does in Python, and it composes much more cleanly than nested `try/finally` blocks. TypeScript users can start using it today.
+
+As of May 2026, this feature only has [70% browser support](https://caniuse.com/mdn-javascript_statements_using). This is because Safari has no support for this feature at all yet.
+
+## Temporal (ES2027)
+
+I have been wanting to use the Temporal API for so long and it is finally within grasp. Temporal is essentially a full replacement of the existing `Date` API that is long overdue. It has a much more intuitive and powerful API for working with dates, times, time zones, durations, and more. With Temporal you never need to download a library like `date-fns` or `moment` ever again.
+
+<Tangent>
+  Over 4 years ago, I wrote a [full Temporal API
+  guide](/2022-02/temporal-date-api) back when it was still a proposal, but
+  everything in that article is still 100% accurate to how Temporal works. If
+  you want to learn how to use Temporal in depth, that is the article to read.
+</Tangent>
+
+```js
+const birthday = Temporal.PlainDate.from("1990-05-15")
+const today = Temporal.Now.plainDateISO()
+const age = birthday.until(today, { largestUnit: "years" })
+
+console.log(`${age.years} years old`)
+```
+
+As of May 2026, this feature only has [67% browser support](https://caniuse.com/temporal). This is because Safari has no support for this feature at all yet. Luckily, there are [polyfills](https://www.npmjs.com/package/@js-temporal/polyfill) of this API available, so you can start using it today.
