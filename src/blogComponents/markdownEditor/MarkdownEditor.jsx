@@ -20,6 +20,7 @@ export default function MarkdownEditor({
           alignItems: "stretch",
           height,
           marginTop: "1rem",
+          zIndex: isFullWidth ? "10" : undefined,
         }}
       >
         <textarea
