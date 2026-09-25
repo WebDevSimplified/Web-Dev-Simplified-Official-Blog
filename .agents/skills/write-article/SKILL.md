@@ -123,9 +123,7 @@ Import only what the article actually uses. Imports go after the frontmatter, be
 
 ```mdx
 import Tangent from "@blogComponents/lib/Tangent.astro"
-import MyComponent from "@blogComponents/myTopic/MyComponent.astro
-
-"
+import MyComponent from "@blogComponents/myTopic/MyComponent.astro"
 ```
 
 The `@blogComponents` alias maps to `src/blogComponents/`. Use it for all blog component imports.
